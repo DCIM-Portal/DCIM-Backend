@@ -2,14 +2,14 @@ require 'rubyipmi'
 require 'ipaddr'
 require 'thread/pool'
 
-class IloScanJob < ApplicationJob
+class ScanJob < ApplicationJob
   queue_as :default
 
   def perform(ilo_scan_job)
     #Update status to show that job is running
     ilo_scan_job.update_attributes(status: "Scanning for Available Servers...")
     #Method to convert start and end IP strings into IPv4 range
-    def convert_ip_range(start_ip, end_ip
+    def convert_ip_range(start_ip, end_ip)
       start_ip = IPAddr.new(start_ip)
       end_ip   = IPAddr.new(end_ip)
       (start_ip..end_ip).map(&:to_s)

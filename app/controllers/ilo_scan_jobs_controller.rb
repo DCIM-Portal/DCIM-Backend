@@ -31,7 +31,7 @@ class IloScanJobsController < ApplicationController
       if @ilo_scan_job.save
         format.html { redirect_to @ilo_scan_job, notice: 'Ilo scan job was successfully created.' }
         format.json { render :show, status: :created, location: @ilo_scan_job }
-        IloScanJob.perform_later(@ilo_scan_job)
+        ScanJob.perform_later(@ilo_scan_job)
       else
         format.html { render :new }
         format.json { render json: @ilo_scan_job.errors, status: :unprocessable_entity }
