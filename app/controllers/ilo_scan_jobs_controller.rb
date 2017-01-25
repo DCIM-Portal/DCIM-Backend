@@ -69,6 +69,6 @@ class IloScanJobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ilo_scan_job_params
-      params.require(:ilo_scan_job).permit(:start_ip, :end_ip, :ilo_username, :ilo_password, :status)
+      params.require(:ilo_scan_job).permit(:start_ip, :end_ip, :ilo_username, :ilo_password)
     end
 end
