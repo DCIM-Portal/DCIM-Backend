@@ -1,0 +1,1 @@
+json.array! @ilo_scan_jobs, partial: 'ilo_scan_jobs/ilo_scan_job', as: :ilo_scan_job

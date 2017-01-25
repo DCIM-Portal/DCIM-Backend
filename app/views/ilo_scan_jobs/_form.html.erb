@@ -1,0 +1,42 @@
+<%= form_for(ilo_scan_job) do |f| %>
+  <% if ilo_scan_job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ilo_scan_job.errors.count, "error") %> prohibited this ilo_scan_job from being saved:</h2>
+
+      <ul>
+      <% ilo_scan_job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_ip %>
+    <%= f.text_field :start_ip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_ip %>
+    <%= f.text_field :end_ip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ilo_username %>
+    <%= f.text_field :ilo_username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ilo_password %>
+    <%= f.text_field :ilo_password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.text_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

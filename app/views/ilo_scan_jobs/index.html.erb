@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ilo Scan Jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start ip</th>
+      <th>End ip</th>
+      <th>Ilo username</th>
+      <th>Ilo password</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ilo_scan_jobs.each do |ilo_scan_job| %>
+      <tr>
+        <td><%= ilo_scan_job.start_ip %></td>
+        <td><%= ilo_scan_job.end_ip %></td>
+        <td><%= ilo_scan_job.ilo_username %></td>
+        <td><%= ilo_scan_job.ilo_password %></td>
+        <td><%= ilo_scan_job.status %></td>
+        <td><%= link_to 'Show', ilo_scan_job %></td>
+        <td><%= link_to 'Edit', edit_ilo_scan_job_path(ilo_scan_job) %></td>
+        <td><%= link_to 'Destroy', ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ilo Scan Job', new_ilo_scan_job_path %>

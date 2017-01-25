@@ -1,0 +1,2 @@
+class IloScanJob < ApplicationRecord
+end

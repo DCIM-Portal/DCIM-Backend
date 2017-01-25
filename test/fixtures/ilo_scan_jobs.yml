@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_ip: MyString
+  end_ip: MyString
+  ilo_username: MyString
+  ilo_password: MyString
+  status: MyString
+
+two:
+  start_ip: MyString
+  end_ip: MyString
+  ilo_username: MyString
+  ilo_password: MyString
+  status: MyString

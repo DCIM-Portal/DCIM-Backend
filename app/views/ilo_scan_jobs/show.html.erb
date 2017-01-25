@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start ip:</strong>
+  <%= @ilo_scan_job.start_ip %>
+</p>
+
+<p>
+  <strong>End ip:</strong>
+  <%= @ilo_scan_job.end_ip %>
+</p>
+
+<p>
+  <strong>Ilo username:</strong>
+  <%= @ilo_scan_job.ilo_username %>
+</p>
+
+<p>
+  <strong>Ilo password:</strong>
+  <%= @ilo_scan_job.ilo_password %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ilo_scan_job.status %>
+</p>
+
+<%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job) %> |
+<%= link_to 'Back', ilo_scan_jobs_path %>
