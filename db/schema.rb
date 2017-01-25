@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125162601) do
+ActiveRecord::Schema.define(version: 20170125221659) do
 
   create_table "ilo_scan_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "start_ip"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20170125162601) do
     t.string   "status"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "scan_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "ilo_address"
+    t.string   "server_model"
+    t.string   "server_serial"
+    t.integer  "job_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

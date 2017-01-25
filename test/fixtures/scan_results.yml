@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ilo_address: MyString
+  server_model: MyString
+  server_serial: MyString
+  job_id: 1
+
+two:
+  ilo_address: MyString
+  server_model: MyString
+  server_serial: MyString
+  job_id: 1
