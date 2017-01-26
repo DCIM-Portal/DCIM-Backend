@@ -4,8 +4,6 @@ class CreateScanResults < ActiveRecord::Migration[5.0]
       t.string :ilo_address
       t.string :server_model
       t.string :server_serial
-      t.integer :job_id
-
       t.timestamps
     end
   end
