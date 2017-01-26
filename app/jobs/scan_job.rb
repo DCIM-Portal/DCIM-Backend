@@ -73,8 +73,9 @@ class ScanJob < ApplicationJob
     #Save the Job ID
     job_id = ilo_scan_job.id
 
+    @scan_result = ScanResult.new(scan_params)
+
     @scan_results.each do |r, hash|
-      @scan_result = ScanResult.new(scan_params)
       ilo_address = hash[:address]
       server_model = hash[:model]
       server_serial = hash[:serial]
@@ -84,6 +85,6 @@ class ScanJob < ApplicationJob
 
   private
     def scan_params
-      params.require(:scan_result).permit(ilo_address, server_model, server_serial, @job_id)
+      params.require(:scan_result).permit(ilo_address, server_model, server_serial, job_id)
     end
 end
