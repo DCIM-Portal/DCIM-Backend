@@ -10,6 +10,7 @@ class IloScanJobsController < ApplicationController
   # GET /ilo_scan_jobs/1
   # GET /ilo_scan_jobs/1.json
   def show
+    @scan_results = ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).order('ilo_address ASC')
   end
 
   # GET /ilo_scan_jobs/new
