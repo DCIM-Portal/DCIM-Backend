@@ -56,6 +56,7 @@ class IloScanJobsController < ApplicationController
   # DELETE /ilo_scan_jobs/1
   # DELETE /ilo_scan_jobs/1.json
   def destroy
+    ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).destroy_all
     @ilo_scan_job.destroy
     respond_to do |format|
       format.html { redirect_to ilo_scan_jobs_url, notice: 'Ilo scan job was successfully destroyed.' }
