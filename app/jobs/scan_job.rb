@@ -21,6 +21,9 @@ class ScanJob < ApplicationJob
     #Define thread pool
     pool = Thread.pool(200)
 
+    #Flush ipmi-fru sdr cache
+    system 'ipmi-fru -f -Q'
+
     #Use Discover to see which iLOs responds
     return_ip = []
     @ip_range.each do | r|
@@ -48,11 +51,11 @@ class ScanJob < ApplicationJob
         get_fru = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} ).fru.list
         #IBM or HP Server
         if !get_fru["default_fru_device"].nil?
-          model = get_fru["default_fru_device"]["product_name"]
+          model = get_fru["default_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
           serial = get_fru["default_fru_device"]["product_serial_number"]
         #Dell Server
         elsif !get_fru["system_board"].nil?
-          model = get_fru["system_board"]["board_product_name"]
+          model = get_fru["system_board"].values_at('board_manufacturer', 'board_product_name').join(' ')
           serial = get_fru["system_board"]["product_serial_number"]
         #Unable to access BMC
         else
