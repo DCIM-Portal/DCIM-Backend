@@ -36,6 +36,8 @@ class ScanJob < ApplicationJob
     no_blank = return_ip.select(&:present?)
     @ipmi_scan = no_blank.map{|x| x.strip }
 
+    @count = @ipmi_scan.count
+
     #Create new hash to store results in
     @scan_results = {}
 
@@ -66,6 +68,9 @@ class ScanJob < ApplicationJob
 
     #Update job status
     ilo_scan_job.status = "Completed Initial Scan"
+
+    #Update Server Count
+    ilo_scan_job.count = @count
 
     #Save the updated job status
     ilo_scan_job.save
