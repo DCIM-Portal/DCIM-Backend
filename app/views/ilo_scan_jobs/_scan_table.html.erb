@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>BMC Address</th>
+        <th>Server Model</th>
+        <th>Server Serial</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scan_results.each do |result| %>
+        <tr>
+          <td><%= result.ilo_address %></td>
+          <td><%= result.server_model %></td>
+          <td><%= result.server_serial %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

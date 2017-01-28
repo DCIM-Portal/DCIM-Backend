@@ -5,26 +5,29 @@
     <h3 class="text-center">Server Scan Jobs</h3>
     <div class="col-md-8 col-md-offset-2">
       <%= link_to 'New Scan Job', new_ilo_scan_job_path %>
+      <div class="pull-right">
+        <p>*All Times are US Central</p>
+      </div>
       <%= render 'table_header' %>
-        <tbody>
-          <% @ilo_scan_jobs.each do |ilo_scan_job| %>
-            <tr>
-              <td><%= ilo_scan_job.id %></td>
-              <td><%= ilo_scan_job.start_ip %></td>
-              <td><%= ilo_scan_job.end_ip %></td>
-              <td><%= ilo_scan_job.ilo_username %></td>
-              <td><%= ilo_scan_job.ilo_password %></td>
-              <td><%= ilo_scan_job.status %></td>
-              <td><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
-              <td><%= link_to 'Show', ilo_scan_job %></td>
-              <td><%= link_to 'Edit', edit_ilo_scan_job_path(ilo_scan_job) %></td>
-              <td><%= link_to 'Destroy', ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+            <tbody>
+              <% @ilo_scan_jobs.each do |ilo_scan_job| %>
+                <tr>
+                  <td><%= ilo_scan_job.id %></td>
+                  <td><%= ilo_scan_job.start_ip %></td>
+                  <td><%= ilo_scan_job.end_ip %></td>
+                  <td><%= ilo_scan_job.ilo_username %></td>
+                  <td><%= ilo_scan_job.ilo_password %></td>
+                  <td><%= ilo_scan_job.status %></td>
+                  <td><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
+                  <td><%= link_to 'Show', ilo_scan_job %></td>
+                  <td><%= link_to 'Edit', edit_ilo_scan_job_path(ilo_scan_job) %></td>
+                  <td><%= link_to 'Destroy', ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
 </div>

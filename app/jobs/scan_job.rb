@@ -39,6 +39,7 @@ class ScanJob < ApplicationJob
     no_blank = return_ip.select(&:present?)
     @ipmi_scan = no_blank.map{|x| x.strip }
 
+    #Get Server Count
     @count = @ipmi_scan.count
 
     #Create new hash to store results in

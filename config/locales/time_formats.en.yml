@@ -1,5 +1,5 @@
 en:
   time:
     formats:
-      pretty: '%b %d %Y, %l:%M %p (CT)'
+      pretty: '%b %d %Y, %l:%M %p'
 
