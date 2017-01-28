@@ -15,7 +15,7 @@
               <td><%= ilo_scan_job.ilo_username %></td>
               <td><%= ilo_scan_job.ilo_password %></td>
               <td><%= ilo_scan_job.status %></td>
-              <td><%= ilo_scan_job.created_at %></td>
+              <td><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
               <td><%= link_to 'Show', ilo_scan_job %></td>
               <td><%= link_to 'Edit', edit_ilo_scan_job_path(ilo_scan_job) %></td>
               <td><%= link_to 'Destroy', ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

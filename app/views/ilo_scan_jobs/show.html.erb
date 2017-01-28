@@ -12,7 +12,7 @@
             <td><%= @ilo_scan_job.ilo_username %></td>
             <td><%= @ilo_scan_job.ilo_password %></td>
             <td><%= @ilo_scan_job.status %></td>
-            <td><%= @ilo_scan_job.created_at %></td>
+            <td><%= I18n.l @ilo_scan_job.created_at, format: :pretty %></td>
           </tr>
         </tbody>
       </table>
