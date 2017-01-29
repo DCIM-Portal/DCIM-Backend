@@ -30,7 +30,7 @@ class IloScanJobsController < ApplicationController
 
     respond_to do |format|
       if @ilo_scan_job.save
-        format.html { redirect_to @ilo_scan_job, notice: 'Ilo scan job was successfully created.' }
+        format.html { redirect_to ilo_scan_jobs_url, notice: 'Ilo scan job was successfully created.' }
         format.json { render :show, status: :created, location: @ilo_scan_job }
         ScanJob.perform_later(@ilo_scan_job)
       else

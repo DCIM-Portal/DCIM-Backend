@@ -5,9 +5,14 @@ require 'thread/pool'
 class ScanJob < ApplicationJob
   queue_as :default
 
+
   def perform(ilo_scan_job)
+
+    sleep 5
+
     #Update status to show that job is running
     ilo_scan_job.update_attributes(status: "Scanning for Available Servers...")
+
     #Method to convert start and end IP strings into IPv4 range
     def convert_ip_range(start_ip, end_ip)
       start_ip = IPAddr.new(start_ip)
@@ -82,6 +87,7 @@ class ScanJob < ApplicationJob
     #Save the Job ID
     job_id = ilo_scan_job.id
 
+    #Save server details to ScanResult table
     @scan_results.each do |r, hash|
       scan_result = ScanResult.new
       scan_result.ilo_address = hash[:address]
@@ -90,6 +96,7 @@ class ScanJob < ApplicationJob
       scan_result.ilo_scan_job_id = job_id
       scan_result.save
     end
+
   end
 
 end

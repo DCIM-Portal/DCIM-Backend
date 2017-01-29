@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<div id="action_cable_status"></div>
 
 <div class="container-fluid">
   <div class="row">
@@ -17,7 +18,7 @@
                   <td><%= ilo_scan_job.end_ip %></td>
                   <td><%= ilo_scan_job.ilo_username %></td>
                   <td><%= ilo_scan_job.ilo_password %></td>
-                  <td><%= ilo_scan_job.status %></td>
+                  <td id="<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
                   <td><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
                   <td><%= link_to 'Show', ilo_scan_job %></td>
                   <td><%= link_to 'Edit', edit_ilo_scan_job_path(ilo_scan_job) %></td>
