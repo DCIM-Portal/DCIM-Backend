@@ -5,7 +5,7 @@ class IloScanJob < ApplicationRecord
   private
 
   def update_view
-    MessageBroadcastJob.perform_later self
+    MessageBroadcastJob.perform_now self
   end
 
 end
