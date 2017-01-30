@@ -8,7 +8,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
     unless data.status.blank?
-      message = '<p>The scan job ' + data.job_id + ' has been updated to ' + data.status + ' at ' + data.updated_at + '</p>'
+      message = '<p>Scan Job ' + data.job_id + ' reports "' + data.status + '" at ' + data.updated_at + '</p>'
       new_row = '<tr><td>' + data.job_id + '</td>
                  <td>' + data.start_ip + '</td>
                  <td>' + data.end_ip + '</td>

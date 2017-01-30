@@ -26,7 +26,7 @@ class IloScanJobsController < ApplicationController
   # POST /ilo_scan_jobs.json
   def create
     @ilo_scan_job = IloScanJob.new(ilo_scan_job_params)
-    @ilo_scan_job.status = "Waiting for Job to Begin..."
+    @ilo_scan_job.status = "Created"
 
     respond_to do |format|
       if @ilo_scan_job.save

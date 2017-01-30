@@ -8,10 +8,10 @@ class ScanJob < ApplicationJob
 
   def perform(ilo_scan_job)
 
-    sleep 5
+    sleep 2
 
     #Update status to show that job is running
-    ilo_scan_job.update_attributes(status: "Scanning for Available Servers...")
+    ilo_scan_job.update_attributes(status: "Searching for Servers")
 
     #Method to convert start and end IP strings into IPv4 range
     def convert_ip_range(start_ip, end_ip)
@@ -47,6 +47,19 @@ class ScanJob < ApplicationJob
     #Get Server Count
     @count = @ipmi_scan.count
 
+    #Update Server Count
+    ilo_scan_job.count = @count
+
+    #Update status to show number of servers found
+    if @count > 1
+      ilo_scan_job.update_attributes(status: "Found #{@count} Servers - Gathering Details")
+    elsif @count == 1
+      ilo_scan_job.update_attributes(status: "Found #{@count} Server - Gathering Details")
+    else
+      ilo_scan_job.update_attributes(status: "No Servers Responded")
+      sleep 5
+    end
+
     #Create new hash to store results in
     @scan_results = {}
 
@@ -76,10 +89,7 @@ class ScanJob < ApplicationJob
     pool.shutdown
 
     #Update job status
-    ilo_scan_job.status = "Completed Initial Scan"
-
-    #Update Server Count
-    ilo_scan_job.count = @count
+    ilo_scan_job.status = "Scan Complete"
 
     #Save the updated job status
     ilo_scan_job.save
