@@ -10,8 +10,9 @@
         <p>*All Times are US Central</p>
       </div>
       <%= render 'table_header' %>
+            <tbody id="action_cable_row"></tbody>
             <tbody>
-              <% @ilo_scan_jobs.each do |ilo_scan_job| %>
+              <% @ilo_scan_jobs.reverse_each do |ilo_scan_job| %>
                 <tr>
                   <td><%= ilo_scan_job.id %></td>
                   <td><%= ilo_scan_job.start_ip %></td>
