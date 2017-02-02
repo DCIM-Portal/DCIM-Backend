@@ -15,7 +15,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     #Send Alert Upon Channel Broadcast
     $.notify({
       title: '<span class="glyphicon glyphicon-list-alt"></span><strong> Scan Job ' + data.job_id + '</strong>',
-      message: '<mark><em>' + data.status + '</em></mark> at ' + update_date + ''
+      message: '<span class="text-warning"><em>' + data.status + '</em></span> at ' + update_date + ''
     },{
       element: 'body',
       newest_on_top: false,
@@ -24,6 +24,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         align: "right"
       },
       offset: 20,
+      type: 'info',
       spacing: 5,
       delay: 10000,
       animate: {
@@ -61,6 +62,14 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         $('#action_cable_row').prepend(new_row)
         if($('#action_cable_row').is(":hidden"))
           $('#action_cable_row').show()
+
+      if($("#edit_disable_" + data.job_id).length && data.status == "Scan Complete")
+        $("#edit_disable_" + data.job_id).removeClass("disabled")
+
+      if($("#delete_disable_" + data.job_id).length && data.status == "Scan Complete")
+        $("#delete_disable_" + data.job_id).removeClass("disabled")
+        
+        
 
       #Change Status of Job
       status_id = '#' + data.job_id
