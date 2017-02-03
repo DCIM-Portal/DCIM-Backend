@@ -4,7 +4,8 @@
     <h3 class="text-center">Scan Job <%= @ilo_scan_job.id %> Details</h3>
     <div class="col-md-8 col-md-offset-2">
       <%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job) %>
-      <%= link_to 'Back', ilo_scan_jobs_path %>
+      <%= link_to 'Back', ilo_scan_jobs_path, "data-turbolinks" => "false" %>
+      <%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' %>
       <div class="pull-right">
         <p>*All Times are US Central</p>
       </div>
