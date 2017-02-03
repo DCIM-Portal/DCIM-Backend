@@ -9,14 +9,18 @@
         <p class="time_dock">*All Times are US Central</p>
       </div>
       <%= render 'table_header' %>
-            <tbody id="action_cable_row"></tbody>
             <tbody>
               <% @ilo_scan_jobs.reverse_each do |ilo_scan_job| %>
-                <% unless ilo_scan_job.status == "Scan Complete" %>
-                  <%= render partial: 'disable_row', locals: { ilo_scan_job: ilo_scan_job } %>
-                <% else %>
-                  <%= render partial: 'enable_row', locals: { ilo_scan_job: ilo_scan_job } %>
-                <% end %>
+                <tr id="row<%= ilo_scan_job.id %>">
+                  <td id="td_0_<%= ilo_scan_job.id %>"><%= ilo_scan_job.id %></td>
+                  <td id="td_1_<%= ilo_scan_job.id %>"><%= ilo_scan_job.start_ip %></td>
+                  <td id="td_2_<%= ilo_scan_job.id %>"><%= ilo_scan_job.end_ip %></td>
+                  <td id="td_3_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_username %></td>
+                  <td id="td_4_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_password %></td>
+                  <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
+                  <td id="td_6_<%= ilo_scan_job.id %>"><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
+                  <td id="td_7_<%= ilo_scan_job.id %>"><%= link_to 'Details', ilo_scan_job, class: 'btn btn-small btn-info' %></td>
+                </tr>
               <% end %>
             </tbody>
           </table>

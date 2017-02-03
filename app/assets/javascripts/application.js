@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require datatables
 //= require moment
 //= require bootstrap-sprockets
 //= require bootstrap-notify

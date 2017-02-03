@@ -9,7 +9,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     # Called when there's incoming data on the websocket for this channel
 
     #Define Prettier Dates with Momentjs
-    create_date = moment(data.created_at).format('MMM D YYYY, h:mm A')
+    create_date = moment(data.created_at).format('MMM DD YYYY, h:mm A')
     update_date = moment(data.updated_at).format('MMM D YYYY, h:mm:ss A')
 
     #Send Alert Upon Channel Broadcast
@@ -42,39 +42,32 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         '</div>'
     });
 
+    table = $('#dtable').DataTable()
     #If Job is anything but deleted
-    if data.status != "Job Deleted"
+    if data.status == "Created"
 
-      #Variable for new table row
-      new_row = '<tr id="row' + data.job_id + '"><td>' + data.job_id + '</td>
-                 <td>' + data.start_ip + '</td>
-                 <td>' + data.end_ip + '</td>
-                 <td>' + data.ilo_username + '</td>
-                 <td>' + data.ilo_password + '</td>
-                 <td id="' + data.job_id + '">' + data.status + '</td>
-                 <td>' + create_date + '</td></tr>'
+      count = 0
+      new_data = [
+        data.job_id
+        data.start_ip
+        data.end_ip
+        data.ilo_username
+        data.ilo_password
+        data.status
+        create_date
+        '<a class="btn btn-small btn-info" href="/ilo_scan_jobs/' + data.job_id + '">Details</a>'
+      ]
+      new_row = table.row.add(new_data).draw().nodes().to$().find('td').each ->
+        $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
 
-      #Variable for new status
-      status_change = data.status
+      new_row
+      id = $('#row' + data.job_id).val()
+      table.row(new_row).node().id = 'row' + data.job_id
 
-      #If Job ID Does Not Exist, create new row
-      if(!$("#" + data.job_id).length)
-        $('#action_cable_row').prepend(new_row)
-        if($('#action_cable_row').is(":hidden"))
-          $('#action_cable_row').show()
-
-      if($("#edit_disable_" + data.job_id).length && data.status == "Scan Complete")
-        $("#edit_disable_" + data.job_id).removeClass("disabled")
-
-      if($("#delete_disable_" + data.job_id).length && data.status == "Scan Complete")
-        $("#delete_disable_" + data.job_id).removeClass("disabled")
-        
-        
-
-      #Change Status of Job
-      status_id = '#' + data.job_id
-      $(status_id).html(status_change)
+    else if data.status != "Created" && data.status != "Job Deleted"
+      table.cell('#td_5_' + data.job_id).data(data.status)
+      
     else
-      #Hide row if job is deleted
-      $("#row" + data.job_id).hide()
-
+      tr = "#row" + data.job_id
+      table.row(tr).remove().draw()
+      
