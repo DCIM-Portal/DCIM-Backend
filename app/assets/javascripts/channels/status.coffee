@@ -42,10 +42,11 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         '</div>'
     });
 
+    #Define Jquery Datatable
     table = $('#dtable').DataTable()
-    #If Job is anything but deleted
-    if data.status == "Created"
 
+    #If job is created, make new row
+    if data.status == "Created"
       count = 0
       new_data = [
         data.job_id
@@ -59,14 +60,20 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       ]
       new_row = table.row.add(new_data).draw().nodes().to$().find('td').each ->
         $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
-
       new_row
       id = $('#row' + data.job_id).val()
       table.row(new_row).node().id = 'row' + data.job_id
 
-    else if data.status != "Created" && data.status != "Job Deleted"
+    #If job status is running
+    else if data.status != "Created" && data.status != "Job Deleted" && data.status != "Scan Complete"
+      wait_status = data.status + ' <div class="throbber-loader"> </div>'
+      table.cell('#td_5_' + data.job_id).data(wait_status)
+
+    #If job status is complete
+    else if data.status == "Scan Complete"
       table.cell('#td_5_' + data.job_id).data(data.status)
-      
+
+    #If job is deleted
     else
       tr = "#row" + data.job_id
       table.row(tr).remove().draw()

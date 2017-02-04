@@ -11,6 +11,9 @@ gem 'bootstrap-sass', '3.3.7'
 #Bootswatch SASS
 gem 'bootswatch-sass', '3.3.7'
 
+#Font-Awesome
+gem 'font-awesome-sass', '4.7.0'
+
 #IPMI Ruby Wrapper (make sure freeipmi is installed on the system)
 gem 'rubyipmi'
 

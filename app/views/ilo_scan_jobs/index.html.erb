@@ -17,7 +17,11 @@
                   <td id="td_2_<%= ilo_scan_job.id %>"><%= ilo_scan_job.end_ip %></td>
                   <td id="td_3_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_username %></td>
                   <td id="td_4_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_password %></td>
-                  <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
+                  <% unless ilo_scan_job.status == "Scan Complete" %>
+                    <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %> <div class="throbber-loader"> </div></td>
+                  <% else %>
+                    <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
+                  <% end %>
                   <td id="td_6_<%= ilo_scan_job.id %>"><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
                   <td id="td_7_<%= ilo_scan_job.id %>"><%= link_to 'Details', ilo_scan_job, class: 'btn btn-small btn-info' %></td>
                 </tr>
