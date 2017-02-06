@@ -1,5 +1,6 @@
 jQuery ->
   $('#dtable').dataTable
+    deferRender: true
     columnDefs: [ 
       orderable: false
       targets: [1,2,3,4,5,6,7]
