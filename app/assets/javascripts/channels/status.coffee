@@ -41,11 +41,24 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         '<a href="{3}" target="{4}" data-notify="url"></a>' +
         '</div>'
     });
+    
+    #Define various IDs
+    detail_status = '#status_' + data.job_id
+    respond_message = '#scan_info_' + data.job_id
 
-    table = $('#dtable').DataTable()
-    #If Job is anything but deleted
-    if data.status == "Created"
+    #Define various messages
+    wait_status = data.status + ' <div class="throbber-loader"> </div>'
+    wait_message = 'Waiting on scan results <div class="throbber-loader"> </div>'
+    no_respond = 'No servers responded within this range'
+    respond_finish = data.server_count + ' server(s) responded'
 
+
+    #Define Jquery Datatable
+    if $('#dtable').length
+      table = $('#dtable').DataTable()
+
+    #If job is created, make new row in Jquery datatables
+    if data.status == "Created" then (
       count = 0
       new_data = [
         data.job_id
@@ -59,15 +72,55 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       ]
       new_row = table.row.add(new_data).draw().nodes().to$().find('td').each ->
         $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
-
       new_row
       id = $('#row' + data.job_id).val()
       table.row(new_row).node().id = 'row' + data.job_id
+    )
 
-    else if data.status != "Created" && data.status != "Job Deleted"
-      table.cell('#td_5_' + data.job_id).data(data.status)
-      
-    else
+    #If job status is running
+    else if data.status != "Created" and data.status != "Job Deleted" and data.status != "Scan Complete" then (
+      #Update Jquery datatable if it exists
+      if $('#dtable').length
+        table.cell('#td_5_' + data.job_id).data wait_status
+
+      #Update job detail status if it exists
+      if $(detail_status).length
+        $(detail_status).html wait_status
+    
+      #Detail Status  
+      if $(respond_message).length then (
+        if data.count == null or data.server_count != 0
+          $(respond_message).html wait_message
+        else if data.server_count == 0
+          $(respond_message).html no_respond
+      )
+    ) 
+    #If job status is complete
+    else if data.status == "Scan Complete" then (
+      #Update Jquery Datatable if it exists
+      if $('#dtable').length
+        table.cell('#td_5_' + data.job_id).data(data.status)
+
+      #Update job detail status if it exists
+      if $(detail_status).length
+        $(detail_status).html data.status
+
+      #Detail Status  
+      if $(respond_message).length then (
+        if data.server_count == 0
+          $(respond_message).html no_respond
+        else if data.server_count != 0
+          $(respond_message).html respond_finish
+      )
+
+    #Remove disabled class on buttons if exists
+      if $('#edit_disable_' + data.job_id).length and data.status == 'Scan Complete'
+        $('#edit_disable_' + data.job_id).removeClass 'disabled'
+      if $('#delete_disable_' + data.job_id).length and data.status == 'Scan Complete'
+        $('#delete_disable_' + data.job_id).removeClass 'disabled'
+    )
+    #If job is deleted, remove table row from Jquery datatable
+    else if data.status == "Job Deleted"
       tr = "#row" + data.job_id
       table.row(tr).remove().draw()
       
