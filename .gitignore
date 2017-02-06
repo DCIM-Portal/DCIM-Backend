@@ -18,6 +18,3 @@
 
 # Ignore database.yml file
 config/database.yml
-
-# Ignore core dumps
-core.*

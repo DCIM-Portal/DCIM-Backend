@@ -15,9 +15,7 @@ default: &default
   pool: 5
   username: root
   password: sharepoint
-  host: <%= ENV['DCIM_PORTAL_DATABASE_HOST'] || "127.0.0.1" %>
-  port: 3306
-#  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
