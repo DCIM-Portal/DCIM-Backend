@@ -44,8 +44,8 @@
           <span id="scan_info_<%= @ilo_scan_job.id %>">Waiting on scan results  <div class="throbber-loader"> </div></span></div>
         <% else %>
           <span id="scan_info_<%= @ilo_scan_job.id %>"><%= @ilo_scan_job.count %> server(s) responded</span></div>
-          <%= render 'scan_table' %>
         <% end %>
+        <%= render 'scan_table' %>
       </div>
     </div>
   </div>
