@@ -1,8 +1,30 @@
 <%= form_for(ilo_scan_job) do |f| %>
+  <fieldset> 
+  <div class="form-group">
+    <%= f.label :start_ip, "Start IP Address", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :start_ip, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_ip, "End IP Address", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :end_ip, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ilo_username, "BMC Username", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :ilo_username, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ilo_password, "BMC Password", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :ilo_password, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Create New Scan Job', class: 'btn btn-success' %>
+  </div>
+  </fieldset>
   <% if ilo_scan_job.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(ilo_scan_job.errors.count, "error") %> prohibited this ilo_scan_job from being saved:</h2>
-
       <ul>
       <% ilo_scan_job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,28 +32,4 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :start_ip %>
-    <%= f.text_field :start_ip %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_ip %>
-    <%= f.text_field :end_ip %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ilo_username %>
-    <%= f.text_field :ilo_username %>
-  </div>
-
-  <div class="field">
-    <%= f.label :ilo_password %>
-    <%= f.text_field :ilo_password %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

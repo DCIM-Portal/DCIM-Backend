@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      ilo_scan_job:
+        start_ip: Start Address
+        end_ip:  End Address
+        ilo_username: Username
+        ilo_password: Password
