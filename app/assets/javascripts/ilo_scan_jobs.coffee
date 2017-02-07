@@ -16,3 +16,6 @@ jQuery ->
     order: [ 0, 'desc' ]
     responsive: true
     scrollY: '365px'
+
+  $('#detail_table').dataTable
+    deferRender: true
