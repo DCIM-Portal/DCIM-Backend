@@ -15,3 +15,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore database.yml file
+config/database.yml
+
+# Ignore core dumps
+core.*

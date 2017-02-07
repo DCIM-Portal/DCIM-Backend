@@ -1,0 +1,5 @@
+en:
+  time:
+    formats:
+      pretty: '%b %d %Y, %l:%M %p'
+
