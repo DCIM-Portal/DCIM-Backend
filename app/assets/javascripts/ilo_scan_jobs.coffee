@@ -19,3 +19,16 @@ jQuery ->
 
   $('#detail_table').dataTable
     deferRender: true
+    columnDefs: [ {
+      orderable: false
+      searchable: false
+      className: 'checkbox'
+      checkboxes: selectRow: true
+      targets: 0
+    } ]
+    select: style: 'multi'
+    order: [
+      1
+      'asc'
+    ]
+    scrollY: '365px'

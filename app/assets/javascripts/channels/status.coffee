@@ -125,6 +125,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     if `typeof data.serial != 'undefined'` and $('#scan_' + data.detail_id).length then (
       detail_count = 0
       detail_data = [
+        ''
         data.address
         data.model
         data.serial
