@@ -47,6 +47,8 @@ class IloScanJobsController < ApplicationController
       if @ilo_scan_job.update(ilo_scan_job_params)
         format.html { redirect_to @ilo_scan_job, notice: 'Ilo scan job was successfully updated.' }
         format.json { render :show, status: :ok, location: @ilo_scan_job }
+        ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).destroy_all
+        ScanJob.perform_later(@ilo_scan_job)
       else
         format.html { render :edit }
         format.json { render json: @ilo_scan_job.errors, status: :unprocessable_entity }
