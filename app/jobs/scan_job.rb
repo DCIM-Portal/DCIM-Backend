@@ -61,9 +61,6 @@ class ScanJob < ApplicationJob
       sleep 2
     end
 
-    #Save the Job ID
-    @job_id = ilo_scan_job.id
-
 
     #Take each returned IP and grab the model and serial
     def do_ipmi_scan(address, ilo_scan_job)
@@ -81,16 +78,16 @@ class ScanJob < ApplicationJob
         model = "Unable to Access Device"
         serial = "N/A"
       end
-      @result = {address: address, model: model, serial: serial}
+      return {address: address, model: model, serial: serial, job_id: ilo_scan_job.id}
     end
  
     #Save the scan result to the database
-    def save_scan_result
+    def save_scan_result(hash)
       scan_result = ScanResult.new
-      scan_result.ilo_address = @result[:address]
-      scan_result.server_model = @result[:model]
-      scan_result.server_serial = @result[:serial]
-      scan_result.ilo_scan_job_id = @job_id
+      scan_result.ilo_address = hash[:address]
+      scan_result.server_model = hash[:model]
+      scan_result.server_serial = hash[:serial]
+      scan_result.ilo_scan_job_id = hash[:job_id] 
       scan_result.save
     end
 
@@ -99,7 +96,7 @@ class ScanJob < ApplicationJob
       Concurrent::Promise.execute(executor: pool) do
         do_ipmi_scan(address, ilo_scan_job)
         ActiveRecord::Base.connection_pool.with_connection do
-          save_scan_result
+          save_scan_result(hash)
         end
       end
     end
