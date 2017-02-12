@@ -18,7 +18,7 @@ gem 'font-awesome-sass', '4.7.0'
 gem 'rubyipmi'
 
 #Sidekiq for Background Jobs
-gem 'sidekiq'
+gem 'sidekiq', '4.2.9'
 
 #Thread for concurrent processes
 gem 'thread'
@@ -31,6 +31,9 @@ gem 'bootstrap-growl-rails'
 
 #Jquery DataTables
 gem 'jquery-datatables'
+
+#Concurrent Ruby
+gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.1'

@@ -1,4 +1,4 @@
-jQuery ->
+$(document).on 'turbolinks:load', ->
   $('#dtable').dataTable
     deferRender: true
     columnDefs: [ 
