@@ -1,7 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap-flatly";
+@import "dataTables/extras/dataTables.responsive";
+@import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import "datatables";
 @import "animate";
 @import "ilo_scan_jobs";
