@@ -92,6 +92,10 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         else if data.server_count == 0
           $(respond_message).html no_respond
       )
+
+      #Add disabled class on buttons
+      $("#edit_disable_#{ data.job_id }").addClass "disabled"
+      $("#delete_disable_#{ data.job_id}").addClass "disabled"
     ) 
 
     #If job status is complete

@@ -18,7 +18,7 @@ gem 'font-awesome-sass', '4.7.0'
 gem 'rubyipmi'
 
 #Sidekiq for Background Jobs
-gem 'sidekiq'
+gem 'sidekiq', '4.2.9'
 
 #Thread for concurrent processes
 gem 'thread'
@@ -31,6 +31,9 @@ gem 'bootstrap-growl-rails'
 
 #Jquery DataTables
 gem 'jquery-datatables'
+
+#Concurrent Ruby
+gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.1'
@@ -50,7 +53,7 @@ gem 'coffee-rails', '4.2.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks', '5.0.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

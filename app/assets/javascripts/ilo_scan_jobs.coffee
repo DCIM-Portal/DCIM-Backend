@@ -1,4 +1,4 @@
-jQuery ->
+$(document).on 'turbolinks:load', ->
   $('#dtable').dataTable
     deferRender: true
     columnDefs: [ 
@@ -32,3 +32,6 @@ jQuery ->
       'asc'
     ]
     scrollY: '365px'
+
+  $input = $('#refresh')
+  if $input.val() == 'yes' then location.reload(true) else $input.val('yes')

@@ -30,7 +30,7 @@ class IloScanJobsController < ApplicationController
 
     respond_to do |format|
       if @ilo_scan_job.save
-        format.html { redirect_to ilo_scan_jobs_url, notice: 'Ilo scan job was successfully created.' }
+        format.html { redirect_to ilo_scan_jobs_url }
         format.json { render :show, status: :created, location: @ilo_scan_job }
         ScanJob.perform_later(@ilo_scan_job)
       else
@@ -45,6 +45,8 @@ class IloScanJobsController < ApplicationController
   def update
     respond_to do |format|
       if @ilo_scan_job.update(ilo_scan_job_params)
+        @ilo_scan_job.status = "Rescanning"
+        @ilo_scan_job.save
         format.html { redirect_to @ilo_scan_job, notice: 'Ilo scan job was successfully updated.' }
         format.json { render :show, status: :ok, location: @ilo_scan_job }
         ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).destroy_all

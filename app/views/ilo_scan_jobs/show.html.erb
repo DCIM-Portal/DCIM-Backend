@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <h3 class="text-left text-uppercase"><em>Scan Job <%= @ilo_scan_job.id %> Details</em></h3>
-      <%= link_to 'Back', ilo_scan_jobs_path, class: 'btn btn-default', "data-turbolinks" => "false" %>
+      <%= link_to 'Back', ilo_scan_jobs_path, class: 'btn btn-default' %>
       <div class="pull-right">
         <p class="time_dock">*All Times are US Central</p>
       </div>
@@ -24,8 +24,8 @@
                   <td><%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job), class: 'btn btn-small btn-warning disabled', id: "edit_disable_#{@ilo_scan_job.id}" %></td>
                   <td><%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger disabled', id: "delete_disable_#{@ilo_scan_job.id}" %></td>
                 <% else %>
-                  <td><%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job), class: 'btn btn-small btn-warning' %></td>
-                  <td><%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger' %></td>
+                  <td><%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job), class: 'btn btn-small btn-warning', id: "edit_disable_#{@ilo_scan_job.id}" %></td>
+                  <td><%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger', id: "delete_disable_#{@ilo_scan_job.id}" %></td>
                 <% end %>
               </tr>
             </tbody>
@@ -50,4 +50,5 @@
     </div>
   </div>
 </div>
+<input type="hidden" id="refresh" value="no">
 <script type="text/javascript" src="/javascripts/dataTables.checkboxes.min.js"></script>
