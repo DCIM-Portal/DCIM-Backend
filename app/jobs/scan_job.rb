@@ -1,5 +1,6 @@
 require 'rubyipmi'
 require 'ipaddr'
+require 'timeout'
 
 class ScanJob < ApplicationJob
   queue_as :default
@@ -19,8 +20,14 @@ class ScanJob < ApplicationJob
       (start_ip..end_ip).map(&:to_s)
     end
 
-    #Convert start and end IP into a range
-    @ip_range = convert_ip_range(ilo_scan_job.start_ip, ilo_scan_job.end_ip)
+    #Convert start and end IP into a range with timeout
+    begin
+      Timeout::timeout(60) {
+        @ip_range = convert_ip_range(ilo_scan_job.start_ip, ilo_scan_job.end_ip)
+      }
+    rescue Timeout::Error
+      @ip_range = ["0.0.0.0"]
+    end
 
     #Define thread pool
     pool = Concurrent::FixedThreadPool.new(100)
@@ -39,7 +46,7 @@ class ScanJob < ApplicationJob
 
     #Wait for workers to finish
     cache_pool.shutdown
-    cache_pool.wait_for_termination
+    cache_pool.wait_for_termination(timeout = 120)
 
     #Strip out any blanks and line returns in the result
     no_blank = return_ip.select(&:present?)
@@ -61,7 +68,6 @@ class ScanJob < ApplicationJob
       sleep 2
     end
 
-
     #Take each returned IP and grab the model and serial
     def do_ipmi_scan(address, ilo_scan_job)
       get_fru = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} ).fru.list
@@ -78,16 +84,16 @@ class ScanJob < ApplicationJob
         model = "Unable to Access Device"
         serial = "N/A"
       end
-      return {address: address, model: model, serial: serial, job_id: ilo_scan_job.id}
+      @result = {address: address, model: model, serial: serial, job_id: ilo_scan_job.id}
     end
  
     #Save the scan result to the database
-    def save_scan_result(hash)
+    def save_scan_result
       scan_result = ScanResult.new
-      scan_result.ilo_address = hash[:address]
-      scan_result.server_model = hash[:model]
-      scan_result.server_serial = hash[:serial]
-      scan_result.ilo_scan_job_id = hash[:job_id] 
+      scan_result.ilo_address = @result[:address]
+      scan_result.server_model = @result[:model]
+      scan_result.server_serial = @result[:serial]
+      scan_result.ilo_scan_job_id = @result[:job_id]
       scan_result.save
     end
 
@@ -96,14 +102,14 @@ class ScanJob < ApplicationJob
       Concurrent::Promise.execute(executor: pool) do
         do_ipmi_scan(address, ilo_scan_job)
         ActiveRecord::Base.connection_pool.with_connection do
-          save_scan_result(hash)
+          save_scan_result
         end
       end
     end
 
     #Wait for workers to finish
     pool.shutdown
-    pool.wait_for_termination
+    pool.wait_for_termination(timeout = 300)
 
     #Update job status
     ilo_scan_job.status = "Scan Complete"

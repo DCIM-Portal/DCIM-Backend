@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require datatables
 //= require moment
 //= require bootstrap-sprockets
 //= require bootstrap-notify
-//= require turbolinks
 //= require_tree .
