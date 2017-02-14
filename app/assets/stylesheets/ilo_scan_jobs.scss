@@ -366,3 +366,24 @@ a:hover, a:focus {
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
+.overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: absolute;
+  background: rgba(255,255,255,0.8);
+  text-align: center;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  margin-top: -52px;
+}
+.overlay .fa {
+  line-height: 400px;
+  color: #83A7BF;
+}
+.overlay p {
+  margin-top: -160px;
+  font-family: 'Roboto';
+  font-weight: 600;
+}

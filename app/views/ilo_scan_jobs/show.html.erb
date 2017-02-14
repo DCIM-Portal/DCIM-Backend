@@ -45,6 +45,10 @@
         <% else %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="responded"><%= @ilo_scan_job.count %> server(s) responded</span></div>
         <% end %>
+        <div class="overlay">
+          <i class="fa fa-refresh fa-4x fa-spin"></i>
+          <p>Loading Data...</p>
+        </div>
         <%= render 'scan_table' %>
       </div>
     </div>

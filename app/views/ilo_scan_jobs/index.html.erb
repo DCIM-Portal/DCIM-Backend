@@ -6,8 +6,12 @@
       <div class="pull-right">
         <p class="time_dock">*All Times are US Central</p>
       </div>
+      <div class="overlay">
+        <i class="fa fa-refresh fa-4x fa-spin"></i>
+        <p>Loading Data...</p>
+      </div>
       <%= render 'table_header' %>
-          <tbody>
+          <tbody id="main_table_body" style="display: none">
             <% @ilo_scan_jobs.reverse_each do |ilo_scan_job| %>
               <tr id="row<%= ilo_scan_job.id %>">
                 <td id="td_0_<%= ilo_scan_job.id %>"><%= ilo_scan_job.id %></td>

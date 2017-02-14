@@ -18,7 +18,8 @@ $(document).on 'turbolinks:load', ->
     responsive: true
     scrollY: '365px'
     drawCallback: ->
-      $('#dtable').show()
+      $('#main_table_body').show()
+      $('.overlay').hide()
 
   $('#detail_table').DataTable
     deferRender: true
@@ -36,11 +37,12 @@ $(document).on 'turbolinks:load', ->
     ]
     scrollY: '365px'
     drawCallback: ->
-      $('#detail_table').show()
+      $('#main_table_body').show()
+      $('.overlay').hide()
 
 
 $(document).on 'turbolinks:before-cache', ->
+  $('.overlay').show()
+  $('#main_table_body').hide()
   $('#dtable').DataTable().destroy()
-  $('#dtable').hide()
   $('#detail_table').DataTable().destroy()
-  $('#detail_table').hide()
