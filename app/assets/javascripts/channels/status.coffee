@@ -74,6 +74,8 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       ]
       new_row = table?.row.add(new_data).draw().nodes().to$().find('td').each ->
         $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
+      $( new_row ).css( 'display', 'none' )
+      $( new_row ).fadeIn(500)
       id = $("#row#{ data.job_id }").val()
       table?.row(new_row).node().id = "row#{ data.job_id }"
     )
@@ -91,9 +93,10 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       if $(respond_message).length then (
         if data.count == null or data.server_count != 0
           $(respond_message).html wait_message
-          $(respond_message).addClass('waiting')
+          $(respond_message).removeClass().addClass('waiting')
         else if data.server_count == 0
           $(respond_message).html no_respond
+          $(respond_message).removeClass().addClass('no-respond')
       )
 
       #Add disabled class on buttons
@@ -116,6 +119,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
           $(respond_message).html no_respond
         else if data.server_count != 0
           $(respond_message).html respond_finish
+          $(respond_message).removeClass().addClass('responded')
       )
 
     #Remove disabled class on buttons
@@ -137,5 +141,8 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.model
         data.serial
       ]
-      detail_row = detail_table.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
+      detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
+      $( detail_row ).css( 'display', 'none' )
+      $( detail_row ).fadeIn(500)
+
     )

@@ -336,9 +336,33 @@ a:hover, a:focus {
 .move-down {
   margin-top: 20px;
 }
+.in {
+  opacity: 1;
+}
 .waiting {
   background-color: #e8b058;
   padding: 8px;
   border-radius: 4px;
   color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+}
+.responded {
+  background-color: #42a38f;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+}
+.no-respond {
+  background-color: #BC5E54;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
 }
