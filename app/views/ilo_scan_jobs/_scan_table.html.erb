@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <% @scan_results.each do |result| %>
-      <tr>
+      <tr class="server<%= @ilo_scan_job.id %>">
         <td></td>
         <td><%= result.ilo_address %></td>
         <td><%= result.server_model %></td>
