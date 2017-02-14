@@ -71,7 +71,6 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       ]
       new_row = table?.row.add(new_data).draw().nodes().to$().find('td').each ->
         $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
-      new_row
       id = $("#row#{ data.job_id }").val()
       table?.row(new_row).node().id = "row#{ data.job_id }"
     )

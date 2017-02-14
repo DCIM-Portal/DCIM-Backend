@@ -30,7 +30,7 @@ gem 'momentjs-rails'
 gem 'bootstrap-growl-rails'
 
 #Jquery DataTables
-gem 'jquery-datatables-rails', '3.4.0'
+gem 'jquery-datatables'
 
 #Concurrent Ruby
 gem 'concurrent-ruby', require: 'concurrent'

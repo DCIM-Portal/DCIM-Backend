@@ -1,0 +1,27 @@
+@import "datatables/dataTables.bootstrap4";
+@import "datatables/extensions/Responsive/responsive.bootstrap4";
+@import "datatables/extensions/Buttons/buttons.bootstrap4";
+table.dataTable.checkboxes-select tbody tr,
+table.dataTable thead .checkboxes-select-all {
+  cursor: pointer;
+}
+
+div.dataTables_wrapper span.select-info,
+div.dataTables_wrapper span.select-item {
+  margin-left: 0.5em;
+}
+
+@media screen and (max-width: 640px) {
+  div.dataTables_wrapper span.select-info,
+  div.dataTables_wrapper span.select-item {
+    margin-left: 0;
+    display: block;
+  }
+}
+table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+  background-color: #608096;
+  color: #fff;
+}
+.table-striped > tbody > tr:hover {
+  background-color: #d0d8dd;
+}
