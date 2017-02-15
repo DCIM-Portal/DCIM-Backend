@@ -33,7 +33,13 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
+    <div class="overlay">
+      <div class="inner-overlay">
+        <i class="fa fa-refresh fa-2x fa-spin"></i>
+        <p>Loading Data...</p>
+      </div>
+    </div>
+    <div id="main_header" class="panel panel-default">
       <div class="panel-heading">Scan Results</div>
       <div class="panel-body">
         <% if @ilo_scan_job.count.nil? %>
@@ -45,12 +51,6 @@
         <% else %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="responded"><%= @ilo_scan_job.count %> server(s) responded</span></div>
         <% end %>
-        <div class="overlay">
-          <div class="inner-overlay">
-            <i class="fa fa-refresh fa-3x fa-spin"></i>
-            <p>Loading Data...</p>
-          </div>
-        </div>
         <%= render 'scan_table' %>
       </div>
     </div>
