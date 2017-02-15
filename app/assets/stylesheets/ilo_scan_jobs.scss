@@ -249,6 +249,7 @@ a:hover, a:focus {
 }
 .alert-info {
   background-color: #425563 !important;
+  border-color: #425563 !important;
 }
 .pagination > li > a, .pagination > li > span {
   padding: 5px 10px !important;
@@ -335,4 +336,73 @@ a:hover, a:focus {
 }
 .move-down {
   margin-top: 20px;
+}
+.in {
+  opacity: 1;
+}
+.waiting {
+  background-color: #e8b058;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+}
+.responded {
+  background-color: #42a38f;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+}
+.no-respond {
+  background-color: #BC5E54;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  -webkit-transition: all 0.35s;
+  -moz-transition: all 0.35s;
+  transition: all 0.35s;
+}
+.overlay {
+  display: none;
+  width: 97.5%;
+  height: 580px;
+  z-index: 1000;
+  position: absolute;
+  background: rgba(252,252,252,0.6);
+  text-align: center;
+  padding: 30px;
+  border-radius: 5px;
+  margin-top: -52px;
+  margin-left: -3px;
+}
+.inner-overlay {
+  position: relative;
+  width: 90px;
+  height: 80px;
+  top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
+}
+.overlay .fa {
+  color: rgba(131,167,191,0.7);
+  margin-top: 10px;
+}
+.fa-spin {
+  -webkit-animation: fa-spin 0.7s infinite linear;
+  animation: fa-spin 0.5s infinite linear;
+}
+.overlay p {
+  margin-top: 10px;
+  font-family: 'Lato';
+  font-weight: 600;
+  font-style: italic;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(109, 114, 117, 0.7);
 }

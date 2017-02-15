@@ -1,5 +1,6 @@
 $(document).on 'turbolinks:load', ->
-  $('#dtable').dataTable
+
+  $('#dtable').DataTable
     deferRender: true
     columnDefs: [ 
       orderable: false
@@ -16,8 +17,12 @@ $(document).on 'turbolinks:load', ->
     order: [ 0, 'desc' ]
     responsive: true
     scrollY: '365px'
+    drawCallback: ->
+      $('#main_header').show()
+      $('#main_table_body').show()
+      $('.overlay').hide()
 
-  $('#detail_table').dataTable
+  $('#detail_table').DataTable
     deferRender: true
     columnDefs: [ {
       orderable: false
@@ -32,6 +37,15 @@ $(document).on 'turbolinks:load', ->
       'asc'
     ]
     scrollY: '365px'
+    drawCallback: ->
+      $('#main_header').show()
+      $('#main_table_body').show()
+      $('.overlay').hide()
 
-  $input = $('#refresh')
-  if $input.val() == 'yes' then location.reload(true) else $input.val('yes')
+
+$(document).on 'turbolinks:before-cache', ->
+  $('.overlay').show()
+  $('#main_table_body').hide()
+  $('#main_header').hide()
+  $('#dtable').DataTable().destroy()
+  $('#detail_table').DataTable().destroy()

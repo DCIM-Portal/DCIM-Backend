@@ -56,8 +56,11 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     table = $('#dtable').DataTable() if $('#dtable').length
     detail_table = $('#detail_table').DataTable() if $('#detail_table').length
 
+    if data.status == "Rescanning"
+      detail_table?.rows( ".server#{ data.job_id }" ).remove().draw()
+
     #If job is created, make new row in Jquery datatables
-    if data.status == "Created" then (
+    else if data.status == "Created" then (
       count = 0
       new_data = [
         data.job_id
@@ -71,7 +74,8 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       ]
       new_row = table?.row.add(new_data).draw().nodes().to$().find('td').each ->
         $(this).attr 'id', 'td_' + count++ + '_' + data.job_id
-      new_row
+      $( new_row ).css( 'display', 'none' )
+      $( new_row ).fadeIn(500)
       id = $("#row#{ data.job_id }").val()
       table?.row(new_row).node().id = "row#{ data.job_id }"
     )
@@ -82,20 +86,22 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       #Update Jquery datatable if it exists
       table?.cell("#td_5_#{ data.job_id }").data wait_status
 
-      #Update job detail status if it exists
+      #Update job detail status
       $(detail_status).html wait_status
     
       #Detail Status  
       if $(respond_message).length then (
         if data.count == null or data.server_count != 0
           $(respond_message).html wait_message
+          $(respond_message).removeClass().addClass('waiting')
         else if data.server_count == 0
           $(respond_message).html no_respond
+          $(respond_message).removeClass().addClass('no-respond')
       )
 
       #Add disabled class on buttons
       $("#edit_disable_#{ data.job_id }").addClass "disabled"
-      $("#delete_disable_#{ data.job_id}").addClass "disabled"
+      $("#delete_disable_#{ data.job_id }").addClass "disabled"
     ) 
 
     #If job status is complete
@@ -113,6 +119,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
           $(respond_message).html no_respond
         else if data.server_count != 0
           $(respond_message).html respond_finish
+          $(respond_message).removeClass().addClass('responded')
       )
 
     #Remove disabled class on buttons
@@ -126,7 +133,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       table?.row(tr).remove().draw()
 
     #If detail list is received
-    if `typeof data.serial != 'undefined'` and $('#scan_' + data.detail_id).length then (
+    if `typeof data.serial != 'undefined'` and $("#scan_#{ data.detail_id }").length then (
       detail_count = 0
       detail_data = [
         ''
@@ -134,8 +141,8 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.model
         data.serial
       ]
-      detail_row = detail_table.row.add(detail_data).draw().nodes().to$().find('td').each ->
-        $(this).attr 'id', 'td_' + detail_count++ + '_' + data.job_id
-      detail_row
-    )
+      detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
+      $( detail_row ).css( 'display', 'none' )
+      $( detail_row ).fadeIn(500)
 
+    )
