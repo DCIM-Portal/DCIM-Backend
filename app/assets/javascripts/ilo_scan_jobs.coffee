@@ -18,6 +18,7 @@ $(document).on 'turbolinks:load', ->
     responsive: true
     scrollY: '365px'
     drawCallback: ->
+      $('#main_header').show()
       $('#main_table_body').show()
       $('.overlay').hide()
 
@@ -37,6 +38,7 @@ $(document).on 'turbolinks:load', ->
     ]
     scrollY: '365px'
     drawCallback: ->
+      $('#main_header').show()
       $('#main_table_body').show()
       $('.overlay').hide()
 
@@ -44,5 +46,6 @@ $(document).on 'turbolinks:load', ->
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()
   $('#main_table_body').hide()
+  $('#main_header').hide()
   $('#dtable').DataTable().destroy()
   $('#detail_table').DataTable().destroy()

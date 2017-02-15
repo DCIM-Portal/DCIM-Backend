@@ -7,8 +7,10 @@
         <p class="time_dock">*All Times are US Central</p>
       </div>
       <div class="overlay">
-        <i class="fa fa-refresh fa-4x fa-spin"></i>
-        <p>Loading Data...</p>
+        <div class="inner-overlay">
+          <i class="fa fa-refresh fa-3x fa-spin"></i>
+          <p>Loading Data...</p>
+        </div>
       </div>
       <%= render 'table_header' %>
           <tbody id="main_table_body" style="display: none">

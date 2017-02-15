@@ -249,6 +249,7 @@ a:hover, a:focus {
 }
 .alert-info {
   background-color: #425563 !important;
+  border-color: #425563 !important;
 }
 .pagination > li > a, .pagination > li > span {
   padding: 5px 10px !important;
@@ -368,22 +369,43 @@ a:hover, a:focus {
 }
 .overlay {
   display: none;
-  width: 100%;
-  height: 100%;
+  width: 97.5%;
+  height: 580px;
   z-index: 1000;
   position: absolute;
-  background: rgba(255,255,255,0.8);
+  background: rgba(252,252,252,0.6);
   text-align: center;
-  padding: 5px 5px 5px 5px;
+  padding: 30px;
   border-radius: 5px;
   margin-top: -52px;
+  margin-left: -3px;
+}
+.inner-overlay {
+  background: rgba(245,245,245,0.8);
+  position: relative;
+  width: 30%;
+  height: 95px;
+  top: 15%;
+  margin-left: 35%;
+  border-radius: 2px;
+  -moz-box-shadow: 4px 14px 20px 0px rgba(0, 0, 0, 0.25), 5px 6px 15px 0px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 4px 14px 20px 0px rgba(0, 0, 0, 0.25), 5px 6px 15px 0px rgba(0, 0, 0, 0.22);
+  box-shadow: 4px 14px 20px 0px rgba(0, 0, 0, 0.25), 5px 6px 15px 0px rgba(0, 0, 0, 0.22);
 }
 .overlay .fa {
-  line-height: 400px;
-  color: #83A7BF;
+  color: rgba(131,167,191,0.7);
+  margin-top: 10px;
+}
+.fa-spin {
+  -webkit-animation: fa-spin 1s infinite linear;
+  animation: fa-spin 1s infinite linear;
 }
 .overlay p {
-  margin-top: -160px;
-  font-family: 'Roboto';
+  margin-top: 10px;
+  font-family: 'Lato';
   font-weight: 600;
+  font-style: italic;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6d7275;
 }
