@@ -39,8 +39,8 @@
         <p>Loading Data...</p>
       </div>
     </div>
-    <div id="main_header" class="panel panel-default">
-      <div class="panel-heading">Scan Results</div>
+    <div class="panel panel-default" id="main_header">
+    <div class="panel-heading">Scan Results</div>
       <div class="panel-body">
         <% if @ilo_scan_job.count.nil? %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="waiting">Waiting on scan results <div class="throbber-loader"> </div></span></div>

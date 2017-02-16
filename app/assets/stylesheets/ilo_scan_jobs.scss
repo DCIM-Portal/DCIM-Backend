@@ -296,7 +296,6 @@ a:hover, a:focus {
     background: #dde2e7;
   }
 }
-/* :not(:required) hides these rules from IE9 and below */
 .throbber-loader:not(:required) {
   -moz-animation: throbber-loader 2000ms 300ms infinite ease-out;
   -webkit-animation: throbber-loader 2000ms 300ms infinite ease-out;
@@ -367,6 +366,9 @@ a:hover, a:focus {
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
+.panel-body span {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
 .overlay {
   display: none;
   width: 97.5%;
@@ -377,7 +379,7 @@ a:hover, a:focus {
   text-align: center;
   padding: 30px;
   border-radius: 5px;
-  margin-top: -52px;
+  margin-top: -10px;
   margin-left: -3px;
 }
 .inner-overlay {
@@ -405,4 +407,36 @@ a:hover, a:focus {
   font-size: 10px;
   text-transform: uppercase;
   color: rgba(109, 114, 117, 0.7);
+}
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  outline: none;
+}
+#detail_table_length {
+  float: right;
+}
+#detail_table_filter {
+  float: left;
+}
+#detail_table_wrapper .dt-buttons {
+  display: block;
+  margin-top: 54px;
+}
+#detail_table_wrapper div .btn-default {
+  background-color: #83A7BF;
+  border-color: #83A7BF;
+  outline: none;
+}
+#detail_table_wrapper div div div table thead {
+  background: #7f8c93;
+  color: white;
+}
+#detail_table_paginate {
+  margin-top: -28px;
+}
+@media screen and (max-width: 767px) {
+#detail_table_paginate { margin-top: 10px; }
+#detail_table_length { float: none; }
+#detail_table_filter { float: none; }
+#detail_table_wrapper .dt-buttons { display: inline-block; margin-top: 10px; }
+#detail_table_filter label input { width: 100px; }
 }

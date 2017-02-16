@@ -22,26 +22,34 @@ $(document).on 'turbolinks:load', ->
       $('#main_table_body').show()
       $('.overlay').hide()
 
-  $('#detail_table').DataTable
+  detail_table = $('#detail_table').DataTable
     deferRender: true
-    columnDefs: [ {
-      orderable: false
-      searchable: false
-      className: 'checkbox'
-      checkboxes: selectRow: true
-      targets: 0
-    } ]
-    select: style: 'multi'
     order: [
-      1
+      0
       'asc'
     ]
+    dom: 'lfBtip'
+    select: 'multi'
+    buttons: [
+      'copyHtml5'
+      'csvHtml5'
+      {
+        text: 'Select All'
+        action: ->
+          detail_table.rows().select()
+      }
+      {
+        text: 'Select None'
+        action: ->
+          detail_table.rows().deselect()
+      }
+    ]
     scrollY: '365px'
+    responsive: true
     drawCallback: ->
       $('#main_header').show()
       $('#main_table_body').show()
       $('.overlay').hide()
-
 
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()
@@ -49,3 +57,4 @@ $(document).on 'turbolinks:before-cache', ->
   $('#main_header').hide()
   $('#dtable').DataTable().destroy()
   $('#detail_table').DataTable().destroy()
+  $('tr').removeClass('selected')

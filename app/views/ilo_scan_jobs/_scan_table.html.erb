@@ -1,8 +1,7 @@
 <div id="scan_<%= @ilo_scan_job.id %>">
 <table id="detail_table" class="table table-condensed table-striped" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
-  <thead>
+  <thead id="main_header">
     <tr>
-      <th></th>
       <th>BMC Address</th>
       <th>Server Model</th>
       <th>Server Serial</th>
@@ -11,7 +10,6 @@
   <tbody id="main_table_body" style="display: none">
     <% @scan_results.each do |result| %>
       <tr class="server<%= @ilo_scan_job.id %>">
-        <td></td>
         <td><%= result.ilo_address %></td>
         <td><%= result.server_model %></td>
         <td><%= result.server_serial %></td>
