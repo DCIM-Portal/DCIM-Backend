@@ -166,6 +166,15 @@ table, .table {
   border: none;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
+.panel-default > .panel-heading {
+  color: #2C3E50;
+  background-color: #ecf0f1;
+  border-color: #ecf0f1;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 700;
+  font-family: 'Lato';
+}
 a {
   color: #FFAB2F;
 }
@@ -340,34 +349,27 @@ a:hover, a:focus {
   opacity: 1;
 }
 .waiting {
-  background-color: #e8b058;
-  padding: 8px;
-  border-radius: 4px;
-  color: #fff;
+  color: #e8b058;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
 .responded {
-  background-color: #42a38f;
-  padding: 8px;
-  border-radius: 4px;
-  color: #fff;
+  color: #42a38f;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
 .no-respond {
-  background-color: #BC5E54;
-  padding: 8px;
-  border-radius: 4px;
-  color: #fff;
+  color: #BC5E54;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
 }
 .panel-body span {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 .overlay {
   display: none;
