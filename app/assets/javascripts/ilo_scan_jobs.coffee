@@ -36,7 +36,7 @@ $(document).on 'turbolinks:load', ->
       {
         text: 'Select All'
         action: ->
-          detail_table.rows().select()
+          detail_table.rows( { search: 'applied' } ).select()
       }
       {
         text: 'Select None'

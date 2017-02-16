@@ -435,6 +435,13 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 #detail_table_paginate {
   margin-top: -28px;
 }
+#detail_table_info span.select-info {
+  display: block;
+  font-size: 14px;
+}
+div.dataTables_wrapper span.select-info, div.dataTables_wrapper span.select-item {
+  margin-left: 0.0em;
+}
 @media screen and (max-width: 767px) {
 #detail_table_paginate { margin-top: 10px; }
 #detail_table_length { float: none; }
