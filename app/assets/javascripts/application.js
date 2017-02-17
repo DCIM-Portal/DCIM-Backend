@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require datatables
-//= require dataTables.checkboxes.min.js
 //= require turbolinks
 //= require moment
 //= require bootstrap-sprockets
