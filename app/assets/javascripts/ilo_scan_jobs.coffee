@@ -31,17 +31,33 @@ $(document).on 'turbolinks:load', ->
     dom: 'lfBtip'
     select: 'multi'
     buttons: [
-      'copyHtml5'
-      'csvHtml5'
       {
-        text: 'Select All'
-        action: ->
-          detail_table.rows( { search: 'applied' } ).select()
+        extend: 'copyHtml5'
+        text:  '<i class="fa fa-files-o"><span class="button_text">Copy to Clipboard</span></i>'
+        exportOptions: {
+          rows: '.selected'
+        }
+        className: 'copy_button'
       }
       {
-        text: 'Select None'
+        extend: 'csvHtml5'
+        text: '<i class="fa fa-file-text"><span class="button_text">Save to Excel</span></i>'
+        exportOptions: {
+          rows: '.selected'
+        }
+        className: 'csv_button'
+      }
+      {
+        text: '<i class="fa fa-check-square"><span class="button_text">Select All</span></i>'
+        action: ->
+          detail_table.rows( { search: 'applied' } ).select()
+        className: 'select_all_button'
+      }
+      {
+        text: '<i class="fa fa-window-close"><span class="button_text">Select None</span></i>'
         action: ->
           detail_table.rows().deselect()
+        className: 'select_none_button'
       }
     ]
     scrollY: '365px'

@@ -186,6 +186,8 @@ a:hover, a:focus {
   margin-bottom: 10px;
   border-width: 1px;
   padding: 5px 10px;
+  font-family: 'Lato';
+  font-weight: 600;
 }
 .time_dock {
   font-size: 13px;
@@ -197,6 +199,9 @@ a:hover, a:focus {
 }
 .well {
   border-radius: 2px;
+}
+.btn {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 .btn-info {
   background-color: #83a7bf;
@@ -255,10 +260,19 @@ a:hover, a:focus {
   padding: 2px 5px !important;
   font-size: 13px !important;
   margin-bottom: 0px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  font-family: 'Lato';
 }
 .alert-info {
   background-color: #425563 !important;
   border-color: #425563 !important;
+}
+.dataTables_info {
+  font-weight: 600;
+}
+.dataTables_paginate {
+  font-weight: 600;
 }
 .pagination > li > a, .pagination > li > span {
   padding: 5px 10px !important;
@@ -370,6 +384,7 @@ a:hover, a:focus {
   padding: 8px;
   text-transform: uppercase;
   font-weight: 600;
+  font-size: 14px;
 }
 .overlay {
   display: none;
@@ -423,10 +438,50 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
   display: block;
   margin-top: 54px;
 }
+span .button_text {
+  padding-left: 7px;
+  font-family: 'Lato';
+  font-size: 14px;
+  font-weight: 600;
+}
+.copy_button {
+  background-color: #fdfeff;
+  border-color: #676767;
+  color: rgba(49, 49, 49, 0.81) !important;
+}
+.copy_button:active:hover, .copy_button:active:focus, .copy_button:active, .copy_button:focus, .copy_button:hover {
+  background-color: #e3ecec;
+}
+.csv_button:active:hover, .csv_button:active:focus, .csv_button:active, .csv_button:focus, .csv_button:hover {
+  background-color: #62b1a2;
+  border-color: #62b1a2;
+}
+.select_all_button:active:hover, .select_all_button:active:focus, .select_all_button:active, .select_all_button:focus, .select_all_button:hover {
+  background-color: #7794a9;
+  border-color: #7794a9;
+}
+.select_none_button:active:hover, .select_none_button:active:focus, .select_none_button:active, .select_none_button:focus, .select_none_button:hover {
+  background-color: #a57171;
+  border-color: #a57171;
+}
+.csv_button {
+  background-color: #51988b;
+  border-color: #51988b;
+}
+.select_all_button {
+  background-color: #608096;
+  border-color: #608096;
+}
+.select_none_button {
+  background-color: #b58989;
+  border-color: #b58989;
+}
 #detail_table_wrapper div .btn-default {
-  background-color: #83A7BF;
-  border-color: #83A7BF;
   outline: none;
+  margin-right: 5px;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 3px 7px;
 }
 #detail_table_wrapper div div div table thead {
   background: #7f8c93;
