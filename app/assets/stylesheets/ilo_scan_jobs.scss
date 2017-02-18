@@ -232,6 +232,10 @@ a:hover, a:focus {
   background-color: #bc5e54;
   border-color: #bc5e54;
 }
+.btn-warning {
+  background-color: #e0ab57;
+  border-color: #e0ab57;
+}
 .btn-danger:active:hover, .btn-danger:active:focus,
 .btn-danger:active.focus, .btn-danger.active:hover,
 .btn-danger.active:focus, .btn-danger.active.focus,
@@ -446,35 +450,36 @@ span .button_text {
 }
 .copy_button {
   background-color: #fdfeff;
-  border-color: #676767;
+  border-color: transparent;
   color: rgba(49, 49, 49, 0.81) !important;
 }
 .copy_button:active:hover, .copy_button:active:focus, .copy_button:active, .copy_button:focus, .copy_button:hover {
   background-color: #e3ecec;
+  border-color: transparent;
 }
 .csv_button:active:hover, .csv_button:active:focus, .csv_button:active, .csv_button:focus, .csv_button:hover {
   background-color: #62b1a2;
-  border-color: #62b1a2;
+  border-color: transparent;
 }
 .select_all_button:active:hover, .select_all_button:active:focus, .select_all_button:active, .select_all_button:focus, .select_all_button:hover {
   background-color: #7794a9;
-  border-color: #7794a9;
+  border-color: transparent;
 }
 .select_none_button:active:hover, .select_none_button:active:focus, .select_none_button:active, .select_none_button:focus, .select_none_button:hover {
   background-color: #a57171;
-  border-color: #a57171;
+  border-color: transparent;
 }
 .csv_button {
   background-color: #51988b;
-  border-color: #51988b;
+  border-color: transparent;
 }
 .select_all_button {
   background-color: #608096;
-  border-color: #608096;
+  border-color: transparent;
 }
 .select_none_button {
   background-color: #b58989;
-  border-color: #b58989;
+  border-color: transparent;
 }
 #detail_table_wrapper div .btn-default {
   outline: none;

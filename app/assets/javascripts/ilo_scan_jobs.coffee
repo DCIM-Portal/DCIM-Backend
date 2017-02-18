@@ -32,6 +32,18 @@ $(document).on 'turbolinks:load', ->
     select: 'multi'
     buttons: [
       {
+        text: '<i class="fa fa-check-square"><span class="button_text">Select All</span></i>'
+        action: ->
+          detail_table.rows( { search: 'applied' } ).select()
+        className: 'select_all_button'
+      }
+      {
+        text: '<i class="fa fa-window-close"><span class="button_text">Select None</span></i>'
+        action: ->
+          detail_table.rows().deselect()
+        className: 'select_none_button'
+      }
+      {
         extend: 'copyHtml5'
         text:  '<i class="fa fa-files-o"><span class="button_text">Copy to Clipboard</span></i>'
         exportOptions: {
@@ -46,18 +58,6 @@ $(document).on 'turbolinks:load', ->
           rows: '.selected'
         }
         className: 'csv_button'
-      }
-      {
-        text: '<i class="fa fa-check-square"><span class="button_text">Select All</span></i>'
-        action: ->
-          detail_table.rows( { search: 'applied' } ).select()
-        className: 'select_all_button'
-      }
-      {
-        text: '<i class="fa fa-window-close"><span class="button_text">Select None</span></i>'
-        action: ->
-          detail_table.rows().deselect()
-        className: 'select_none_button'
       }
     ]
     scrollY: '365px'
