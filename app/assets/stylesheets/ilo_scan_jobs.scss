@@ -154,6 +154,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-radius: 2px;
   box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
   border: 2px solid black;
+  letter-spacing: 2px;
+}
+.show_title {
+  background-color: #f9f9f9;
+  padding: 5px;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
+  border: 1px solid;
+  font-size: 24px;
 }
 .table {
   margin-bottom: 0px;
@@ -438,8 +446,9 @@ a:hover, a:focus {
   text-align: center;
   padding: 30px;
   border-radius: 5px;
-  margin-top: -10px;
+  margin-top: -3px;
   margin-left: -3px;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .inner-overlay {
   position: relative;

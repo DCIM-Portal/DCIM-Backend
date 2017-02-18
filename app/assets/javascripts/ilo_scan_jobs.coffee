@@ -65,12 +65,14 @@ $(document).on 'turbolinks:load', ->
     drawCallback: ->
       $('#main_header').show()
       $('#main_table_body').show()
+      $('.black-btn').show()
       $('.overlay').hide()
 
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()
   $('#main_table_body').hide()
   $('#main_header').hide()
+  $('.black-btn').hide()
   $('#dtable').DataTable().destroy()
   $('#detail_table').DataTable().destroy()
   $('tr').removeClass('selected')
