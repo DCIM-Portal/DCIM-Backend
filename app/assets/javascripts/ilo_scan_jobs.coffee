@@ -29,7 +29,7 @@ $(document).on 'turbolinks:load', ->
       'asc'
     ]
     dom: 'lfBtip'
-    select: 'multi'
+    select: 'os'
     buttons: [
       {
         text: '<i class="fa fa-check-square"><span class="button_text">Select All</span></i>'

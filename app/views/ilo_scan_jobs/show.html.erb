@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h3 class="text-left text-uppercase"><em>Scan Job <%= @ilo_scan_job.id %> Details</em></h3>
+      <h3 class="text-left text-uppercase">Scan Job <%= @ilo_scan_job.id %> Details</h3>
       <%= link_to 'Back', ilo_scan_jobs_path, class: 'btn btn-default' %>
       <div class="pull-right">
         <p class="time_dock">*All Times are US Central</p>
@@ -53,6 +53,8 @@
         <% end %>
         <%= render 'scan_table' %>
       </div>
+      <button class='btn black-btn pull-right' data-target='#myModal' data-toggle='modal' type='button'>Provision Servers</button>
     </div>
   </div>
+  <%= render 'modal' %>
 </div>
