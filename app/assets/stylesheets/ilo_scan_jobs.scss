@@ -186,6 +186,13 @@ table, .table {
   font-weight: 700;
   font-family: 'Lato';
 }
+.form-control {
+  border: 2px solid #697177;
+}
+.modal-content {
+  border: 4px solid;
+  border-radius: 2px;
+}
 a {
   color: #FFAB2F;
 }
@@ -214,6 +221,9 @@ a:hover, a:focus {
 .black-btn:active:hover, .black-btn:active:focus, .black-btn:active, .black-btn:focus, .black-btn:hover {
   background-color: #ababab;
   outline: none;
+}
+.black-btn:active {
+  box-shadow: 0 0 0 !important;
 }
 .time_dock {
   font-size: 13px;
@@ -495,6 +505,9 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 #detail_table_wrapper .dt-buttons {
   display: block;
   margin-top: 54px;
+}
+#detail_table_wrapper div .btn-default:active {
+  box-shadow: 0 0 0;
 }
 span .button_text {
   padding-left: 7px;
