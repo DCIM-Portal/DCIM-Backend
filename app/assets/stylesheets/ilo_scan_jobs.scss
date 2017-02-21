@@ -169,6 +169,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 table, .table {
   font-size: 14px;
 }
+.darker {
+  background-color: #7F8C93;
+  color: white;
+}
 #action_cable_row {
   display: none;
 }
@@ -188,6 +192,27 @@ table, .table {
 }
 .form-control {
   border: 2px solid #697177;
+}
+.squeeze-text {
+  width: 45%;
+  border: 1px solid #697177;
+  margin-left: 7px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.modal-dialog {
+  width: 65%;
+}
+.modal-header {
+  color: white;
+  background-color: #608096;
+}
+.modal-footer {
+  background-color: #E2E2E2;
+  padding: 0px 20px 20px 20px;
+}
+.modal-body {
+  background-color: #E2E2E2;
 }
 .modal-content {
   border: 4px solid;
@@ -324,9 +349,22 @@ a:hover, a:focus {
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   border: 1px solid black;
 }
+.alert {
+  padding: 10px;
+  border-radius: 2px;
+}
 .alert-info {
   background-color: #425563 !important;
   border-color: #000 !important;
+}
+.alert-danger {
+  background-color: #BC5E54;
+  border: 1px solid #000;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
+}
+.alert-success {
+  border: 1px solid #000;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .dataTables_info {
   font-weight: 600;
@@ -418,6 +456,11 @@ a:hover, a:focus {
 }
 .move-down {
   margin-top: 20px;
+}
+.table-modal {
+  max-height:300px;
+  margin-bottom: 20px;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .in {
   opacity: 1;

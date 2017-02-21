@@ -1,5 +1,9 @@
 $(document).on 'turbolinks:load', ->
 
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false
+
   $('#dtable').DataTable
     deferRender: true
     columnDefs: [ 
@@ -76,3 +80,12 @@ $(document).on 'turbolinks:before-cache', ->
   $('#dtable').DataTable().destroy()
   $('#detail_table').DataTable().destroy()
   $('tr').removeClass('selected')
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false
+
+
+$(document).ready ->
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false
