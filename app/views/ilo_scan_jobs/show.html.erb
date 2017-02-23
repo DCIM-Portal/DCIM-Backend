@@ -70,7 +70,7 @@ var arrayToTable = function (data) {
 		  row.append($('<input>').attr({
 		    type: 'hidden',
 			  value: data[i][j],
-        name: j
+        name: j + "[]"
 		  }).html(""));
     }
     rows.push(row);
@@ -105,4 +105,9 @@ $('#provision').click(function() {
     $('#nothing').show();
   }
 });
+</script>
+<script>
+$('.prov').on('click',function(){
+   $('#prov_form').submit();
+ });
 </script>

@@ -234,6 +234,9 @@ a:hover, a:focus {
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   border: 1px solid black;
 }
+.btn:hover, .btn:active, .btn:focus, .btn.focus {
+  outline: none !important;
+}
 .black-btn {
   padding: 3px 7px;
   border-radius: 2px;
@@ -305,6 +308,7 @@ a:hover, a:focus {
 }
 .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
   border-color: #000;
+  outline: none;
 }
 .btn-default:hover {
   border-color: #000;
@@ -335,6 +339,9 @@ a:hover, a:focus {
 }
 .btn-success:hover {
   border-color: #000;
+}
+.btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled.focus, .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success[disabled].focus, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success.focus {
+  border: 1px solid #000;
 }
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   opacity: 0.35;

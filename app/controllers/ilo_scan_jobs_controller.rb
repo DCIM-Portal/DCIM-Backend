@@ -1,5 +1,5 @@
 class IloScanJobsController < ApplicationController
-  before_action :set_ilo_scan_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_ilo_scan_job, only: [:provision, :show, :edit, :update, :destroy]
 
   # GET /ilo_scan_jobs
   # GET /ilo_scan_jobs.json
@@ -27,7 +27,6 @@ class IloScanJobsController < ApplicationController
   def create
     @ilo_scan_job = IloScanJob.new(ilo_scan_job_params)
     @ilo_scan_job.status = "Created"
-
     respond_to do |format|
       if @ilo_scan_job.save
         format.html { redirect_to ilo_scan_jobs_url }
@@ -47,7 +46,7 @@ class IloScanJobsController < ApplicationController
       if @ilo_scan_job.update(ilo_scan_job_params)
         @ilo_scan_job.status = "Rescanning"
         @ilo_scan_job.save
-        format.html { redirect_to @ilo_scan_job, notice: 'Ilo scan job was successfully updated.' }
+        format.html { redirect_to @ilo_scan_job }
         format.json { render :show, status: :ok, location: @ilo_scan_job }
         ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).destroy_all
         ScanJob.perform_later(@ilo_scan_job)
@@ -65,12 +64,19 @@ class IloScanJobsController < ApplicationController
     ScanResult.where(ilo_scan_job_id: @ilo_scan_job.id).destroy_all
     @ilo_scan_job.destroy
     respond_to do |format|
-      format.html { redirect_to ilo_scan_jobs_url, notice: 'Ilo scan job was successfully destroyed.' }
+      format.html { redirect_to ilo_scan_jobs_url }
       format.json { head :no_content }
     end
   end
 
   def provision
+    @ilo_scan_job.status = "Provisioning Servers"
+    @ilo_scan_job.save
+    @address_params = params["0"]
+    ProvisionJob.perform_later(@address_params, @ilo_scan_job)
+    respond_to do |format|
+      format.html { redirect_to @ilo_scan_job }
+    end
   end
 
   private

@@ -13,7 +13,7 @@
           <p><strong>WARNING!!!</strong>  You are about to provision these systems into the DCIM backend.  Doing
            so will cause the servers to <strong>reboot and become unavaialble</strong> during the discovery process.</p>
         </div>
-        <%= form_tag  provision_path, method: :post do %>
+        <%= form_tag  provision_path, :id => "prov_form", method: :post do %>
         <div class="table-responsive table-modal">
           <table class="table table-condensed table-striped table-fixed">
             <thead class="darker">
