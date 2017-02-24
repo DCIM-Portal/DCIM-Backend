@@ -1,5 +1,9 @@
 $(document).on 'turbolinks:load', ->
 
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false
+
   $('#dtable').DataTable
     deferRender: true
     columnDefs: [ 
@@ -29,19 +33,35 @@ $(document).on 'turbolinks:load', ->
       'asc'
     ]
     dom: 'lfBtip'
-    select: 'multi'
+    select: 'os'
     buttons: [
-      'copyHtml5'
-      'csvHtml5'
       {
-        text: 'Select All'
+        text: '<i class="fa fa-check-square"><span class="button_text">Select All</span></i>'
         action: ->
           detail_table.rows( { search: 'applied' } ).select()
+        className: 'select_all_button'
       }
       {
-        text: 'Select None'
+        text: '<i class="fa fa-window-close"><span class="button_text">Select None</span></i>'
         action: ->
           detail_table.rows().deselect()
+        className: 'select_none_button'
+      }
+      {
+        extend: 'copyHtml5'
+        text:  '<i class="fa fa-files-o"><span class="button_text">Copy to Clipboard</span></i>'
+        exportOptions: {
+          rows: '.selected'
+        }
+        className: 'copy_button'
+      }
+      {
+        extend: 'csvHtml5'
+        text: '<i class="fa fa-file-text"><span class="button_text">Save to Excel</span></i>'
+        exportOptions: {
+          rows: '.selected'
+        }
+        className: 'csv_button'
       }
     ]
     scrollY: '365px'
@@ -49,12 +69,23 @@ $(document).on 'turbolinks:load', ->
     drawCallback: ->
       $('#main_header').show()
       $('#main_table_body').show()
+      $('.black-btn').show()
       $('.overlay').hide()
 
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()
   $('#main_table_body').hide()
   $('#main_header').hide()
+  $('.black-btn').hide()
   $('#dtable').DataTable().destroy()
   $('#detail_table').DataTable().destroy()
   $('tr').removeClass('selected')
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false
+
+
+$(document).ready ->
+  $('.prov').prop 'disabled', true
+  $('#confirm').keyup ->
+    $('.prov').prop 'disabled', if @value != 'Provision Servers' then true else false

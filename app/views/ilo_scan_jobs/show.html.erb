@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h3 class="text-left text-uppercase"><em>Scan Job <%= @ilo_scan_job.id %> Details</em></h3>
+      <h3 class="show_title text-left text-uppercase">Scan Job <%= @ilo_scan_job.id %> Details</h3>
       <%= link_to 'Back', ilo_scan_jobs_path, class: 'btn btn-default' %>
       <div class="pull-right">
         <p class="time_dock">*All Times are US Central</p>
@@ -53,6 +53,61 @@
         <% end %>
         <%= render 'scan_table' %>
       </div>
+      <button id="provision" class='btn black-btn pull-right' data-target='#provision_modal' data-toggle='modal' type='button'>Provision Servers</button>
     </div>
   </div>
+  <%= render 'modal' %>
 </div>
+<script>
+var arrayToTable = function (data) {
+  "use strict";
+  var rows = [], row, i, j
+
+  for (i = 0; i < data.length; i = i + 1) {
+    row = $('<tr />');
+    for (j = 0; j < data[i].length; j = j + 1) {
+      row.append($('<td />').html(data[i][j]));
+		  row.append($('<input>').attr({
+		    type: 'hidden',
+			  value: data[i][j],
+        name: j + "[]"
+		  }).html(""));
+    }
+    rows.push(row);
+  }
+  for (i = 0; i < rows.length; i = i + 1) {
+    row.append(rows[i]);
+  }
+  return rows;
+};
+</script>
+<script>
+$('#provision').click(function() {
+  var table_select_array, data_select, detail_table, tbody
+  detail_table = $('#detail_table').DataTable();
+  table_select_array = JSON.stringify( detail_table.rows( '.selected', { search: 'applied' } ).data().toArray() );
+  data_select = $.parseJSON( table_select_array );
+  if (data_select.length) {
+    $('#nothing').hide();
+    $('.alert').show();
+    $('.table-modal').show();
+    $('.prov').show();
+    $('#confirm').show();
+    tbody = arrayToTable(data_select, {
+      attrs: {class: 'selected_servers'}
+    })
+    $('#provision_body').html(tbody);
+  } else {
+    $('.alert').hide();
+    $('.table-modal').hide();
+    $('.prov').hide();
+    $('#confirm').hide();
+    $('#nothing').show();
+  }
+});
+</script>
+<script>
+$('.prov').on('click',function(){
+   $('#prov_form').submit();
+ });
+</script>

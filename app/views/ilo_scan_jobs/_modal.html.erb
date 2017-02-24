@@ -1,0 +1,42 @@
+<div class='modal fade' id='provision_modal' role='dialog'>
+  <div class='modal-dialog'>
+    <!-- Modal content -->
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button class='close' data-dismiss='modal' type='button'>×</button>
+        <h4 class='modal-title'>Provision Servers</h4>
+      </div>
+      <div class='modal-body'>
+        <p id="nothing">No servers were selected.  Please close this dialog and select the servers you wish to provision.
+        Once the servers are selected, press the <strong>Provision Servers</strong> button to try again.</p>
+        <div class="alert alert-danger">
+          <p><strong>WARNING!!!</strong>  You are about to provision these systems into the DCIM backend.  Doing
+           so will cause the servers to <strong>reboot and become unavaialble</strong> during the discovery process.</p>
+        </div>
+        <%= form_tag  provision_path, :id => "prov_form", method: :post do %>
+        <div class="table-responsive table-modal">
+          <table class="table table-condensed table-striped table-fixed">
+            <thead class="darker">
+              <tr>
+                <th>BMC Address</th>
+                <th>Server Model</th>
+                <th>Server Serial</th>
+              </tr>
+            </thead>
+            <tbody id="provision_body"></tbody>
+          </table>
+        </div>
+        <div class="alert alert-success">
+          <p>To continue, please type <strong>Provision Servers</strong>
+             in the text box below and click the Submit button.</p>
+        </div>
+      </div>
+      <div class='modal-footer'>
+        <%= submit_tag("Submit", :class => "prov pull-left btn btn-success" ) %>
+        <%= text_field_tag :confirm, "", class: 'pull-left squeeze-text form-control input-sm' %>
+        <button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
