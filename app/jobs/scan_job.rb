@@ -86,14 +86,23 @@ class ScanJob < ApplicationJob
       end
       return {address: address, model: model, serial: serial, job_id: ilo_scan_job.id}
     end
- 
+
     #Save the scan result to the database
-    def save_scan_result(hash)
+    def save_scan_result(address, ilo_scan_job, hash)
       scan_result = ScanResult.new
+      conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
       scan_result.ilo_address = hash[:address]
       scan_result.server_model = hash[:model]
       scan_result.server_serial = hash[:serial]
       scan_result.ilo_scan_job_id = hash[:job_id]
+      if conn.chassis.power.on?
+        scan_result.power_status = "On"
+      elsif conn.chassis.power.off?
+        scan_result.power_status = "Off"
+      else
+        scan_result.power_status = "Unknown"
+      end
+      scan_result.provision_status = "Scanned"
       scan_result.save
     end
 
@@ -102,7 +111,7 @@ class ScanJob < ApplicationJob
       Concurrent::Promise.execute(executor: pool) do
         hash = do_ipmi_scan(address, ilo_scan_job)
         ActiveRecord::Base.connection_pool.with_connection do
-          save_scan_result(hash)
+          save_scan_result(address, ilo_scan_job, hash)
         end
       end
     end
