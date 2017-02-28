@@ -15,15 +15,17 @@ class ProvisionJob < ApplicationJob
         conn.chassis.power.off
         #If graceful shutdown fails, force reboot in 60 seconds
         begin
-		      Timeout::timeout(60) {
-            sleep(1) until conn.chassis.power.off?
+          Timeout::timeout(180) {
+           sleep(1) until conn.chassis.power.off?
           }
-		    rescue Timeout::Error
+        rescue Timeout::Error
           conn.chassis.bootpxe(reboot=true, persistent=true)
         end
         sleep 5
-        #Boot into PXE mode
-        conn.chassis.bootpxe(reboot=true, persistent=true)
+        #Boot into PXE mode if system is off
+        if conn.chassis.power.off?
+          conn.chassis.bootpxe(reboot=true, persistent=true)
+        end
 
       end
     end
