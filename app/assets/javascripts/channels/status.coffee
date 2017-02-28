@@ -139,6 +139,8 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.address
         data.model
         data.serial
+        data.power_status
+        data.provision_status
       ]
       detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
       $( detail_row ).css( 'display', 'none' )
