@@ -51,6 +51,14 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     no_respond = 'No servers responded within this range'
     respond_finish = "#{ data.server_count } server(s) responded"
 
+    #Define Power Status
+    if data.power_status == "On"
+      power_status = "<div class='power_on'><i class='fa fa-power-off'></i> #{ data.power_status }</div>"
+    else if data.power_status == "Off"
+      power_status = "<div class='power_off'><i class='fa fa-power-off'></i> #{ data.power_status }</div>"
+    else
+      power_status = "Unknown"
+
 
     #Define Jquery Datatables
     table = $('#dtable').DataTable() if $('#dtable').length
@@ -139,7 +147,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.address
         data.model
         data.serial
-        data.power_status
+        power_status
         data.provision_status
       ]
       detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
