@@ -33,9 +33,6 @@ class ScanJob < ApplicationJob
     pool = Concurrent::FixedThreadPool.new(100)
     cache_pool = Concurrent::CachedThreadPool.new
 
-    #Flush ipmi-fru sdr cache
-    system 'ipmi-fru -f -Q'
-
     #Use Discover to see which iLOs responds
     return_ip = []
     @ip_range.each do | r|
@@ -70,6 +67,9 @@ class ScanJob < ApplicationJob
 
     #Take each returned IP and grab the model and serial
     def do_ipmi_scan(address, ilo_scan_job)
+      #Flush SDR cache if it exists
+      system "ipmi-sensors -h #{address} -u #{ilo_scan_job.ilo_username} -p #{ilo_scan_job.ilo_password} -f -Q"
+      #Obtain fru information of server
       get_fru = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} ).fru.list
       #IBM or HP Server
       if !get_fru["default_fru_device"].nil?
@@ -102,7 +102,7 @@ class ScanJob < ApplicationJob
       else
         scan_result.power_status = "Unknown"
       end
-      scan_result.provision_status = "Scanned"
+      scan_result.provision_status = "Initial Scan"
       scan_result.save
     end
 
