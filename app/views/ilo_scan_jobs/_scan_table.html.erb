@@ -5,6 +5,8 @@
       <th>BMC Address</th>
       <th>Server Model</th>
       <th>Server Serial</th>
+      <th>Power Status<br>(at time of scan)</th>
+      <th>Provision Status</th>
     </tr>
   </thead>
   <tbody id="main_table_body" style="display: none">
@@ -13,6 +15,8 @@
         <td><%= result.ilo_address %></td>
         <td><%= result.server_model %></td>
         <td><%= result.server_serial %></td>
+        <td><%= result.power_status %></td>
+        <td><%= result.provision_status %></td>
       </tr>
     <% end %>
   </tbody>

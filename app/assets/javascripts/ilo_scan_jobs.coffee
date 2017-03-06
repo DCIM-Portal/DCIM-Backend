@@ -64,13 +64,30 @@ $(document).on 'turbolinks:load', ->
         className: 'csv_button'
       }
     ]
+    columnDefs: [
+      { targets: 3
+      data: 3
+      render: (data, type, full, meta) ->
+        if data == 'On'
+          '<div class="power_on"><i class="fa fa-power-off"></i> ' + data + '</div>'
+        else if data == 'Off'
+          '<div class="power_off"><i class="fa fa-power-off"></i> ' + data + '</div>'
+        else
+          data
+      }
+    ]
     scrollY: '365px'
     responsive: true
+    createdRow: (row, data, dataIndex) ->
+      serial = $(row).find('td:eq(2)').html()
+      $(row).find('td:eq(4)').attr 'id', "provision_#{ serial }"
+      $(row).find('td:eq(3)').attr 'id', "power_#{ serial }"
     drawCallback: ->
       $('#main_header').show()
       $('#main_table_body').show()
       $('.black-btn').show()
       $('.overlay').hide()
+
 
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()

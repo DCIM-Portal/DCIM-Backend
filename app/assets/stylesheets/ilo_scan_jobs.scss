@@ -536,6 +536,28 @@ a:hover, a:focus {
   text-transform: uppercase;
   color: rgba(109, 114, 117, 0.7);
 }
+.power_on {
+  background-color: #18bc9c;
+  color: white;
+  padding: 2px;
+  text-align: center;
+  width: 50px;
+  border: 1px solid #48615c;
+  border-radius: 2px;
+  font-family: 'Lato';
+  font-size: 13px;
+}
+.power_off {
+  background-color: #ca7373;
+  color: white;
+  padding: 2px;
+  text-align: center;
+  width: 50px;
+  border: 1px solid #614848;
+  border-radius: 2px;
+  font-family: 'Lato';
+  font-size: 13px;
+}
 table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   outline: none;
 }
