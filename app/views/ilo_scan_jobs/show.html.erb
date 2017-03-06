@@ -46,7 +46,7 @@
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="waiting">Waiting on scan results <div class="throbber-loader"> </div></span></div>
         <% elsif @ilo_scan_job.count == 0 %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="no-respond">No servers responded within this range</span></div>
-        <% elsif @ilo_scan_job.count > 0 && @ilo_scan_job.status != "Scan Complete" %>
+        <% elsif @ilo_scan_job.count > 0 && @ilo_scan_job.status != "Scan Complete" && @ilo_scan_job.status != "Provisioning Servers"%>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="waiting">Waiting on scan results  <div class="throbber-loader"> </div></span></div>
         <% else %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="responded"><%= @ilo_scan_job.count %> server(s) responded</span></div>

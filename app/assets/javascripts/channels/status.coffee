@@ -99,7 +99,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     
       #Detail Status  
       if $(respond_message).length then (
-        if data.count == null or data.server_count != 0
+        if ( data.count == null or data.server_count != 0 ) and data.status not in ['Provisioning Servers']
           $(respond_message).html wait_message
           $(respond_message).removeClass().addClass('waiting')
         else if data.server_count == 0
@@ -141,7 +141,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       table?.row(tr).remove().draw()
 
     #If detail list is received
-    if `typeof data.serial != 'undefined'` and $("#scan_#{ data.detail_id }").length then (
+    if `typeof data.serial != 'undefined'` and $("#scan_#{ data.detail_id }").length and data.provision_status == 'Initial Scan' then (
       detail_count = 0
       detail_data = [
         data.address
@@ -151,7 +151,15 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.provision_status
       ]
       detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
+      $('td:eq(4)', detail_row).attr 'id', "provision_#{ data.serial }"
+      $('td:eq(3)', detail_row).attr 'id', "power_#{ data.serial }"
       $( detail_row ).css( 'display', 'none' )
       $( detail_row ).fadeIn(500)
 
     )
+
+    if data.provision_status not in ["Initial Scan"] then (
+      $("#provision_#{ data.serial }").html "#{ data.provision_status } <div class='throbber-loader'> </div>"
+      $("#power_#{ data.serial }").html power_status
+    )
+
