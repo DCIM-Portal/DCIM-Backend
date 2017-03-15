@@ -89,7 +89,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     )
 
     #If job status is running
-    else if data.status not in ['Created', 'Job Deleted', 'Scan Complete'] and `typeof data.serial == 'undefined'` then (
+    else if data.status not in ['Created', 'Job Deleted', 'Scan Complete', 'Error During Provisioning', 'Servers Provisioned'] and `typeof data.serial == 'undefined'` then (
 
       #Update Jquery datatable if it exists
       table?.cell("#td_5_#{ data.job_id }").data wait_status
@@ -99,7 +99,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     
       #Detail Status  
       if $(respond_message).length then (
-        if ( data.count == null or data.server_count != 0 ) and data.status not in ['Provisioning Servers']
+        if ( data.count == null or data.server_count != 0 ) and data.status not in ['Provisioning Servers', 'Error During Provisioning', 'Servers Provisioned']
           $(respond_message).html wait_message
           $(respond_message).removeClass().addClass('waiting')
         else if data.server_count == 0
@@ -110,6 +110,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       #Add disabled class on buttons
       $("#edit_disable_#{ data.job_id }").addClass "disabled"
       $("#delete_disable_#{ data.job_id }").addClass "disabled"
+      $(".provision_#{ data.job_id }").addClass "disabled"
     ) 
 
     #If job status is complete
@@ -133,7 +134,19 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     #Remove disabled class on buttons
       $("#edit_disable_#{ data.job_id }").removeClass "disabled"
       $("#delete_disable_#{ data.job_id}").removeClass "disabled"
+      $(".provision_#{ data.job_id}").removeClass "disabled"
     )
+
+    else if data.status == "Error During Provisioning" || data.status == "Servers Provisioned"
+      #Update Jquery Datatable if it exists
+      table?.cell("#td_5_#{ data.job_id }").data data.status
+
+      #Update job detail status if it exists
+      $(detail_status).html data.status
+
+      $("#edit_disable_#{ data.job_id }").removeClass "disabled"
+      $("#delete_disable_#{ data.job_id}").removeClass "disabled"
+      $(".provision_#{ data.job_id}").removeClass "disabled"
 
     #If job is deleted, remove table row from Jquery datatable
     else if data.status == "Job Deleted"
@@ -158,8 +171,10 @@ App.status = App.cable.subscriptions.create "StatusChannel",
 
     )
 
-    if data.provision_status not in ["Initial Scan"] then (
+    if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"] then (
       $("#provision_#{ data.serial }").html "#{ data.provision_status } <div class='throbber-loader'> </div>"
       $("#power_#{ data.serial }").html power_status
     )
+    else if data.provision_status == "Error: Unable to Discover Server" || data.provision_status == "Server Discovered into Backend"
+      $("#provision_#{ data.serial }").html data.provision_status
 

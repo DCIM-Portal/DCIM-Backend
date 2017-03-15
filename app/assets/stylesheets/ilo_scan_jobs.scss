@@ -581,6 +581,13 @@ table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table
 #detail_table_wrapper div .btn-default:active {
   box-shadow: 0 0 0;
 }
+.no-select {
+  background-color: whitesmoke;
+  color: #d6d6d6;
+}
+.no-select:hover {
+  color: #fff;
+}
 span .button_text {
   padding-left: 7px;
   font-family: 'Lato';
@@ -635,7 +642,7 @@ span .button_text {
   background: #7f8c93;
   color: white;
   border: 1px solid black;
-  display: inline-block;
+  display: block;
 }
 #detail_table_info span.select-info {
   display: block;

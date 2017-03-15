@@ -90,7 +90,7 @@ class ScanJob < ApplicationJob
     #Save the scan result to the database
     def save_scan_result(address, ilo_scan_job, hash)
       scan_result = ScanResult.new
-      conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
+      conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "ipmitool", {:driver => "lan20"} )
       scan_result.ilo_address = hash[:address]
       scan_result.server_model = hash[:model]
       scan_result.server_serial = hash[:serial]

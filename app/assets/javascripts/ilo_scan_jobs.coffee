@@ -88,7 +88,6 @@ $(document).on 'turbolinks:load', ->
       $('.black-btn').show()
       $('.overlay').hide()
 
-
 $(document).on 'turbolinks:before-cache', ->
   $('.overlay').show()
   $('#main_table_body').hide()

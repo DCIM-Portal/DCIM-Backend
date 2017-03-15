@@ -14,13 +14,13 @@
                 <td><%= @ilo_scan_job.end_ip %></td>
                 <td><%= @ilo_scan_job.ilo_username %></td>
                 <td><%= @ilo_scan_job.ilo_password %></td>
-                <% unless @ilo_scan_job.status == "Scan Complete" %>
+                <% unless @ilo_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
                   <td id="status_<%= @ilo_scan_job.id %>"><%= @ilo_scan_job.status %> <div class="throbber-loader"> </div></td>
                 <% else %>
                   <td id="status_<%= @ilo_scan_job.id %>"><%= @ilo_scan_job.status %></td>
                 <% end %>
                 <td><%= I18n.l @ilo_scan_job.created_at, format: :pretty %></td>
-                <% unless @ilo_scan_job.status == "Scan Complete" %>
+                <% unless @ilo_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
                   <td><%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job), class: 'btn btn-small btn-warning disabled', id: "edit_disable_#{@ilo_scan_job.id}" %></td>
                   <td><%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger disabled', id: "delete_disable_#{@ilo_scan_job.id}" %></td>
                 <% else %>
@@ -46,41 +46,22 @@
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="waiting">Waiting on scan results <div class="throbber-loader"> </div></span></div>
         <% elsif @ilo_scan_job.count == 0 %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="no-respond">No servers responded within this range</span></div>
-        <% elsif @ilo_scan_job.count > 0 && @ilo_scan_job.status != "Scan Complete" && @ilo_scan_job.status != "Provisioning Servers"%>
+        <% elsif @ilo_scan_job.count > 0 && @ilo_scan_job.status != "Scan Complete" && @ilo_scan_job.status != "Provisioning Servers" && @ilo_scan_job.status != "Error During Provisioning" && @ilo_scan_job.status != "Servers Provisioned"%>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="waiting">Waiting on scan results  <div class="throbber-loader"> </div></span></div>
         <% else %>
           <span id="scan_info_<%= @ilo_scan_job.id %>" class="responded"><%= @ilo_scan_job.count %> server(s) responded</span></div>
         <% end %>
         <%= render 'scan_table' %>
       </div>
-      <button id="provision" class='btn black-btn pull-right' data-target='#provision_modal' data-toggle='modal' type='button'>Provision Servers</button>
+      <% unless @ilo_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
+        <button id="provision" class='provision_<%= @ilo_scan_job.id %> btn black-btn pull-right disabled' data-target='#provision_modal' data-toggle='modal' type='button'>Provision Servers</button>
+      <% else %>
+        <button id="provision" class='provision_<%= @ilo_scan_job.id %> btn black-btn pull-right' data-target='#provision_modal' data-toggle='modal' type='button'>Provision Servers</button>
+      <% end %>
     </div>
   </div>
   <%= render 'modal' %>
 </div>
-<script>
-var arrayToTable = function (data) {
-  "use strict";
-  var rows = [], row, i, j
-
-  for (i = 0; i < data.length; i = i + 1) {
-    row = $('<tr />');
-    for (j = 0; j < data[i].length; j = j + 1) {
-      row.append($('<td class=td_' + j + '/>').html(data[i][j]));
-		  row.append($('<input>').attr({
-		    type: 'hidden',
-			  value: data[i][j],
-        name: j + "[]"
-		  }).html(""));
-    }
-    rows.push(row);
-  }
-  for (i = 0; i < rows.length; i = i + 1) {
-    row.append(rows[i]);
-  }
-  return rows;
-};
-</script>
 <script>
 $('#provision').click(function() {
   var table_select_array, data_select, detail_table, tbody
@@ -93,20 +74,50 @@ $('#provision').click(function() {
     $('.table-modal').show();
     $('.prov').show();
     $('#confirm').show();
+    $('#note').show();
     tbody = arrayToTable(data_select, {
       attrs: {class: 'selected_servers'}
     })
     $('#provision_body').html(tbody);
+    $('.td_4:contains("Discovered into Backend")').parent().addClass("no-select");
+    $('.no-select input').remove(".row_input");
     $('.td_4').hide();
     $('.td_3').hide();
   } else {
     $('.alert').hide();
+    $('#note').hide();
     $('.table-modal').hide();
     $('.prov').hide();
     $('#confirm').hide();
     $('#nothing').show();
   }
+  if($('#provision').hasClass('disabled')) {
+    event.stopPropagation();
+  }  
 });
+</script>
+<script>
+var arrayToTable = function (data) {
+  "use strict";
+  var rows = [], row, i, j
+
+  for (i = 0; i < data.length; i = i + 1) {
+    row = $("<tr />");
+    for (j = 0; j < data[i].length; j = j + 1) {
+      row.append($('<td class=td_' + j + '/>').html(data[i][j]));
+      row.append($('<input class=row_input>').attr({
+        type: 'hidden',
+        value: data[i][j],
+        name: j + "[]"
+      }).html(""));
+    }
+    rows.push(row);
+  }
+  for (i = 0; i < rows.length; i = i + 1) {
+    row.append(rows[i]);
+  }
+  return rows;
+};
 </script>
 <script>
 $('.prov').on('click',function(){
