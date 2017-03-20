@@ -70,10 +70,12 @@ class IloScanJobsController < ApplicationController
   end
 
   def provision
-    @ilo_scan_job.status = "Provisioning Servers"
-    @ilo_scan_job.save
-    @address_params = params["0"]
-    ProvisionJob.perform_later(@address_params, @ilo_scan_job)
+    unless params["0"].nil?
+      @ilo_scan_job.status = "Provisioning Servers"
+      @ilo_scan_job.save
+      @address_params = params["0"]
+      ProvisionJob.perform_later(@address_params, @ilo_scan_job)
+    end
     respond_to do |format|
       format.html { redirect_to @ilo_scan_job }
     end

@@ -59,6 +59,12 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     else
       power_status = "Unknown"
 
+    #Add loader to provision status
+    if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"]
+      provision_status = "#{ data.provision_status } <div class='throbber-loader'> </div>"
+    else
+      provision_status = data.provision_status
+
 
     #Define Jquery Datatables
     table = $('#dtable').DataTable() if $('#dtable').length
@@ -172,9 +178,10 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     )
 
     if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"] then (
-      $("#provision_#{ data.serial }").html "#{ data.provision_status } <div class='throbber-loader'> </div>"
-      $("#power_#{ data.serial }").html power_status
+      detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
+      detail_table?.cell("#power_#{ data.serial }").data data.power_status
     )
     else if data.provision_status == "Error: Unable to Discover Server" || data.provision_status == "Server Discovered into Backend"
-      $("#provision_#{ data.serial }").html data.provision_status
+      detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
+
 
