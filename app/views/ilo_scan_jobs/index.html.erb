@@ -21,7 +21,7 @@
                 <td id="td_2_<%= ilo_scan_job.id %>"><%= ilo_scan_job.end_ip %></td>
                 <td id="td_3_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_username %></td>
                 <td id="td_4_<%= ilo_scan_job.id %>"><%= ilo_scan_job.ilo_password %></td>
-                <% unless ilo_scan_job.status == "Scan Complete" %>
+                <% unless ilo_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
                   <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %> <div class="throbber-loader"> </div></td>
                 <% else %>
                   <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
