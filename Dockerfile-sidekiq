@@ -1,0 +1,13 @@
+FROM ruby:latest
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs git freeipmi ipmitool
+RUN git clone https://git.code.sf.net/p/ipmiutil/code-git /tmp/ipmiutil-code-git
+#RUN /tmp/ipmiutil-code-git/beforeconf.sh
+WORKDIR /tmp/ipmiutil-code-git
+RUN /tmp/ipmiutil-code-git/configure
+RUN make install -j "$(nproc)"
+RUN mkdir /Rails_DCIM_Portal
+WORKDIR /Rails_DCIM_Portal
+ADD Gemfile /Rails_DCIM_Portal/Gemfile
+ADD Gemfile.lock /Rails_DCIM_Portal/Gemfile.lock
+RUN bundle install
+ADD . /Rails_DCIM_Portal

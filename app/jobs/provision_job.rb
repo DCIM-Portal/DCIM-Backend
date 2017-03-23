@@ -1,107 +1,106 @@
 require 'rubyipmi'
 
+# XXX: Assign proper name for this class and move it into its own class file
+class ProgressCable
+  def initialize(steps, **kwargs)
+    @steps = steps
+    @id = kwargs[:id]
+    @step = 0
+    @task = nil
+    @range_total = @steps.inject(0) {|sum, hash| sum + hash[:range]}
+    @range_used = 0.0
+  end
+
+  def advance()
+    @task.try(:kill)
+    if @step >= @steps.length
+      @last_progress_percentage = 100
+      emit_progress_percentage
+      return false
+    end
+    @step += 1
+    if @step > 1
+      @range_used += @steps[@step-2][:range].to_f
+    end
+    @time_start = Time.now.to_i
+    launch_timer
+    return true
+  end
+
+  def current_step
+    return @steps[@step-1]
+  end
+  
+  def launch_timer
+    @task = Concurrent::TimerTask.new(execution_interval: 1, timeout_interval: current_step[:timeout], run_now: true) do
+      time_elapsed = Time.now.to_i - @time_start
+      progress_current = (@range_used + (current_step[:range] * time_elapsed / current_step[:timeout])) / @range_total
+      # Round down calculated progress percentage
+      progress_current_percentage = (100 * progress_current).to_i
+      if progress_current_percentage != @last_progress_percentage
+        @last_progress_percentage = progress_current_percentage
+        emit_progress_percentage
+      end
+    end
+    @task.execute
+  end
+
+  def emit_progress_percentage
+    # TODO: Use actual channel for progress updates
+    ActionCable.server.broadcast 'status_channel', status: "Server " + @id + " at " + @last_progress_percentage.to_s + "%"
+  end
+end
+
 class ProvisionJob < ApplicationJob
   queue_as :default
 
-  def perform(provision, ilo_scan_job)
+  def initialize(*args)
+    super
+    # XXX: Don't hard-code this.
+    @api_adminurl = 'https://foreman.am2.hpelabs.net/'
+    # XXX: Don't hard-code this.
+    @api_username = 'admin'
+    @api_password = ENV["FOREMAN_PASSWORD"]
+  end
 
+  def perform(provision, ilo_scan_job)
+    # Recipe for provisioning
+    steps = [{:method => "power_off_graceful", :name => "power off graceful", :range => 30, :timeout => 180, :if_success_skip_steps => 1},
+             {:method => "power_off_now",      :name => "power off forceful", :range => 3,  :timeout => 20},
+             {:method => "power_on_pxe",       :name => "power on pxe",       :range => 17, :timeout => 80},
+             # TODO: Error handling if Foreman returns HTTP 401 Unauthorized
+             {:method => "server_discovered?", :name => "discover",           :range => 50, :timeout => 600}]
+ 
     #Insert delay for view status update
     sleep 2
 
     #Define thread pool
     pool = Concurrent::FixedThreadPool.new(100)
-
-    #Power off method
-    def power_down(conn)
-      #Try a graceful shutdown first
-      conn.chassis.power.softShutdown
-      #If graceful shutdown fails, force reboot in 60 seconds
-      begin
-        Timeout::timeout(180) {
-          sleep(10) until conn.chassis.power.off?
-        }
-      rescue Timeout::Error
-        conn.chassis.power.off
-        sleep 5
-      end
-      #Set false if server does not shut off
-      return conn.chassis.power.off?
-    end
-
-    #Power on pxe method
-    def power_on_pxe(conn)
-      #Set server to boot in PXE mode
-      begin
-        Timeout::timeout(80) {
-          conn.chassis.bootpxe(reboot=true, persistent=true)
-        }
-      rescue Timeout::Error
-        logger.warn("Timeout Reached - PXE Boot Fail!")
-      end
-      for i in 0..1
-        if conn.chassis.power.on?
-          return true
-        end
-        conn.chassis.power.on
-        sleep 5
-      end
-      #Set false if server does not power on
-      return conn.chassis.power.on?
-    end
-
-    #Define how to call the Foreman API
-    authenticator = ApipieBindings::Authenticators::BasicAuth.new( 'admin', ENV["FOREMAN_PASSWORD"] )
-    api = ApipieBindings::API.new( { :uri => 'https://foreman.am2.hpelabs.net/', :authenticator => authenticator, :api_version => '2' } )
-
-    def server_discovered(authenticator, api, status_record, ilo_scan_job)
-      serial_record = status_record.pluck(:server_serial)
-      serial = serial_record.join
-      provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
-      begin
-        Timeout::timeout(600) {
-          while provision_state['results'].empty? do
-            sleep 15
-            provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
-          end
-        }
-      rescue Timeout::Error
-        logger.warn("Timeout Reached - Server not found in Foreman!")
-      end
-      return !provision_state['results'].empty?
-    end
-    
+   
     #Take each bmc address and boot the server into PXE mode
     catch :break_out do
       provision.each do |address|
         Concurrent::Promise.execute(executor: pool) do
           conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
           status_record = ScanResult.where("ilo_address = ? AND ilo_scan_job_id = ?", address, ilo_scan_job.id)
-          ActiveRecord::Base.connection_pool.with_connection do
-            status_record.update(provision_status: 'Executing Graceful Shutdown')
-          end
-          ActiveRecord::Base.connection_pool.with_connection do
-            if !power_down(conn)
-              status_record.update(provision_status: 'Error: Unable to Power Down Server')
-              throw :break_out
-            else
-              status_record.update(power_status: 'Off', provision_status: 'Server Powered Off')
-            end
-          end
-          ActiveRecord::Base.connection_pool.with_connection do
-            if !power_on_pxe(conn)
-              status_record.update(provision_status: 'Error: Unable to Power On Server')
-              throw :break_out
-            else
-              status_record.update(power_status: 'On', provision_status: 'Powered On.  Discovering Server')
-            end
-          end
-          ActiveRecord::Base.connection_pool.with_connection do
-            if !server_discovered(authenticator, api, status_record, ilo_scan_job)
-              status_record.update(provision_status: 'Error: Unable to Discover Server')
-              ilo_scan_job.update(status: 'Error During Provisioning')
-              throw :break_out
-            else
-              status_record.update(provision_status: 'Server Discovered into Backend')
+          update_job_record(ilo_scan_job, status: "Provisioning Servers")
+          pbar = ProgressCable.new(steps, id: address)
+          while pbar.advance
+            begin
+              Timeout::timeout(pbar.current_step[:timeout]) {
+                update_status_record(status_record, conn, "Attempting to " + pbar.current_step[:name])
+                if !send(pbar.current_step[:method], conn: conn, record: status_record, job: ilo_scan_job)
+                  update_status_record(status_record, conn, "Error: Failed to " + pbar.current_step[:name])
+                  update_job_record(ilo_scan_job, status: "Error During Provisioning")
+                  throw :break_out
+                end
+                update_status_record(status_record, conn, "Successfully did " + pbar.current_step[:name])
+                for i in 0..(pbar.current_step[:if_success_skip_steps].to_i-1)
+                  pbar.advance
+                end
+              }
+            rescue Timeout::Error
+              update_status_record(status_record, conn, "Error: Timed out while doing " + pbar.current_step[:name])
             end
           end
         end
@@ -110,13 +109,81 @@ class ProvisionJob < ApplicationJob
 
     #Wait for threads to finish
     pool.shutdown
+    # XXX: Maybe calculate timeout based on total timeout of recipe/steps
     pool.wait_for_termination(timeout = 900)
 
     sleep 2
 
-    if ilo_scan_job.status != "Error During Provisioning"
+    if !ilo_scan_job.status.include? "Error"
       ilo_scan_job.update(status: 'Servers Provisioned')
     end
+  end
 
+  # Method: get power status as string
+  def power_status_s(conn:, **)
+    if conn.chassis.power.on?
+      return "On"
+    end
+    return "Off"
+  end
+
+  # Method: power off graceful
+  def power_off_graceful(conn:, **)
+    conn.chassis.power.softShutdown
+    sleep(5) until conn.chassis.power.off?
+    return conn.chassis.power.off?
+  end
+
+  # Method: power off forceful
+  def power_off_now(conn:, **)
+    conn.chassis.power.off
+    sleep(1) until conn.chassis.power.off?
+    return conn.chassis.power.off?
+  end
+
+  # Method: power on pxe
+  def power_on_pxe(conn:, **)
+    conn.chassis.bootpxe(reboot=true, persistent=true)
+    for i in 0..1
+      if conn.chassis.power.on?
+        return true
+      end
+    end
+    begin
+      conn.chassis.power.on
+      sleep(5)
+    end until conn.chassis.power.on?
+    return conn.chassis.power.on?
+  end
+
+  # Method: Is the server a discovered_host in Foreman?
+  def server_discovered?(conn:, record:, job:, **)
+    authenticator = ApipieBindings::Authenticators::BasicAuth.new( @api_username, @api_password )
+    api = ApipieBindings::API.new( { :uri => @api_adminurl, :authenticator => authenticator, :api_version => '2' } )
+
+    serial = record.pluck(:server_serial).join
+    provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
+    while provision_state['results'].empty? do
+      provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
+      if !provision_state['results'].empty?
+        return true
+      end
+      sleep 15
+    end
+    return !provision_state['results'].empty?
+  end
+
+  # Method: Update status record with provision status
+  def update_status_record(record, conn, provision_status)
+    ActiveRecord::Base.connection_pool.with_connection do
+      record.update(power_status: power_status_s(conn: conn), provision_status: provision_status)
+    end
+  end
+
+  # Method: Update scan job record
+  def update_job_record(record, **kwargs)
+    ActiveRecord::Base.connection_pool.with_connection do
+      record.update(kwargs)
+    end
   end
 end
