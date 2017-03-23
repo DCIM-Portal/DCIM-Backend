@@ -1,5 +1,5 @@
 FROM ruby:latest
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs git freeipmi
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs git freeipmi ipmitool
 RUN mkdir /Rails_DCIM_Portal
 WORKDIR /Rails_DCIM_Portal
 ADD Gemfile /Rails_DCIM_Portal/Gemfile
