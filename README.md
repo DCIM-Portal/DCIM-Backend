@@ -17,7 +17,7 @@ Rails DCIM Portal can be deployed fairly easily with Docker.
  7. Start the app with `docker-compose up`.  Optionally add the `-d` flag to run the app as a daemon.
  8. You can now access the app over HTTP at the server's IP address, port 3000.  If you're running this on your local machine, go to http://localhost:3000 in your web browser.
 
-Note that Foreman must be deployed elsewhere, and the hard-coded credentials in `app/jobs/provision_job.rb` must be modified manually.
+Note that Foreman is not provided here and it must be deployed separately.
 
 ### Manual
 
@@ -25,6 +25,7 @@ You will need to satisfy some dependencies to deploy this app manually:
 
  - A running MySQL server.  The database configuration file is at `Rails_DCIM_Portal/config/database.yml`.  The username `root` and the password `sharepoint` are currently hard-coded.
  - A running Redis server.  Port 6379 is currently hard-coded at `config/cable.yml` and `config/initializers/sidekiq.rb`.
+ - A running Foreman server
  - Common developer tools
    - Debian/Ubuntu: `apt install build-essential`
    - RHEL/CentOS: `yum groupinstall "Development Tools"`
@@ -52,7 +53,9 @@ Before starting the app, take note of the currently customizable environment var
 | --- | ---
 | `DCIM_PORTAL_DATABASE_HOST` | The MySQL hostname to use.  Specify `localhost` if you want to connect to the socket `/var/run/mysqld/mysqld.sock`.
 | `DCIM_PORTAL_REDIS_HOST` | The Redis hostname to use
-| `FOREMAN_PASSWORD` | The Foreman admin password.  Currently, the username and URL are hardcoded in `app/jobs/provision_job.rb`.
+| `FOREMAN_URL` | The Foreman URL to which Apipie will connect for Foreman API service
+| `FOREMAN_USERNAME` | The Foreman admin username
+| `FOREMAN_PASSWORD` | The Foreman admin password
 
 In a separate session or service, up Sidekiq, the background jobs manager:
 

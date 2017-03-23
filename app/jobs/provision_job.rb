@@ -11,6 +11,12 @@ class ProgressCable
     @range_used = 0.0
   end
 
+  def shutdown()
+    @task.try(:kill)
+    emit_progress_percentage
+    return true
+  end
+
   def advance()
     @task.try(:kill)
     if @step >= @steps.length
@@ -57,18 +63,17 @@ class ProvisionJob < ApplicationJob
   def initialize(*args)
     super
     # XXX: Don't hard-code this.
-    @api_adminurl = 'https://foreman.am2.hpelabs.net/'
+    @api_adminurl = ENV["FOREMAN_URL"]
     # XXX: Don't hard-code this.
-    @api_username = 'admin'
+    @api_username = ENV["FOREMAN_USERNAME"] || 'admin'
     @api_password = ENV["FOREMAN_PASSWORD"]
   end
 
   def perform(provision, ilo_scan_job)
     # Recipe for provisioning
-    steps = [{:method => "power_off_graceful", :name => "power off graceful", :range => 30, :timeout => 180, :if_success_skip_steps => 1},
+    steps = [{:method => "power_off_graceful", :name => "power off graceful", :range => 30, :timeout => 180, :if_success_skip_steps => 1, :ignore_timeout => true},
              {:method => "power_off_now",      :name => "power off forceful", :range => 3,  :timeout => 20},
              {:method => "power_on_pxe",       :name => "power on pxe",       :range => 17, :timeout => 80},
-             # TODO: Error handling if Foreman returns HTTP 401 Unauthorized
              {:method => "server_discovered?", :name => "discover",           :range => 50, :timeout => 600}]
  
     #Insert delay for view status update
@@ -78,13 +83,13 @@ class ProvisionJob < ApplicationJob
     pool = Concurrent::FixedThreadPool.new(100)
    
     #Take each bmc address and boot the server into PXE mode
-    catch :break_out do
-      provision.each do |address|
-        Concurrent::Promise.execute(executor: pool) do
-          conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
-          status_record = ScanResult.where("ilo_address = ? AND ilo_scan_job_id = ?", address, ilo_scan_job.id)
-          update_job_record(ilo_scan_job, status: "Provisioning Servers")
-          pbar = ProgressCable.new(steps, id: address)
+    provision.each do |address|
+      Concurrent::Promise.execute(executor: pool) do
+        conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
+        status_record = ScanResult.where("ilo_address = ? AND ilo_scan_job_id = ?", address, ilo_scan_job.id)
+        update_job_record(ilo_scan_job, status: "Provisioning Servers")
+        pbar = ProgressCable.new(steps, id: address)
+        catch :break_out {
           while pbar.advance
             begin
               Timeout::timeout(pbar.current_step[:timeout]) {
@@ -101,9 +106,13 @@ class ProvisionJob < ApplicationJob
               }
             rescue Timeout::Error
               update_status_record(status_record, conn, "Error: Timed out while doing " + pbar.current_step[:name])
+              unless pbar.current_step[:ignore_timeout]
+                throw :break_out
+              end
             end
           end
-        end
+        }
+        pbar.shutdown
       end
     end
 
@@ -162,13 +171,19 @@ class ProvisionJob < ApplicationJob
     api = ApipieBindings::API.new( { :uri => @api_adminurl, :authenticator => authenticator, :api_version => '2' } )
 
     serial = record.pluck(:server_serial).join
-    provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
-    while provision_state['results'].empty? do
+    provision_state = nil
+    begin
       provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
-      if !provision_state['results'].empty?
-        return true
+      while provision_state['results'].empty? do
+        provision_state = api.resource(:fact_values).call( :index, :search => "#{serial}" )
+        if !provision_state['results'].empty?
+          return true
+        end
+        sleep 15
       end
-      sleep 15
+    rescue
+      logger.warn "Apipie request failed"
+      return false
     end
     return !provision_state['results'].empty?
   end
