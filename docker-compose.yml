@@ -36,6 +36,9 @@ services:
       https_proxy: ${http_proxy}
       DCIM_PORTAL_DATABASE_HOST: db
       DCIM_PORTAL_REDIS_HOST: redis
+      FOREMAN_URL: "https://foreman/"
+      FOREMAN_USERNAME: "admin"
+      FOREMAN_PASSWORD: "sharepoint"
   web:
     build:
       context: .
@@ -55,5 +58,8 @@ services:
       https_proxy: ${http_proxy}
       DCIM_PORTAL_DATABASE_HOST: db
       DCIM_PORTAL_REDIS_HOST: redis
+      FOREMAN_URL: "https://foreman/"
+      FOREMAN_USERNAME: "admin"
+      FOREMAN_PASSWORD: "sharepoint"
 volumes:
     db_data:
