@@ -71,10 +71,10 @@ class ProvisionJob < ApplicationJob
 
   def perform(provision, ilo_scan_job)
     # Recipe for provisioning
-    steps = [{:method => "power_off_graceful", :name => "power off graceful", :range => 30, :timeout => 180, :if_success_skip_steps => 1, :ignore_timeout => true},
-             {:method => "power_off_now",      :name => "power off forceful", :range => 3,  :timeout => 20},
-             {:method => "power_on_pxe",       :name => "power on pxe",       :range => 17, :timeout => 80},
-             {:method => "server_discovered?", :name => "discover",           :range => 50, :timeout => 600}]
+    steps = [{:method => "power_off_graceful", :name => "Power Off Gracefully", :range => 30, :timeout => 180, :if_success_skip_steps => 1, :ignore_timeout => true},
+             {:method => "power_off_now",      :name => "Power Off Forcefully", :range => 3,  :timeout => 20},
+             {:method => "power_on_pxe",       :name => "Power On and PXE Boot", :range => 17, :timeout => 80},
+             {:method => "server_discovered?", :name => "Discover", :range => 50, :timeout => 600}]
  
     #Insert delay for view status update
     sleep 2
@@ -99,13 +99,13 @@ class ProvisionJob < ApplicationJob
                   update_job_record(ilo_scan_job, status: "Error During Provisioning")
                   throw :break_out
                 end
-                update_status_record(status_record, conn, "Successfully did " + pbar.current_step[:name])
+                update_status_record(status_record, conn, "Task Completed: " + pbar.current_step[:name])
                 for i in 0..(pbar.current_step[:if_success_skip_steps].to_i-1)
                   pbar.advance
                 end
               }
             rescue Timeout::Error
-              update_status_record(status_record, conn, "Error: Timed out while doing " + pbar.current_step[:name])
+              update_status_record(status_record, conn, "Error - Timed Out: " + pbar.current_step[:name])
               unless pbar.current_step[:ignore_timeout]
                 throw :break_out
               end

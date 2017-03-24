@@ -51,21 +51,6 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     no_respond = 'No servers responded within this range'
     respond_finish = "#{ data.server_count } server(s) responded"
 
-    #Define Power Status
-    if data.power_status == "On"
-      power_status = "<div class='power_on'><i class='fa fa-power-off'></i> #{ data.power_status }</div>"
-    else if data.power_status == "Off"
-      power_status = "<div class='power_off'><i class='fa fa-power-off'></i> #{ data.power_status }</div>"
-    else
-      power_status = "Unknown"
-
-    #Add loader to provision status
-    if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"]
-      provision_status = "#{ data.provision_status } <div class='throbber-loader'> </div>"
-    else
-      provision_status = data.provision_status
-
-
     #Define Jquery Datatables
     table = $('#dtable').DataTable() if $('#dtable').length
     detail_table = $('#detail_table').DataTable() if $('#detail_table').length
@@ -166,7 +151,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.address
         data.model
         data.serial
-        power_status
+        data.power_status
         data.provision_status
       ]
       detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
@@ -180,8 +165,12 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"] then (
       detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
       detail_table?.cell("#power_#{ data.serial }").data data.power_status
+      if data.provision_status == "Executing Graceful Shutdown"
+        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '35%' }, 90000
+      else if data.provision_status == "Server Powered Off"
+        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '50%' }, 2000
+      else if data.provision_status == "Powered On.  Discovering Server"
+        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '97%' }, 180000
     )
     else if data.provision_status == "Error: Unable to Discover Server" || data.provision_status == "Server Discovered into Backend"
       detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
-
-

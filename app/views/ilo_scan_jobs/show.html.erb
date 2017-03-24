@@ -100,16 +100,15 @@ $('#provision').click(function() {
 var arrayToTable = function (data) {
   "use strict";
   var rows = [], row, i, j
-
   for (i = 0; i < data.length; i = i + 1) {
     row = $("<tr />");
+    row.append($('<input class=row_input>').attr({
+      type: 'hidden',
+      value: data[i][0],
+      name: "address[]"
+    }).html(""));
     for (j = 0; j < data[i].length; j = j + 1) {
       row.append($('<td class=td_' + j + '/>').html(data[i][j]));
-      row.append($('<input class=row_input>').attr({
-        type: 'hidden',
-        value: data[i][j],
-        name: j + "[]"
-      }).html(""));
     }
     rows.push(row);
   }
