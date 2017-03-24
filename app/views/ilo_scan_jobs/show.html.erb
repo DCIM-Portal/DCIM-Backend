@@ -19,7 +19,7 @@
                 <% else %>
                   <td id="status_<%= @ilo_scan_job.id %>"><%= @ilo_scan_job.status %></td>
                 <% end %>
-                <td><%= I18n.l @ilo_scan_job.created_at, format: :pretty %></td>
+                <td><%= I18n.l @ilo_scan_job.updated_at, format: :pretty %></td>
                 <% unless @ilo_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
                   <td><%= link_to 'Edit', edit_ilo_scan_job_path(@ilo_scan_job), class: 'btn btn-small btn-warning disabled', id: "edit_disable_#{@ilo_scan_job.id}" %></td>
                   <td><%= link_to 'Delete', @ilo_scan_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger disabled', id: "delete_disable_#{@ilo_scan_job.id}" %></td>

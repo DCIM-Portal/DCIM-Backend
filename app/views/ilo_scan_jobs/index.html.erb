@@ -26,7 +26,7 @@
                 <% else %>
                   <td id="td_5_<%= ilo_scan_job.id %>"><%= ilo_scan_job.status %></td>
                 <% end %>
-                <td id="td_6_<%= ilo_scan_job.id %>"><%= I18n.l ilo_scan_job.created_at, format: :pretty %></td>
+                <td id="td_6_<%= ilo_scan_job.id %>"><%= I18n.l ilo_scan_job.updated_at, format: :pretty %></td>
                 <td id="td_7_<%= ilo_scan_job.id %>"><%= link_to 'Details', ilo_scan_job, class: 'btn btn-small btn-info' %></td>
               </tr>
             <% end %>
