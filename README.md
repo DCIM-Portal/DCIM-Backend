@@ -54,7 +54,7 @@ Before starting the app, take note of the currently customizable environment var
 | `DCIM_PORTAL_DATABASE_HOST` | The MySQL hostname to use.  Specify `localhost` if you want to connect to the socket `/var/run/mysqld/mysqld.sock`.
 | `DCIM_PORTAL_REDIS_HOST` | The Redis hostname to use
 | `FOREMAN_URL` | The Foreman URL to which Apipie will connect for Foreman API service
-| `FOREMAN_USERNAME` | The Foreman admin username
+| `FOREMAN_USERNAME` | The Foreman admin username.  Defaults to "admin"
 | `FOREMAN_PASSWORD` | The Foreman admin password
 
 In a separate session or service, up Sidekiq, the background jobs manager:
