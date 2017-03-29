@@ -176,6 +176,35 @@ table, .table {
 #action_cable_row {
   display: none;
 }
+td .col-sm-12 {
+  padding: 0;
+}
+.progress.active .progress-bar {
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+.progress {
+  height: 12px;
+  width: 150px;
+  border-radius: 1px;
+  background-color: #bbb;
+  margin-bottom: 2px;
+  display: none;
+}
+.progress-bar {
+  background-color: #217dbb;
+  padding: 2px;
+}
+.progress .progress-bar {
+  font-size: 11px;
+}
+.progress_finish {
+  color: #18bc9c;
+  font-weight: 600;
+}
+.prov_message {
+  font-size: 12px;
+}
 .panel {
   border: none;
   box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);

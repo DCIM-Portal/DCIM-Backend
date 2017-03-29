@@ -74,14 +74,31 @@ $(document).on 'turbolinks:load', ->
           '<div class="power_off"><i class="fa fa-power-off"></i> ' + data + '</div>'
         else
           data
+      },
+      { targets: 4
+      data: 4
+      render: (data, type, full, meta) ->
+        if !(/((Initial Scan)|(Error)|(Server Discovered))/.test(data))
+          '<div class="prov_message">' + data + ' <div class="throbber-loader"></div></div>'
+        else if data == "Server Discovered Into Backend"
+          '<div class="progress_finish"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' + data + '</div>'
+        else
+          data
       }
     ]
     scrollY: '365px'
     responsive: true
     createdRow: (row, data, dataIndex) ->
-      serial = $(row).find('td:eq(2)').html()
-      $(row).find('td:eq(4)').attr 'id', "provision_#{ serial }"
-      $(row).find('td:eq(3)').attr 'id', "power_#{ serial }"
+      address = $(row).find('td:eq(0)').html()
+      progress_status = $(row).find('td:eq(4)').html()
+      escapeSelector = (s) ->
+        s.replace /\./g, "\\."
+      $(row).find('td:eq(4)').prepend '<div class="progress progress-striped active"><div class="progress-bar progress-bar-striped" role="progressbar"></div></div>'
+      $(row).find('td:eq(4)').attr 'id', "provision_#{ address }"
+      $(row).find('td:eq(3)').attr 'id', "power_#{ address }"
+      if !(/((Initial Scan)|(Error)|(Server Discovered))/.test(progress_status))
+        $("td#" + escapeSelector("provision_#{ address }") + " div.progress").show()
+
     drawCallback: ->
       $('#main_header').show()
       $('#main_table_body').show()

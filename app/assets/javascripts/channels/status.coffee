@@ -51,6 +51,10 @@ App.status = App.cable.subscriptions.create "StatusChannel",
     no_respond = 'No servers responded within this range'
     respond_finish = "#{ data.server_count } server(s) responded"
 
+    #Remove periods from IDs that have IPv4 Addresses
+    escapeSelector = (s) ->
+      s.replace /\./g, "\\."
+
     #Define Jquery Datatables
     table = $('#dtable').DataTable() if $('#dtable').length
     detail_table = $('#detail_table').DataTable() if $('#detail_table').length
@@ -155,22 +159,19 @@ App.status = App.cable.subscriptions.create "StatusChannel",
         data.provision_status
       ]
       detail_row = detail_table?.row.add(detail_data).draw().nodes().to$().addClass("server#{ data.detail_id }")
-      $('td:eq(4)', detail_row).attr 'id', "provision_#{ data.serial }"
-      $('td:eq(3)', detail_row).attr 'id', "power_#{ data.serial }"
+      $('td:eq(4)', detail_row).attr 'id', "provision_#{ data.address }"
+      $('td:eq(3)', detail_row).attr 'id', "power_#{ data.address }"
       $( detail_row ).css( 'display', 'none' )
       $( detail_row ).fadeIn(500)
-
     )
 
-    if data.provision_status not in ["Initial Scan", "Error: Unable to Discover Server", "Server Discovered into Backend"] then (
-      detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
-      detail_table?.cell("#power_#{ data.serial }").data data.power_status
-      if data.provision_status == "Executing Graceful Shutdown"
-        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '35%' }, 90000
-      else if data.provision_status == "Server Powered Off"
-        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '50%' }, 2000
-      else if data.provision_status == "Powered On.  Discovering Server"
-        $("#provision_#{ data.serial } .progress-container .progress .progress-bar").stop().animate { width: '97%' }, 180000
+    if !(/((Initial Scan)|(Error)|(Server Discovered))/.test(data.provision_status)) then (
+      $("td#" + escapeSelector("provision_#{ data.address }") + " div.progress").show()
+      save_progress = $("td#" + escapeSelector("provision_#{ data.address }") + " div.progress").detach()
+      detail_table?.cell("td#" + escapeSelector("provision_#{ data.address }")).data data.provision_status
+      detail_table?.cell("td#" + escapeSelector("power_#{ data.address }")).data data.power_status
+      $("td#" + escapeSelector("provision_#{ data.address }")).prepend(save_progress)
+      $("td#" + escapeSelector("provision_#{ data.status_address }") + " div.progress div.progress-bar").stop().animate { width: "#{ data.percent}%" }, 500
     )
-    else if data.provision_status == "Error: Unable to Discover Server" || data.provision_status == "Server Discovered into Backend"
-      detail_table?.cell("#provision_#{ data.serial }").data data.provision_status
+    else if (/((Error)|(Server Discovered))/.test(data.provision_status))
+      detail_table?.cell("td#" + escapeSelector("provision_#{ data.address }")).data data.provision_status

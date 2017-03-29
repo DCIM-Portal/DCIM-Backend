@@ -53,7 +53,7 @@ class ProgressCable
 
   def emit_progress_percentage
     # TODO: Use actual channel for progress updates
-    ActionCable.server.broadcast 'status_channel', status: "Server " + @id + " at " + @last_progress_percentage.to_s + "%"
+    ActionCable.server.broadcast 'status_channel', { percent: @last_progress_percentage.to_s, status_address: @id }
   end
 end
 
@@ -113,6 +113,10 @@ class ProvisionJob < ApplicationJob
           end
         }
         pbar.shutdown
+        if status_record.as_json[0]["provision_status"] == "Task Completed: Discover"
+          sleep 3
+          status_record.update(provision_status: "Server Discovered Into Backend")
+        end
       end
     end
 
