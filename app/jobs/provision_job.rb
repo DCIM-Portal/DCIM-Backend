@@ -62,9 +62,7 @@ class ProvisionJob < ApplicationJob
 
   def initialize(*args)
     super
-    # XXX: Don't hard-code this.
     @api_adminurl = ENV["FOREMAN_URL"]
-    # XXX: Don't hard-code this.
     @api_username = ENV["FOREMAN_USERNAME"] || 'admin'
     @api_password = ENV["FOREMAN_PASSWORD"]
   end
@@ -85,7 +83,7 @@ class ProvisionJob < ApplicationJob
     #Take each bmc address and boot the server into PXE mode
     provision.each do |address|
       Concurrent::Promise.execute(executor: pool) do
-        conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
+        conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "ipmitool", {:driver => "lan20"} )
         status_record = ScanResult.where("ilo_address = ? AND ilo_scan_job_id = ?", address, ilo_scan_job.id)
         update_job_record(ilo_scan_job, status: "Provisioning Servers")
         pbar = ProgressCable.new(steps, id: address)
@@ -113,10 +111,6 @@ class ProvisionJob < ApplicationJob
           end
         }
         pbar.shutdown
-        if status_record.as_json[0]["provision_status"] == "Task Completed: Discover"
-          sleep 3
-          status_record.update(provision_status: "Server Discovered Into Backend")
-        end
       end
     end
 

@@ -165,13 +165,30 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       $( detail_row ).fadeIn(500)
     )
 
-    if !(/((Initial Scan)|(Error)|(Server Discovered))/.test(data.provision_status)) then (
+    if !(/((Initial Scan)|(Error)|(Completed: Discover))/.test(data.provision_status)) then (
       $("td#" + escapeSelector("provision_#{ data.address }") + " div.progress").show()
-      save_progress = $("td#" + escapeSelector("provision_#{ data.address }") + " div.progress").detach()
       detail_table?.cell("td#" + escapeSelector("provision_#{ data.address }")).data data.provision_status
       detail_table?.cell("td#" + escapeSelector("power_#{ data.address }")).data data.power_status
-      $("td#" + escapeSelector("provision_#{ data.address }")).prepend(save_progress)
-      $("td#" + escapeSelector("provision_#{ data.status_address }") + " div.progress div.progress-bar").stop().animate { width: "#{ data.percent}%" }, 500
+      $("td#" + escapeSelector("provision_#{ data.address }")).prepend(window.progress_bars[data.address])
     )
-    else if (/((Error)|(Server Discovered))/.test(data.provision_status))
+    else if (/((Error)|(Completed: Discover))/.test(data.provision_status))
       detail_table?.cell("td#" + escapeSelector("provision_#{ data.address }")).data data.provision_status
+      $("td#" + escapeSelector("provision_#{ data.address }")).prepend(window.progress_bars[data.address])
+      # XXX: Rework this when ScanResult is remodeled
+      $("td#" + escapeSelector("provision_#{ data.address }")).find('div:contains("Server Discovered into Backend")').addClass('prov_message').removeClass('progress_finish')
+      setTimeout( ->
+        window.progress_bars[data.address].remove()
+        # XXX: Rework this when ScanResult is remodeled
+        $("td#" + escapeSelector("provision_#{ data.address }")).find('div:contains("Server Discovered into Backend")').addClass('progress_finish').removeClass('prov_message')
+      , 3000)
+
+    # Handle progress bar
+    if data.status_address
+      progress_bar = window.progress_bars[data.status_address].find('.progress-bar')
+      # Convert indeterminate bar to determinate
+      if progress_bar.hasClass('active')
+        progress_bar.css 'width', "#{ data.percent }%"
+        progress_bar.removeClass('active')
+      # Animate progress bar to received percentage
+      progress_bar.stop().animate { width: "#{ data.percent }%" }, 500
+      progress_bar.html(data.percent + "%")

@@ -179,21 +179,22 @@ table, .table {
 td .col-sm-12 {
   padding: 0;
 }
-.progress.active .progress-bar {
-  -webkit-transition: none !important;
-  transition: none !important;
-}
 .progress {
   height: 12px;
   width: 150px;
   border-radius: 1px;
   background-color: #bbb;
   margin-bottom: 2px;
+  overflow: visible !important;
   display: none;
 }
 .progress-bar {
   background-color: #217dbb;
   padding: 2px;
+  overflow: visible !important;
+  -webkit-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }
 .progress .progress-bar {
   font-size: 11px;
