@@ -13,7 +13,7 @@
           <p><strong>WARNING!!!</strong>  You are about to provision these systems into the DCIM backend.  Doing
            so will cause the servers to <strong>reboot and become unavaialble</strong> during the discovery process.</p>
         </div>
-        <p id="note"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Grayed out rows indicate that the server has already been provisioned and cannot be re-provisioned by this tool.</p>
+        <p id="note"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Grayed out rows indicate that the server cannot be provisioned by this tool, either because it has already been provisioned or because it is missing relevant information.</p>
         <%= form_tag  provision_path, :id => "prov_form", method: :post do %>
         <div class="table-responsive table-modal">
           <table class="table table-condensed table-striped table-fixed">

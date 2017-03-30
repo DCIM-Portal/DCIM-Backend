@@ -79,7 +79,9 @@ $('#provision').click(function() {
       attrs: {class: 'selected_servers'}
     })
     $('#provision_body').html(tbody);
-    $('.td_4:contains("Discovered into Backend")').parent().addClass("no-select");
+    $('.td_4:contains("Server Discovered into Backend")').parent().addClass("no-select");
+    $('.td_2:empty').parent().addClass("no-select");
+    $('.td_2:contains("N/A")').parent().addClass("no-select");
     $('.no-select input').remove(".row_input");
     $('.td_4').hide();
     $('.td_3').hide();
