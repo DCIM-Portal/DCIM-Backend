@@ -139,4 +139,5 @@ $(document).ready ->
           cell.prepend window.progress_bars[address]
   )
   provision_cell_observer_configuration = { childList: true, subtree: true }
-  provision_cell_observer.observe($('#detail_table').get(0), provision_cell_observer_configuration)
+  if $("#detail_table").length
+    provision_cell_observer.observe($('#detail_table').get(0), provision_cell_observer_configuration)
