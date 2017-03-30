@@ -79,7 +79,11 @@ class ScanJob < ApplicationJob
       elsif !get_fru["system_board"].nil?
         model = get_fru["system_board"].values_at('board_manufacturer', 'board_product_name').join(' ')
         serial = get_fru["system_board"]["product_serial_number"]
-      #Unable to access BMC
+      #Cisco Server
+      elsif !get_fru["fru_ram"].nil?
+        model = get_fru["fru_ram"].values_at('board_manufacturer', 'product_name').join(' ')
+        serial = get_fru["fru_ram"]["product_serial_number"]
+      #Unable to access BMC or unsupported model
       else
         model = "Unable to Access Device"
         serial = "N/A"

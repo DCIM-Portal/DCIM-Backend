@@ -84,7 +84,7 @@ $(document).on 'turbolinks:load', ->
           '<div class="prov_message">' + data + ' <div class="throbber-loader"></div></div>'
         else if data == "Task Completed: Discover"
           '<div class="progress_finish"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Server Discovered into Backend</div>'
-        else if (/(Error))/.test(data))
+        else if /(Error)/.test(data)
           '<div class="progress_error"><i class="fa fa-times" aria-hidden="true"></i> ' + data + '</div>'
         else
           data
