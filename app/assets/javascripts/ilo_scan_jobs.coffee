@@ -76,6 +76,7 @@ $(document).on 'turbolinks:load', ->
           '<div class="power_off"><i class="fa fa-power-off"></i> ' + data + '</div>'
         else
           data
+      width: 50
       },
       { targets: 4
       data: 4
@@ -86,11 +87,34 @@ $(document).on 'turbolinks:load', ->
           '<div class="progress_finish"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Server Discovered into Backend</div>'
         else if /(Error)/.test(data)
           '<div class="progress_error"><i class="fa fa-times" aria-hidden="true"></i> ' + data + '</div>'
+        else if /(Initial)/.test(data)
+          '<div class="progress_initial"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> ' + data + '</div>'
         else
           data
+      width: 100
+      },
+      { targets: 1
+      data: 1
+      render: (data, type, full, meta) ->
+        if /(HP)/.test(data)
+          '<div class="img-box"><img src="/images/hpe.png" height=25 width=57 /></div><div class="model_cell">' + data + '</div>'
+        else if /(Cisco)/.test(data)
+          '<div class="img-box"><img src="/images/cisco.png" height=25 width=45 /></div><div class="model_cell">' + data + '</div>'
+        else if /(DELL)/.test(data)
+          '<div class="img-box"><img src="/images/dell.png" height=17 width=57 /></div><div class="model_cell">' + data + '</div>'
+        else if /(IBM)/.test(data)
+          '<div class="img-box"><img src="/images/ibm.png" height=17 width=50 /></div><div class="model_cell">' + data + '</div>'
+        else
+          '<div class="model_cell">' + data + '</div>'
+      width: 165
+      },
+      { targets: 2
+      data: 2
+      render: (data, type, full, meta) ->
+        '<div style="font-weight: 600">' + data + '</div>'
       }
     ]
-    scrollY: '365px'
+    scrollY: '400px'
     responsive: true
     createdRow: (row, data, dataIndex) ->
       address = $(row).find('td:eq(0)').html()
@@ -141,3 +165,4 @@ $(document).ready ->
   provision_cell_observer_configuration = { childList: true, subtree: true }
   if $("#detail_table").length
     provision_cell_observer.observe($('#detail_table').get(0), provision_cell_observer_configuration)
+

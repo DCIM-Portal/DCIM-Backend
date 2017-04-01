@@ -176,20 +176,18 @@ table, .table {
 #action_cable_row {
   display: none;
 }
-td .col-sm-12 {
-  padding: 0;
-}
 .progress {
-  height: 12px;
+  height: 13px;
   width: 150px;
   border-radius: 1px;
-  background-color: #bbb;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   overflow: visible !important;
   display: none;
+  background: rgba(189, 187, 187, 1); background: -webkit-linear-gradient(top, rgba(158, 158, 158, 1) 0%, rgba(189, 187, 187, 1) 100%); background: linear-gradient(to bottom, rgba(158, 158, 158, 1) 0%, rgba(189, 187, 187, 1) 100%);
+  border: 1px solid #b8b8b8;
 }
 .progress-bar {
-  background-color: #217dbb;
+  background: rgba(74, 126, 171, 1); background: -webkit-linear-gradient(top, rgba(167, 174, 181, 1) 0%, rgba(74, 126, 171, 1) 100%); background: linear-gradient(to bottom, rgba(167, 174, 181, 1) 0%, rgba(74, 126, 171, 1) 100%);
   padding: 2px;
   overflow: visible !important;
   -webkit-transition: none !important;
@@ -198,17 +196,35 @@ td .col-sm-12 {
 }
 .progress .progress-bar {
   font-size: 11px;
+  line-height: 8px;
+  font-weight: 600;
 }
+.progress-bar-striped {background-color: rgba(74, 126, 171, 1); background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255, 255, 255, 0.15),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255, 255, 255, 0.15)),color-stop(0.75,rgba(255, 255, 255, 0.15)),color-stop(0.75,transparent),to(transparent))); background-image: -webkit-linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-image: linear-gradient(45deg,rgba(255, 255, 255, 0.15) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, 0.15) 50%,rgba(255, 255, 255, 0.15) 75%,transparent 75%,transparent); background-size: 40px 40px;}
 .progress_finish {
   color: #18bc9c;
   font-weight: 600;
+}
+.progress_initial {
+  color: #E0AB57;
+  font-weight: 500;
 }
 .progress_error {
   color: #CA7373;
   font-weight: 600;
 }
 .prov_message {
-  font-size: 12px;
+  font-size: 11px;
+}
+.model_cell {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: inline-block;
+}
+.img-box {
+  float: left;
+  width: 57px;
+  margin-right: 10px;
 }
 .panel {
   border: none;

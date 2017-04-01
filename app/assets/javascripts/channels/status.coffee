@@ -177,7 +177,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       # XXX: Rework this when ScanResult is remodeled
       $("td#" + escapeSelector("provision_#{ data.address }")).find('div:contains("Server Discovered into Backend")').addClass('prov_message').removeClass('progress_finish')
       setTimeout( ->
-        window.progress_bars[data.address].remove()
+        window.progress_bars[data.address].hide()
         # XXX: Rework this when ScanResult is remodeled
         $("td#" + escapeSelector("provision_#{ data.address }")).find('div:contains("Server Discovered into Backend")').addClass('progress_finish').removeClass('prov_message')
       , 3000)
@@ -188,7 +188,7 @@ App.status = App.cable.subscriptions.create "StatusChannel",
       # Convert indeterminate bar to determinate
       if progress_bar.hasClass('active')
         progress_bar.css 'width', "#{ data.percent }%"
-        progress_bar.removeClass('active')
+        progress_bar.removeClass('active progress-bar-striped')
       # Animate progress bar to received percentage
       progress_bar.stop().animate { width: "#{ data.percent }%" }, 500
       progress_bar.html(data.percent + "%")
