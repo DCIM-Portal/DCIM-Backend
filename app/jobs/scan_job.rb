@@ -88,6 +88,10 @@ class ScanJob < ApplicationJob
       elsif !get_fru["fru_ram"].nil?
         model = get_fru["fru_ram"].values_at('board_manufacturer', 'product_name').join(' ')
         serial = get_fru["fru_ram"]["product_serial_number"]
+      #Supermicro
+      elsif !get_fru["bmc_fru"].nil?
+        model = get_fru["bmc_fru"].values_at('board_manufacturer', 'product_part/model_number').join(' ')
+        serial = get_fru["bmc_fru"]["product_serial_number"]
       #Unable to access BMC or unsupported model
       else
         model = "Unable to Access Device"

@@ -103,7 +103,9 @@ $(document).on 'turbolinks:load', ->
         else if /(DELL)/.test(data)
           '<div class="img-box"><img src="/images/dell.png" height=17 width=57 /></div><div class="model_cell">' + data + '</div>'
         else if /(IBM)/.test(data)
-          '<div class="img-box"><img src="/images/ibm.png" height=17 width=50 /></div><div class="model_cell">' + data + '</div>'
+          '<div class="img-box"><img src="/images/ibm.png" height=17 width=43 /></div><div class="model_cell">' + data + '</div>'
+        else if /(Supermicro)/.test(data)
+          '<div class="img-box"><img src="/images/supermicro.png" height=25 width=43 /></div><div class="model_cell">' + data + '</div>'
         else
           '<div class="model_cell">' + data + '</div>'
       width: 165
