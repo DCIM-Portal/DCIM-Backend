@@ -70,7 +70,12 @@ class ScanJob < ApplicationJob
       #Flush SDR cache if it exists
       system "ipmi-sensors -h #{address} -u #{ilo_scan_job.ilo_username} -p #{ilo_scan_job.ilo_password} -f -Q"
       #Obtain fru information of server
-      get_fru = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} ).fru.list
+      conn = Rubyipmi.connect(ilo_scan_job.ilo_username, ilo_scan_job.ilo_password, address, "freeipmi", {:driver => "lan20"} )
+      begin
+        get_fru = conn.fru.list
+      rescue
+        get_fru = conn.fru.list
+      end
       #IBM or HP Server
       if !get_fru["default_fru_device"].nil?
         model = get_fru["default_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
