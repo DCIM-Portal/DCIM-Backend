@@ -105,6 +105,7 @@ class ProvisionJob < ApplicationJob
             rescue Timeout::Error
               update_status_record(status_record, conn, "Error - Timed Out: " + pbar.current_step[:name])
               unless pbar.current_step[:ignore_timeout]
+                update_job_record(ilo_scan_job, status: "Error During Provisioning")
                 throw :break_out
               end
             end
