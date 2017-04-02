@@ -76,9 +76,6 @@ class IloScanJobsController < ApplicationController
       @address_params = params[:address]
       ProvisionJob.perform_later(@address_params, @ilo_scan_job)
     end
-    respond_to do |format|
-    format.html { redirect_to @ilo_scan_job }
-    end
   end
 
   private

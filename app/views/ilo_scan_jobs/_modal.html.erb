@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class='modal-footer'>
-        <%= submit_tag("Submit", :class => "prov pull-left btn btn-success" ) %>
+        <%= submit_tag("Submit", "data-dismiss" => "modal", :class => "prov pull-left btn btn-success" ) %>
         <%= text_field_tag :confirm, "", class: 'pull-left squeeze-text form-control input-sm' %>
         <button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
       </div>
