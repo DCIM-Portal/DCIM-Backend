@@ -4,7 +4,7 @@ class ScanResult < ApplicationRecord
   after_save :update_view_detail
 
   enum provision_steps: {
-    none: 0,
+    nothing: 0,
     in_progress: 1,
     timeout: 2,
     error: 3,

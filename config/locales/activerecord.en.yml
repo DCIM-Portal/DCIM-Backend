@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    attributes:
+      scan_result:
+        provision_steps:
+          nothing: ""
+          in_progress: "In Progress: "
+          timeout: "Error - Timeout: "
+          error: "Error: "
+          task_complete: "Task Completed: "
+        provision_steps_statuses:
+          initial_scan: "Initial Scan"
+          shtudown: "Graceful Shutdown"
+          poweroff: "Power Off"
+          poweron_pxe: "Power On to PXE"
+          discover: "Discover"
+          in_backend: "Discovered into Backend"
