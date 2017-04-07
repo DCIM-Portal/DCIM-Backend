@@ -1,0 +1,2 @@
+class BmcHost < ApplicationRecord
+end

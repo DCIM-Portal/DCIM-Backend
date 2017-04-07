@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scan_name: MyString
+  start_address: MyString
+  end_address: MyString
+  job_status: 1
+
+two:
+  scan_name: MyString
+  start_address: MyString
+  end_address: MyString
+  job_status: 1

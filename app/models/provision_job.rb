@@ -1,0 +1,2 @@
+class ProvisionJob < ApplicationRecord
+end
