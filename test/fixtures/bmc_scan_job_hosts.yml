@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bmc_scan_job_id: 1
+  bmc_host_id: 1
+
+two:
+  bmc_scan_job_id: 1
+  bmc_host_id: 1

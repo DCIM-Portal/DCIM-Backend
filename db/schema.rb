@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406212811) do
+ActiveRecord::Schema.define(version: 20170407213658) do
+
+  create_table "bmc_host_secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "username"
+    t.string   "password"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "bmc_host_id"
+    t.index ["bmc_host_id"], name: "index_bmc_host_secrets_on_bmc_host_id", using: :btree
+  end
 
   create_table "bmc_hosts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "serial"
@@ -21,6 +30,15 @@ ActiveRecord::Schema.define(version: 20170406212811) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "bmc_scan_job_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "bmc_scan_job_id"
+    t.integer  "bmc_host_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["bmc_host_id"], name: "index_bmc_scan_job_hosts_on_bmc_host_id", using: :btree
+    t.index ["bmc_scan_job_id"], name: "index_bmc_scan_job_hosts_on_bmc_scan_job_id", using: :btree
+  end
+
   create_table "bmc_scan_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "start_address"
@@ -28,6 +46,18 @@ ActiveRecord::Schema.define(version: 20170406212811) do
     t.integer  "status"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "brute_list_id"
+    t.index ["brute_list_id"], name: "index_bmc_scan_jobs_on_brute_list_id", using: :btree
+  end
+
+  create_table "brute_list_secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "username"
+    t.string   "password"
+    t.integer  "order"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "brute_list_id"
+    t.index ["brute_list_id"], name: "index_brute_list_secrets_on_brute_list_id", using: :btree
   end
 
   create_table "brute_lists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -36,43 +66,13 @@ ActiveRecord::Schema.define(version: 20170406212811) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ilo_scan_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "start_ip"
-    t.string   "end_ip"
-    t.string   "ilo_username"
-    t.string   "ilo_password"
-    t.string   "status"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "count"
-  end
-
   create_table "provision_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "status"
     t.integer  "step"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "scan_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "ilo_address"
-    t.string   "server_model"
-    t.string   "server_serial"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "ilo_scan_job_id"
-    t.string   "power_status"
-    t.integer  "provision_steps_status"
-    t.integer  "provision_steps"
-    t.index ["ilo_scan_job_id"], name: "index_scan_results_on_ilo_scan_job_id", using: :btree
-  end
-
-  create_table "secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "username"
-    t.string   "password"
-    t.integer  "order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "bmc_host_id"
+    t.index ["bmc_host_id"], name: "index_provision_jobs_on_bmc_host_id", using: :btree
   end
 
 end

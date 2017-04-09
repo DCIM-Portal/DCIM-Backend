@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IloScanJobTest < ActiveSupport::TestCase
+class BmcScanJobHostTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
