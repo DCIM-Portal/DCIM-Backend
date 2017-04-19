@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProvisionJobTest < ActiveJob::TestCase
+class BmcScanJobsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

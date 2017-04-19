@@ -144,6 +144,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #D0CEC7;
+  padding: 70px;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -162,6 +163,62 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid;
   font-size: 24px;
+}
+.list {
+  margin-top: 21px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+}
+.table-select {
+  margin-top: 0px;
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  text-align: center;
+  border-right: none;
+}
+.navbar-default {
+  box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.3);
+  background-color: #798D8F;
+  border-bottom: 1px solid black;
+}
+.nav-tabs > li {
+  text-align: center;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  max-width: 210px;
+}
+.nav-tabs {
+  border-bottom: none;
+  font-family: 'Lato';
+}
+.nav-tabs > li > a:hover {
+  border-color: #bbb;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: #fff !important;
+  background-color: #798D8F;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
+}
+.nav-tabs > li > a {
+  margin-right: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 13px;
+}
+ul.nav.nav-tabs li a {
+  color: #848080;
+}
+.nav li a .fa {
+  font-size: 22px;
+  padding-top: 2px;
+  color: #e6ab3b;
 }
 .table {
   margin-bottom: 0px;
@@ -708,6 +765,25 @@ div.dataTables_wrapper span.select-info, div.dataTables_wrapper span.select-item
 #detail_table_filter { float: none; }
 #detail_table_wrapper .dt-buttons { display: inline-block; margin-top: 10px; }
 #detail_table_filter label input { width: 100px; }
+}
+@media screen and (max-width: 992px), screen and (max-height: 375px) {
+.nav-tabs > li { float: left; }
+.list { position: relative; }
+}
+@media screen and (max-width: 715px) {
+.nav-tabs > li { float: none; }
+}
+@media screen and (max-width: 475px) {
+.time_dock { display: none; }
+div.dataTables_wrapper div.dataTables_filter input { width: 80%; display: block; }
+h5.table-select { font-size: 11px; }
+h3.text-left { font-size: 12px; }
+.btn { font-size: 11px; }
+.nav-tabs > li > a { font-size: 11px; }
+div.dataTables_wrapper div.dataTables_length select { width: 100%; display: block; }
+div.dataTables_wrapper div.dataTables_info { font-size: 10px; }
+div.dataTables_wrapper div.dataTables_paginate ul.pagination { font-size: 10px; border: none !important; box-shadow: none !important; }
+.dataTables_info { display: none; }
 }
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   border: 1px solid;

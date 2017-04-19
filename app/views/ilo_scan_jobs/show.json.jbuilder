@@ -1,1 +1,0 @@
-json.partial! "ilo_scan_jobs/ilo_scan_job", ilo_scan_job: @ilo_scan_job

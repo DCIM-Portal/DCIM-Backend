@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407213658) do
+ActiveRecord::Schema.define(version: 20170418154542) do
 
   create_table "bmc_host_secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170407213658) do
     t.integer  "is_discovered"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "system_model"
   end
 
   create_table "bmc_scan_job_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

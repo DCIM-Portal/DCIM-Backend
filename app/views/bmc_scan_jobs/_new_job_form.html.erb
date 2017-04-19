@@ -1,0 +1,29 @@
+<%= form_for(bmc_scan_job) do |f| %>
+  <fieldset>
+  <div class="form-group">
+    <%= f.label :name, "Job Name", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :name, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_address, "Start IP Address", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :start_address, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_address, "End IP Address", class: "control-label", for: "inputSmall" %>
+    <%= f.text_field :end_address, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Create New Scan Job', class: 'btn btn-success' %>
+  </div>
+  </fieldset>
+  <% if bmc_scan_job.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% bmc_scan_job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

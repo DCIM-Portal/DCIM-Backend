@@ -1,0 +1,2 @@
+module BmcScanJobsHelper
+end

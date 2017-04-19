@@ -1,0 +1,40 @@
+<h3 class="text-left text-uppercase bg-primary"><em>BMC Host Scan Jobs</em></h3>
+<%= link_to 'New Scan Job', new_bmc_scan_job_path, class: 'btn btn-success' %>
+<div class="pull-right">
+  <p class="time_dock">*All Times are US Central</p>
+</div>
+<%= render 'loading_overlay' %>
+<div id="main_header" class="panel panel-default">
+  <div class="well">
+    <table id="dtable" class="table table-striped table-condensed" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
+      <thead>
+        <tr>
+          <th>Scan Job ID</th>
+          <th>Scan Job Name</th>
+          <th>Start IP</th>
+          <th>End IP</th>
+          <th>Job Status</th>
+          <th>Scan Creation Time</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="main_table_body" style="display: none">
+        <% @bmc_scan_jobs.reverse_each do |bmc_scan_job| %>
+          <tr id="row<%= bmc_scan_job.id %>">
+            <td id="td_0_<%= bmc_scan_job.id %>"><%= bmc_scan_job.id %></td>
+            <td id="td_1_<%= bmc_scan_job.id %>"><%= bmc_scan_job.name %></td>
+            <td id="td_1_<%= bmc_scan_job.id %>"><%= bmc_scan_job.start_address %></td>
+            <td id="td_3_<%= bmc_scan_job.id %>"><%= bmc_scan_job.end_address %></td>
+            <% unless bmc_scan_job.status =~ /^(Scan Complete|Error During Provisioning|Servers Provisioned)$/ %>
+              <td id="td_4_<%= bmc_scan_job.id %>"><%= bmc_scan_job.status %> <div class="throbber-loader"> </div></td>
+            <% else %>
+              <td id="td_4_<%= bmc_scan_job.id %>"><%= bmc_scan_job.status %></td>
+            <% end %>
+            <td id="td_5_<%= bmc_scan_job.id %>"><%= I18n.l bmc_scan_job.created_at, format: :pretty %></td>
+            <td id="td_6_<%= bmc_scan_job.id %>"><%= link_to 'Details', bmc_scan_job, class: 'btn btn-small btn-info' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

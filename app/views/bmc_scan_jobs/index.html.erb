@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default navbar-fixed-top"></nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+       <div class="panel list"><ul class="nav nav-tabs" role="tablist">
+       <h5 class="table-select text-uppercase bg-primary">Select Table</h5>
+        <li class="active">
+          <a href="#scan_list" role="tab" data-toggle="tab">
+            <i class="fa fa-list-ol"></i><br>BMC Scan Jobs List
+          </a>
+        </li>
+        <li>
+          <a href="#host_list" role="tab" data-toggle="tab">
+            <i class="fa fa-desktop"></i><br>Scanned BMC Hosts List
+          </a>
+        </li>
+        <li>
+           <a href="#cred_list" role="tab" data-toggle="tab">
+              <i class="fa fa-address-card"></i><br>Credentials List
+          </a>
+        </li>
+      </ul></div></div><div class="col-md-9">
+      <div class="tab-content">
+      <div class="tab-pane fade active in" id="scan_list"><%= render 'scan_list' %></div>
+      <div class="tab-pane fade in" id="host_list"><%= render 'host_list' %></div>
+      <div class="tab-pane fade in" id="cred_list"><%= render 'cred_list' %></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
