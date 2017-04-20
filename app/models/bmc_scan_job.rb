@@ -8,6 +8,7 @@ class BmcScanJob < ApplicationRecord
     invalid_range: 3,
     scan_complete: 4
   }
+  belongs_to :zone
 #after_save :update_view, if: :status_changed?
 #after_commit :update_view, on: :destroy
   validates :start_address, :end_address, presence: true

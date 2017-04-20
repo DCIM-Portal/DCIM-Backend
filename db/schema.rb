@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418154542) do
+ActiveRecord::Schema.define(version: 20170420012618) do
 
   create_table "bmc_host_secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20170418154542) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "system_model"
+    t.integer  "zone_id"
+    t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id", using: :btree
   end
 
   create_table "bmc_scan_job_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -48,7 +50,9 @@ ActiveRecord::Schema.define(version: 20170418154542) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "brute_list_id"
+    t.integer  "zone_id"
     t.index ["brute_list_id"], name: "index_bmc_scan_jobs_on_brute_list_id", using: :btree
+    t.index ["zone_id"], name: "index_bmc_scan_jobs_on_zone_id", using: :btree
   end
 
   create_table "brute_list_secrets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -74,6 +78,11 @@ ActiveRecord::Schema.define(version: 20170418154542) do
     t.datetime "updated_at",  null: false
     t.integer  "bmc_host_id"
     t.index ["bmc_host_id"], name: "index_provision_jobs_on_bmc_host_id", using: :btree
+  end
+
+  create_table "zones", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

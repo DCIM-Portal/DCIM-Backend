@@ -11,4 +11,5 @@ class BmcHost < ApplicationRecord
     off: 0,
     on: 1
   }
+  belongs_to :zone
 end
