@@ -6,12 +6,12 @@ class ScanJob < ApplicationJob
   queue_as :default
 
 
-  def perform(ilo_scan_job)
+  def perform(bmc_scan_job)
 
     sleep 2
 
     #Update status to show that job is running
-    ilo_scan_job.update_attributes(status: "Searching for Servers")
+    bmc_scan_job.update_attributes(status: "Searching for Servers")
 
     #Method to convert start and end IP strings into IPv4 range
     def convert_ip_range(start_ip, end_ip)
@@ -64,6 +64,58 @@ class ScanJob < ApplicationJob
       ilo_scan_job.update_attributes(status: "No Servers Responded")
       sleep 2
     end
+
+    def api_params(bmc_scan_job)
+      @api_sp_url =  
+      @api_username = ENV["FOREMAN_USERNAME"] || 'admin'
+      @api_password = ENV["FOREMAN_PASSWORD"]
+      
+    end
+
+    def initialize(args)
+      @connect_params = { timeout: 10, headers: { accept: :json }, user: args[:user], password: args[:password] }
+      #Authenticate only if using SSL
+      if url.match(/^https/i)
+        cert = ENV["SP_CERT"]
+        ca_cert = ENV["SP_CA_CERT"]
+        hostprivkey  = ENV["SP_PRIVKEY"]
+        @connect_params.merge!(
+          ssl_client_cert: OpenSSL::X509::Certificate.new(File.read(cert)),
+          ssl_client_key: OpenSSL::PKey::RSA.new(File.read(hostprivkey)),
+          ssl_ca_file: ca_cert,
+          verify_ssl: OpenSSL::SSL::VERIFY_PEER
+        )
+      end
+    end
+
+    def do_bmc_scan
+      #Obtain fru information of server
+      get_fru = JSON.parse(@api_sp.get["bmc/#{ bmc_address }/fru/list"]["result"])
+      #IBM or HP Server
+      if !get_fru["default_fru_device"].nil?
+        model = get_fru["default_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
+        serial = get_fru["default_fru_device"]["product_serial_number"]
+      #Dell Server
+      elsif !get_fru["system_board"].nil?
+        model = get_fru["system_board"].values_at('board_manufacturer', 'board_product_name').join(' ')
+        serial = get_fru["system_board"]["product_serial_number"]
+      #Cisco Server
+      elsif !get_fru["fru_ram"].nil?
+        model = get_fru["fru_ram"].values_at('board_manufacturer', 'product_name').join(' ')
+        serial = get_fru["fru_ram"]["product_serial_number"]
+      #Supermicro
+      elsif !get_fru["bmc_fru"].nil?
+        model = get_fru["bmc_fru"].values_at('board_manufacturer', 'product_part/model_number').join(' ')
+        serial = get_fru["bmc_fru"]["product_serial_number"]
+      #Unable to access BMC or unsupported model
+      else
+        model = "Unable to Access Device"
+        serial = "N/A"
+      end
+      return {address: address, model: model, serial: serial, job_id: bmc_scan_job.id}
+    end
+
+      
 
     #Take each returned IP and grab the model and serial
     def do_ipmi_scan(address, ilo_scan_job)

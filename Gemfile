@@ -17,11 +17,14 @@ gem 'font-awesome-sass', '4.7.0'
 #IPMI Ruby Wrapper (make sure freeipmi is installed on the system)
 gem 'rubyipmi'
 
+#Rest-Client
+gem 'rest-client'
+
 #APIpie
 gem 'apipie-bindings'
 
 #Sidekiq for Background Jobs
-gem 'sidekiq', '4.2.9'
+gem 'sidekiq', '5.0.0'
 
 #Thread for concurrent processes
 gem 'thread'
@@ -39,11 +42,11 @@ gem 'jquery-datatables'
 gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.2'
+gem 'rails', '5.1.0'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
-gem 'puma', '3.7.1'
+gem 'puma', '3.8.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.6'
 # Use Uglifier as compressor for JavaScript assets
