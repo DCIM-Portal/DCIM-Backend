@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default navbar-fixed-top"></nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="panel list">
+        <ul class="nav nav-tabs" role="tablist">
+
+          <h5 class="table-select text-uppercase bg-primary">Select Table</h5>
+
+          <li class="<%= is_active('bmc_scan_jobs') %>">
+            <%= link_to '<i class="fa fa-list-ol"></i><br>BMC Scan Jobs List'.html_safe, bmc_scan_jobs_path %>
+          </li>
+
+          <li class="<%= is_active('bmc_hosts') %>">
+            <%= link_to '<i class="fa fa-desktop"></i><br>Scanned BMC Hosts List'.html_safe, bmc_hosts_path %>
+          </li>
+
+          <li class="<%= is_active('brute_lists')%>">
+            <%= link_to '<i class="fa fa-address-card"></i><br>Credentials List'.html_safe, brute_lists_path %>
+          </li>
+
+          <li class="<%= is_active('zones') %>">
+            <%= link_to '<i class="fa fa-building-o"></i><br>Datacenter Zones'.html_safe, zones_path %>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <%= yield %>
+    </div>
+  </div>
+</div>

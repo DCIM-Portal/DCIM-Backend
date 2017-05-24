@@ -1,7 +1,8 @@
 class BmcScanJobsController < ApplicationController
+  
   def index
     @bmc_scan_jobs = BmcScanJob.all
-    @bmc_hosts = BmcHost.all
+    render layout: "bmc_page"
   end
 
   #def show
@@ -17,7 +18,7 @@ class BmcScanJobsController < ApplicationController
 
   def create
     @bmc_scan_job = BmcScanJob.new(bmc_scan_job_params)
-    @bmc_scan_job.status = "Created"
+    @bmc_scan_job.status = 0
     respond_to do |format|
       if @bmc_scan_job.save
         format.html { redirect_to bmc_scan_jobs_url }
@@ -31,7 +32,7 @@ class BmcScanJobsController < ApplicationController
   def update
     respond_to do |format|
       if @bmc_scan_job.update(bmc_scan_job_params)
-        @bmc_scan_job.status = "Rescanning"
+        @bmc_scan_job.status = 0
         @bmc_scan_job.save
         format.html { redirect_to @bmc_scan_job }
         #ScanResult.where(bmc_scan_job_id: @bmc_scan_job.id).destroy_all
@@ -43,7 +44,7 @@ class BmcScanJobsController < ApplicationController
   end
 
   def destroy
-    @bmc_scan_job.status = "Job Deleted"
+    @bmc_scan_job.status = 5
     #ScanResult.where(bmc_scan_job_id: @bmc_scan_job.id).destroy_all
     @bmc_scan_job.destroy
     respond_to do |format|
@@ -59,8 +60,7 @@ class BmcScanJobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bmc_scan_job_params
-      params.require(:bmc_scan_job).permit(:start_address, :end_address, :name)
-  end
-
+      params.require(:bmc_scan_job).permit(:zone_id, :start_address, :end_address, :name)
+    end
 
 end

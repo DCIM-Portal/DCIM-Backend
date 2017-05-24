@@ -1,4 +1,4 @@
-module AssettManager
+module Dcim
 
   class Api
     def method_missing(method, *args)

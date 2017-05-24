@@ -16,3 +16,9 @@ module DcimPortal
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
   end
 end
+
+module ForemanCreds 
+  class Application < Rails::Application
+    config.foreman = config_for(:foreman)
+  end
+end

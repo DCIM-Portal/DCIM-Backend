@@ -1,4 +1,4 @@
-<%= form_for(bmc_scan_job) do |f| %>
+<%= form_for(new_cred) do |f| %>
   <fieldset>
   <div class="form-group">
     <%= f.label :name, "Job Name", class: "control-label", for: "inputSmall" %>
@@ -29,10 +29,10 @@
     <%= f.submit 'Create New Scan Job', class: 'btn btn-success' %>
   </div>
   </fieldset>
-  <% if bmc_scan_job.errors.any? %>
+  <% if new_cred.errors.any? %>
     <div id="error_explanation">
       <ul>
-      <% bmc_scan_job.errors.full_messages.each do |message| %>
+      <% new_cred.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

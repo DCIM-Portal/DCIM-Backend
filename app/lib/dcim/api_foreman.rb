@@ -1,4 +1,4 @@
-module AssetManager
+module Dcim
 
   class ForemanApi < Api
     def initialize(**kwargs)

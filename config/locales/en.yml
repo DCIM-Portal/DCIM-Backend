@@ -21,9 +21,23 @@
 
 en:
   activerecord:
+    models:
+      brute_list_secret: "Credentials list"
     attributes:
-      ilo_scan_job:
-        start_ip: Start Address
-        end_ip:  End Address
-        ilo_username: Username
-        ilo_password: Password
+      "brute_list/brute_list_secrets":
+        username: Username
+        password: Password
+      "brute_list":
+        name: "Credential List Name"
+    errors:
+      models:
+        brute_list_secret:
+          attributes:
+            username:
+              blank: "is requierd!"
+            password:
+              blank: "is required!"
+        brute_list:
+          attributes:
+            name:
+              blank: "is required!"

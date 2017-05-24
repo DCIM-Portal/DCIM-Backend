@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h3 class="show_title text-left text-uppercase">Credentials List "<em><%= @cred.name %></em>" Details</h3>
+      <%= link_to 'Back', brute_lists_path, class: 'btn btn-default' %>
+      <div class="pull-right">
+        <p class="time_dock">*All Times are US Central</p>
+      </div>
+      <div class="panel panel-default">
+        <div class="well">
+          <div class="table-responsive">
+            <table class="table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th>Credentials List ID</th>
+                  <th>Credentials List Name</th>
+                  <th>Last Updated</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr>
+                <td><%= @cred.id %></td>
+                <td><%= @cred.name %></td>
+                <td><%= I18n.l @cred.updated_at, format: :pretty %></td>
+                <td><%= link_to 'Edit', edit_brute_list_path(@cred), class: 'btn btn-small btn-warning', id: "edit_disable_#{@cred.id}" %></td>
+                <td><%= link_to 'Delete', @cred, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger', id: "delete_disable_#{@cred.id}" %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="overlay">
+      <div class="inner-overlay">
+        <i class="fa fa-refresh fa-2x fa-spin"></i>
+        <p>Loading Data...</p>
+      </div>
+    </div>
+    <div class="panel panel-default" id="main_header">
+    <div class="panel-heading">Username and Password List</div>
+      <div class="panel-body">
+        <table id="cred_detail_table" class="table table-condensed table-striped" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
+          <thead id="main_header">
+            <tr>
+              <th>Execute Order</th>
+              <th>Username</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @secrets.each do |secret| %>
+            <tr>
+              <td><%= secret.order %></td>
+              <td><%= secret.username %></td>
+              <td><%= secret.password %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

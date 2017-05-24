@@ -6,12 +6,13 @@ class BmcScanJob < ApplicationRecord
     in_progress: 1,
     smart_proxy_unreachable: 2,
     invalid_range: 3,
-    scan_complete: 4
+    scan_complete: 4,
+    removed: 5
   }
   belongs_to :zone
 #after_save :update_view, if: :status_changed?
 #after_commit :update_view, on: :destroy
-  validates :start_address, :end_address, presence: true
+  validates :name, :start_address, :end_address, presence: true
 
   def update_view
     MessageBroadcastJob.perform_now self

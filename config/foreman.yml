@@ -1,0 +1,14 @@
+default: &default
+  url: 'https://foreman.am2.hpelabs.net'
+  password: <%= ENV['FOREMAN_PASSWORD'] %>
+  username: <%= ENV['FOREMAN_USERNAME'] || 'admin' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+

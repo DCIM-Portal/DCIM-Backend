@@ -14,14 +14,8 @@ gem 'bootswatch-sass', '3.3.7'
 #Font-Awesome
 gem 'font-awesome-sass', '4.7.0'
 
-#IPMI Ruby Wrapper (make sure freeipmi is installed on the system)
-gem 'rubyipmi'
-
 #Rest-Client
 gem 'rest-client'
-
-#APIpie
-gem 'apipie-bindings'
 
 #Sidekiq for Background Jobs
 gem 'sidekiq', '5.0.0'
@@ -58,6 +52,7 @@ gem 'coffee-rails', '4.2.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '5.0.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

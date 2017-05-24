@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: 101
   username: root
-  password: sharepoint
+  password: <%= ENV['MYSQL_PASSWORD'] || 'sharepoint' %>
   host: <%= ENV['DCIM_PORTAL_DATABASE_HOST'] || "127.0.0.1" %>
   port: 3306
 #  socket: /var/run/mysqld/mysqld.sock

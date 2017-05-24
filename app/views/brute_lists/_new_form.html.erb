@@ -1,0 +1,51 @@
+<%= form_for @cred do |f| %>
+  <fieldset>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <%= f.label :name, "Credential List Name", class: "control-label", for: "inputSmall" %>
+          <%= f.text_field :name, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+        </div>
+      </div>
+      <div class="col-md-8 col-md-offset-1">
+        <div id="group-title"> Username and Password List</div>
+
+        <div data-role="dynamic-fields" class="field_contain">
+          <%= f.fields_for :brute_list_secrets do |secret| %>
+            <div class="form-inline">
+              <div class="form-container">
+
+                <%= secret.text_field :order, class: "number_order", type: "hidden", value: "" %>
+
+                <%= secret.label :username, "Username", class: "control-label", for: "inputSmall" %>
+                <%= secret.text_field :username, class: "form-control input-sm", id: "inputSmall" %>
+                   
+                <%= secret.label :password, "Password", class: "control-label", for: "inputSmall" %>
+                <%= secret.text_field :password, class: "form-control input-sm", id: "inputSmall" %>
+     
+                <button class="btn btn-danger btn-form" data-role="remove">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <button class="btn btn-primary btn-form" data-role="add">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div> 
+    </div>
+  </fieldset>
+  <div class="actions move-down">
+    <%= f.submit 'Create New Credential List', class: 'btn btn-success pull-right', id: "new_cred_submit" %>
+  </div>
+  <% if brute_list.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% brute_list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
