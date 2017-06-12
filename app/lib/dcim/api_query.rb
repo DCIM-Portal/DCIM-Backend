@@ -25,6 +25,14 @@ module Dcim
       ApiResult.new(@resource[@query.join('/')].post(payload.to_json, {'Content-Type':'application/json'}))
     end
 
+    def delete
+      ApiResult.new(@resource[@query.join('/')].delete)
+    end
+
+    def update(payload) 
+      ApiResult.new(@resource[@query.join('/')].put(payload.to_json, {'Content-Type':'application/json'}))
+    end
+
   end
 
 end

@@ -1,0 +1,56 @@
+<div class="panel panel-default" id="dif_alert">
+  <div class="well">
+    <div class="alert alert-danger" role="alert">
+      <p class="text-uppercase">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        The following zones appear to be in the DCIM portal, but not in the Foreman backend!</p>
+    </div>
+    <% unless @dupe_id.empty? %>
+      <div class="alert alert-danger" role="alert">
+        <p class="text-uppercase">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
+      </div>
+    <% end %>
+    <p>Either add the zones into the Foreman backend, or remove the zones from the DCIM portal.</p>
+    <%= form_tag({controller: "zones", action: "multi_delete"}, method: "delete") do %>
+
+      <table class="table table-responsive table-condensed">
+        <thead>
+          <tr>
+            <th>Zone ID</th>
+            <th>Zone Name</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @dcim_extras.each do | id, name | %>
+          <tr>
+            <td><%= id %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+            <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="move-down">
+        <%= submit_tag 'Remove from DCIM Portal', data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %>
+      </div>
+
+    <% end %>
+    
+    <%= form_tag({controller: "zones", action: "foreman_add"}, method: "post") do %>
+
+      <% @dcim_extras.each do | id, name | %>
+        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+        <%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
+      <% end %>
+
+      <% unless !@dupe_id.empty? %>
+        <div>
+          <%= submit_tag 'Add to Foreman', data: { confirm: "This will add the zones into Foreman!  Are you sure?" }, class: 'btn btn-success' %>
+        </div>
+      <% end %>
+
+    <% end %>
+  </div>
+</div>

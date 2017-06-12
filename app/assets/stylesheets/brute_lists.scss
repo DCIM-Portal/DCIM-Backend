@@ -9,3 +9,17 @@
 label {
   font-size: 14px;
 }
+//Remove icon for edit screen
+#del_credrow {
+  margin-bottom: 0;
+  font-family: 'Roboto';
+  margin-left: 4px;
+}
+//Adjust height of row_order class
+.row_order {
+  line-height: 2.4;
+}
+//Remove float for Cred Edit Update button
+@media screen and (max-width: 1200px) {
+  #edit_cred_submit { float: none !important }
+}

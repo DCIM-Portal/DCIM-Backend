@@ -161,6 +161,7 @@ ul.nav.nav-tabs li a {
 }
 table, .table {
   font-size: 14px;
+  margin-bottom: 20px;
 }
 .darker {
   background-color: #7F8C93;
@@ -327,6 +328,7 @@ a {
   border-radius: 2px;
   background-color: #E2E2E2;
   position: relative;
+  margin-bottom: 0;
 }
 .btn-info {
   background-color: #83a7bf;
@@ -518,6 +520,9 @@ fieldset[disabled] .btn {
   border: 1px solid #000;
   box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
+.alert p .fa {
+  margin-right: 5px;
+}
 @-moz-keyframes throbber-loader {
   0% {
     background: #dde2e7;
@@ -620,6 +625,14 @@ fieldset[disabled] .btn {
   font-weight: 600;
   font-size: 14px;
 }
+.panel-left {
+  max-width: 48.5%;
+  float: left;
+}
+.panel-right {
+  max-width: 48.5%;
+  float: right;
+}
 .overlay {
   display: none;
   width: 97.5%;
@@ -713,6 +726,7 @@ span .button_text {
   .list {
     position: relative;
   }
+  .panel-left, .panel-right { float: left; max-width: 100%; font-size: 13px; }
 }
 @media screen and (max-width: 880px) {
   .btn, .nav-tabs > li > a { font-size: 12px; }
@@ -720,8 +734,8 @@ span .button_text {
 }
 @media screen and (max-width: 715px) {
   .nav-tabs > li { float: none; width: 100%; }
-  div.actions { position: relative; padding-right: 0; }
-  div.actions input.pull-right { float: none !important;}
+  div.actions, div.actions-up { position: relative; padding-right: 0; bottom: 0; margin-bottom: -20px;}
+  div.actions input.pull-right, div.actions-up input.pull-right { float: none !important;}
 }
 @media screen and (max-width: 475px) {
   .time_dock {
@@ -820,5 +834,11 @@ span .button_text {
   position: absolute;
   right: 0;
   bottom: 0;
+  padding-right: 20px;
+}
+.actions-up {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
   padding-right: 20px;
 }

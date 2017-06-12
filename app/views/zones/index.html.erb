@@ -1,8 +1,5 @@
 <h3 class="text-left text-uppercase bg-primary"><em>Datacenter Zones</em></h3>
-<%= link_to 'New DC Zone', new_zone_path, class: 'btn btn-success' %>
-<div class="pull-right">
-  <p class="time_dock">*All Times are US Central</p>
-</div>
+<%= render_async api_zone_path %>
 <%= render '/layouts/loading_overlay' %>
 <div id="main_header" class="panel panel-default">
   <div class="well">
@@ -11,7 +8,7 @@
         <tr>
           <th>Zone ID</th>
           <th>Zone Name</th>
-          <th>Created Date</th>
+          <th>Date Added</th>
           <th></th>
         </tr>
       </thead>

@@ -1,3 +1,4 @@
+<%= form_for @cred do |f| %>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
@@ -14,17 +15,15 @@
                 <tr>
                   <th>Credentials List ID</th>
                   <th>Credentials List Name</th>
-                  <th>Last Updated</th>
-                  <th></th>
+                  <th>Date Created</th>
                   <th></th>
                 </tr>
               </thead>
             <tbody>
               <tr>
                 <td><%= @cred.id %></td>
-                <td><%= @cred.name %></td>
-                <td><%= I18n.l @cred.updated_at, format: :pretty %></td>
-                <td><%= link_to 'Edit', edit_brute_list_path(@cred), class: 'btn btn-small btn-warning', id: "edit_disable_#{@cred.id}" %></td>
+                <td><%= f.text_field :name %></td>
+                <td><%= I18n.l @cred.created_at, format: :pretty %></td>
                 <td><%= link_to 'Delete', @cred, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger', id: "delete_disable_#{@cred.id}" %></td>
               </tr>
             </tbody>
@@ -32,34 +31,42 @@
         </div>
       </div>
     </div>
-    <div class="overlay">
-      <div class="inner-overlay">
-        <i class="fa fa-refresh fa-2x fa-spin"></i>
-        <p>Loading Data...</p>
-      </div>
-    </div>
-    <div class="panel panel-default" id="main_header">
-    <div class="panel-heading">Username and Password List</div>
-      <div class="panel-body">
-        <table id="cred_detail_table" class="table table-condensed table-striped" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
+    <div class="panel panel-default">
+      <div class="panel-heading">Username and Password List</div>
+      <div class="panel-body clearfix">
+        <button id="add_credrow" class="btn btn-primary">Add New Row</button>
+        <table id="cred_details" class="table table-condensed table-striped" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
           <thead id="main_header">
             <tr>
               <th>Execute Order</th>
               <th>Username</th>
               <th>Password</th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            <% @secrets.each do |secret| %>
-            <tr>
-              <td><%= secret.order %></td>
-              <td><%= secret.username %></td>
-              <td><%= secret.password %></td>
+          <tbody id="cred_detail_tbody">
+            <%= f.fields_for :brute_list_secrets, f.object.brute_list_secrets.order(:order) do |secret| %>
+            <tr class="credential_row">
+              <td><span class="row_order"><%= secret.object.order %></span><%= secret.text_field :order, class: "number_order", type: "hidden", value: secret.object.order %></td>
+              <td><%= secret.text_field :username, class: "form-control input-sm" %></td>
+              <td><%= secret.text_field :password, class: "form-control input-sm" %></td>
+              <td><button id="del_credrow" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
             </tr>
             <% end %>
           </tbody>
         </table>
+        <%= f.submit 'Update', class: 'btn btn-success pull-right', id: "edit_cred_submit" %>
+        <% if @cred.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @cred.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+<% end %>

@@ -1,3 +1,14 @@
-// Place all the styles related to the BmcZones controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+div#dif_alert {
+  background-color: #798D8F;
+}
+div#dif_alert div.well {
+  background-color: #798D8F;
+  color: white;
+}
+div#dif_alert div.well table.table {
+  display: inline-block;
+  border: 1px solid;
+  max-width: 250px;
+  padding: 20px;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
+}

@@ -27,18 +27,22 @@ class BruteListsController < ApplicationController
   end
 
   def update
+    param_invalid = param_check(params["brute_list"]["brute_list_secrets_attributes"])
+    name_invalid = name_check(params["brute_list"]["name"])
     respond_to do |format|
-      if @cred.update(bmc_credential_params)
+      if param_invalid == false && name_invalid == false
+        BruteListSecret.where(brute_list_id: @cred.id).delete_all
+        @cred.update(bmc_credential_params)
         @cred.save
         format.html { redirect_to @cred }
       else
-        format.html { render :edit }
+        @cred.update(bmc_credential_params)
+        format.html { render :show }
       end
     end
   end
 
   def show
-    @secrets = BruteListSecret.where(brute_list_id: @cred.id).order('`order` ASC')
   end
 
   def destroy
@@ -53,6 +57,32 @@ class BruteListsController < ApplicationController
     def set_cred
       @cred = BruteList.find(params[:id])
     end
+
+    # Since we are deleting associated collection, check parameters for any errors
+    def param_check(args)
+      if args.inspect != "nil"
+        secret_keys = args.keys
+        secret_keys.each do |x|
+          @check = args[x].values.any? {|v| v.blank?}
+          break if @check == true
+        end
+        return @check
+      end
+    end
+
+    # Ensure name is valid
+    def name_check(args)
+      name = args
+      if name == @cred.name
+        return false
+      elsif BruteList.where(name: name).empty? && !name.blank?
+        return false
+      else
+        return true
+      end
+    end
+
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bmc_credential_params

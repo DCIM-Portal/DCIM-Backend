@@ -1,0 +1,56 @@
+<div class="panel panel-default" id="dif_alert">
+  <div class="well">
+    <div class="alert alert-danger" role="alert">
+      <p class="text-uppercase">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        The following zones appear to be in the Foreman backend, but not in the DCIM portal!</p>
+    </div>
+    <% unless @dupe_id.empty? %>
+      <div class="alert alert-danger" role="alert">
+        <p class="text-uppercase">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
+      </div>
+    <% end %>
+    <p>Either add these zones into the DCIM portal, or remove these zones from the Foreman backend.</p>
+
+    <%= form_tag({controller: "zones", action: "multi_create"}, method: "post") do %>
+
+      <table class="table table-condensed table-responsive">
+       <thead>
+          <tr>
+            <th>Zone ID</th>
+            <th>Zone Name</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @foreman_extras.each do |id, name| %>
+          <tr>
+            <td><%= id %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+            <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <% unless !@dupe_id.empty? %>
+        <div class="move-down">
+          <%= submit_tag 'Add to DCIM Portal', class: 'btn btn-success' %>
+        </div>
+      <% end %>
+
+    <% end %>
+
+    <%= form_tag({controller: "zones", action: "foreman_remove"}, method: "post") do %>
+
+      <% @foreman_extras.each do | id, name | %>
+        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+      <% end %>
+
+      <div>
+        <%= submit_tag 'Remove from Foreman', data: { confirm: "This will remove the zones from Foreman!  Are you sure?" }, class: 'btn btn-warning' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

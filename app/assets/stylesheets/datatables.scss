@@ -1,6 +1,7 @@
 @import "datatables/dataTables.bootstrap4";
 @import "datatables/extensions/Responsive/responsive.bootstrap4";
 @import "datatables/extensions/Buttons/buttons.bootstrap4";
+@import "datatables/extensions/RowReorder/rowReorder.bootstrap4";
 table.dataTable.checkboxes-select tbody tr,
 table.dataTable thead .checkboxes-select-all {
   cursor: pointer;
@@ -22,6 +23,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
   background-color: #425563;
   border-radius: 0;
+}
+div.dataTables_scrollBody table {
+  margin-bottom: 20px !important;
 }
 div.dataTables_wrapper {
   span {
@@ -191,18 +195,20 @@ div.dataTables_wrapper div.dataTables_filter input {
   div.dataTables_wrapper div.dataTables_filter label input { width: 100px; }
 }
 @media screen and (max-width: 475px) {
-  div.dataTables_wrapper div.dataTables_filter input { width: 80%; display: block; }
+  div.dataTables_wrapper div.dataTables_filter label input { width: 90%; display: block; }
   div.dataTables_wrapper div {
     &.dataTables_length select { width: 100%; display: block; }
     &.dataTables_info { font-size: 10px; }
     &.dataTables_paginate ul.pagination { font-size: 10px; border: none; box-shadow: none; }
   }
   .dataTables_info { display: none; }
+  div#main_header div.well { padding-left: 0 }
 }
 
-//Cred Table Rules
+//Cred,Zone Table Rules
 @media (min-width: 768px) {
   #cred_table_wrapper div div.col-sm-12.col-md-6:nth-of-type(1),  #cred_table_wrapper div div.col-sm-12.col-md-6:nth-of-type(2) { width: 50%; }
+  #zone_table_wrapper div div.col-sm-12.col-md-6:nth-of-type(1),  #zone_table_wrapper div div.col-sm-12.col-md-6:nth-of-type(2) { width: 50%; }
 }
 //Cred Detail Table Rules
 @media screen and (max-width: 991px) {

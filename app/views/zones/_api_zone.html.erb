@@ -1,0 +1,17 @@
+<% if @foreman_extras.empty? && @dcim_extras.empty? %>
+  <%= link_to 'New DC Zone', new_zone_path, class: 'btn btn-success' %>
+<% else %>
+  <%= link_to 'New DC Zone', new_zone_path, class: 'disabled btn btn-success' %>
+<% end %>
+<div class="pull-right">
+  <p class="time_dock">*All Times are US Central</p>
+</div>
+<div class="alert-row clearfix">
+  <% unless @foreman_extras.empty? %>
+    <%= render 'foreman_alert' %>
+  <% end %>
+
+  <% unless @dcim_extras.empty? %>
+    <%= render 'dcim_alert' %>
+  <% end %>
+</div>
