@@ -1,0 +1,34 @@
+<div class='modal fade' id='edit_zone' role='dialog'>
+  <div class='modal-dialog'>
+    <!-- Modal content -->
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button class='close' data-dismiss='modal' type='button'>×</button>
+        <h4 class='modal-title'>Edit Zone <%= @zone.name %></h4>
+      </div>
+      <div class='modal-body'>
+        <%= form_for(@zone, remote: true, html: {"data-type" => :json, id: "zone_edit_ajax"}) do |f| %>
+          <div class="panel panel-default">
+            <div class="well clearfix">
+              <div class="alert alert-warning" role="alert">
+                <p>To change a zone name, type in a new name and hit the "Submit Changes" button below.  Please note that changing a zone name will also change it in Foreman.</p>
+              </div>
+              <div class="pull-left">
+                <%= f.label :name, "Edit Zone Name", class: "control-label", for: "inputSmall" %>
+                <%= f.text_field :name, class: "form-control input-sm zone_name", type: "text", id: "inputSmall" %>
+              </div>
+              <%= link_to 'Delete Zone', @zone, method: :delete, data: { confirm: 'Delete the Zone?' }, class: 'btn btn-danger pull-right zone-delete', id: "delete_disable_#{@zone.id}" %>
+            </div>
+          </div>
+      </div>
+      <div class='modal-footer'>
+        <div id ="waiting_explanation"><span>Attempting to update - please wait <div class="throbber-loader"> </div></span></div>
+        <div id="error_explanation" class="modal_error"><ul></ul></div>
+        <div id="success_explanation">Name Successfully Updated!</div>
+        <%= f.submit 'Submit Changes', class: 'zone-edit-button btn btn-success pull-left' %>
+        <button class='btn btn-default' data-dismiss='modal' type='button'>Close</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -477,6 +477,47 @@ a {
     }
   }
 }
+.sk-spinner-double-bounce {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin: 40px 55%;
+}
+.sk-double-bounce1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  background-color: #83A7BF;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-doubleBounce 2s infinite ease-in-out;
+  animation: sk-doubleBounce 2s infinite ease-in-out;
+}
+.sk-double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  background-color: #83A7BF;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-doubleBounce 2s infinite ease-in-out;
+  animation: sk-doubleBounce 2s infinite ease-in-out;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+.sk-spinner-double-bounce:before {
+  content: "Contacting Foreman";
+  font-size: 12px;
+  display: inline-block;
+  margin-left: -110px;
+  color: rgba(66,85,99,0.7);
+  font-family: 'Lato';
+}
+
 fieldset {
   margin-bottom: 40px;
 }
@@ -506,18 +547,17 @@ fieldset[disabled] .btn {
 .alert {
   padding: 10px;
   border-radius: 2px;
+  border: 1px solid #000;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
+
 }
 .alert-info {
   background-color: #425563 !important;
-  border-color: #000 !important;
 }
 .alert-danger {
   background-color: #BC5E54;
-  border: 1px solid #000;
-  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .alert-success {
-  border: 1px solid #000;
   box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .alert p .fa {

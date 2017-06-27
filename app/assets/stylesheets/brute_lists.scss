@@ -23,3 +23,7 @@ label {
 @media screen and (max-width: 1200px) {
   #edit_cred_submit { float: none !important }
 }
+form#new_brute_list #error_explanation {
+  margin-top: 20px;
+  margin-bottom: -48px;
+}

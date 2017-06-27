@@ -34,7 +34,7 @@ en:
         brute_list_secret:
           attributes:
             username:
-              blank: "is requierd!"
+              blank: "is required!"
             password:
               blank: "is required!"
         brute_list:

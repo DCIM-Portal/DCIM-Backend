@@ -22,3 +22,9 @@ module ForemanCreds
     config.foreman = config_for(:foreman)
   end
 end
+
+module SmartProxyCert
+  class Application < Rails::Application
+    config.smart_proxy = config_for(:smart_proxy)
+  end
+end

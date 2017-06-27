@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <h3 class="show_title text-left text-uppercase">Zone "<em><%= @zone.name %></em>" Details</h3>
+      <h3 class="show_title text-left text-uppercase">Zone <em><%= @zone.name %></em> Details</h3>
       <%= link_to 'Back', zones_path, class: 'btn btn-default' %>
       <div class="pull-right">
         <p class="time_dock">*All Times are US Central</p>
@@ -21,15 +21,20 @@
             <tbody>
               <tr>
                 <td><%= @zone.id %></td>
-                <td><%= best_in_place @zone, :name %></td>
+                <td id="zone_name"><%= @zone.name %></td>
                 <td><%= I18n.l @zone.updated_at, format: :pretty %></td>
-                <td><%= link_to 'Delete', @zone, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger', id: "delete_disable_#{@zone.id}" %></td>
+                <td><button id="zone_modal" class='btn btn-primary btn-small pull-right' data-target='#edit_zone' data-toggle='modal' type='button'>Edit Zone</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <% if flash[:error] %>
+      <div id="error_explanation" style="margin-bottom: 20px">
+        <ul><li><%= flash[:error] %></li></ul>
+      </div>
+    <%end %>
     <div class="overlay">
       <div class="inner-overlay">
         <i class="fa fa-refresh fa-2x fa-spin"></i>
@@ -58,4 +63,14 @@
       </div>
     </div>
   </div>
+  <%= render 'modal_edit' %>
 </div>
+<script>
+$('.zone-edit-button').on('click',function(){
+   $('.zone-edit-button').addClass('disabled')
+   $("#error_explanation").hide();
+   $("#success_explanation").hide();
+   $("#waiting_explanation").show();
+   $("#zone_edit_ajax").submit();
+ });
+</script>

@@ -1,17 +1,39 @@
-<% if @foreman_extras.empty? && @dcim_extras.empty? %>
-  <%= link_to 'New DC Zone', new_zone_path, class: 'btn btn-success' %>
-<% else %>
-  <%= link_to 'New DC Zone', new_zone_path, class: 'disabled btn btn-success' %>
-<% end %>
-<div class="pull-right">
-  <p class="time_dock">*All Times are US Central</p>
-</div>
 <div class="alert-row clearfix">
-  <% unless @foreman_extras.empty? %>
+<% if @logger.error? %>
+
+  <div class="panel panel-default">
+    <div class="well">
+    <% @logger.all.each do |x| %>
+      <div class="alert alert-<%= x[:type] %>" role="alert">
+        <p>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          <%= x[:exception].to_s %></p>
+      </div>
+    <% end %>
+    </div>
+  </div>
+<% else %>
+
+  <% if !@foreman_extras.empty? %>
     <%= render 'foreman_alert' %>
   <% end %>
 
-  <% unless @dcim_extras.empty? %>
+  <% if !@dcim_extras.empty? %>
     <%= render 'dcim_alert' %>
   <% end %>
+
+  <% if @foreman_extras.empty? && @dcim_extras.empty? %>
+  <div class="panel panel-default">
+    <div class="well">
+      <div class="alert alert-success" role="alert">
+        <p>
+          <i class="fa fa-check-circle" aria-hidden="true"></i>
+          Foreman is in sync.</p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+<% end %>
+
 </div>

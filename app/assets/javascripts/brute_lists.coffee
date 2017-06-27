@@ -7,31 +7,17 @@ updateIndexes = ->
   $('.number_order').each (i) ->
     $(this).val i + 1
 
-#Remove input fields button
-$(document).on 'click', '[data-role="dynamic-fields"] > .form-inline [data-role="remove"]', (e) ->
-  e.preventDefault()
-  $(this).closest('.form-inline').remove()
-
-#Add input fields button
-$(document).on 'click', '[data-role="dynamic-fields"] > .form-inline [data-role="add"]', (e) ->
-  e.preventDefault()
-  container = $(this).closest('[data-role="dynamic-fields"]')
-  new_field_group = container.children().filter('.form-inline:first-child').clone()
-  new_field_group.find('input').each ->
-    $(this).val ''
-  container.append new_field_group
-
 #Re-purpose submit new brute-list button
 $(document).on 'click', '#new_cred_submit', (e) ->
   e.preventDefault()
   #Disable Button to avoid multiple clicks
   $(this).attr 'disabled', true
   #Re-number order name attribute
-  $('.form-container').each (i) ->
-    $(this).children('input').each ->
-      name = $(this).attr 'name'
-      name = name.replace(/\[[0-9]+\]/g, '[' + i + ']')
-      $(this).attr 'name', name
+  $('.credential_row').each (i) ->
+      $(this).children('td').children('input').each ->
+        name = $(this).attr 'name'
+        name = name.replace(/\[[0-9]+\]/g, '[' + i + ']')
+        $(this).attr 'name', name
   #Update order value
   updateIndexes()
   #Submit the Form
@@ -43,7 +29,7 @@ $(document).on 'click', '#edit_cred_submit', (e) ->
   #Disable Button to avoid multiple clicks
   $(this).attr 'disabled', true
   #Re-number order name attribute
-  $('.secret_row').each (i) ->
+  $('.credential_row').each (i) ->
     $(this).children('td').children('input').each ->
       name = $(this).attr 'name'
       name = name.replace(/\[[0-9]+\]/g, '[' + i + ']')
@@ -80,14 +66,6 @@ $(document).on 'turbolinks:load', ->
       $(this).remove()
     else
       seen[txt] = true
-
-  #Values for sort function on new page
-  sort_form = $('.field_contain')
-
-  #Enable sorting of username/password fields on new page
-  sort_form.sortable
-    itemSelector: '.form-inline'
-    containerSelector: '.field_contain'
 
   #Values for soft function on edit page
   sort_edit = $('#cred_detail_tbody')

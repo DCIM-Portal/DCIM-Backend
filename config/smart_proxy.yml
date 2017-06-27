@@ -1,0 +1,13 @@
+default: &default
+  cert: <%= ENV['SP_CERT'] %>
+  ca_cert: <%= ENV['SP_CA_CERT'] %>
+  privkey: <%= ENV['SP_PRIVKEY'] %> 
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

@@ -13,26 +13,25 @@ module Dcim
     end
 
     def method_missing(method, *args)
+      if [:get, :post, :delete, :put].include?(method)
+        return request.send(method, args)
+      end
       self.append_chain(method, args)
       self
     end
-
-    def get
-      ApiResult.new(@resource[@query.join("/")].get)
+     
+    [:get, :post, :delete, :put].each do |method|
+      define_method(method) do |*args|
+        rest_query = @resource[@query.join('/')]
+        if args.length > 0
+          args << {'Content-Type':'application/json'}
+          args[0] = args[0].to_json
+        end
+        result = rest_query.send(method, *args)
+        ApiResult.new(result)
+      end
     end
-
-    def post(payload)
-      ApiResult.new(@resource[@query.join('/')].post(payload.to_json, {'Content-Type':'application/json'}))
-    end
-
-    def delete
-      ApiResult.new(@resource[@query.join('/')].delete)
-    end
-
-    def update(payload) 
-      ApiResult.new(@resource[@query.join('/')].put(payload.to_json, {'Content-Type':'application/json'}))
-    end
-
+   
   end
 
 end
