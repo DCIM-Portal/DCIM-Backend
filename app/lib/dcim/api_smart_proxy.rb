@@ -10,7 +10,7 @@ module Dcim
       privkey = Rails.configuration.smart_proxy['privkey']
       @resource = RestClient::Resource.new(kwargs[:url],
                                            proxy: "",
-                                           timeout: 10,
+                                           timeout: kwargs[:timeout] || 10,
                                            open_timeout: 5,
                                            ssl_ca_file: ca_cert,
                                            ssl_client_cert: OpenSSL::X509::Certificate.new(File.read(cert)),

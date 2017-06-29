@@ -5,5 +5,6 @@ class CreateBruteLists < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    add_index :brute_lists, :name, unique: true
   end
 end

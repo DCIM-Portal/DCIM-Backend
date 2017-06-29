@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProvisionJobTest < ActiveSupport::TestCase
+class BmcScanRequestTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

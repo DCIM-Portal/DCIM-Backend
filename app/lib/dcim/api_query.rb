@@ -19,19 +19,27 @@ module Dcim
       self.append_chain(method, args)
       self
     end
-     
+
     [:get, :post, :delete, :put].each do |method|
-      define_method(method) do |*args|
-        rest_query = @resource[@query.join('/')]
-        if args.length > 0
-          args << {'Content-Type':'application/json'}
-          args[0] = args[0].to_json
+      define_method(method) do |*payload, **kwargs|
+        options = @resource.instance_variable_get(:@options)
+
+        # With payload, add header "Content-Type: application/json"
+        if payload.length > 0
+          payload << {'Content-Type':'application/json'}
+          payload[0] = payload[0].to_json
         end
-        result = rest_query.send(method, *args)
+
+        options.merge!(kwargs)
+
+        resource = RestClient::Resource.new(@resource.instance_variable_get(:@url),
+                                            **options)
+        rest_query = resource[@query.join('/')]
+        result = rest_query.send(method, *payload)
         ApiResult.new(result)
       end
     end
-   
+
   end
 
 end

@@ -1,4 +1,4 @@
-class ProvisionJob < ApplicationRecord
+class ProvisionRequest < ApplicationRecord
   belongs_to :bmc_hosts
   enum step: {
     queued: 0,

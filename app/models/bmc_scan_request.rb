@@ -1,5 +1,5 @@
-class BmcScanJob < ApplicationRecord
-  has_many :bmc_hosts, through: :bmc_scan_job_hosts
+class BmcScanRequest < ApplicationRecord
+  has_many :bmc_hosts, through: :bmc_scan_request_hosts
   has_one :brute_list
   enum status: {
     queued: 0,
@@ -10,6 +10,7 @@ class BmcScanJob < ApplicationRecord
     removed: 5
   }
   belongs_to :zone
+  belongs_to :brute_list
 #after_save :update_view, if: :status_changed?
 #after_commit :update_view, on: :destroy
   validates :name, :start_address, :end_address, presence: true

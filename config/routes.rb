@@ -2,7 +2,7 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
-  resources :brute_lists, :path => 'bmc_scan_jobs/bmc_credentials'
+  resources :brute_lists, :path => 'bmc_scan_requests/bmc_credentials'
   resources :zones, :path => 'datacenter_zones' do
     collection do
       post :foreman_remove
@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   end
   get :api_zone, :controller => :zones
   resources :bmc_hosts
-  resources :bmc_scan_jobs
-  post 'ilo_scan_jobs/:id/provision', to: 'ilo_scan_jobs#provision', as: 'provision'
+  resources :bmc_scan_requests
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server, at: '/cable'
 end
