@@ -5,7 +5,8 @@ class CreateBmcHosts < ActiveRecord::Migration[5.0]
       t.string :ip_address
       t.string :username
       t.string :password
-      t.integer :power
+      t.integer :power_status
+      t.integer :scan_status
       t.integer :is_discovered
 
       t.timestamps

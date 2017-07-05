@@ -1,6 +1,6 @@
 class BmcScanRequest < ApplicationRecord
+  has_many :bmc_scan_request_hosts
   has_many :bmc_hosts, through: :bmc_scan_request_hosts
-  has_one :brute_list
   enum status: {
     queued: 0,
     in_progress: 1,

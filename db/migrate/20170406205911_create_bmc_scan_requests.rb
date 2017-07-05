@@ -5,6 +5,7 @@ class CreateBmcScanRequests < ActiveRecord::Migration[5.0]
       t.string :start_address
       t.string :end_address
       t.integer :status
+      t.string :error_message
 
       t.timestamps
     end
