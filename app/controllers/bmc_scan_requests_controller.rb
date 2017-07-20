@@ -1,16 +1,45 @@
 class BmcScanRequestsController < ApplicationController
-  
+
+before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
+before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
+layout "bmc_page"
+
   def index
     @bmc_scan_requests = BmcScanRequest.all
-    render layout: "bmc_page"
+    @bmc_scan_request = BmcScanRequest.new
+    @zones = Zone.all
+    @creds = BruteList.all
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @bmc_scan_requests.collect {
+          |scan| {
+            id:  scan.id,
+            name: scan.name,
+            start_address: scan.start_address,
+            end_address: scan.end_address,
+            status: scan.status,
+            brute_list: scan.brute_list.name,
+            zone: scan.zone.name,
+            created_at: scan.created_at,
+            url: bmc_scan_request_path(BmcScanRequest.find(scan.id))
+          }
+        }
+      }
+    end      
   end
 
-  #def show
-  #  @scan_results = ScanResult.where(bmc_scan_job_id: @bmc_scan_job.id).order('bmc_address ASC')
-  #end
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @bmc_scan_request.to_json( include: :bmc_hosts ) }
+    end
+  end
 
-  def new
-    @bmc_scan_request = BmcScanRequest.new
+  def api_bmc_scan_request
+    @zone_count = Zone.count
+    @cred_count = BruteList.count
+    render :partial => "api_bmc_scan_request"
   end
 
   def edit
@@ -21,10 +50,10 @@ class BmcScanRequestsController < ApplicationController
     @bmc_scan_request.status = 0
     respond_to do |format|
       if @bmc_scan_request.save
-        format.html { redirect_to bmc_scan_requests_url }
-        #ScanJob.perform_later(@bmc_scan_request)
+        format.json { render json: @bmc_scan_request }
+        BmcScanJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: @bmc_scan_request)
       else
-        format.html { render :new }
+        format.json { render json: @bmc_scan_request.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -53,14 +82,31 @@ class BmcScanRequestsController < ApplicationController
   end
 
   private
+
+    def foreman_dashboard
+      @foreman_resource.api.dashboard
+    end
+
+
+    #Verify Foreman Reachable
+    def get_dashboard_hosts
+      begin
+        result = foreman_dashboard.get
+        result["total_hosts"]
+      rescue Exception => e
+        @logger.error(exception: e)
+        []
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_bmc_scan_request_
+    def set_bmc_scan_request
       @bmc_scan_request = BmcScanRequest.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bmc_scan_request_params
-      params.require(:bmc_scan_request).permit(:zone_id, :start_address, :end_address, :name)
+      params.require(:bmc_scan_request).permit(:brute_list_id, :zone_id, :start_address, :end_address, :name)
     end
 
 end

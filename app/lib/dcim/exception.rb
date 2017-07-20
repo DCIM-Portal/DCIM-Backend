@@ -15,7 +15,7 @@ module Dcim
   class ConnectionTimeoutError < RuntimeError
   end
 
-  class UnsupportedFruException < RuntimeError
+  class UnsupportedFruError < RuntimeError
   end
 
   class UnknownError < RuntimeError

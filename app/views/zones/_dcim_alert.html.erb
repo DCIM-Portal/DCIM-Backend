@@ -1,12 +1,10 @@
-<div class="panel panel-default" id="dif_alert">
-  <div class="well">
-    <div class="alert alert-danger" role="alert">
+    <div class="alert red lighten-2" role="alert">
       <p class="text-uppercase">
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         The following zones appear to be in the DCIM portal, but not in the Foreman backend!</p>
     </div>
     <% unless @dupe_id.empty? %>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert red lighten-2" role="alert">
         <p class="text-uppercase">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
           Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
@@ -15,7 +13,7 @@
     <p>Either add the zones into the Foreman backend, or remove the zones from the DCIM portal.</p>
     <%= form_tag({controller: "zones", action: "multi_delete"}, method: "delete") do %>
 
-      <table class="table table-responsive table-condensed">
+      <table class="table table-responsive">
         <thead>
           <tr>
             <th>Zone ID</th>
@@ -32,9 +30,7 @@
         </tbody>
       </table>
 
-      <div class="move-down">
-        <%= submit_tag 'Remove from DCIM Portal', data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %>
-      </div>
+      <%= submit_tag 'Remove from DCIM Portal', data: { confirm: 'Are you sure?' }, class: 'btn btn-sm orange lighten-2' %>
 
     <% end %>
     
@@ -47,10 +43,8 @@
 
       <% unless !@dupe_id.empty? %>
         <div>
-          <%= submit_tag 'Add to Foreman', data: { confirm: "This will add the zones into Foreman!  Are you sure?" }, class: 'btn btn-success' %>
+          <%= submit_tag 'Add to Foreman', data: { confirm: "This will add the zones into Foreman!  Are you sure?" }, class: 'btn btn-sm green lighten-2' %>
         </div>
       <% end %>
 
     <% end %>
-  </div>
-</div>

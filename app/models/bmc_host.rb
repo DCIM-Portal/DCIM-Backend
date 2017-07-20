@@ -1,6 +1,6 @@
 class BmcHost < ApplicationRecord
   has_many :bmc_scan_request_hosts
-  has_many :bmc_scan_requests, through: :bmc_scan_request_hosts
+  has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts
   #has_one :bmc_host_secret
   has_one :provision_request
   enum is_discovered: {

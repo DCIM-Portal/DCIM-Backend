@@ -1,30 +1,131 @@
-<h3 class="text-left text-uppercase bg-primary"><em>BMC Credentials</em></h3>
-<%= link_to 'New Credential List', new_brute_list_path, class: 'btn btn-success' %>
-<div class="pull-right">
-  <p class="time_dock">*All Times are US Central</p>
+<h3>BMC Credentials</h3>
+
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div id="async_wrapper">
+    <div class="card">
+      <div id="height_check" class="card-block grey lighten-5">
+      <% if @count == 0 %>
+        <div class="alert orange lighten-2">
+          <p>
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            There is currently no credentials list.  BMC scans cannot be created until a credentials list is created.
+          </p>
+        </div>
+      <% elsif @count == 1 %>
+        <div class="alert green lighten-2">
+          <p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            There is currently 1 credentials list that can be used for BMC scans.
+          </p>
+        </div>
+      <% else %>
+        <div class="alert green lighten-2">
+          <p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            There are currently <%= @creds.count %> credentials lists that can be used for BMC scans.
+          </p>
+        </div>
+      <% end %>
+      </div>
+      </div>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">Add Credential List</a>
+  </div>
+
+  <div class="card-reveal">
+    <h4 class="card-title blue-grey darken-3">
+      <i class="fa fa-list-ol relative" aria-hidden="true"></i>
+      Add New Credential List<i id="inv_card_close" class="fa fa-close"></i>
+    </h4>
+    <p>Create a credential list.  Authentication is done in the order of the username/password list.</p>
+    <hr>
+    <%= form_for(@cred, remote: true, html: {"data-type" => :json, id: "ajax_card_cred"}) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Credential List Name", for: "brute_list_name" %>
+        <%= f.text_field :name, class: "form-control", type: "text", id: "brute_list_name" %>
+      </div>
+      <div class="card" id="card-table">
+        <div class="card-block">
+          <h5>Username and Password List</h5>
+          <a id="add_credrow" class='btn btn-outline-info waves-effect btn-sm'>Add New Row</a>
+          <hr>
+          <p>*Note that rows can be clicked and dragged to sort username/password order.</p>
+          <div class="table-responsive">
+           <table id="cred_details" class="table table-striped table-shadow" width="100%" cellspacing="0">
+             <thead id="main_header">
+               <tr>
+                 <th>Execute Order</th>
+                 <th>Username</th>
+                 <th>Password</th>
+                 <th></th>
+               </tr>
+             </thead>
+             <tbody id="cred_detail_tbody">
+               <div data-role="dynamic-fields" class="field_contain">
+                 <%= f.fields_for :brute_list_secrets do |secret| %>
+                 <div class="form-inline">
+                   <tr class="credential_row">
+                     <td><span class="row_order">1</span><%= secret.text_field :order, class: "number_order", type: "hidden", value: "1" %></td>
+                     <td><%= secret.text_field :username, class: "form-control", id: "inputSmall" %></td>
+                     <td><%= secret.text_field :password, class: "form-control", id: "inputSmall" %></td>
+                     <td><a id="del_credrow" class="btn red lighten-2 btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                   </tr>
+                 </div>
+                 <% end %>
+               </div>
+             </tbody>
+           </table>
+          </div>
+        </div>
+      </div>
+      <hr class="invisible">
+      <div class="clearfix">
+        <%= f.button 'Create New Credential List', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_creds' %>
+      </div>
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to create credential list - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Credential List Created!</div>
+    <%end %>
+  </div>
+  
 </div>
-<%= render '/layouts/loading_overlay' %>
-<div id="main_header" class="panel panel-default">
-  <div class="well">
-    <table id="cred_table" class="table table-striped table-condensed" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
-      <thead>
-        <tr>
-          <th>Credential List ID</th>
-          <th>Credential List Name</th>
-          <th>Date Created</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="main_table_body" style="display: none">
-        <% @creds.reverse_each do |cred| %>
-          <tr id="row<%= cred.id %>">
-            <td><%= cred.id %></td>
-            <td><%= cred.name %></td>
-            <td><%= I18n.l cred.created_at, format: :pretty %></td>
-            <td><%= link_to 'Details', cred, class: 'btn btn-small btn-info' %></td>
+<hr class="invisible">
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, id: "flash_#{key}" %>
+  <hr class="invisible">
+<% end %>
+
+<div class="card">
+  <div class="card-block">
+    <div class="clearfix">
+      <h5 class="table-title">BMC Credentials List</h5>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+
+    <div class="overlay-container">
+      <%= render '/layouts/loading_overlay' %>
+      <table id="cred_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Credential List ID</th>
+            <th>Credential List Name</th>
+            <th>Date Created</th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+      </table>
+    </div>
   </div>
 </div>
+
+
+<script>
+  $("form#ajax_card_cred").on("ajax:success", function(event, data, status, xhr) {
+    $("form#ajax_card_cred")[0].reset();
+  });
+</script>

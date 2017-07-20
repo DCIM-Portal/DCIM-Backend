@@ -14,6 +14,7 @@ module DcimPortal
     config.active_job.queue_adapter = :sidekiq
     config.time_zone = 'Central Time (US & Canada)'
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.eager_load_paths += ["#{config.root}/lib/dcim"]
   end
 end
 

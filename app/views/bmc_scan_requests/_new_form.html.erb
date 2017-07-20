@@ -1,0 +1,47 @@
+<div class="panel panel-default collapse clearfix" id="bmc_scan_form">
+  <div class="well">
+    <%= form_for @bmc_scan_request do |f| %>
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label :name, "BMC Scan Name", class: "control-label", for: "inputSmall" %>
+              <%= f.text_field :name, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :start_address, "Start Address", class: "control-label", for: "inputSmall" %>
+              <%= f.text_field :start_address, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :end_address, "End Address", class: "control-label", for: "inputSmall" %>
+              <%= f.text_field :end_address, class: "form-control input-sm", type: "text", id: "inputSmall" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :zone_id, "Database Zone", class: "control-label" %>
+              <%= f.select :zone_id, @zones.collect { |zone| [zone.name, zone.id] }, {}, { class: "form-control input-sm" } %>
+            </div>
+            <div class="form-group">
+              <%= f.label :brute_list_id, "Credentials", class: "control-label" %>
+              <%= f.select :brute_list_id, @creds.collect { |cred| [cred.name, cred.id] }, {}, { class: "form-control input-sm" } %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <%= f.submit 'Create New BMC Scan', class: 'btn btn-success pull-right' %>
+      <% if bmc_scan_request.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% bmc_scan_request.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <% if flash[:error] %>
+        <div id="error_explanation">
+          <ul><li><%= flash[:error] %></li></ul>
+        </div>
+      <%end %>
+    <% end %>
+  </div>
+</div>

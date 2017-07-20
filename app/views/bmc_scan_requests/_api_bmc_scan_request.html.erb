@@ -1,0 +1,37 @@
+<div class="card">
+  <div id="height_check" class="card-block grey lighten-5">
+    <% if @logger.error? %>
+      <% @logger.all.each do |x| %>
+      <div class="alert <%= x[:type] %>">
+        <p>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          <%= x[:exception].to_s %>
+        </p>
+      </div>
+      <% end %>
+    <% else %>
+      <div class="alert green lighten-2" role="alert">
+        <p>
+          <i class="fa fa-check-circle" aria-hidden="true"></i>
+          Foreman is reachable.
+        </p>
+      </div>
+    <% end %>
+    <% if @zone_count == 0 %>
+      <div class="alert orange lighten-2">
+        <p>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Cannot create BMC scans without a datacenter zone.
+        </p>
+      </div>
+    <% end %>
+    <% if @cred_count == 0 %>
+      <div class="alert orange lighten-2">
+        <p>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Cannot create BMC scans without a credentials list.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

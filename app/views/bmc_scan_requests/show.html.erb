@@ -1,0 +1,72 @@
+<h3>BMC Scan <%= @bmc_scan_request.name %> Details</h3>
+
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div class="clearfix">
+      <%= link_to 'Back', bmc_scan_requests_path, class: 'btn blue-grey lighten-2' %>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+
+    <div id="height_check" class="table-responsive">
+      <table class="table table-striped table-shadow" id="show_view_table">
+        <thead>
+          <tr>
+            <th>Scan ID</th>
+            <th>Scan Name</th>
+            <th>Start Address</th>
+            <th>End Address</th>
+            <th>Scan Status</th>
+            <th>Associated Cred List</th>
+            <th>Datacenter Zone</th>
+            <th>Scan Initiated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @bmc_scan_request.id %></td>
+            <td><%= @bmc_scan_request.name %></td>
+            <td><%= @bmc_scan_request.start_address %></td>
+            <td><%= @bmc_scan_request.end_address %></td>
+            <td><%= @bmc_scan_request.status %></td>
+            <td><%= @bmc_scan_request.brute_list.name %></td>
+            <td><%= @bmc_scan_request.zone.name %></td>
+            <td><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
+            <td>
+              <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, @bmc_scan_request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@bmc_scan_request.id}" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-reveal">
+  </div>
+</div>
+
+<hr class="invisible">
+
+<div class="card">
+  <div class="card-block">
+    <div class="overlay-container">
+      <%= render '/layouts/loading_overlay' %>
+      <table id="bmc_host_scan_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>BMC Address</th>
+            <th>System Model</th>
+            <th>Serial</th>
+            <th>Power Status</th>
+            <th>Scan Status</th>
+            <th>Onboarded</th>
+            <th>Synchronize Date</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>

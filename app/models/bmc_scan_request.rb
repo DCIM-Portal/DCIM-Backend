@@ -1,6 +1,6 @@
 class BmcScanRequest < ApplicationRecord
   has_many :bmc_scan_request_hosts
-  has_many :bmc_hosts, through: :bmc_scan_request_hosts
+  has_many :bmc_hosts, -> { distinct }, through: :bmc_scan_request_hosts
   enum status: {
     queued: 0,
     in_progress: 1,
@@ -13,7 +13,8 @@ class BmcScanRequest < ApplicationRecord
   belongs_to :brute_list
 #after_save :update_view, if: :status_changed?
 #after_commit :update_view, on: :destroy
-  validates :name, :start_address, :end_address, presence: true
+  validates :name, :start_address, :end_address, :brute_list_id, :zone_id, presence: true
+  validates_uniqueness_of :name
 
   def update_view
     MessageBroadcastJob.perform_now self

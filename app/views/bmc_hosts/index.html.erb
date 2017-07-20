@@ -1,0 +1,59 @@
+<h3>Scanned BMC Hosts</h3>
+
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div id="async_wrapper">
+      <%= render_async api_bmc_scan_request_path %>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">???</a>
+    </div>
+
+  <div class="card-reveal">
+  </div>
+
+</div>
+
+<hr class="invisible">
+<div class="card">
+  <div class="card-block">
+    <div class="clearfix">
+      <h5 class="table-title">BMC Host List</h5>
+      <div class="pull-right">
+        <p class="time_dock">*All Times are US Central</p>
+      </div>
+    </div>
+    <div class="overlay-container">
+      <%= render '/layouts/loading_overlay' %>
+      <table id="bmc_host_list_table" class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead id="main_header">
+          <tr>
+            <th>BMC Address</th>
+            <th>System Model</th>
+            <th>Serial</th>
+            <th>Power Status</th>
+            <th>Scan Status</th>
+            <th>In Foreman?</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @bmc_hosts.each do |host| %>
+          <tr>
+            <td><%= host.ip_address %></td>
+            <td><%= host.system_model %></td>
+            <td><%= host.serial %></td>
+            <td><%= host.power_status %></td>
+            <td><%= host.scan_status %></td>
+            <td><%= host.is_discovered %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  $("form#ajax_card_form").on("ajax:success", function() {
+    $("form#ajax_card_form")[0].reset();
+  });
+</script>
+

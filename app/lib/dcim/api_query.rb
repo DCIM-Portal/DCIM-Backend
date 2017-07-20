@@ -24,10 +24,14 @@ module Dcim
       define_method(method) do |*payload, **kwargs|
         options = @resource.instance_variable_get(:@options)
 
-        # With payload, add header "Content-Type: application/json"
-        if payload.length > 0
-          payload << {'Content-Type':'application/json'}
-          payload[0] = payload[0].to_json
+        # With JSON payload, add header "Content-Type: application/json"
+        if payload[0].is_a? String
+          begin
+            JSON.parse(payload[0])
+            kwargs[:headers] ||= {}
+            kwargs[:headers].merge!({'Content-Type':'application/json'})
+          rescue JSON::ParserError => e
+          end
         end
 
         options.merge!(kwargs)

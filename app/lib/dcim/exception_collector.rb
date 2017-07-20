@@ -2,9 +2,9 @@ module Dcim
 
   class ExceptionCollector
 
-     WARNING = "warning"
-     ERROR = "danger"
-     INFO = "info"
+     WARNING = "orange lighten-2"
+     ERROR = "red lighten-2"
+     INFO = "info-color"
 
      def initialize
        @exceptions = []

@@ -1,14 +1,25 @@
 class BmcScanJob < ApplicationJob
   queue_as :default
 
-  def initialize(**kwargs)
-    @foreman_resource = kwargs[:foreman_resource]
+#  def initialize(**kwargs)
+#    @foreman_resource = kwargs[:foreman_resource]
+#    @request = kwargs[:request]
+#    @logger = kwargs[:logger] || Rails.logger
+#    super
+#  end
+
+
+  def perform(**kwargs)
+    begin
+      @foreman_resource = kwargs[:foreman_resource]
+      @foreman_resource = YAML::load(@foreman_resource) unless @foreman_resource.is_a? Dcim::ForemanApi
+    rescue RuntimeError
+      # Default to system-wide ForemanApi
+      @foreman_resource = Dcim::ForemanApiFactory.instance
+    end
     @request = kwargs[:request]
     @logger = kwargs[:logger] || Rails.logger
-  end
 
-
-  def perform
     @request.error_message = nil
     @request.update(status: :in_progress)
 
@@ -36,6 +47,7 @@ class BmcScanJob < ApplicationJob
       bmc_host = BmcHost.new(ip_address: bmc_host_ip,
                              zone: @request.zone) if !bmc_host
       bmc_host.error_message = nil
+      bmc_host.bmc_scan_requests << @request
       bmc_host.save
       promises[bmc_host_ip] = Concurrent::Promise.execute(executor: pool) do
         @logger.debug bmc_host_ip + ": Created new BMC host"

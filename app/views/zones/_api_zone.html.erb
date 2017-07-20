@@ -1,39 +1,35 @@
-<div class="alert-row clearfix">
-<% if @logger.error? %>
-
-  <div class="panel panel-default">
-    <div class="well">
-    <% @logger.all.each do |x| %>
-      <div class="alert alert-<%= x[:type] %>" role="alert">
+<div class="card">
+  <div id="height_check" class="card-block grey lighten-5">
+    <% if @logger.error? %>
+      <% @logger.all.each do |x| %>
+      <div class="alert <%= x[:type] %>">
         <p>
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          <%= x[:exception].to_s %></p>
+          <%= x[:exception].to_s %>
+        </p>
       </div>
+      <% end %>
+    <% else %>
+
+      <% if !@foreman_extras.empty? %>
+        <%= render 'foreman_alert' %>
+      <% end %>
+
+      <% if !@dcim_extras.empty? %>
+        <%= render 'dcim_alert' %>
+      <% end %>
+
+      <% if @foreman_extras.empty? && @dcim_extras.empty? %>
+        <div class="alert green lighten-2" role="alert">
+          <p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            Foreman locations are in sync.
+          </p>
+        </div>
+      <% end %>
+
     <% end %>
+
     </div>
   </div>
-<% else %>
-
-  <% if !@foreman_extras.empty? %>
-    <%= render 'foreman_alert' %>
-  <% end %>
-
-  <% if !@dcim_extras.empty? %>
-    <%= render 'dcim_alert' %>
-  <% end %>
-
-  <% if @foreman_extras.empty? && @dcim_extras.empty? %>
-  <div class="panel panel-default">
-    <div class="well">
-      <div class="alert alert-success" role="alert">
-        <p>
-          <i class="fa fa-check-circle" aria-hidden="true"></i>
-          Foreman is in sync.</p>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-<% end %>
-
 </div>

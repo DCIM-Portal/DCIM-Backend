@@ -1,27 +1,35 @@
 class BruteListsController < ApplicationController
 
   layout "bmc_page"
-  before_action :set_cred, only: [:show, :edit, :update, :destroy]
+  before_action :set_cred, only: [:show, :update, :destroy]
 
   def index
     @creds = BruteList.all
-  end
-
-  def new
     @cred = BruteList.new
     @cred.brute_list_secrets.build
-  end
-
-  def edit
+    @count = BruteList.count
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @creds.collect {
+          |cred| {
+            id:  cred.id,
+            name: cred.name,
+            created_at: cred.created_at,
+            url: brute_list_path(BruteList.find(cred.id))
+          }
+        }
+      }
+    end
   end
 
   def create
     @cred = BruteList.new(bmc_credential_params)
     respond_to do |format|
       if @cred.save
-        format.html { redirect_to brute_lists_url }
+        format.json { render json: @cred }
       else
-        format.html { render :new }
+        format.json { render json: @cred.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -33,11 +41,10 @@ class BruteListsController < ApplicationController
       if param_invalid == false && name_invalid == false
         BruteListSecret.where(brute_list_id: @cred.id).delete_all
         @cred.update(bmc_credential_params)
-        @cred.save
-        format.html { redirect_to @cred }
+        format.json { render json: @cred }
       else
         @cred.update(bmc_credential_params)
-        format.html { render :show }
+        format.json { render json: @cred.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -46,9 +53,15 @@ class BruteListsController < ApplicationController
   end
 
   def destroy
-    @cred.destroy
-    respond_to do |format|
-      format.html { redirect_to brute_lists_url }
+    name = @cred.name
+    begin
+      @cred.destroy
+      flash[:success] = "Successfully deleted credential list #{ name }"
+      redirect_to brute_lists_url
+    rescue ActiveRecord::DeleteRestrictionError => e
+      @cred.errors.add(:base, e)
+      flash[:error] = "#{e}"
+      redirect_to @cred
     end
   end
 
@@ -81,8 +94,6 @@ class BruteListsController < ApplicationController
         return true
       end
     end
-
-
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bmc_credential_params

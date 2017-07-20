@@ -1,12 +1,10 @@
-<div class="panel panel-default" id="dif_alert">
-  <div class="well">
-    <div class="alert alert-danger" role="alert">
+    <div class="alert red lighten-2" role="alert">
       <p class="text-uppercase">
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         The following zones appear to be in the Foreman backend, but not in the DCIM portal!</p>
     </div>
     <% unless @dupe_id.empty? %>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert red lighten-2" role="alert">
         <p class="text-uppercase">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
           Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
@@ -34,9 +32,7 @@
       </table>
 
       <% unless !@dupe_id.empty? %>
-        <div class="move-down">
-          <%= submit_tag 'Add to DCIM Portal', class: 'btn btn-success' %>
-        </div>
+        <%= submit_tag 'Add to DCIM Portal', class: 'btn btn-sm green lighten-2' %>
       <% end %>
 
     <% end %>
@@ -48,9 +44,7 @@
       <% end %>
 
       <div>
-        <%= submit_tag 'Remove from Foreman', data: { confirm: "This will remove the zones from Foreman!  Are you sure?" }, class: 'btn btn-warning' %>
+        <%= submit_tag 'Remove from Foreman', data: { confirm: "This will remove the zones from Foreman!  Are you sure?" }, class: 'btn btn-sm orange lighten-2' %>
       </div>
 
     <% end %>
-  </div>
-</div>

@@ -1,33 +1,78 @@
-<nav class="navbar navbar-default navbar-fixed-top"></nav>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-      <div class="panel list">
-        <ul class="nav nav-tabs" role="tablist">
+<header>
 
-          <h5 class="table-select text-uppercase bg-primary">Select Table</h5>
+  <!-- Sidebar navigation -->
+  <ul id="slide-out" class="side-nav text-uppercase fixed custom-scrollbar blue-grey darken-2 z-depth-0">
 
-          <li class="<%= is_active('bmc_scan_requests') %>">
-            <%= link_to '<i class="fa fa-list-ol"></i><br>BMC Scan List'.html_safe, bmc_scan_requests_path %>
-          </li>
-
-          <li class="<%= is_active('bmc_hosts') %>">
-            <%= link_to '<i class="fa fa-desktop"></i><br>Scanned BMC Hosts List'.html_safe, bmc_hosts_path %>
-          </li>
-
-          <li class="<%= is_active('brute_lists')%>">
-            <%= link_to '<i class="fa fa-address-card"></i><br>Credentials List'.html_safe, brute_lists_path %>
-          </li>
-
-          <li class="<%= is_active('zones') %>">
-            <%= link_to '<i class="fa fa-building-o"></i><br>Datacenter Zones'.html_safe, zones_path %>
-          </li>
-
-        </ul>
+    <!-- Logo -->
+    <li>
+      <div class="logo-wrapper waves-light">
+        <p class="lead">Foreman DCIM Portal</p>
+        <p class="black-text">Admin Page</p>
       </div>
+    </li>
+
+        <!-- Side navigation links -->
+    <li>
+      <ul class="collapsible collapsible-accordion">
+        <li id="<%= parent_menu('bmc_scan_requests') || parent_menu('brute_lists') %>">
+          <a class="collapsible-header waves-effect arrow-r <%= is_active('bmc_scan_requests') || is_active('brute_lists') %>">
+            <i class="fa fa-share-square-o"></i>System Onboarding<i class="fa fa-angle-down rotate-icon"></i>
+          </a>
+          <div class="collapsible-body">
+            <ul>
+              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, bmc_scan_requests_path, class: is_active('bmc_scan_requests') %></li>
+              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, brute_lists_path, class: is_active('brute_lists') %></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, bmc_hosts_path, class: is_active('bmc_hosts') %>
+        </li>
+        <li>
+          <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, zones_path, class: is_active('zones') %>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+
+  <!--Navbar-->
+  <nav class="navbar fixed-top navbar-toggleable-md navbar-light grey lighten-2 double-nav text-uppercase z-depth-1">
+    <div class="float-xs-left">
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
     </div>
-    <div class="col-md-10">
-      <%= yield %>
+    <div class="mr-auto">
+      <ol class="breadcrumb hidden-md-down">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Admin</li>
+      </ol>
     </div>
+    <ul class="nav navbar-nav nav-flex-icons ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="hidden-sm-down">Admin <span class="sr-only">(current)</span></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"><i class="fa fa-cloud" aria-hidden="true"></i> <span class="hidden-sm-down">Catalog</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"><i class="fa fa-question-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Support</span></a>
+      </li>
+      <li class="nav-item btn-group dropdown">
+        <a class="nav-link dropdown-toggle" id="profilemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Profile</span></a>
+        <div class="dropdown-menu dropdown-ins dropdown-menu-right" aria-labelledby="profilemenu">
+          <a class="dropdown-item">Action</a>
+          <a class="dropdown-item">Another action</a>
+          <a class="dropdown-item">Something else here</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+</header>
+
+<!--Main layout-->
+<main>
+  <div class="container-fluid">
+    <%= yield %>
   </div>
-</div>
+</main>

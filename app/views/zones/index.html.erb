@@ -1,33 +1,76 @@
-<h3 class="text-left text-uppercase bg-primary"><em>Datacenter Zones</em></h3>
-<%= link_to 'New DC Zone', new_zone_path, class: 'btn btn-success' %>
-<div class="pull-right">
-  <p class="time_dock">*All Times are US Central</p>
+<h3>Datacenter Zones</h3>
+
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div id="async_wrapper">
+      <%= render_async api_zone_path %>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">Add New Zone</a>
+  </div>
+
+  <div class="card-reveal">
+    <h4 class="card-title blue-grey darken-3">
+      <i class="fa fa-building-o relative" aria-hidden="true"></i>
+      Add New Zone <i class="fa fa-close"></i>
+    </h4>
+    <p>Add a datacenter zone to place systems in.</p>
+    <hr>
+    <%= form_for(@zone, remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Datacenter Zone Name", for: "zone_name" %>
+        <%= f.text_field :name, class: "form-control", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
+        <small id="name_help" class="form-text text-muted">When submitted, a datacenter zone will be created in Foreman.</small>
+        <%= f.text_field :id, type: "hidden", value: @id %>
+      </div>
+      <div class="clearfix">
+        <%= f.button 'Create New Zone', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
+      </div>
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to create zone - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Datacenter Zone Created!</div>
+    <%end %>
+  </div>
+
 </div>
-<div id="async_wrapper">
-  <%= render_async api_zone_path %>
-</div>
-<%= render '/layouts/loading_overlay' %>
-<div id="main_header" class="panel panel-default">
-  <div class="well">
-    <table id="zone_table" class="table table-striped table-condensed" width="100%" cellspacing="0" data-scroll-x="true" scroll-collapse="false">
-      <thead>
-        <tr>
-          <th>Zone ID</th>
-          <th>Zone Name</th>
-          <th>Date Added</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="main_table_body" style="display: none">
-        <% @zones.reverse_each do |zone| %>
+
+<hr class="invisible">
+
+<div class="card">
+  <div class="card-block">
+    <div class="clearfix">
+      <h5 class="table-title">Datacenter Zone List</h5>
+      <div class="pull-right">
+        <p class="time_dock">*All Times are US Central</p>
+      </div>
+    </div>
+    <div class="overlay-container">
+      <%= render '/layouts/loading_overlay' %>
+      <table id="zone_table" class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
           <tr>
-            <td><%= zone.id %></td>
-            <td><%= zone.name %></td>
-            <td><%= I18n.l zone.created_at, format: :pretty %></td>
-            <td><%= link_to 'Details', zone, class: 'btn btn-small btn-info' %></td>
+            <th>Zone ID</th>
+            <th>Zone Name</th>
+            <th>Date Added</th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="main_table_body" style="display: none">
+          <% @zones.reverse_each do |zone| %>
+            <tr>
+              <td><%= zone.id %></td>
+              <td><%= zone.name %></td>
+              <td><%= I18n.l zone.created_at, format: :pretty %></td>
+              <td><%= link_to 'Details', zone, class: 'btn btn-info btn-sm' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+<script>
+  $("form#ajax_card_form").on("ajax:success", function() {
+    $("form#ajax_card_form")[0].reset();
+  });
+</script>

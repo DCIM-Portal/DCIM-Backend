@@ -1,25 +1,19 @@
 class ZonesController < ApplicationController
 
-  before_action :set_zone, only: [:show, :edit, :update, :destroy]
+  before_action :set_zone, only: [:show, :update, :destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
   before_action :update_location, only: [:update]
   layout "bmc_page"
 
   def index
     @zones = Zone.all
+    @zone = Zone.new
+    @id = Zone.maximum(:id).next + 5 unless @zones.empty?
   end
 
   def api_zone
     @dupe_id = (@dcim_extras.keys & @foreman_extras.keys).each { |x| }
     render :partial => "api_zone"
-  end
-
-  def new
-    @zone = Zone.new
-    @id = Zone.maximum(:id).next + 5
-  end
-
-  def edit
   end
 
   def foreman_remove
@@ -32,10 +26,14 @@ class ZonesController < ApplicationController
     end
   end
 
+  def add_location(name)
+    locations.post( { name: name }.to_json )
+  end
+
   def foreman_add
     #Add any zones into foreman not already present
     params[:zone].each do |foreman_params|
-      locations.post({ name: foreman_params["name"] }) unless get_locations.any? { |x| x["name"] == foreman_params["name"] }
+      add_location( foreman_params["name"] ) unless get_locations.any? { |x| x["name"] == foreman_params["name"] }
     end
 
     #Update DCIM's zone id to match that in Foreman
@@ -57,19 +55,18 @@ class ZonesController < ApplicationController
       #If successfully can reach Foreman, do the save 
       if !@logger.error?
         if @zone.save
-          locations.post({ name: params[:zone][:name] }) unless get_locations.any? { |x| x["name"] == params[:zone][:name] }
+          add_location( params[:zone][:name] ) unless get_locations.any? { |x| x["name"] == params[:zone][:name] }
 
           #Update new zone in DCIM tool with Foreman's id
           get_locations.each do |x|
             Zone.where( name: params[:zone][:name] ).update_all(id: x["id"] ) if x["name"] == params[:zone][:name]
           end
-          format.html { redirect_to zones_url }
+          format.json { render json: @zone }
         else
-          format.html { render :new }
+          format.html { render json: @zone.errors.full_messages, status: :unprocessable_entity }
         end
       else
-        flash[:error] = "Foreman not reachable.  Unable to save."
-        format.html { redirect_to new_zone_url }
+        format.json { render json: '["Foreman not reachable.  Unable to save."]', status: "422" }
       end
     end
   end
@@ -152,7 +149,7 @@ class ZonesController < ApplicationController
     def update_location
       begin
         query = @foreman_resource.api.locations(@zone.id)
-        result = query.put({name: params[:zone][:name]})
+        result = query.put({name: params[:zone][:name]}.to_json)
         result.code
       rescue Exception => e
         @logger.error(exception: e)
