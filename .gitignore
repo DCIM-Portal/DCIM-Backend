@@ -21,3 +21,6 @@ config/database.yml
 
 # Ignore core dumps
 core.*
+
+# Ignore Vim swap files
+*.swp
