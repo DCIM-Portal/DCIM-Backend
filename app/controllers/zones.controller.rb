@@ -9,6 +9,19 @@ class ZonesController < ApplicationController
     @zones = Zone.all
     @zone = Zone.new
     @id = Zone.maximum(:id).next + 5 unless @zones.empty?
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @zones.collect {
+          |zone| {
+            id:  zone.id,
+            name: zone.name,
+            created_at: zone.created_at,
+            url: zone_path(Zone.find(zone.id))
+          }
+        }
+      }
+    end
   end
 
   def api_zone

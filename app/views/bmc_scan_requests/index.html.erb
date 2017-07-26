@@ -67,22 +67,23 @@
     </div>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-
-      <table id="bmc_scan_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Scan ID</th>
-            <th>Scan Name</th>
-            <th>Start Address</th>
-            <th>End Address</th>
-            <th>Scan Status</th>
-            <th>Associated Cred List</th>
-            <th>Datacenter Zone</th>
-            <th>Date Created</th>
-            <th></th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-responsive">
+        <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Scan ID</th>
+              <th>Scan Name</th>
+              <th>Start Address</th>
+              <th>End Address</th>
+              <th>Scan Status</th>
+              <th>Associated Cred List</th>
+              <th>Datacenter Zone</th>
+              <th>Scan Initiated</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -90,4 +91,8 @@
   $("form#ajax_card_form").on("ajax:success", function() {
     $("form#ajax_card_form")[0].reset();
   });
+
+  document.detail_name = 'bmc_scan_request'
+  document.detail_associations = ['brute_list', 'zone']
+  document.plurals['bmc_scan_request'] = 'bmc_scan_requests'
 </script>

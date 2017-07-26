@@ -41,12 +41,12 @@
     <div class="clearfix">
       <h5 class="table-title">Datacenter Zone List</h5>
       <div class="pull-right">
-        <p class="time_dock">*All Times are US Central</p>
+        <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-      <table id="zone_table" class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%">
+      <table id="zone_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th>Zone ID</th>
@@ -55,16 +55,6 @@
             <th></th>
           </tr>
         </thead>
-        <tbody id="main_table_body" style="display: none">
-          <% @zones.reverse_each do |zone| %>
-            <tr>
-              <td><%= zone.id %></td>
-              <td><%= zone.name %></td>
-              <td><%= I18n.l zone.created_at, format: :pretty %></td>
-              <td><%= link_to 'Details', zone, class: 'btn btn-info btn-sm' %></td>
-            </tr>
-          <% end %>
-        </tbody>
       </table>
     </div>
   </div>

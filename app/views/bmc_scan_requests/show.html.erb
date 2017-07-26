@@ -26,15 +26,23 @@
         </thead>
         <tbody>
           <tr>
-            <td><%= @bmc_scan_request.id %></td>
-            <td><%= @bmc_scan_request.name %></td>
-            <td><%= @bmc_scan_request.start_address %></td>
-            <td><%= @bmc_scan_request.end_address %></td>
-            <td><%= @bmc_scan_request.status %></td>
-            <td><%= @bmc_scan_request.brute_list.name %></td>
-            <td><%= @bmc_scan_request.zone.name %></td>
-            <td><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
-            <td>
+            <td id="category_bmc_scan_request_id" data-title="Scan ID:"><%= @bmc_scan_request.id %></td>
+            <td id="category_bmc_scan_request_name" data-title="Scan Name:"><%= @bmc_scan_request.name %></td>
+            <td id="category_bmc_scan_request_start_address" data-title="Start Address:"><%= @bmc_scan_request.start_address %></td>
+            <td id="category_bmc_scan_request_end_address" data-title="End Address:"><%= @bmc_scan_request.end_address %></td>
+            <td id="category_bmc_scan_request_status" data-title="Scan Status:">
+            <% if @bmc_scan_request.status == "scan_complete" %>
+              <span class="badge green lighten-2">Scan Complete</span>
+            <% elsif @bmc_scan_request.status == "in_progress" %>
+              <span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>
+            <% else %>
+              <span class="badge red lighten-2"><%= @bmc_scan_request.status %></span>
+            <% end %>
+            </td>
+            <td id="category_bmc_scan_request_brute_list_name" data-title="Associated Cred List:"><%= @bmc_scan_request.brute_list.name %></td>
+            <td id="category_bmc_scan_request_zone_name" data-title="Datacenter Zone:"><%= @bmc_scan_request.zone.name %></td>
+            <td id="category_bmc_scan_request_updated_at" data-title="Scan Initiated:"><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
+            <td id="bmc_scan_request_edit_buttons" data-title="Actions:">
               <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
               <%= link_to '<i class="fa fa-times"></i>'.html_safe, @bmc_scan_request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@bmc_scan_request.id}" %>
             </td>
@@ -45,6 +53,49 @@
   </div>
 
   <div class="card-reveal">
+    <h4 class="card-title blue-grey darken-3">
+      <i class="fa fa-search relative" aria-hidden="true"></i>
+      Preform BMC Rescan <i class="fa fa-close"></i>
+    </h4>
+    <p>Update this request and rescan for system BMCs within the specified IP range.</p>
+    <hr>
+    <%= form_for(@bmc_scan_request, remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Bmc Scan Name", for: "bmc_scan_request_name" %>
+        <%= f.text_field :name, class: "form-control", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>
+        <small id="name_help" class="form-text text-muted">Give this request a unique name.</small>
+      </div>
+      <div class="row form">
+        <div class="form-group">
+          <%= f.label :start_address, "Start Address", for: "bmc_scan_request_start_address" %>
+          <%= f.text_field :start_address, class: "form-control", type: "text", id: "bmc_scan_request_start_address", "aria-describedby": "address_help" %>
+        </div>
+       <div class="form-group">
+          <%= f.label :end_address, "End Address", for: "bmc_scan_request_end_address" %>
+          <%= f.text_field :end_address, class: "form-control", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
+        </div>
+      </div>
+      <small id="address_help" class="form-text text-muted special_small_input_text">Update the start and end address of BMC IPv4 address range to scan.</small>
+      <div class="row form special-top">
+        <div class="form-group">
+          <%= f.label "Database Zone" %>
+          <div class="form-control form-no-input"><%= @bmc_scan_request.zone.name %></div>
+        </div>
+        <div class="form-group">
+          <%= f.label :brute_list_id, "Credential List" %>
+          <%= f.select :brute_list_id, @creds.collect { |cred| [cred.name, cred.id] }, {}, { class: "form-control" } %>
+        </div>
+      </div>
+      <small class="form-text text-muted special_small_input_text">A datacenter zone may not be changed for an existing BMC scan. Update the BMC credential list for system authentication.</small>
+
+      <div class="clearfix">
+        <%= f.button 'Update and Rescan', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
+      </div>
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to update - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Bmc Scan Updated!</div>
+    <%end %>
   </div>
 </div>
 
@@ -52,21 +103,34 @@
 
 <div class="card">
   <div class="card-block">
+    <h5>BMC Host List</h5><div id="cache-container">THIS IS CACHE</div>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-      <table id="bmc_host_scan_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>BMC Address</th>
-            <th>System Model</th>
-            <th>Serial</th>
-            <th>Power Status</th>
-            <th>Scan Status</th>
-            <th>Onboarded</th>
-            <th>Synchronize Date</th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-responsive">
+        <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>BMC Address</th>
+              <th>System Model</th>
+              <th>Serial</th>
+              <th>Power Status</th>
+              <th>Last Sync Status</th>
+              <th>Onboarded</th>
+              <th>Synchronize Date</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  document.category_name = 'bmc_scan_request'
+  document.detail_name   = 'bmc_host'
+  document.join_name     = 'bmc_scan_request_host'
+  document.category_id   = <%= @bmc_scan_request.id %>
+  document.category_associations = ['bmc_hosts', 'brute_list', 'zone']
+  document.detail_associations   = []
+  document.plurals['bmc_scan_request'] = 'bmc_scan_requests'
+  document.plurals['bmc_host']         = 'bmc_hosts'
+</script>

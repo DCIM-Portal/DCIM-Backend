@@ -30,6 +30,7 @@ layout "bmc_page"
   end
 
   def show
+    @creds = BruteList.all
     respond_to do |format|
       format.html
       format.json { render json: @bmc_scan_request.to_json( include: :bmc_hosts ) }
@@ -61,13 +62,13 @@ layout "bmc_page"
   def update
     respond_to do |format|
       if @bmc_scan_request.update(bmc_scan_request_params)
+        @bmc_scan_request.bmc_hosts.destroy_all
         @bmc_scan_request.status = 0
-        @bmc_scan_request.save
-        format.html { redirect_to @bmc_scan_request }
-        #ScanResult.where(bmc_scan_job_id: @bmc_scan_job.id).destroy_all
-        #ScanJob.perform_later(@bmc_scan_job)
+        @bmc_scan_request.save!
+        format.json { render json: @bmc_scan_request }
+        BmcScanJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: @bmc_scan_request)
       else
-        format.html { render :edit }
+        format.json { render json: @bmc_scan_request.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

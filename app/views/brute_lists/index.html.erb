@@ -125,6 +125,8 @@
 
 
 <script>
+  subscribe_to_record("brute_list");
+  subscribe_to_record("brute_list_secret");
   $("form#ajax_card_cred").on("ajax:success", function(event, data, status, xhr) {
     $("form#ajax_card_cred")[0].reset();
   });

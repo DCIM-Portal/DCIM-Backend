@@ -5,16 +5,36 @@ $(document).on 'turbolinks:load', ->
 
   #Zones main table
   $('#zone_table').DataTable
+    ajax: {
+      url: window.location.href
+      type: 'GET'
+      dataSrc: ""
+      beforeSend: (request) ->
+        request.setRequestHeader 'Accept', 'application/json'
+    }
+    columns: [
+      { "data": "id" },
+      { "data": "name" },
+      { "data": "created_at" },
+      { "data": "url" }
+    ]
     deferRender: true
-    columnDefs: [ 
+    columnDefs: [
+      { targets: 2
+      render: (data, type, full, meta) ->
+        moment(data).format 'MMMM D YYYY, h:mma'
+      }
+      { targets: 3
       orderable: false
-      targets: [1,2]
+      render: (data, type, full, meta) ->
+        '<a class="btn btn-info btn-sm" href="' + data + '">Details</a>'
+      }
+      orderable: false
+      targets: [1]
     ]
     order: [ 0, 'asc' ]
     responsive: true
     drawCallback: ->
-      $('#main_header').show()
-      $('#main_table_body').show()
       $('.overlay').hide()
 
 $(document).on 'turbolinks:before-cache', ->

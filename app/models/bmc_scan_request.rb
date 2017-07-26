@@ -1,3 +1,5 @@
+require 'resolv'
+
 class BmcScanRequest < ApplicationRecord
   has_many :bmc_scan_request_hosts
   has_many :bmc_hosts, -> { distinct }, through: :bmc_scan_request_hosts
@@ -11,12 +13,8 @@ class BmcScanRequest < ApplicationRecord
   }
   belongs_to :zone
   belongs_to :brute_list
-#after_save :update_view, if: :status_changed?
-#after_commit :update_view, on: :destroy
-  validates :name, :start_address, :end_address, :brute_list_id, :zone_id, presence: true
+  validates :name, :brute_list_id, :zone_id, presence: true
+  validates :start_address, :end_address, presence: true, format: { with: Resolv::IPv4::Regex, message: "not a valid IPv4 address" }
   validates_uniqueness_of :name
 
-  def update_view
-    MessageBroadcastJob.perform_now self
-  end
 end

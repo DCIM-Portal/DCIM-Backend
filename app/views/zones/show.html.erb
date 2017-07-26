@@ -5,7 +5,7 @@
     <div class="clearfix">
       <%= link_to 'Back', zones_path, class: 'btn blue-grey lighten-2' %>
       <div class="pull-right">
-        <p class="time_dock">*All Times are US Central</p>
+        <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
 
@@ -23,7 +23,7 @@
           <tr>
             <td><%= @zone.id %></td>
             <td id="zone_name"><%= @zone.name %></td>
-            <td><%= I18n.l @zone.updated_at, format: :pretty %></td>
+            <td><%= local_time(@zone.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td>
               <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
               <%= link_to '<i class="fa fa-times"></i>'.html_safe, @zone, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@zone.id}" %>

@@ -47,6 +47,7 @@ class BmcScanJob < ApplicationJob
       bmc_host = BmcHost.new(ip_address: bmc_host_ip,
                              zone: @request.zone) if !bmc_host
       bmc_host.error_message = nil
+      bmc_host.sync_status = nil
       bmc_host.bmc_scan_requests << @request
       bmc_host.save
       promises[bmc_host_ip] = Concurrent::Promise.execute(executor: pool) do
@@ -55,7 +56,7 @@ class BmcScanJob < ApplicationJob
         @logger.debug bmc_host_ip + ": Got BMC host info: " + bmc_host_info_hash.to_s
         bmc_host_info_hash.each { |name, value| bmc_host.send(name.to_s + "=", value) }
         bmc_host.zone = @request.zone
-        bmc_host.scan_status = :success
+        bmc_host.sync_status = :success
         ActiveRecord::Base.connection_pool.with_connection do
           bmc_host.save
         end
@@ -71,15 +72,16 @@ class BmcScanJob < ApplicationJob
         @logger.warn bmc_host_ip + ": Promise rejected with reason: " + error.to_s
         bmc_host = BmcHost.find_by(ip_address: bmc_host_ip)
         begin
-          bmc_host.scan_status = error.class.name.demodulize.underscore
+          bmc_host.sync_status = error.class.name.demodulize.underscore
         rescue ArgumentError
-          bmc_host.scan_status = :stack_trace
+          bmc_host.sync_status = :stack_trace
           bmc_host.error_message = error.class.name + ": " + error.message + "\n" + error.backtrace.join("\n")
         end
         bmc_host.save
       end
     end
 
+    @request.reload
     @request.update(status: :scan_complete)
     true
   end

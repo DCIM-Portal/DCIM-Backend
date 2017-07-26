@@ -52,6 +52,19 @@ $(document).on 'turbolinks:load', ->
       originalHeight = $('#height_check').outerHeight() + 71
     $('.ovf-hidden').animate { height: originalHeight }, 250
 
+  #Resize card if table becomes block
+  $(window).on 'resize', (event) ->
+    windowSize = $(this).width()
+    if windowSize = 865 && $('.card-reveal').css('display') == 'none'
+      ua = window.navigator.userAgent
+      trident = ua.indexOf('Trident/')
+      #Give more height to IE browser
+      if trident > 0
+        originalHeight = $('#height_check').outerHeight() + 107
+      else
+        originalHeight = $('#height_check').outerHeight() + 71
+      $('.ovf-hidden').stop().animate { height: originalHeight }, 250
+
   #Ajax Form Success
   $("form#ajax_card_form").on "ajax:success", (event, data, status, xhr) ->
     $("#waiting_explanation").hide()
@@ -80,7 +93,7 @@ $(document).on 'turbolinks:load', ->
     $('#ajax_submit_button').prop('disabled', false)
 
 $(document).on 'turbolinks:before-cache', ->
-  #Load overlay and hide tables
+  #Load overlay
   $('.overlay').show()
 
   #If we select any items in a datatable,

@@ -12,15 +12,18 @@ class BmcHost < ApplicationRecord
     off: 0,
     on: 1
   }
-  enum scan_status: {
+  enum sync_status: {
     success: 0,
     unknown_error: 1,
-    connection_timeout_error: 2,
-    invalid_credentials_error: 3,
-    invalid_username_error: 4,
-    invalid_password_error: 5,
-    unsupported_fru_error: 6,
-    stack_trace: 7
+    stack_trace: 2,
+    smart_proxy_error: 3,
+    connection_timeout_error: 4,
+    invalid_credentials_error: 5,
+    invalid_username_error: 6,
+    invalid_password_error: 7,
+    unsupported_fru_error: 8,
+    session_timeout_error: 9,
+    bmc_busy_error: 10
   }
   belongs_to :zone
 end
