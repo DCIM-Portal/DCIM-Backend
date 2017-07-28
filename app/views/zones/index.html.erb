@@ -1,5 +1,7 @@
-<h3>Datacenter Zones</h3>
-
+<div class="clearfix">
+  <h3 class="section_title">Datacenter Zones</h3>
+  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+</div>
 <div class="card ovf-hidden">
   <div class="card-block">
     <div id="async_wrapper">
@@ -46,20 +48,26 @@
     </div>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-      <table id="zone_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Zone ID</th>
-            <th>Zone Name</th>
-            <th>Date Added</th>
-            <th></th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-responsive">
+        <table id="zone_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>DCIM Zone ID</th>
+              <th>Zone Name</th>
+              <th>Foreman Zone ID</th>
+              <th>Date Added</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 <script>
+  document.detail_name = 'zone'
+  document.plurals['zone'] = 'zones'
+
   $("form#ajax_card_form").on("ajax:success", function() {
     $("form#ajax_card_form")[0].reset();
   });

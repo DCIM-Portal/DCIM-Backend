@@ -1,4 +1,7 @@
-<h3>BMC Credentials</h3>
+<div class="clearfix">
+  <h3 class="section_title">BMC Credentials</h3>
+  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+</div>
 
 <div class="card ovf-hidden">
   <div class="card-block">
@@ -109,24 +112,27 @@
 
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-      <table id="cred_table" class="table table-striped dt-responsive nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Credential List ID</th>
-            <th>Credential List Name</th>
-            <th>Date Created</th>
-            <th></th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-responsive">
+        <table id="cred_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Credential List ID</th>
+              <th>Credential List Name</th>
+              <th>Date Created</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
 
 <script>
-  subscribe_to_record("brute_list");
-  subscribe_to_record("brute_list_secret");
+  document.detail_name = 'brute_list'
+  document.plurals['brute_list'] = 'brute_lists'
+
   $("form#ajax_card_cred").on("ajax:success", function(event, data, status, xhr) {
     $("form#ajax_card_cred")[0].reset();
   });

@@ -96,40 +96,40 @@ $(document).on 'turbolinks:load', ->
     stop: (event, ui) ->
       updateCredrow()
 
-  #Brute List main table
-  $('#cred_table').DataTable
-    ajax: {
-      url: window.location.href
-      type: 'GET'
-      dataSrc: ""
-      beforeSend: (request) ->
-        request.setRequestHeader 'Accept', 'application/json'
-    }
-    columns: [
-      { "data": "id" },
-      { "data": "name" },
-      { "data": "created_at" },
-      { "data": "url" }
-    ]
-    deferRender: true
-    columnDefs: [ 
-      { targets: 3
-      orderable: false
-      render: (data, type, full, meta) ->
-        '<a class="btn btn-info btn-sm" href="' + data + '">Details</a>'
-      }
-      { targets: 2
-      orderable: false
-      render: (data, type, full, meta) ->
-        moment(data).format 'MMMM D YYYY, h:mma'
-      }
-      orderable: false
-      targets: [1]
-    ]
-    order: [ 0, 'asc' ]
-    responsive: true
-    drawCallback: ->
-      $('.overlay').hide()
+  document.render.detail_table.brute_list = (view) ->
+    #Brute List main table
+    document.detail_table = $('#cred_table').DataTable
+      data: view
+      rowId: 'id'
+      columns: [
+        { "data": "id" },
+        { "data": "name" },
+        { "data": "created_at" },
+        { "data": "url" }
+      ]
+      dom: '<"top clearfix"lf><t><"bottom"ip><"clearfix">'
+      createdRow: (row, data, dataIndex) ->
+        $(row).find('td:eq(0)').attr 'data-title', 'Credential List ID:'
+        $(row).find('td:eq(1)').attr 'data-title', 'Credential List Name:'
+        $(row).find('td:eq(2)').attr 'data-title', 'Date Created:'
+      deferRender: true
+      columnDefs: [ 
+        { targets: 3
+        orderable: false
+        render: (data, type, full, meta) ->
+          '<a class="btn btn-info btn-sm" href="' + data + '">Details</a>'
+        }
+        { targets: 2
+        orderable: false
+        render: (data, type, full, meta) ->
+          moment(data).format 'MMMM D YYYY, h:mma'
+        }
+        orderable: false
+        targets: [1]
+      ]
+      order: [ 0, 'asc' ]
+      drawCallback: ->
+        $('.overlay').hide()
 
 $(document).on 'turbolinks:before-cache', ->
   #Hide cred table

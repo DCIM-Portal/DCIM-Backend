@@ -2,13 +2,11 @@ class ZonesController < ApplicationController
 
   before_action :set_zone, only: [:show, :update, :destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
-  before_action :update_location, only: [:update]
   layout "bmc_page"
 
   def index
     @zones = Zone.all
     @zone = Zone.new
-    @id = Zone.maximum(:id).next + 5 unless @zones.empty?
     respond_to do |format|
       format.html
       format.json {
@@ -16,6 +14,7 @@ class ZonesController < ApplicationController
           |zone| {
             id:  zone.id,
             name: zone.name,
+            foreman_location_id: zone.foreman_location_id,
             created_at: zone.created_at,
             url: zone_path(Zone.find(zone.id))
           }
@@ -25,13 +24,12 @@ class ZonesController < ApplicationController
   end
 
   def api_zone
-    @dupe_id = (@dcim_extras.keys & @foreman_extras.keys).each { |x| }
     render :partial => "api_zone"
   end
 
   def foreman_remove
     params[:zone].each do |foreman_params|
-      query = @foreman_resource.api.locations(foreman_params["id"])
+      query = @foreman_resource.api.locations(foreman_params["name"])
       delete = query.delete
     end
     respond_to do |format|
@@ -47,19 +45,13 @@ class ZonesController < ApplicationController
     #Add any zones into foreman not already present
     params[:zone].each do |foreman_params|
       add_location( foreman_params["name"] ) unless get_locations.any? { |x| x["name"] == foreman_params["name"] }
+      query = @foreman_resource.api.locations(foreman_params["name"])
+      foreman_location_id = query.get["id"]
+      Zone.where(name: foreman_params["name"]).update(foreman_location_id: foreman_location_id)
     end
-
-    #Update DCIM's zone id to match that in Foreman
-    params[:zone].each do |foreman_params|
-      get_locations.each do | x |
-        Zone.where( name: x["name"] ).update_all( id: x["id"] ) if x["name"] == foreman_params["name"]
-      end
-    end
-
     respond_to do |format|
       format.html { redirect_to zones_url }
     end
-
   end
 
   def create
@@ -72,7 +64,7 @@ class ZonesController < ApplicationController
 
           #Update new zone in DCIM tool with Foreman's id
           get_locations.each do |x|
-            Zone.where( name: params[:zone][:name] ).update_all(id: x["id"] ) if x["name"] == params[:zone][:name]
+            Zone.where( name: params[:zone][:name] ).update( foreman_location_id: x["id"] ) if x["name"] == params[:zone][:name]
           end
           format.json { render json: @zone }
         else
@@ -92,8 +84,7 @@ class ZonesController < ApplicationController
         format.json { render json: @zone.errors.full_messages, status: :unprocessable_entity }
       elsif update_location == 200 && name_invalid == false
         @zone.update(zone_params)
-        #format.html { redirect_to(@zone, :notice => "Zone Name Successfully Updated") }
-        format.json { render json: @zone, location: @zone }
+        format.json { render json: @zone }
       else
         format.json { render json: '["Foreman not reachable.  Unable to save."]', status: "422" }
       end
@@ -105,9 +96,10 @@ class ZonesController < ApplicationController
 
   def destroy
     if !@logger.error?
-      @zone.destroy
-      query = @foreman_resource.api.locations(params["id"])
+      name = @zone.name
+      query = @foreman_resource.api.locations(name)
       delete = query.delete
+      @zone.destroy
       respond_to do |format|
         format.html { redirect_to zones_url }
       end
@@ -121,7 +113,11 @@ class ZonesController < ApplicationController
 
   def multi_create
     zone_array_params[:zone].each do |zoned_params|
-      Zone.create(zoned_params)
+      query = @foreman_resource.api.locations(zoned_params["name"])
+      foreman_location_id = query.get["id"]
+      dcim_zone = Zone.new(zoned_params)
+      dcim_zone.foreman_location_id = foreman_location_id
+      dcim_zone.save
     end
     respond_to do |format|
       format.html { redirect_to zones_url }
@@ -130,7 +126,7 @@ class ZonesController < ApplicationController
 
   def multi_delete
     zone_array_params[:zone].each do |zoned_params|
-      Zone.where(id: zoned_params["id"]).destroy_all
+      Zone.where(name: zoned_params["name"]).destroy_all
     end
     respond_to do |format|
       format.html { redirect_to zones_url }
@@ -161,7 +157,7 @@ class ZonesController < ApplicationController
     #Attempt to update location in Foreman
     def update_location
       begin
-        query = @foreman_resource.api.locations(@zone.id)
+        query = @foreman_resource.api.locations(@zone.name)
         result = query.put({name: params[:zone][:name]}.to_json)
         result.code
       rescue Exception => e
@@ -184,22 +180,22 @@ class ZonesController < ApplicationController
 
     #Foreman zones list hash
     def foreman_locations
-      @foreman_locations = Hash[get_locations.map { |h| h.values_at('id', 'name') }]
+      @foreman_locations = get_locations.map { |key| key["name"] }
     end
 
     #DCIM zones list hash
     def dcim_locations
-      @dcim_locations = Zone.all.map {|hash| [hash["id"], hash["name"]]}.to_h
+      @dcim_locations = Zone.all.map { |key| key["name"] }
     end
 
     #Do we have zones in Foreman that are not in DCIM tool?
     def foreman_extras
-      @foreman_extras = (@foreman_locations.to_a - @dcim_locations.to_a).to_h
+      @foreman_extras = @foreman_locations - @dcim_locations
     end
 
     #Do we have zones in DCIM tool that are not in Foreman?
     def dcim_extras
-      @dcim_extras = (@dcim_locations.to_a - @foreman_locations.to_a).to_h
+      @dcim_extras = @dcim_locations - @foreman_locations
     end
 
     def zone_params

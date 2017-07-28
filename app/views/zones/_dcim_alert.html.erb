@@ -3,27 +3,17 @@
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         The following zones appear to be in the DCIM portal, but not in the Foreman backend!</p>
     </div>
-    <% unless @dupe_id.empty? %>
-      <div class="alert red lighten-2" role="alert">
-        <p class="text-uppercase">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
-      </div>
-    <% end %>
-    <p>Either add the zones into the Foreman backend, or remove the zones from the DCIM portal.</p>
     <%= form_tag({controller: "zones", action: "multi_delete"}, method: "delete") do %>
 
       <table class="table table-responsive">
         <thead>
           <tr>
-            <th>Zone ID</th>
-            <th>Zone Name</th>
+            <th>DCIM Zone</th>
           </tr>
         </thead>
         <tbody>
-        <% @dcim_extras.each do | id, name | %>
+        <% @dcim_extras.each do |name| %>
           <tr>
-            <td><%= id %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
             <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
           </tr>
         <% end %>
@@ -36,15 +26,12 @@
     
     <%= form_tag({controller: "zones", action: "foreman_add"}, method: "post") do %>
 
-      <% @dcim_extras.each do | id, name | %>
-        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+      <% @dcim_extras.each do |name| %>
         <%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
       <% end %>
 
-      <% unless !@dupe_id.empty? %>
-        <div>
-          <%= submit_tag 'Add to Foreman', data: { confirm: "This will add the zones into Foreman!  Are you sure?" }, class: 'btn btn-sm green lighten-2' %>
-        </div>
-      <% end %>
+      <div>
+        <%= submit_tag 'Add to Foreman', data: { confirm: "This will add the zones into Foreman!  Are you sure?" }, class: 'btn btn-sm green lighten-2' %>
+      </div>
 
     <% end %>

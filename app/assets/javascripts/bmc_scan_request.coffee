@@ -1,16 +1,5 @@
 $(document).on 'turbolinks:load', ->
 
-#  $.ajax
-#    url: window.location.href
-#    type: 'GET'
-#    beforeSend: (request) ->
-#      request.setRequestHeader 'Accept', 'application/json'
-#    success: (data) ->
-#      document.bmc_scan_request_id = data["id"]
-#      console.log("SETTING bmc_scan_request_id: " + document.bmc_scan_request_id)
-#      make_bmc_scan_table(data)
-#      make_bmc_host_scan_table(data)
-
   document.render.detail_table.bmc_scan_request = (view) ->
     #BmcScanRequest main table
     document.detail_table = $('#bmc_scan_requests_table').DataTable
@@ -40,8 +29,16 @@ $(document).on 'turbolinks:load', ->
       deferRender: true
       order: [ 0, 'asc' ]
       columnDefs: [
+        { targets: 4
+        render: (data, type, full, meta) ->
+          if data == "scan_complete"
+            '<span class="badge green lighten-2">Scan Complete</span>'
+          else if data == "in_progress"
+            '<span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>'
+          else
+            '<span class="badge red lighten-2">' + data + '</span>'
+        }
         { targets: 7
-        data: 7
         render: (data, type, full, meta) ->
           moment(data).format 'MMMM D YYYY, h:mma'
         }
@@ -57,16 +54,23 @@ $(document).on 'turbolinks:load', ->
   document.render.category_table.bmc_scan_request = (record) ->
     for key, value of record
       $("#category_" + document.category_name + "_" + key).html(value)
+      $(".category_" + document.category_name + "_" + key).html(value)
       if key == "status" && value == "in_progress"
         $("#category_" + document.category_name + "_" + key).html('<span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>')
+        $('.action_button').prop('disabled', true);
+        $('.action_button').addClass('disabled');
       else if key == "status" && value =="scan_complete"
         $("#category_" + document.category_name + "_" + key).html('<span class="badge green lighten-2">Scan Complete</span>')
+        $('.action_button').prop('disabled', false);
+        $('.action_button').removeClass('disabled');
       else if key == "status"
         $("#category_" + document.category_name + "_" + key).html('<span class="badge red lighten-2">' + value + '</span>')
+        $('.action_button').prop('disabled', false);
+        $('.action_button').removeClass('disabled');
       $("#category_" + document.category_name + "_brute_list_name").html(value.name) if key == "brute_list"
       $("#category_" + document.category_name + "_zone_name").html(value.name) if key == "zone"
       $("#category_" + document.category_name + "_updated_at").html(moment(value).format('MMM DD YYYY, h:mma')) if key == "updated_at"
-
+  
   document.render.detail_table.bmc_host = (view) ->
     #BmcScanRequest Host List Table
     document.detail_table = $('#bmc_hosts_table').DataTable
@@ -188,47 +192,3 @@ $(document).on 'turbolinks:load', ->
       ]
       drawCallback: ->
         $('.overlay').hide()
-
-#  App["bmc_scan_request"].fullLoad(document.bmc_scan_request_id)
-
-#@connected_callback = (name) ->
-#  if name == "bmc_scan_request"
-#    App["bmc_scan_request"].fullLoad(document.bmc_scan_request_id)
-#
-#
-#$(document).on 'turbolinks:before-cache', ->
-#  #Destroy datatables to avoid wrapper duplication 
-#  document.bmc_scan_table?.destroy()
-#  document.bmc_host_scan_table?.destroy()
-#
-#@update_view = (data) ->
-#  record = JSON.parse(data["data"])
-#  if data["record"] == "bmc_scan_request"
-#    console.log("UPDATING RECORD bmc_scan_request")
-#    console.log("CONDITION: " + document.bmc_host_scan_table)
-#    document.make_bmc_host_scan_table(record) if record["bmc_hosts"]
-#    #for bmc_host in record["bmc_hosts"]
-#    #  @update_view_bmc_host(bmc_host)
-#  if data["record"] == "bmc_host"
-#    @update_view_bmc_host(record, data["destroyed"])
-#  if data["record"] == "bmc_scan_request_host"
-#    record = JSON.parse(data["data"])
-#    if data["destroyed"] && record["bmc_scan_request_id"] == document.bmc_scan_request_id
-#      document.bmc_host_scan_table.row('#'+record["bmc_host_id"]).remove().draw()
-#
-#@update_view_bmc_host = (record, destroyed=false) ->
-#  console.log("UPDATING RECORD bmc_host")
-#  if !record["bmc_scan_requests"] || record["bmc_scan_requests"].some((bmc_scan_request) ->
-#      return bmc_scan_request["id"] == document.bmc_scan_request_id
-#      )
-#    console.log("THIS bmc_host IS PART OF OUR bmc_scan_request")
-#    # Update or Delete
-#    if document.bmc_host_scan_table.row("#"+record["id"]).id()
-#      # Delete
-#      if destroyed
-#        document.bmc_host_scan_table.row("#"+record["id"]).remove().draw()
-#      # Update
-#      else
-#        document.bmc_host_scan_table.row("#"+record["id"]).data(record)
-#    # Add
-#    else document.bmc_host_scan_table.row.add(record).draw()

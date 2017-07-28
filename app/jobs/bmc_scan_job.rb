@@ -89,7 +89,7 @@ class BmcScanJob < ApplicationJob
   private
 
   def get_onboard_smart_proxy
-    location = @foreman_resource.api.locations(@request.zone_id).get
+    location = @foreman_resource.api.locations(@request.zone.foreman_location_id).get
     location["smart_proxies"].each do |smart_proxy|
       begin
         smart_proxy_resource = Dcim::SmartProxyApi.new(url: smart_proxy["url"])

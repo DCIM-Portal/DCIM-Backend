@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720164406) do
+ActiveRecord::Schema.define(version: 20170727204940) do
 
-  create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "serial"
     t.string "ip_address"
     t.string "username"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170720164406) do
     t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id"
   end
 
-  create_table "bmc_scan_request_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "bmc_scan_request_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "bmc_scan_request_id"
     t.integer "bmc_host_id"
     t.datetime "created_at", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170720164406) do
     t.index ["bmc_scan_request_id"], name: "index_bmc_scan_request_hosts_on_bmc_scan_request_id"
   end
 
-  create_table "bmc_scan_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "bmc_scan_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "start_address"
     t.string "end_address"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20170720164406) do
     t.index ["zone_id"], name: "index_bmc_scan_requests_on_zone_id"
   end
 
-  create_table "brute_list_secrets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "brute_list_secrets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username"
     t.string "password"
     t.integer "order"
@@ -64,14 +64,14 @@ ActiveRecord::Schema.define(version: 20170720164406) do
     t.index ["brute_list_id"], name: "index_brute_list_secrets_on_brute_list_id"
   end
 
-  create_table "brute_lists", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "brute_lists", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_brute_lists_on_name", unique: true
   end
 
-  create_table "provision_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "provision_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "status"
     t.integer "step"
     t.datetime "created_at", null: false
@@ -80,10 +80,11 @@ ActiveRecord::Schema.define(version: 20170720164406) do
     t.index ["bmc_host_id"], name: "index_provision_requests_on_bmc_host_id"
   end
 
-  create_table "zones", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "zones", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.integer "foreman_location_id"
     t.index ["name"], name: "index_zones_on_name", unique: true
   end
 

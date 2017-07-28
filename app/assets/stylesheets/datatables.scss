@@ -161,6 +161,9 @@ div.dataTables_scrollBody table {
   text-decoration: none;
   background-color: #A5D6A7;
 }
+.pagination .page-link:focus {
+  background-color: #A5D6A7;
+}
 .page-link {
   color: #212121;
 }

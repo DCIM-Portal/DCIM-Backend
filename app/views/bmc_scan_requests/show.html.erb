@@ -1,5 +1,7 @@
-<h3>BMC Scan <%= @bmc_scan_request.name %> Details</h3>
-
+<div class="clearfix">
+  <h3 class="section_title">BMC Scan <span class="category_bmc_scan_request_name"><%= @bmc_scan_request.name %></span> Details</h3>
+  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+</div>
 <div class="card ovf-hidden">
   <div class="card-block">
     <div class="clearfix">
@@ -42,9 +44,9 @@
             <td id="category_bmc_scan_request_brute_list_name" data-title="Associated Cred List:"><%= @bmc_scan_request.brute_list.name %></td>
             <td id="category_bmc_scan_request_zone_name" data-title="Datacenter Zone:"><%= @bmc_scan_request.zone.name %></td>
             <td id="category_bmc_scan_request_updated_at" data-title="Scan Initiated:"><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
-            <td id="bmc_scan_request_edit_buttons" data-title="Actions:">
-              <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, @bmc_scan_request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@bmc_scan_request.id}" %>
+            <td data-title="Actions:">
+              <a class="blue-grey-text activator" role="button"><i class="fa fa-pencil"></i></a>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, @bmc_scan_request, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
             </td>
           </tr>
         </tbody>
@@ -78,18 +80,18 @@
       <small id="address_help" class="form-text text-muted special_small_input_text">Update the start and end address of BMC IPv4 address range to scan.</small>
       <div class="row form special-top">
         <div class="form-group">
-          <%= f.label "Database Zone" %>
-          <div class="form-control form-no-input"><%= @bmc_scan_request.zone.name %></div>
+          <%= f.label :zone_id, "Database Zone" %>
+          <%= f.select :zone_id, @zones.collect { |zone| [zone.name, zone.id] }, {}, { class: "form-control" } %>
         </div>
         <div class="form-group">
           <%= f.label :brute_list_id, "Credential List" %>
           <%= f.select :brute_list_id, @creds.collect { |cred| [cred.name, cred.id] }, {}, { class: "form-control" } %>
         </div>
       </div>
-      <small class="form-text text-muted special_small_input_text">A datacenter zone may not be changed for an existing BMC scan. Update the BMC credential list for system authentication.</small>
+      <small class="form-text text-muted special_small_input_text">Update the datacenter zone and BMC credential list.</small>
 
       <div class="clearfix">
-        <%= f.button 'Update and Rescan', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
+        <%= f.button 'Update and Rescan', class: 'btn btn-sm green lighten-2 pull-right action_button', id: 'ajax_submit_button' %>
       </div>
       <hr>
       <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to update - please wait <div class="throbber-loader"> </div></span></div>
@@ -103,7 +105,7 @@
 
 <div class="card">
   <div class="card-block">
-    <h5>BMC Host List</h5><div id="cache-container">THIS IS CACHE</div>
+    <h5>BMC Host List</h5>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
       <div class="table-responsive">

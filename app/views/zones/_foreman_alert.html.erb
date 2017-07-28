@@ -3,44 +3,31 @@
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         The following zones appear to be in the Foreman backend, but not in the DCIM portal!</p>
     </div>
-    <% unless @dupe_id.empty? %>
-      <div class="alert red lighten-2" role="alert">
-        <p class="text-uppercase">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          Duplicate ID<span class="text-lowercase">s</span> found with different names.  No new zones can be added until this is resolved!</p>
-      </div>
-    <% end %>
-    <p>Either add these zones into the DCIM portal, or remove these zones from the Foreman backend.</p>
-
     <%= form_tag({controller: "zones", action: "multi_create"}, method: "post") do %>
 
       <table class="table table-condensed table-responsive">
        <thead>
           <tr>
-            <th>Zone ID</th>
-            <th>Zone Name</th>
+            <th>Foreman Zone</th>
           </tr>
         </thead>
         <tbody>
-        <% @foreman_extras.each do |id, name| %>
+        <% @foreman_extras.each do |name| %>
           <tr>
-            <td><%= id %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
             <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
           </tr>
         <% end %>
         </tbody>
       </table>
 
-      <% unless !@dupe_id.empty? %>
-        <%= submit_tag 'Add to DCIM Portal', class: 'btn btn-sm green lighten-2' %>
-      <% end %>
+      <%= submit_tag 'Add to DCIM Portal', class: 'btn btn-sm green lighten-2' %>
 
     <% end %>
 
     <%= form_tag({controller: "zones", action: "foreman_remove"}, method: "post") do %>
 
-      <% @foreman_extras.each do | id, name | %>
-        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
+      <% @foreman_extras.each do |name| %>
+        <%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
       <% end %>
 
       <div>
@@ -48,3 +35,4 @@
       </div>
 
     <% end %>
+    <br>

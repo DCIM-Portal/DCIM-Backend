@@ -17,41 +17,35 @@
 <div class="card">
   <div class="card-block">
     <div class="clearfix">
-      <h5 class="table-title">BMC Host List</h5>
+      <h5 class="table-title">BMC Scanned Host List</h5>
       <div class="pull-right">
-        <p class="time_dock">*All Times are US Central</p>
+        <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
-      <table id="bmc_host_list_table" class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%">
-        <thead id="main_header">
-          <tr>
-            <th>BMC Address</th>
-            <th>System Model</th>
-            <th>Serial</th>
-            <th>Power Status</th>
-            <th>Scan Status</th>
-            <th>In Foreman?</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @bmc_hosts.each do |host| %>
-          <tr>
-            <td><%= host.ip_address %></td>
-            <td><%= host.system_model %></td>
-            <td><%= host.serial %></td>
-            <td><%= host.power_status %></td>
-            <td><%= host.sync_status %></td>
-            <td><%= host.is_discovered %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>BMC Address</th>
+              <th>System Model</th>
+              <th>Serial</th>
+              <th>Power Status</th>
+              <th>Last Sync Status</th>
+              <th>Onboarded</th>
+              <th>Synchronize Date</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-<script>
+<script type="text/javascript">
+  document.detail_name   = 'bmc_host'
+  document.detail_associations   = []
+  document.plurals['bmc_host']   = 'bmc_hosts'
   $("form#ajax_card_form").on("ajax:success", function() {
     $("form#ajax_card_form")[0].reset();
   });

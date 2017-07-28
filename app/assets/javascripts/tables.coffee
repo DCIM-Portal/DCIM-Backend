@@ -47,7 +47,7 @@ $(document).on 'turbolinks:before-cache', ->
   document.category_id   = undefined
   document.category_associations = []
   document.detail_associations   = []
-  $("#cache-container").show()
+  $("#cache-indicator").show()
 
 document.sync_view_category = (record, destroyed) ->
   document.render.category_table[document.category_name]?(record, destroyed)
@@ -58,7 +58,7 @@ document.make_detail_table = (record, destroyed) ->
 @sync_view = (data) ->
 
   # Cache Indicator
-  $("#cache-container").hide()
+  $("#cache-indicator").fadeOut(350)
 
   record = JSON.parse(data["data"])
 

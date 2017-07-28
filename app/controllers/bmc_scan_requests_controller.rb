@@ -30,6 +30,7 @@ layout "bmc_page"
   end
 
   def show
+    @zones = Zone.all
     @creds = BruteList.all
     respond_to do |format|
       format.html
@@ -41,9 +42,6 @@ layout "bmc_page"
     @zone_count = Zone.count
     @cred_count = BruteList.count
     render :partial => "api_bmc_scan_request"
-  end
-
-  def edit
   end
 
   def create
