@@ -1,5 +1,6 @@
 class BmcHostsController < ApplicationController
 
+  before_action :set_bmc_host, only: [:show, :update, :destroy]
   layout "bmc_page"
 
   def index
@@ -7,6 +8,12 @@ class BmcHostsController < ApplicationController
   end
 
   def show
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private

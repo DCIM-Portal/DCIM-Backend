@@ -1,0 +1,50 @@
+<div class="clearfix">
+  <h3 class="section_title">BMC Host <span class="category_bmc_host_serial"><%= @bmc_host.serial %></span> Details</h3>
+  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+</div>
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div class="clearfix">
+      <%= link_to 'Back', bmc_hosts_path, class: 'btn blue-grey lighten-2' %>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+
+    <div id="height_check" class="table-responsive">
+      <table class="table table-striped table-shadow" id="show_view_table">
+        <thead>
+          <tr>
+            <th>BMC Address</th>
+            <th>System Model</th>
+            <th>Serial</th>
+            <th>Datacenter Zone</th>
+            <th>Sync Status</th>
+            <th>Onboarded</th>
+            <th>Synchronize Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="category_bmc_host_ip_address" data-title="BMC Address:"><%= @bmc_host.ip_address %></td>
+            <td id="category_bmc_host_system_model" data-title="System Model:"><%= @bmc_host.system_model %></td>
+            <td id="category_bmc_host_serial" data-title="Serial:"><%= @bmc_host.serial %></td>
+            <td id="category_bmc_host_zone_name" data-title="Datacenter Zone:"><%= @bmc_host.zone.name %></td>
+            <td id="category_bmc_host_sync_status" data-title="Sync Status:"><%= @bmc_host.sync_status %>
+            <td id="category_bmc_host_is_discovered" data-title="Onboarded:"><%= @bmc_host.is_discovered %></td>
+            <td id="category_bmc_host_updated_at" data-title="Synchronize Time:"><%= @bmc_host.updated_at %></td>
+            <td data-title="Actions:">
+              <a class="blue-grey-text activator" role="button"><i class="fa fa-pencil"></i></a>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, @bmc_host, method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-reveal">
+  </div>
+
+</div>

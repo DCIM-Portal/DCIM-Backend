@@ -61,6 +61,7 @@ document.make_detail_table = (record, destroyed) ->
   $("#cache-indicator").fadeOut(350)
 
   record = JSON.parse(data["data"])
+  detail_records = null
 
   # Category
   if data["record"] == document.category_name
@@ -69,17 +70,34 @@ document.make_detail_table = (record, destroyed) ->
 
     # Update, Add, or Delete
     document.sync_view_category?(record, data["destroyed"])
+    
+    # Enable detail processing if category record contains details
+    detail_records = record[document.plurals[document.detail_name]] || {}
 
+  # Received List of Details Directly from Action Cable
+  if data["record"] == document.detail_name && record instanceof Array
+    detail_records = record
+
+
+  # Detail
+  else if data["record"] == document.detail_name
+    # Initialize detail table
+    document.make_detail_table?({}) unless document.detail_table?
+
+    # Update, Add, or Delete
+    @sync_view_detail?(record, data["destroyed"])
+
+  # List of Details
+  if detail_records
     # Initialize detail table
     if !document.detail_table?
-      document.make_detail_table?(record[document.plurals[document.detail_name]])
+      document.make_detail_table?(detail_records)
 
     # Replace full set of details
-    else if record[document.plurals[document.detail_name]]
-      detail_items = record[document.plurals[document.detail_name]]
+    else if detail_records
       cur_row_ids = document.detail_table.rows().ids().map (id) ->
         return parseInt(id) # XXX: Do we need to cast to int?
-      new_row_ids = detail_items.map (detail_item) ->
+      new_row_ids = detail_records.map (detail_item) ->
         return detail_item.id
       common_ids = $(cur_row_ids).filter(new_row_ids)
       added_ids = $(new_row_ids).not(common_ids)
@@ -87,34 +105,26 @@ document.make_detail_table = (record, destroyed) ->
 
       # Remove records that no longer exist
       for removed_id in removed_ids
-        detail_item = detail_items.filter (detail_item) ->
+        detail_item = detail_records.filter (detail_item) ->
           return detail_item.id == removed_id
         @sync_view_detail?(detail_item.shift(), true)
 
       # Add new records
       for added_id in added_ids
-        detail_item = detail_items.filter (detail_item) ->
+        detail_item = detail_records.filter (detail_item) ->
           return detail_item.id == added_id
         @sync_view_detail?(detail_item.shift(), false)
 
       # Update existing records. TODO: For performance, only do this if changed
       for common_id in common_ids
-        detail_item = detail_items.filter (detail_item) ->
+        detail_item = detail_records.filter (detail_item) ->
           return detail_item.id == common_id
         @sync_view_detail?(detail_item.shift(), false)
 
       # Poor performance implementation
 #      document.detail_table?.clear()
-#      for detail_item in record[document.plurals[document.detail_name]]
-#        document.detail_table?.row.add(detail_item).draw()
-
-  # Detail
-  if data["record"] == document.detail_name
-    # Initialize detail table
-    document.make_detail_table?({}) unless document.detail_table?
-
-    # Update, Add, or Delete
-    @sync_view_detail?(record, data["destroyed"])
+#      for detail_record in detail_records
+#        document.detail_table?.row.add(detail_record).draw()
 
   # Join
   if data["record"] == document.join_name

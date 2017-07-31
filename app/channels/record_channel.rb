@@ -7,9 +7,9 @@ class RecordChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def emit_cable(record, **kwargs)
-    RecordBroadcastJob.perform_now record, **kwargs
-  end
+#  def emit_cable(record, **kwargs)
+#    RecordBroadcastJob.perform_now record, **kwargs
+#  end
 
   def full_load(data)
     record_class = data['record'].classify.constantize
@@ -18,9 +18,10 @@ class RecordChannel < ApplicationCable::Channel
       record_instance.emit_cable(associations: data['associations'])
     else
       record_instances = record_class.all
-      record_instances.each do |record_instance|
-        record_instance.emit_cable(associations: data['associations'])
-      end
+      RecordBroadcastJob.perform_now record_instances, associations: data['associations']
+#      record_instances.each do |record_instance|
+#        record_instance.emit_cable(associations: data['associations'])
+#      end
     end
   end
 end

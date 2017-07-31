@@ -2,8 +2,14 @@ class RecordBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(record, **kwargs)
-    serialized_record = record.as_json(include: kwargs[:associations] || record.class.reflections.keys).merge(data_extras(record)).to_json
-    ActionCable.server.broadcast(record.class.name.underscore, record: record.class.name.underscore, data: serialized_record, destroyed: kwargs[:destroyed] || record.destroyed?)
+    data = {}
+    if record.respond_to? :each
+      data = records_to_hash(record, **kwargs)
+      record = record.first
+    else
+      data = record_to_hash(record, **kwargs)
+    end
+    ActionCable.server.broadcast(record.class.name.underscore, record: record.class.name.underscore, data: data.to_json, destroyed: kwargs[:destroyed] || record.destroyed?)
   end
 
   private
@@ -19,5 +25,17 @@ class RecordBroadcastJob < ApplicationJob
 
   def record_to_url(record)
     Rails.application.routes.url_helpers.send(record.class.name.underscore+"_path", record)
+  end
+
+  def records_to_hash(records, **kwargs)
+    list = []
+    records.each do |record|
+      list << record_to_hash(record, **kwargs)
+    end
+    list
+  end
+
+  def record_to_hash(record, **kwargs)
+    record.as_json(include: kwargs[:associations] || record.class.reflections.keys).merge(data_extras(record))
   end
 end
