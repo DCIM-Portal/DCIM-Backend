@@ -1,10 +1,13 @@
 class BmcScanRequestsController < ApplicationController
 
-before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
-before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
-layout "bmc_page"
+  before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
+  before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
+  layout "bmc_page"
+  add_breadcrumb "Home", "/"
+  add_breadcrumb "Admin", :admin_index_path
 
   def index
+    add_breadcrumb "BMC Scans", bmc_scan_requests_path 
     @bmc_scan_requests = BmcScanRequest.all
     @bmc_scan_request = BmcScanRequest.new
     @zones = Zone.all
@@ -26,10 +29,12 @@ layout "bmc_page"
           }
         }
       }
-    end      
+    end
   end
 
   def show
+    add_breadcrumb "BMC Scans", bmc_scan_requests_path
+    add_breadcrumb @bmc_scan_request.name, bmc_scan_request_path
     @zones = Zone.all
     @creds = BruteList.all
     respond_to do |format|

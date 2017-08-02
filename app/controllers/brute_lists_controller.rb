@@ -2,8 +2,12 @@ class BruteListsController < ApplicationController
 
   layout "bmc_page"
   before_action :set_cred, only: [:show, :update, :destroy]
+  add_breadcrumb "Home", "/"
+  add_breadcrumb "Admin", :admin_index_path
+  add_breadcrumb "BMC Scans", :bmc_scan_requests_path
 
   def index
+    add_breadcrumb "BMC Credentials List", brute_lists_path
     @creds = BruteList.all
     @cred = BruteList.new
     @cred.brute_list_secrets.build
@@ -50,6 +54,8 @@ class BruteListsController < ApplicationController
   end
 
   def show
+    add_breadcrumb "BMC Credentials List", brute_lists_path
+    add_breadcrumb @cred.name, brute_list_path
   end
 
   def destroy

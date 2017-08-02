@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get :api_bmc_scan_request, :controller => :bmc_scan_requests
   resources :bmc_hosts
   resources :bmc_scan_requests, except: [:edit, :new]
+  resources :admin
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server, at: '/cable'
 end

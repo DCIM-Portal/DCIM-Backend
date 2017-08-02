@@ -3,8 +3,11 @@ class ZonesController < ApplicationController
   before_action :set_zone, only: [:show, :update, :destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
   layout "bmc_page"
+  add_breadcrumb "Home", "/"
+  add_breadcrumb "Admin", :admin_index_path
 
   def index
+    add_breadcrumb "Datacenter Zones", zones_path
     @zones = Zone.all
     @zone = Zone.new
     respond_to do |format|
@@ -92,6 +95,8 @@ class ZonesController < ApplicationController
   end
 
   def show
+    add_breadcrumb "Datacenter Zones", zones_path
+    add_breadcrumb @zone.name, zone_path
   end
 
   def destroy

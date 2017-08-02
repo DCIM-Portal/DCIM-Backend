@@ -32,6 +32,9 @@ gem 'local_time'
 #Bootstrap Notify for alerts
 gem 'bootstrap-growl-rails'
 
+#Breadcrumbs
+gem "breadcrumbs_on_rails"
+
 #Jquery DataTables
 gem 'jquery-datatables'
 

@@ -42,10 +42,9 @@
       <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
     </div>
     <div class="mr-auto">
-      <ol class="breadcrumb hidden-md-down">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Admin</li>
-      </ol>
+      <div class="breadcrumb hidden-md-down">
+        <%= render_breadcrumbs separator: " / " %>
+      </div>
     </div>
     <ul class="nav navbar-nav nav-flex-icons ml-auto">
       <li class="nav-item active">
