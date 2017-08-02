@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  serial: MyString
-  address: MyString
-  power: 1
-  is_discovered: 1
+  serial: MyString1
+  ip_address: MyString1
+  power_status: 1
 
 two:
-  serial: MyString
-  address: MyString
-  power: 1
-  is_discovered: 1
+  serial: MyString2
+  ip_address: MyString2
+  power_status: 1

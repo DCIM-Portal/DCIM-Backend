@@ -51,7 +51,7 @@ class BmcScanRequestsController < ApplicationController
 
   def create
     @bmc_scan_request = BmcScanRequest.new(bmc_scan_request_params)
-    @bmc_scan_request.status = 0
+    @bmc_scan_request.status = nil
     respond_to do |format|
       if @bmc_scan_request.save
         format.json { render json: @bmc_scan_request }
@@ -66,7 +66,7 @@ class BmcScanRequestsController < ApplicationController
     respond_to do |format|
       if @bmc_scan_request.update(bmc_scan_request_params)
         @bmc_scan_request.bmc_hosts.destroy_all
-        @bmc_scan_request.status = 0
+        @bmc_scan_request.status = nil
         @bmc_scan_request.save!
         format.json { render json: @bmc_scan_request }
         BmcScanJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: @bmc_scan_request)

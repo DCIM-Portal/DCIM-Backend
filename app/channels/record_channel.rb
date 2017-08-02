@@ -7,10 +7,6 @@ class RecordChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-#  def emit_cable(record, **kwargs)
-#    RecordBroadcastJob.perform_now record, **kwargs
-#  end
-
   def full_load(data)
     record_class = data['record'].classify.constantize
     if data['id']

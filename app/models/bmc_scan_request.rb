@@ -4,12 +4,11 @@ class BmcScanRequest < ApplicationRecord
   has_many :bmc_scan_request_hosts
   has_many :bmc_hosts, -> { distinct }, through: :bmc_scan_request_hosts
   enum status: {
-    queued: 0,
+    scan_complete: 0,
     in_progress: 1,
     smart_proxy_unreachable: 2,
     invalid_range: 3,
-    scan_complete: 4,
-    removed: 5
+    removed: 4
   }
   belongs_to :zone
   belongs_to :brute_list

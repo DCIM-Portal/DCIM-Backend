@@ -82,7 +82,7 @@ $(document).on 'turbolinks:load', ->
         { "data": "serial" },
         { "data": "power_status" },
         { "data": "sync_status" },
-        { "data": "is_discovered" },
+        { "data": "is_onboarded" },
         { "data": "updated_at" }
       ]
       deferRender: true

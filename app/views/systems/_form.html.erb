@@ -1,0 +1,72 @@
+<%= form_with(model: system, local: true) do |form| %>
+  <% if system.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(system.errors.count, "error") %> prohibited this system from being saved:</h2>
+
+      <ul>
+      <% system.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :system_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpu_model %>
+    <%= form.text_field :cpu_model, id: :system_cpu_model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpu_cores %>
+    <%= form.number_field :cpu_cores, id: :system_cpu_cores %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpu_threads %>
+    <%= form.number_field :cpu_threads, id: :system_cpu_threads %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cpu_count %>
+    <%= form.number_field :cpu_count, id: :system_cpu_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ram_total %>
+    <%= form.number_field :ram_total, id: :system_ram_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :disk_total %>
+    <%= form.number_field :disk_total, id: :system_disk_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :disk_count %>
+    <%= form.number_field :disk_count, id: :system_disk_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :os %>
+    <%= form.text_field :os, id: :system_os %>
+  </div>
+
+  <div class="field">
+    <%= form.label :os_release %>
+    <%= form.text_field :os_release, id: :system_os_release %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sync_status %>
+    <%= form.number_field :sync_status, id: :system_sync_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

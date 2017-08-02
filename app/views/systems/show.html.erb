@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @system.name %>
+</p>
+
+<p>
+  <strong>Cpu model:</strong>
+  <%= @system.cpu_model %>
+</p>
+
+<p>
+  <strong>Cpu cores:</strong>
+  <%= @system.cpu_cores %>
+</p>
+
+<p>
+  <strong>Cpu threads:</strong>
+  <%= @system.cpu_threads %>
+</p>
+
+<p>
+  <strong>Cpu count:</strong>
+  <%= @system.cpu_count %>
+</p>
+
+<p>
+  <strong>Ram total:</strong>
+  <%= @system.ram_total %>
+</p>
+
+<p>
+  <strong>Disk total:</strong>
+  <%= @system.disk_total %>
+</p>
+
+<p>
+  <strong>Disk count:</strong>
+  <%= @system.disk_count %>
+</p>
+
+<p>
+  <strong>Os:</strong>
+  <%= @system.os %>
+</p>
+
+<p>
+  <strong>Os release:</strong>
+  <%= @system.os_release %>
+</p>
+
+<p>
+  <strong>Sync status:</strong>
+  <%= @system.sync_status %>
+</p>
+
+<%= link_to 'Edit', edit_system_path(@system) %> |
+<%= link_to 'Back', systems_path %>

@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  scan_name: MyString
+  name: MyString1
   start_address: MyString
   end_address: MyString
-  job_status: 1
+  status: 1
 
 two:
-  scan_name: MyString
+  name: MyString2
   start_address: MyString
   end_address: MyString
-  job_status: 1
+  status: 1

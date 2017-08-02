@@ -74,13 +74,12 @@ document.make_detail_table = (record, destroyed) ->
     # Enable detail processing if category record contains details
     detail_records = record[document.plurals[document.detail_name]] || {}
 
-  # Received List of Details Directly from Action Cable
-  if data["record"] == document.detail_name && record instanceof Array
+  # Received List of Details Directly from Action Cable when There's No Category
+  if data["record"] == document.detail_name && !document.category_name && record instanceof Array
     detail_records = record
 
-
   # Detail
-  else if data["record"] == document.detail_name
+  else if data["record"] == document.detail_name && !(record instanceof Array)
     # Initialize detail table
     document.make_detail_table?({}) unless document.detail_table?
 
@@ -120,11 +119,6 @@ document.make_detail_table = (record, destroyed) ->
         detail_item = detail_records.filter (detail_item) ->
           return detail_item.id == common_id
         @sync_view_detail?(detail_item.shift(), false)
-
-      # Poor performance implementation
-#      document.detail_table?.clear()
-#      for detail_record in detail_records
-#        document.detail_table?.row.add(detail_record).draw()
 
   # Join
   if data["record"] == document.join_name

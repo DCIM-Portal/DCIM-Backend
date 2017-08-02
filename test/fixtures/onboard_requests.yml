@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  provision_status: 1
-  provision_step: 1
+  status: 1
+  step: 1
 
 two:
-  provision_status: 1
-  provision_step: 1
+  status: 1
+  step: 1

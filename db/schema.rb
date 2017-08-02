@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727204940) do
+ActiveRecord::Schema.define(version: 20170802191259) do
 
   create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "serial"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170727204940) do
     t.string "password"
     t.integer "power_status"
     t.integer "sync_status"
-    t.integer "is_discovered"
+    t.integer "system_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "system_model"
@@ -71,13 +71,33 @@ ActiveRecord::Schema.define(version: 20170727204940) do
     t.index ["name"], name: "index_brute_lists_on_name", unique: true
   end
 
-  create_table "provision_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "onboard_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "status"
     t.integer "step"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "bmc_host_id"
-    t.index ["bmc_host_id"], name: "index_provision_requests_on_bmc_host_id"
+    t.text "error_message"
+    t.index ["bmc_host_id"], name: "index_onboard_requests_on_bmc_host_id"
+  end
+
+  create_table "systems", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "foreman_host_id"
+    t.string "cpu_model"
+    t.integer "cpu_cores"
+    t.integer "cpu_threads"
+    t.integer "cpu_count"
+    t.bigint "ram_total"
+    t.bigint "disk_total"
+    t.integer "disk_count"
+    t.string "os"
+    t.string "os_release"
+    t.integer "sync_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["foreman_host_id"], name: "index_systems_on_foreman_host_id", unique: true
+    t.index ["name"], name: "index_systems_on_name"
   end
 
   create_table "zones", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

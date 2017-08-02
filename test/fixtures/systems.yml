@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  cpu_model: MyString
+  cpu_cores: 1
+  cpu_threads: 1
+  cpu_count: 1
+  ram_total: 1
+  disk_total: 1
+  disk_count: 1
+  os: MyString
+  os_release: MyString
+  sync_status: 1
+
+two:
+  name: MyString
+  cpu_model: MyString
+  cpu_cores: 1
+  cpu_threads: 1
+  cpu_count: 1
+  ram_total: 1
+  disk_total: 1
+  disk_count: 1
+  os: MyString
+  os_release: MyString
+  sync_status: 1
