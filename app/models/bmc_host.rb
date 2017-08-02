@@ -23,7 +23,7 @@ class BmcHost < ApplicationRecord
     bmc_busy_error: 11
   }
   belongs_to :zone
-  belongs_to :system
+  belongs_to :system, optional: true
   validate :validate_correct_credentials
   validates :ip_address, presence: true, uniqueness: true, format: { with: Resolv::IPv4::Regex }
 

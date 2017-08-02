@@ -17,8 +17,9 @@ class BmcScanJob < ApplicationJob
     @request.update(status: :in_progress)
 
     begin
-      smart_proxy = get_onboard_smart_proxy
-    rescue RuntimeError
+      smart_proxy = Dcim::SmartProxyApiFactory.instance(@request.zone.foreman_location_id)
+    rescue RuntimeError => e
+      @logger.error e
       @request.update(status: :smart_proxy_unreachable)
       return false
     end
@@ -92,19 +93,6 @@ class BmcScanJob < ApplicationJob
     response = smart_proxy_resource.onboard.bmc.scan.range(@request.start_address, @request.end_address).get(timeout: 600).to_hash
     raise Dcim::BmcScanError, response["error"] if response.key?("error")
     response["result"]
-  end
-
-  def get_onboard_smart_proxy
-    location = @foreman_resource.api.locations(@request.zone.foreman_location_id).get
-    location["smart_proxies"].each do |smart_proxy|
-      begin
-        smart_proxy_resource = Dcim::SmartProxyApi.new(url: smart_proxy["url"])
-      rescue RuntimeError
-        next
-      end
-      return smart_proxy_resource if smart_proxy_resource.features.get.to_hash.include? "onboard"
-    end
-    false
   end
 
 end
