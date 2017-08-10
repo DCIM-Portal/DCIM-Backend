@@ -170,10 +170,15 @@ class OnboardJob < ApplicationJob
   end
 
   def serial_to_system_name
-    look_up_serial.keys[0]
+    result = look_up_serial.keys[0]
+    return false if !result or result.empty?
+    result
   end
 
   def system_name_to_system_id(system_name)
-    results = @foreman_resource.api.hosts(system_name).get.as_json["id"].to_i
+    return false if !system_name or system_name.empty?
+    result = @foreman_resource.api.hosts(system_name).get.as_json["id"]
+    return result.to_i if result
+    result
   end
 end

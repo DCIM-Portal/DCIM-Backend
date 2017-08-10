@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  bmc_host: one (BmcHost)
   status: 1
   step: 1
 
 two:
+  bmc_host: two (BmcHost)
   status: 1
   step: 1

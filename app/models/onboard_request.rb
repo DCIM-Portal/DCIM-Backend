@@ -1,5 +1,6 @@
 class OnboardRequest < ApplicationRecord
   belongs_to :bmc_host
+  validates :bmc_host, uniqueness: true
   enum step: {
     complete: 0,
     shutdown: 1,

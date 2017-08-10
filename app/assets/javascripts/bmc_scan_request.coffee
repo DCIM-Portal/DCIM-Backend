@@ -73,7 +73,7 @@ $(document).on 'turbolinks:load', ->
   
   document.render.detail_table.bmc_host = (view) ->
     #BmcScanRequest Host List Table
-    document.detail_table = $('#bmc_hosts_table').DataTable
+    document.detail_table = $('#bmc_scan_request_details_table').DataTable
       data: view
       rowId: 'id'
       columns: [
@@ -82,8 +82,15 @@ $(document).on 'turbolinks:load', ->
         { "data": "serial" },
         { "data": "power_status" },
         { "data": "sync_status" },
-        { "data": "is_onboarded" },
-        { "data": "updated_at" }
+        { "data": "onboard_request.status",
+        defaultContent: "" },
+        { "data": "onboard_request.step",
+        defaultContent: "" },
+        { "data": "error_message",
+        defaultContent: "" },
+        { "data": "updated_at" },
+        { "data": "url" },
+        { "data": "id" }
       ]
       deferRender: true
       order: [ 0, 'asc' ]
@@ -95,7 +102,7 @@ $(document).on 'turbolinks:load', ->
         $(row).find('td:eq(2)').attr 'data-title', 'Serial:'
         $(row).find('td:eq(3)').attr 'data-title', 'Power Status:'
         $(row).find('td:eq(4)').attr 'data-title', 'Last Sync Status:'
-        $(row).find('td:eq(5)').attr 'data-title', 'Onboarded:'
+        $(row).find('td:eq(5)').attr 'data-title', 'Onboard Status:'
         $(row).find('td:eq(6)').attr 'data-title', 'Synchronize Date:'
       buttons: [
         {
@@ -124,9 +131,40 @@ $(document).on 'turbolinks:load', ->
         }
       ]
       columnDefs: [
-        { targets: 6
+        { targets: 10
+        orderable: false
+        visible: false
+        searchable: false
+        }
+        { targets: 9
+        orderable: false
+        render: (data, type, full, meta) ->
+          '<a class="btn btn-info btn-sm" href="' + data + '">Details</a>'
+        }
+        { targets: 8
         render: (data, type, full, meta) ->
           moment(data).format 'MMMM D YYYY, h:mma'
+        }
+        { targets: 6
+        orderable: false
+        visible: false
+        searchable: false
+        }
+        { targets: 7
+        orderable: false
+        visible: false
+        searchable: false
+        }
+        { targets: 5
+        render: (data, type, full) ->
+          if data == undefined
+            ""
+          else if data == "success"
+            '<div class="green lighten-2 white-text z-depth-1 sync">Success: ' + full.onboard_request.step + '</div>'
+          else if data == "in_progress"
+            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i> In Progress: ' + full.onboard_request.step + '</div>'
+          else
+            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + data + ': ' + full.onboard_request.step + '</div>'
         }
         { targets: 3
         render: (data, type, full, meta) ->
@@ -141,7 +179,7 @@ $(document).on 'turbolinks:load', ->
         { targets: 4
         render: (data, type, full, meta) ->
           if data == "success"
-            '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Successfully Synchronized</div>'
+            '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Synchronized</div>'
           else if data == "unknown_error"
             '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Unknown Error</div>'
           else if data == "unsupported_fru_error"
@@ -154,8 +192,8 @@ $(document).on 'turbolinks:load', ->
             '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error - Invalid Credentials</div>'
           else if data == "connection_timeout_error"
             '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error - Connection Timeout</div>'
-          else if data == null
-            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i> Currently Syncing</div>'
+          else if data == "in_progress"
+            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i> Syncing</div>'
           else
             '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + data + '</div>'
         width: 200

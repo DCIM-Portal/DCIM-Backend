@@ -36,6 +36,13 @@
   table#bmc_scan_requests_table td:nth-child(8),
   table#bmc_scan_requests_table th:nth-child(8) {display: block;}
 
+  thead tr th [type="radio"], thead tr th [type="checkbox"], tbody tr td [type="radio"], tbody tr td [type="checkbox"] {
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+  }
+
+
   #top-table {
     background: #efefef;
     border: 20px solid white;
@@ -175,13 +182,13 @@ div.dataTables_scrollBody table {
 }
 .bottom {
   margin-top: 20px;
-  .dataTables_info { float: left; }
+  .dataTables_info { float: left; font-size: 0.85rem; padding-top: 0.49rem; }
   .dataTables_paginate { float: right; }
 }
 
 //Button Customization
 .middle {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   .dt-buttons .btn {
     margin-right: 20px;
     padding: 0.45rem .80rem;

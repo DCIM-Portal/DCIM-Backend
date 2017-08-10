@@ -140,8 +140,14 @@ class OnboardJobTest < ActiveJob::TestCase
     assert_raises(Dcim::DuplicateSerialError) { @onboard_job.look_up_serial }
   end
 
-  test "check serial onboarded in Foreman" do
+  test "check serial onboarded in Foreman if Foreman host is promoted" do
     response = {"results"=>{"ops-am2ops-gluster0001"=>{"serialnumber"=>"USE447ER2L"}}}
+    @onboard_job.expects(:look_up_serial).returns(response)
+    assert @onboard_job.serial_onboarded?, "Serial reported not found in Foreman when it should be"
+  end
+
+  test "check serial onboarded in Foreman if Foreman host is not promoted" do
+    response = {"results"=>{""=>{"serialnumber"=>"USE447ER2L"}}}
     @onboard_job.expects(:look_up_serial).returns(response)
     assert @onboard_job.serial_onboarded?, "Serial reported not found in Foreman when it should be"
   end
@@ -160,10 +166,18 @@ class OnboardJobTest < ActiveJob::TestCase
     assert_equal @onboard_job.serial_to_system_name, name, "Correct name not returned"
   end
 
+  test "serial to system name returns false if Foreman host is not promoted" do
+    response = {"results"=>{""=>{"serialnumber"=>"USE447ER2L"}}}
+    BmcHost.any_instance.expects(:serial).returns("USE447ER2L")
+    Dcim::ApiQuery.any_instance.expects(:get).returns(Dcim::ApiResult.new(nil))
+    Dcim::ApiResult.any_instance.expects(:to_hash).returns(response)
+    assert_not @onboard_job.serial_to_system_name, "System name returned when there shouldn't be one"
+  end
+
   test "serial to system name returns false if serial not onboarded in Foreman" do
     response = {}
     @onboard_job.expects(:look_up_serial).returns(response)
-    assert_not @onboard_job.serial_to_system_name, "Serial returned when there shouldn't be one"
+    assert_not @onboard_job.serial_to_system_name, "System name returned when there shouldn't be one"
   end
 
   test "system name to system id returns expected integer" do
@@ -173,6 +187,38 @@ class OnboardJobTest < ActiveJob::TestCase
     result = @onboard_job.system_name_to_system_id('any-system-name')
     assert result.is_a?(Integer), "System ID is not an Integer"
     assert_equal result, 51, "Incorrect System ID returned"
+  end
+
+  test "system name to system id returns false if Foreman host name provided is false" do
+    response = nil
+    Dcim::ApiQuery.any_instance.stubs(:get).returns(Dcim::ApiResult.new(nil))
+    Dcim::ApiResult.any_instance.stubs(:to_hash).returns(response)
+    result = @onboard_job.system_name_to_system_id(false)
+    assert_not result, "System ID unexpectedly returned"
+  end
+
+  test "system name to system id returns false if Foreman host name provided is blank string" do
+    response = nil
+    Dcim::ApiQuery.any_instance.stubs(:get).returns(Dcim::ApiResult.new(nil))
+    Dcim::ApiResult.any_instance.stubs(:to_hash).returns(response)
+    result = @onboard_job.system_name_to_system_id("")
+    assert_not result, "System ID unexpectedly returned"
+  end
+
+  test "system name to system id returns false if Foreman host name is not provided" do
+    response = nil
+    Dcim::ApiQuery.any_instance.stubs(:get).returns(Dcim::ApiResult.new(nil))
+    Dcim::ApiResult.any_instance.stubs(:to_hash).returns(response)
+    result = @onboard_job.system_name_to_system_id(nil)
+    assert_not result, "System ID unexpectedly returned"
+  end
+  
+  test "system name to system id returns false if Foreman does not provide ID" do
+    response = {"ip"=>"10.14.4.186", "not_id"=>51}
+    Dcim::ApiQuery.any_instance.expects(:get).returns(Dcim::ApiResult.new(nil))
+    Dcim::ApiResult.any_instance.expects(:to_hash).returns(response)
+    result = @onboard_job.system_name_to_system_id("any-system-name")
+    assert_not result, "System ID unexpectedly returned"
   end
 
   test "make new System from Foreman host ID" do

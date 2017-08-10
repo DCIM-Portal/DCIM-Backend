@@ -29,14 +29,17 @@ gem 'momentjs-rails'
 #Local Time
 gem 'local_time'
 
-#Bootstrap Notify for alerts
-gem 'bootstrap-growl-rails'
-
 #Breadcrumbs
 gem "breadcrumbs_on_rails"
 
 #Jquery DataTables
 gem 'jquery-datatables'
+
+#Server Side Datatables
+gem 'ajax-datatables-rails'
+
+#Jquery Serialize Objects for Rails
+gem 'jquery-serialize-object-rails'
 
 #Render Async for our API calls
 gem 'render_async'
@@ -45,7 +48,7 @@ gem 'render_async'
 gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.2'
+gem 'rails', '5.1.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server

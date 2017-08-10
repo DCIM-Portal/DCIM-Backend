@@ -8,6 +8,23 @@ class BmcHostsController < ApplicationController
   def index
     add_breadcrumb "BMC Hosts", bmc_hosts_path
     @bmc_hosts = BmcHost.all
+
+    #Set Custom Filters for Datatables
+    @filters = {}
+    @filters[:bmc_host] = {
+      power_status: BmcHost.power_statuses,
+      sync_status: BmcHost.sync_statuses
+    }
+    @filters[:onboard_request] = {
+      status: OnboardRequest.statuses,
+      step: OnboardRequest.steps
+    }
+
+    respond_to do |format|
+      format.html
+      format.json { render json: BmcHostDatatable.new(view_context, params) }
+    end
+
   end
 
   def show

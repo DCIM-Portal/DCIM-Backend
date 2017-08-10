@@ -32,7 +32,7 @@
             <td id="category_bmc_host_serial" data-title="Serial:"><%= @bmc_host.serial %></td>
             <td id="category_bmc_host_zone_name" data-title="Datacenter Zone:"><%= @bmc_host.zone.name %></td>
             <td id="category_bmc_host_sync_status" data-title="Sync Status:"><%= @bmc_host.sync_status %>
-            <td id="category_bmc_host_is_discovered" data-title="Onboarded:"><%= @bmc_host.is_discovered %></td>
+            <td id="category_bmc_host_onboard_request_status" data-title="Onboarded:"><%= @bmc_host.onboard_request.try(:status) %></td>
             <td id="category_bmc_host_updated_at" data-title="Synchronize Time:"><%= @bmc_host.updated_at %></td>
             <td data-title="Actions:">
               <a class="blue-grey-text activator" role="button"><i class="fa fa-pencil"></i></a>

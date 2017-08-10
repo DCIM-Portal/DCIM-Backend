@@ -109,7 +109,7 @@
     <div class="overlay-container">
       <%= render '/layouts/loading_overlay' %>
       <div class="table-responsive">
-        <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%">
+        <table id="bmc_scan_request_details_table" class="table table-striped nowrap" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>BMC Address</th>
@@ -117,8 +117,12 @@
               <th>Serial</th>
               <th>Power Status</th>
               <th>Sync Status</th>
-              <th>Onboarded</th>
+              <th>Onboard Status</th>
+              <th>Onboard Step</th>
+              <th>Error Message</th>
               <th>Synchronize Time</th>
+              <th></th>
+              <th>Host ID</th>
             </tr>
           </thead>
         </table>
@@ -131,8 +135,8 @@
   document.detail_name   = 'bmc_host'
   document.join_name     = 'bmc_scan_request_host'
   document.category_id   = <%= @bmc_scan_request.id %>
-  document.category_associations = ['bmc_hosts', 'brute_list', 'zone']
-  document.detail_associations   = []
+  document.category_associations = [{'bmc_hosts':['onboard_request']}, 'brute_list', 'zone']
+  document.detail_associations   = ['onboard_request']
   document.plurals['bmc_scan_request'] = 'bmc_scan_requests'
   document.plurals['bmc_host']         = 'bmc_hosts'
 </script>

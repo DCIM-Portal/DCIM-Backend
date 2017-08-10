@@ -16,9 +16,10 @@
 //= require jquery_ujs
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
+//= require jquery.serialize-object
 //= require datatables
+//= require dataTables.checkboxes
 //= require turbolinks
 //= require moment
-//= require local_time
-//= require bootstrap-notify
+//= require local-time
 //= require_tree .

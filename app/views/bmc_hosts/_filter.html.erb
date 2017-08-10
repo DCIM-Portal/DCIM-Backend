@@ -1,0 +1,14 @@
+<form id="filters">
+  <div class="row form">
+    <% @filters.each do |record_name, attributes| %>
+      <% attributes.each do |attribute, enum| %>
+        <div class="form-group">
+          <%= label_tag "#{record_name}[#{attribute}]", t(record_name, scope: "filters.records") + " " + t(attribute, scope: "filters.attributes.#{record_name}") %>
+          <% options = enum.map {|option, number| [t(option, scope: "filters.options.#{record_name}.#{attribute}"), number]} %>
+          <% options = options.unshift(["Select a filter", "blank"]) %>
+          <%= select_tag "#{record_name}[#{attribute}][]", options_for_select(options, disabled: "blank"), multiple: true, class: "mdb-select colorful-select dropdown-ins ajax_reload" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</form>

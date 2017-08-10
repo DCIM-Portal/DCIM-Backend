@@ -107,3 +107,6 @@ $(document).on 'turbolinks:before-cache', ->
   
   #Hide Async Wrapper
   $('#async_wrapper').hide()
+
+  #Prevent duplicate selects
+  $('.mdb-select').material_select 'destroy'

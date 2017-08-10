@@ -3,7 +3,7 @@ require 'resolv'
 class BmcHost < ApplicationRecord
   has_many :bmc_scan_request_hosts
   has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts
-  has_many :onboard_requests
+  has_one :onboard_request
   enum power_status: {
     off: 0,
     on: 1
@@ -53,12 +53,12 @@ class BmcHost < ApplicationRecord
     self.save!
     logger.debug "Record updated!"
   rescue RuntimeError => e
+    self.error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")
     begin
       self.sync_status = e.class.name.demodulize.underscore
       self.save!
     rescue ArgumentError
       self.sync_status = :stack_trace
-      self.error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")
       self.save!
     end
   end
@@ -147,8 +147,10 @@ class BmcHost < ApplicationRecord
         raise Dcim::BmcBusyError if freeipmi_error.value? "BMC busy"
         raise Dcim::SdrCacheError if freeipmi_error.value? "Please flush the cache and regenerate it"
         raise Dcim::UnsupportedApiResponseError if freeipmi_error.value? "missing argument"
+        # The following line is a workaround for yet another inconsistency with Smart Proxy FreeIPMI Rubyipmi
+        return result if freeipmi_error.value? "Received an Unexpected Open Session Response"
         # ¯\_(ツ)_/¯ 
-        raise Dcim::UnknownError
+        raise Dcim::UnknownError, result
       end
     end
     # freeipmi: "string"
@@ -173,6 +175,9 @@ class BmcHost < ApplicationRecord
     if !fru_list["default_fru_device"].nil?
       model = fru_list["default_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
       serial = fru_list["default_fru_device"]["product_serial_number"]
+    elsif !fru_list["builtin_fru_device"].nil?
+      model = fru_list["builtin_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
+      serial = fru_list["builtin_fru_device"]["product_serial_number"]
     #Dell Server
     elsif !fru_list["system_board"].nil?
       model = fru_list["system_board"].values_at('board_manufacturer', 'board_product_name').join(' ')
@@ -187,7 +192,7 @@ class BmcHost < ApplicationRecord
       serial = fru_list["bmc_fru"]["product_serial_number"]
     #Unable to access BMC or unsupported model
     else
-      raise Dcim::UnsupportedFruError
+      raise Dcim::UnsupportedFruError, fru_list
     end
     return model, serial
   end

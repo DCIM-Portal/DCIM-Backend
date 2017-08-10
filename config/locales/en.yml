@@ -42,3 +42,25 @@ en:
           attributes:
             name:
               blank: "is required!"
+  filters:
+    records:
+      bmc_host: "BMC Host"
+      onboard_request: "Onboard"
+    attributes:
+      bmc_host:
+        power_status: "Power Status"
+        sync_status: "Sync Status"
+      onboard_request:
+        status: "Status"
+        step: "Step"
+    options:
+      onboard_request:
+        step:
+          bmc_creds: "BMC Creds"
+          pxe: "PXE"
+      bmc_host:
+        sync_status:
+          bmc_busy_error: "BMC Busy Error"
+        power_status:
+          "on": "ON"
+          "off": "OFF"

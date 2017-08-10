@@ -36,6 +36,23 @@ class RecordBroadcastJob < ApplicationJob
   end
 
   def record_to_hash(record, **kwargs)
-    record.as_json(include: kwargs[:associations] || record.class.reflections.keys).merge(data_extras(record))
+    record.as_json(include: format_include(kwargs[:associations] || record.class.reflections.keys)).merge(data_extras(record))
   end
+
+  def format_include(input)
+    if input.is_a? Array
+      output = {}
+      input.each do |value|
+        if value.is_a? Hash
+          output.merge!({value.keys[0]=>{include: format_include(value.values[0])}})
+        else
+          output.merge!(format_include(value))
+        end
+      end
+    end
+    return {input=>{}} if input.is_a? String
+    return format_include([input]) if input.is_a? Hash
+    return output
+  end
+
 end
