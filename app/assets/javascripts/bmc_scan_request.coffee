@@ -2,7 +2,7 @@ $(document).on 'turbolinks:load', ->
 
   document.render.detail_table.bmc_scan_request = (view) ->
     #BmcScanRequest main table
-    document.detail_table = $('#bmc_scan_requests_table').DataTable
+    document.detail_table = $('#bmc_scan_requests_table').dataTable
       data: view
       rowId: 'id'
       columns: [
@@ -71,9 +71,10 @@ $(document).on 'turbolinks:load', ->
       $("#category_" + document.category_name + "_zone_name").html(value.name) if key == "zone"
       $("#category_" + document.category_name + "_updated_at").html(moment(value).format('MMM DD YYYY, h:mma')) if key == "updated_at"
   
-  document.render.detail_table.bmc_host = (view) ->
+  document.render.detail_table.bmc_scan_request ||= {}
+  document.render.detail_table.bmc_scan_request.bmc_host = (view) ->
     #BmcScanRequest Host List Table
-    document.detail_table = $('#bmc_scan_request_details_table').DataTable
+    document.detail_table = $('#bmc_scan_request_details_table').dataTable
       data: view
       rowId: 'id'
       columns: [

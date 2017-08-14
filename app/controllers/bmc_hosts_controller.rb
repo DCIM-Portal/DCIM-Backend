@@ -12,6 +12,7 @@ class BmcHostsController < ApplicationController
     #Set Custom Filters for Datatables
     @filters = {}
     @filters[:bmc_host] = {
+      zone: Zone.all.map { |key| [ key["name"],key["id"] ] }.to_h,
       power_status: BmcHost.power_statuses,
       sync_status: BmcHost.sync_statuses
     }

@@ -1,7 +1,7 @@
 <header>
 
   <!-- Sidebar navigation -->
-  <ul id="slide-out" class="side-nav text-uppercase fixed custom-scrollbar blue-grey darken-2 z-depth-0">
+  <ul id="slide-out" class="side-nav fixed text-uppercase blue-grey darken-2 z-depth-0">
 
     <!-- Logo -->
     <li>
@@ -25,52 +25,59 @@
             </ul>
           </div>
         </li>
-        <li>
-          <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, bmc_hosts_path, class: is_active('bmc_hosts') %>
-        </li>
-        <li>
-          <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, zones_path, class: is_active('zones') %>
-        </li>
       </ul>
+    </li>
+    <li class="direct_link">
+      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, bmc_hosts_path, class: is_active('bmc_hosts') %>
+    </li>
+    <li class="direct_link">
+      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, zones_path, class: is_active('zones') %>
     </li>
 
   </ul>
 
   <!--Navbar-->
-  <nav class="navbar fixed-top navbar-toggleable-md navbar-light grey lighten-2 double-nav text-uppercase z-depth-1">
-    <div class="float-xs-left">
-      <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
-    </div>
-    <div class="mr-auto">
-      <div class="breadcrumb hidden-md-down">
-        <%= render_breadcrumbs separator: " / " %>
+
+  <div class="navbar-fixed navbar">
+    <nav class="black-text grey lighten-2 text-uppercase z-depth-2">
+      <div class="float-xs-left">
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
       </div>
-    </div>
-    <ul class="nav navbar-nav nav-flex-icons ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="hidden-sm-down">Admin <span class="sr-only">(current)</span></span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"><i class="fa fa-cloud" aria-hidden="true"></i> <span class="hidden-sm-down">Catalog</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"><i class="fa fa-question-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Support</span></a>
-      </li>
-      <li class="nav-item btn-group dropdown">
-        <a class="nav-link dropdown-toggle" id="profilemenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Profile</span></a>
-        <div class="dropdown-menu dropdown-ins dropdown-menu-right" aria-labelledby="profilemenu">
-          <a class="dropdown-item">Action</a>
-          <a class="dropdown-item">Another action</a>
-          <a class="dropdown-item">Something else here</a>
+      <div class="nav-wrapper">
+        <div class="left bc_nav hide-on-med-and-down">
+          <%= render_breadcrumbs separator: " / " %>
         </div>
-      </li>
+        <ul id="nav-mobile" class="right">
+          <li class="active">
+            <a class="nav-menu"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="hidden-sm-down">Admin <span class="sr-only">(current)</span></span></a>
+          </li>
+          <li>
+            <a class="nav-menu"><i class="fa fa-cloud" aria-hidden="true"></i> <span class="hidden-sm-down">Catalog</span></a>
+          </li>
+          <li>
+            <a class="nav-menu"><i class="fa fa-question-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Support</span></a>
+          </li>
+          <li>
+            <a class="nav-menu dropdown-button waves-effect" data-activates="dropdown1">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i> 
+              <span class="hidden-md-down"> Profile</span><i class="fa fa-angle-down rotate-icon" style="margin-left: 10px;"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a>Options</a></li>
+      <li><a>Settings</a></li>
+      <li class="divider"></li>
+      <li><a>Sign Out</a></li>
     </ul>
-  </nav>
+  </div>
 
 </header>
 
 <!--Main layout-->
-<main>
+<main class="fixed-side-nav">
   <div class="container-fluid">
     <%= yield %>
   </div>

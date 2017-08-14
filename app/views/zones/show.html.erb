@@ -6,7 +6,7 @@
 <div class="card ovf-hidden">
   <div class="card-block">
     <div class="clearfix">
-      <%= link_to 'Back', zones_path, class: 'btn blue-grey lighten-2' %>
+      <%= link_to 'Back', zones_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
@@ -49,7 +49,7 @@
     <%= form_for(@zone, remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Zone Name", for: "zone_name" %>
-        <%= f.text_field :name, class: "form-control", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
+        <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
         <small id="name_help" class="form-text text-muted">All systems within this zone will be associated with the new zone name.</small>
       </div>
       <div class="clearfix">

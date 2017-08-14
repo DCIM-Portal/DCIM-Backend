@@ -4,8 +4,8 @@
 
 //Mobile Compatibility
 @media only screen and (max-width: 1750px) {
-	table#bmc_hosts_table td:nth-child(7), 
-	table#bmc_hosts_table th:nth-child(7),
+	table#bmc_hosts_table td:nth-child(9), 
+	table#bmc_hosts_table th:nth-child(9),
   table#bmc_scan_requests_table td:nth-child(8),
   table#bmc_scan_requests_table th:nth-child(8) {display: none;}
 }
@@ -16,6 +16,14 @@
   table#bmc_scan_requests_table td:nth-child(6),
   table#bmc_scan_requests_table th:nth-child(6) {display: none;}
 }
+@media only screen and (max-width: 1450px) {
+  table#bmc_hosts_table td:nth-child(8),
+  table#bmc_hosts_table th:nth-child(8) {display: none;}
+}
+@media only screen and (max-width: 1320px) {
+  table#bmc_hosts_table td:nth-child(7),
+  table#bmc_hosts_table th:nth-child(7) {display: none;}
+}
 @media only screen and (max-width: 1180px) {
   table#bmc_hosts_table td:nth-child(5),
   table#bmc_hosts_table th:nth-child(5),
@@ -23,6 +31,10 @@
   table#bmc_scan_requests_table th:nth-child(7) {display: none;}
 }
 @media only screen and (max-width: 865px) {
+  table#bmc_hosts_table td:nth-child(9),
+  table#bmc_hosts_table th:nth-child(9),
+  table#bmc_hosts_table td:nth-child(8),
+  table#bmc_hosts_table th:nth-child(8),
   table#bmc_hosts_table td:nth-child(7),
   table#bmc_hosts_table th:nth-child(7),
   table#bmc_hosts_table td:nth-child(6),
@@ -36,12 +48,9 @@
   table#bmc_scan_requests_table td:nth-child(8),
   table#bmc_scan_requests_table th:nth-child(8) {display: block;}
 
-  thead tr th [type="radio"], thead tr th [type="checkbox"], tbody tr td [type="radio"], tbody tr td [type="checkbox"] {
-    position: absolute;
-    left: -9999px;
-    visibility: hidden;
+  .dt-checkboxes-cell {
+    display: none;
   }
-
 
   #top-table {
     background: #efefef;
@@ -73,11 +82,14 @@
     top: -9999px;
     left: -9999px;
   }
-  tbody tr {
+  #cred_detail_tbody tr, .dataTables_wrapper div table tbody tr {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     margin-bottom: 20px;
     padding: 10px;
+  }
+  tr {
+    padding: 1rem;
   }
   td { 
     border: none;
@@ -126,6 +138,10 @@
 }
 
 //General Customize Datatable Style
+div.dt-button-info h2 {
+  font-weight: 300;
+  font-size: 2rem;
+}
 table.dataTable.checkboxes-select tbody tr,
 table.dataTable thead .checkboxes-select-all {
   cursor: pointer;
@@ -176,7 +192,8 @@ div.dataTables_scrollBody table {
 }
 
 //Dom Element Fixes
-.top {
+div div.dataTables_wrapper .top {
+  margin-bottom: 0px;
   .dataTables_length { float: left; }
   .dataTables_filter { float: right; }
 }
@@ -185,14 +202,19 @@ div.dataTables_scrollBody table {
   .dataTables_info { float: left; font-size: 0.85rem; padding-top: 0.49rem; }
   .dataTables_paginate { float: right; }
 }
+@media screen and (max-width: 992px) {
+  div.dataTables_wrapper div.dataTables_paginate { margin-right: 25px; }
+}
 
 //Button Customization
 .middle {
   margin-bottom: 15px;
   .dt-buttons .btn {
     margin-right: 20px;
-    padding: 0.45rem .80rem;
+    height: 25px;
+    padding: 0rem 0.60rem;
     color: #5b6d76 !important;
+    line-height: 1.7rem;
   }
   .btn-default:hover, .btn-default:focus, .btn-default:active { background: #eee !important; }
 }
@@ -335,7 +357,7 @@ div.dataTables_paginate li.last > a {
 div.dataTables_paginate li.first a:before, 
 div.dataTables_paginate li.previous a:before {
 	position: absolute;
-	top: 8px;
+	top: 0;
 	left: 10px;
 	display: block;
 	font-family: FontAwesome;
@@ -344,7 +366,7 @@ div.dataTables_paginate li.previous a:before {
 div.dataTables_paginate li.next a:after,
 div.dataTables_paginate li.last a:after {
 	position: absolute;
-	top: 8px;
+	top: 0;
 	right: 10px;
 	display: block;
 	font-family: FontAwesome;

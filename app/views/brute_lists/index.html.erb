@@ -46,7 +46,7 @@
     <%= form_for(@cred, remote: true, html: {"data-type" => :json, id: "ajax_card_cred"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Credential List Name", for: "brute_list_name" %>
-        <%= f.text_field :name, class: "form-control", type: "text", id: "brute_list_name" %>
+        <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "brute_list_name" %>
       </div>
       <div class="card" id="card-table">
         <div class="card-block">
@@ -70,8 +70,8 @@
                  <div class="form-inline">
                    <tr class="credential_row">
                      <td><span class="row_order">1</span><%= secret.text_field :order, class: "number_order", type: "hidden", value: "1" %></td>
-                     <td><%= secret.text_field :username, class: "form-control", id: "inputSmall" %></td>
-                     <td><%= secret.text_field :password, class: "form-control", id: "inputSmall" %></td>
+                     <td><%= secret.text_field :username, class: "form-control browser-default", id: "inputSmall" %></td>
+                     <td><%= secret.text_field :password, class: "form-control browser-default", id: "inputSmall" %></td>
                      <td><a id="del_credrow" class="btn red lighten-2 btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                    </tr>
                  </div>

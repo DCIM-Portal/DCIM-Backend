@@ -92,6 +92,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    materialize-sass (0.100.1)
+      sass (~> 3.3)
     metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (3.1)
@@ -104,7 +106,7 @@ GEM
     momentjs-rails (2.17.1)
       railties (>= 3.1)
     multi_json (1.12.1)
-    mysql2 (0.4.8)
+    mysql2 (0.4.9)
     netrc (0.11.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
@@ -208,7 +210,7 @@ PLATFORMS
 
 DEPENDENCIES
   ajax-datatables-rails
-  bootstrap (~> 4.0.0.alpha6)
+  bootstrap (= 4.0.0.alpha6)
   breadcrumbs_on_rails
   byebug
   coffee-rails (= 4.2.2)
@@ -221,6 +223,7 @@ DEPENDENCIES
   jquery-ui-rails
   listen (~> 3.1.5)
   local_time
+  materialize-sass
   mocha
   momentjs-rails
   mysql2 (>= 0.3.18, < 0.5)

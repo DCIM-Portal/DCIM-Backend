@@ -5,7 +5,7 @@
 <div class="card ovf-hidden">
   <div class="card-block">
     <div class="clearfix">
-      <%= link_to 'Back', bmc_scan_requests_path, class: 'btn blue-grey lighten-2' %>
+      <%= link_to 'Back', bmc_scan_requests_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
@@ -64,17 +64,17 @@
     <%= form_for(@bmc_scan_request, remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Bmc Scan Name", for: "bmc_scan_request_name" %>
-        <%= f.text_field :name, class: "form-control", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>
+        <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>
         <small id="name_help" class="form-text text-muted">Give this request a unique name.</small>
       </div>
       <div class="row form">
         <div class="form-group">
           <%= f.label :start_address, "Start Address", for: "bmc_scan_request_start_address" %>
-          <%= f.text_field :start_address, class: "form-control", type: "text", id: "bmc_scan_request_start_address", "aria-describedby": "address_help" %>
+          <%= f.text_field :start_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_start_address", "aria-describedby": "address_help" %>
         </div>
        <div class="form-group">
           <%= f.label :end_address, "End Address", for: "bmc_scan_request_end_address" %>
-          <%= f.text_field :end_address, class: "form-control", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
+          <%= f.text_field :end_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
         </div>
       </div>
       <small id="address_help" class="form-text text-muted special_small_input_text">Update the start and end address of BMC IPv4 address range to scan.</small>

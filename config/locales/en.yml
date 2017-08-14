@@ -46,10 +46,12 @@ en:
     records:
       bmc_host: "BMC Host"
       onboard_request: "Onboard"
+      zone: "Datacenter Zone"
     attributes:
       bmc_host:
         power_status: "Power Status"
         sync_status: "Sync Status"
+        zone: "Datacenter Zone"
       onboard_request:
         status: "Status"
         step: "Step"

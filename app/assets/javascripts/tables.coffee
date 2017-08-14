@@ -9,6 +9,7 @@ document.render = {}
 document.render.category_table = {}
 document.render.detail_table = {}
 document.data_cache ||= {}
+document.datatables_state_cache ||= {}
 document.render_count = 0
 
 @ready = ->
@@ -53,7 +54,10 @@ document.sync_view_category = (record, destroyed) ->
   document.render.category_table[document.category_name]?(record, destroyed)
 
 document.make_detail_table = (record, destroyed) ->
-  document.render.detail_table[document.detail_name]?(record, destroyed)
+  if document.category_name
+    document.render.detail_table[document.category_name][document.detail_name]?(record, destroyed)
+  else
+    document.render.detail_table[document.detail_name]?(record, destroyed)
 
 @sync_view = (data) ->
 
@@ -68,57 +72,62 @@ document.make_detail_table = (record, destroyed) ->
     # Only care about our page's ID
     return unless record["id"] == document.category_id
 
-    # Update, Add, or Delete
+    # Delete
+    if data["destroyed"]
+      console.log "CATEGORY REMOVED"
+      return
+
+    # Update
     document.sync_view_category?(record, data["destroyed"])
     
-    # Enable detail processing if category record contains details
-    detail_records = record[document.plurals[document.detail_name]] || {}
-
-  # Received List of Details Directly from Action Cable when There's No Category
-  if data["record"] == document.detail_name && !document.category_name && record instanceof Array
-    detail_records = record
-
-  # Detail
-  else if data["record"] == document.detail_name && !(record instanceof Array)
-    # Initialize detail table
-    document.make_detail_table?({}) unless document.detail_table?
-
-    # Update, Add, or Delete
-    @sync_view_detail?(record, data["destroyed"])
-
-  # List of Details
-  if detail_records
-    # Initialize detail table
-    if !document.detail_table?
-      document.make_detail_table?(detail_records)
-
-    # Replace full set of details
-    else if detail_records
-      cur_row_ids = document.detail_table.rows().ids().map (id) ->
-        return parseInt(id) # XXX: Do we need to cast to int?
-      new_row_ids = detail_records.map (detail_item) ->
-        return detail_item.id
-      common_ids = $(cur_row_ids).filter(new_row_ids)
-      added_ids = $(new_row_ids).not(common_ids)
-      removed_ids = $(cur_row_ids).not(common_ids)
-
-      # Remove records that no longer exist
-      for removed_id in removed_ids
-        detail_item = detail_records.filter (detail_item) ->
-          return detail_item.id == removed_id
-        @sync_view_detail?(detail_item.shift(), true)
-
-      # Add new records
-      for added_id in added_ids
-        detail_item = detail_records.filter (detail_item) ->
-          return detail_item.id == added_id
-        @sync_view_detail?(detail_item.shift(), false)
-
-      # Update existing records. TODO: For performance, only do this if changed
-      for common_id in common_ids
-        detail_item = detail_records.filter (detail_item) ->
-          return detail_item.id == common_id
-        @sync_view_detail?(detail_item.shift(), false)
+#    # Enable detail processing if category record contains details
+#    detail_records = record[document.plurals[document.detail_name]] || {}
+#
+#  # Received List of Details Directly from Action Cable when There's No Category
+#  if data["record"] == document.detail_name && !document.category_name && record instanceof Array
+#    detail_records = record
+#
+#  # Detail
+#  else if data["record"] == document.detail_name && !(record instanceof Array)
+#    # Initialize detail table
+#    document.make_detail_table?({}) unless document.detail_table?
+#
+#    # Update, Add, or Delete
+#    @sync_view_detail?(record, data["destroyed"])
+#
+#  # List of Details
+#  if detail_records
+#    # Initialize detail table
+#    if !document.detail_table?
+#      document.make_detail_table?(detail_records)
+#
+#    # Replace full set of details
+#    else if detail_records
+#      cur_row_ids = document.detail_table.rows().ids().map (id) ->
+#        return parseInt(id) # XXX: Do we need to cast to int?
+#      new_row_ids = detail_records.map (detail_item) ->
+#        return detail_item.id
+#      common_ids = $(cur_row_ids).filter(new_row_ids)
+#      added_ids = $(new_row_ids).not(common_ids)
+#      removed_ids = $(cur_row_ids).not(common_ids)
+#
+#      # Remove records that no longer exist
+#      for removed_id in removed_ids
+#        detail_item = detail_records.filter (detail_item) ->
+#          return detail_item.id == removed_id
+#        @sync_view_detail?(detail_item.shift(), true)
+#
+#      # Add new records
+#      for added_id in added_ids
+#        detail_item = detail_records.filter (detail_item) ->
+#          return detail_item.id == added_id
+#        @sync_view_detail?(detail_item.shift(), false)
+#
+#      # Update existing records. TODO: For performance, only do this if changed
+#      for common_id in common_ids
+#        detail_item = detail_records.filter (detail_item) ->
+#          return detail_item.id == common_id
+#        @sync_view_detail?(detail_item.shift(), false)
 
   # Join
   if data["record"] == document.join_name
@@ -126,7 +135,8 @@ document.make_detail_table = (record, destroyed) ->
 
     # Delete
     if data["destroyed"] && record[document.category_name + "_id"] == document.category_id
-      document.detail_table.row('#'+record[document.detail_name + "_id"]).remove().draw()
+#      document.detail_table.row('#'+record[document.detail_name + "_id"]).remove().draw()
+      console.log "DETAIL TABLE ROW(S) REMOVED"
  
 @sync_view_detail = (record, destroyed=false) ->
   # Check if our category has this detail
@@ -140,6 +150,7 @@ document.make_detail_table = (record, destroyed) ->
       # Delete
       if destroyed
         document.detail_table.row("#"+record["id"]).remove().draw()
+        console.log "DETAIL TABLE ROW REMOVED"
 
       # Update
       else
@@ -147,6 +158,7 @@ document.make_detail_table = (record, destroyed) ->
 
     # Add
     else
-      row = document.detail_table.row.add(record).draw().nodes()
-      $(row).hide()
-      $(row).fadeIn(500)
+#      row = document.detail_table.row.add(record).draw().nodes()
+#      $(row).hide()
+#      $(row).fadeIn(500)
+      console.log "DETAIL TABLE ROW ADDED"

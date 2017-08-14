@@ -20,7 +20,7 @@
     <%= form_for(@zone, remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Datacenter Zone Name", for: "zone_name" %>
-        <%= f.text_field :name, class: "form-control", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
+        <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
         <small id="name_help" class="form-text text-muted">When submitted, a datacenter zone will be created in Foreman.</small>
         <%= f.text_field :id, type: "hidden", value: @id %>
       </div>

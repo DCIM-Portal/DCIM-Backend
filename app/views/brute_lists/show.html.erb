@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-block">
       <div class="clearfix">
-        <%= link_to 'Back', brute_lists_path, class: 'btn blue-grey lighten-2' %>
+        <%= link_to 'Back', brute_lists_path, class: 'btn blue-grey lighten-2 back' %>
         <div class="pull-right">
           <p class="time_dock"><%= t :time_dock %></p>
         </div>
@@ -20,10 +20,10 @@
           </thead>
           <tbody>
             <tr>
-              <td><%= @cred.id %></td>
-              <td><%= f.text_field :name, class: "form-control" %></td>
-              <td><%= local_time(@cred.created_at, '%B %e %Y, %l:%M%P') %></td>
-              <td><%= link_to 'Delete', @cred, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm red lighten-2', id: "delete_disable_#{@cred.id}" %></td>
+              <td data-title="Credentials List ID:"><%= @cred.id %></td>
+              <td data-title="Credentials List Name:"><%= f.text_field :name, class: "form-control browser-default" %></td>
+              <td data-title="Date Created:"><%= local_time(@cred.created_at, '%B %e %Y, %l:%M%P') %></td>
+              <td><%= link_to 'Delete', @cred, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-table red lighten-2', id: "delete_disable_#{@cred.id}" %></td>
             </tr>
           </tbody>
         </table>
@@ -49,9 +49,9 @@
           <tbody id="cred_detail_tbody">
           <%= f.fields_for :brute_list_secrets, f.object.brute_list_secrets.order(:order) do |secret| %>
             <tr class="credential_row">
-              <td><span class="row_order"><%= secret.object.order %></span><%= secret.text_field :order, class: "number_order", type: "hidden", value: secret.object.order %></td>
-              <td><%= secret.text_field :username, class: "form-control" %></td>
-              <td><%= secret.text_field :password, class: "form-control" %></td>
+              <td data-title="Execute Order:"><span class="row_order"><%= secret.object.order %></span><%= secret.text_field :order, class: "number_order", type: "hidden", value: secret.object.order %></td>
+              <td data-title="Username:"><%= secret.text_field :username, class: "form-control browser-default" %></td>
+              <td data-title="Password:"><%= secret.text_field :password, class: "form-control browser-default" %></td>
               <td><a id="del_credrow" class="btn btn-sm red lighten-2"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
             </tr>
             <% end %>

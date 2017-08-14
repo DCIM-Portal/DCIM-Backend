@@ -17,6 +17,7 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery.serialize-object
+//= require materialize
 //= require datatables
 //= require dataTables.checkboxes
 //= require turbolinks

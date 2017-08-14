@@ -6,7 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 #Bootstrap 4
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '4.0.0.alpha6'
+
+#Materialize
+gem 'materialize-sass'
 
 #Tether Support
 gem 'tether-rails'

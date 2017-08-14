@@ -9,11 +9,12 @@ class BmcHostDatatable < AjaxDatatablesRails::Base
       ip_address: {source: "BmcHost.ip_address"},
       system_model: {source: "BmcHost.system_model"},
       serial: {source: "BmcHost.serial"},
+      zone: {source: "BmcHost.zone.name"},
       power_status: {source: "BmcHost.power_status", searchable: false, orderable: false},
       sync_status: {source: "BmcHost.sync_status", searchable: false, orderable: false},
       onboard_request_status: {source: "OnboardRequest.status", searchable: false, orderable: false},
       onboard_request_step: {source: "OnboardRequest.step", searchable: false, orderable: false},
-      updated_at: {source: "BmcHost.updated_at"}
+      updated_at: {source: "BmcHost.updated_at"},
     }
   end
 
@@ -22,12 +23,14 @@ class BmcHostDatatable < AjaxDatatablesRails::Base
       ip_address: record.ip_address,
       system_model: record.system_model,
       serial: record.serial,
+      zone: record.zone.name,
       power_status: record.power_status,
       sync_status: record.sync_status,
       onboard_request_status: record.onboard_request.try(:status),
       onboard_request_step: record.onboard_request.try(:step),
       updated_at: local_time(record.updated_at.to_time.iso8601, '%B %e %Y, %l:%M%P'),
       checkbox: radio_button_tag('record', record.id),
+      url: link_to('Details', record, class: "btn blue lighten-2"),
       'DT_RowId' => record.id
     }
     end

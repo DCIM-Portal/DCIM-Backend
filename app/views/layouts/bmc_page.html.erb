@@ -2,16 +2,22 @@
 <html>
   <%= render '/layouts/header' %>
 
-  <body class="fixed-sn">
+  <body>
     <%= render '/layouts/bmc_menu' %>
     <%= content_for :render_async %>
-    <%= javascript_include_tag '/javascripts/mdb.js' %>
     <script>
-      $(".button-collapse").sideNav();
-      var el = document.querySelector('.custom-scrollbar');
-      Ps.initialize(el);
+      $('.button-collapse').sideNav({
+        menuWidth: 225,
+        edge: 'left'
+      });
+      $(document).ready(function () {
+        $('.collapsible').collapsible();
+      });
+      $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225
+      });
     </script>
-
   </body>
 
 </html>

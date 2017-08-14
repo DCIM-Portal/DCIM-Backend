@@ -1,5 +1,4 @@
 <h3>Scanned BMC Hosts</h3>
-
 <div class="card ovf-hidden">
   <div class="card-block">
     <div id="async_wrapper">
@@ -22,7 +21,7 @@
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
-    
+    <%= render partial: "filter" %>
     <div class="table-responsive">
       <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_path(format: :json) %>">
         <thead>
@@ -31,11 +30,13 @@
             <th>BMC Address</th>
             <th>System Model</th>
             <th>Serial</th>
+            <th>Datacenter Zone</th>
             <th>Power Status</th>
             <th>Sync Status</th>
             <th>Onboard Status</th>
             <th>Onboard Step</th>
             <th>Synchronize Time</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -49,16 +50,20 @@
     $("form#ajax_card_form")[0].reset();
   });
 
- $(document).ready(function() {
-    $('.mdb-select').material_select();
-    var bmc_hosts_table = $('#bmc_hosts_table').dataTable();
-    $('.ajax_reload').on('change', function() {
-      bmc_hosts_table.api().ajax.reload();
-    });
+  document.detail_name = 'bmc_host'
+  $(document).ready(function() {
+    document.render.detail_table[document.detail_name]()
   });
 
-  $(document).on('turbolinks:load', function() {
-    $('div.f_toolbar').html('<%= j render partial: "filter" %>');
-  });
+// $(document).ready(function() {
+//    $('.mdb-select').material_select();
+//    var bmc_hosts_table = $('#bmc_hosts_table').dataTable();
+//    $('.ajax_reload').on('change', function() {
+//      bmc_hosts_table.api().ajax.reload();
+//    });
+//  });
+//
+//  $(document).on('turbolinks:load', function() {
+//    $('div.f_toolbar').html('<%= j render partial: "filter" %>');
+//  });
 </script>
-

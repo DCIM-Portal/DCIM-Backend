@@ -109,4 +109,4 @@ $(document).on 'turbolinks:before-cache', ->
   $('#async_wrapper').hide()
 
   #Prevent duplicate selects
-  $('.mdb-select').material_select 'destroy'
+  $('.m_select').material_select 'destroy'
