@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802191259) do
+ActiveRecord::Schema.define(version: 20170815154042) do
 
   create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "serial"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170802191259) do
     t.integer "sync_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "error_message"
     t.index ["foreman_host_id"], name: "index_systems_on_foreman_host_id", unique: true
     t.index ["name"], name: "index_systems_on_name"
   end

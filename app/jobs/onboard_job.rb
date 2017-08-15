@@ -69,6 +69,7 @@ class OnboardJob < ApplicationJob
     @request.bmc_host.system = system
     system.save!
     @request.bmc_host.save!
+    system.refresh!
 
     # Step 6: Add BmcHost credentials to Foreman NIC
     start_step(:bmc_creds)
