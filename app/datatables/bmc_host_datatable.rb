@@ -39,7 +39,7 @@ class BmcHostDatatable < AjaxDatatablesRails::Base
   private
 
   def get_raw_records
-    query = BmcHost.includes(:onboard_request).references(:onboard_request).all
+    query = BmcHost.includes(:onboard_request, :zone).references(:onboard_request, :zone).all
     params_bmc_host = params[:bmc_host] || {}
     params_onboard_request = params[:onboard_request] || {}
     params_bmc_host.each do |key, value|

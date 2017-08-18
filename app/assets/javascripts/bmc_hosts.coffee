@@ -1,7 +1,8 @@
 $(document).on 'turbolinks:load', ->
 
   document.render.detail_table.bmc_host = ->
-    document.detail_table = $('#bmc_hosts_table').dataTable
+    document.detail_table_selector = '#bmc_hosts_table'
+    document.detail_table = $(document.detail_table_selector).dataTable
       processing: true
       serverSide: true
       searching: true
@@ -14,7 +15,7 @@ $(document).on 'turbolinks:load', ->
         return undefined
       lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
       ajax: {
-        url: $('#bmc_hosts_table').data('source')
+        url: $(document.detail_table_selector).data('source')
         data: (d) ->
           if $('#filters').length
             return $.extend {}, $('#filters').serializeObject(), d 
@@ -161,6 +162,3 @@ $(document).on 'turbolinks:load', ->
       $('.m_select').material_select();
     $('.ajax_reload').on 'change', ->
       document.detail_table.api().ajax.reload();
-
-$(document).on 'turbolinks:before-cache', ->
-  $('#bmc_hosts_table').DataTable().destroy()
