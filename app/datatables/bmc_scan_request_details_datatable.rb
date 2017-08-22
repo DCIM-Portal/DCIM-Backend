@@ -1,4 +1,4 @@
-class BmcHostDatatable < ApplicationDatatable
+class BmcScanRequestDetailsDatatable < ApplicationDatatable
 
   def_delegator :@view, :local_time
   def_delegator :@view, :link_to
@@ -6,10 +6,9 @@ class BmcHostDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      ip_address: {source: "BmcHost.ip_address", orderable: true},
+      ip_address: {source: "BmcHost.ip_address"},
       system_model: {source: "BmcHost.system_model"},
       serial: {source: "BmcHost.serial"},
-      zone_name: {source: "Zone.name"},
       power_status: {source: "BmcHost.power_status", searchable: false, orderable: true},
       sync_status: {source: "BmcHost.sync_status", searchable: false, orderable: true},
       onboard_request_status: {source: "OnboardRequest.status", searchable: false, orderable: true},
@@ -23,7 +22,6 @@ class BmcHostDatatable < ApplicationDatatable
       ip_address: record.ip_address,
       system_model: record.system_model,
       serial: record.serial,
-      zone_name: record.zone.name,
       power_status: record.power_status,
       sync_status: record.sync_status,
       onboard_request_status: record.onboard_request.try(:status),
@@ -31,8 +29,6 @@ class BmcHostDatatable < ApplicationDatatable
       updated_at: local_time(record.updated_at.to_time.iso8601, '%B %e %Y, %l:%M%P'),
       checkbox: radio_button_tag('record', record.id),
       url: link_to('Details', record, class: "btn blue lighten-2"),
-      zone_id: record.zone.id,
-      onboard_request_id: record.onboard_request.try(:id),
       'DT_RowId' => record.id
     }
     end
@@ -41,7 +37,7 @@ class BmcHostDatatable < ApplicationDatatable
   private
 
   def get_raw_records
-    query = BmcHost.includes(:onboard_request, :zone).references(:onboard_request, :zone).all
+    query = BmcScanRequest.find(params[:id]).bmc_hosts.includes(:onboard_request).references(:onboard_request)
     params_bmc_host = params[:bmc_host] || {}
     params_onboard_request = params[:onboard_request] || {}
     params_bmc_host.each do |key, value|
@@ -53,11 +49,10 @@ class BmcHostDatatable < ApplicationDatatable
     query
   end
 
-
   # ==== These methods represent the basic operations to perform on records
   # and feel free to override them
 
-  # def filter_records
+  # def filter_records(records)
   # end
 
   # def sort_records(records)

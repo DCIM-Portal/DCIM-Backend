@@ -1,6 +1,6 @@
 class BruteListsController < ApplicationController
 
-  layout "bmc_page"
+  layout "admin_page"
   before_action :set_cred, only: [:show, :update, :destroy]
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_index_path
@@ -14,16 +14,7 @@ class BruteListsController < ApplicationController
     @count = BruteList.count
     respond_to do |format|
       format.html
-      format.json {
-        render json: @creds.collect {
-          |cred| {
-            id:  cred.id,
-            name: cred.name,
-            created_at: cred.created_at,
-            url: brute_list_path(BruteList.find(cred.id))
-          }
-        }
-      }
+      format.json { render json: BruteListDatatable.new(view_context, params) }
     end
   end
 

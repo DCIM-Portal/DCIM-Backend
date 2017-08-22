@@ -6,15 +6,23 @@
 @media only screen and (max-width: 1750px) {
 	table#bmc_hosts_table td:nth-child(9), 
 	table#bmc_hosts_table th:nth-child(9),
+  table#zone_details_table td:nth-child(8),
+  table#zone_details_table th:nth-child(8),
   table#bmc_scan_requests_table td:nth-child(8),
-  table#bmc_scan_requests_table th:nth-child(8) {display: none;}
+  table#bmc_scan_requests_table th:nth-child(8),
+  table#bmc_scan_request_details_table td:nth-child(8),
+  table#bmc_scan_request_details_table th:nth-child(8) {display: none;}
 }
  
 @media only screen and (max-width: 1595px) {
 	table#bmc_hosts_table td:nth-child(6),
 	table#bmc_hosts_table th:nth-child(6),
+  table#zone_details_table td:nth-child(7),
+  table#zone_details_table th:nth-child(7),
   table#bmc_scan_requests_table td:nth-child(6),
-  table#bmc_scan_requests_table th:nth-child(6) {display: none;}
+  table#bmc_scan_requests_table th:nth-child(6),
+  table#bmc_scan_request_details_table td:nth-child(7),
+  table#bmc_scan_request_details_table th:nth-child(7) {display: none;}
 }
 @media only screen and (max-width: 1450px) {
   table#bmc_hosts_table td:nth-child(8),
@@ -22,13 +30,21 @@
 }
 @media only screen and (max-width: 1320px) {
   table#bmc_hosts_table td:nth-child(7),
-  table#bmc_hosts_table th:nth-child(7) {display: none;}
+  table#bmc_hosts_table th:nth-child(7),
+  table#zone_details_table td:nth-child(5),
+  table#zone_details_table th:nth-child(5),
+  table#bmc_scan_request_details_table td:nth-child(5),
+  table#bmc_scan_request_details_table th:nth-child(5) {display: none;}
 }
 @media only screen and (max-width: 1180px) {
   table#bmc_hosts_table td:nth-child(5),
   table#bmc_hosts_table th:nth-child(5),
+  table#zone_details_table td:nth-child(6),
+  table#zone_details_table th:nth-child(6),
   table#bmc_scan_requests_table td:nth-child(7),
-  table#bmc_scan_requests_table th:nth-child(7) {display: none;}
+  table#bmc_scan_requests_table th:nth-child(7),
+  table#bmc_scan_request_details_table td:nth-child(6),
+  table#bmc_scan_request_details_table th:nth-child(6) {display: none;}
 }
 @media only screen and (max-width: 865px) {
   table#bmc_hosts_table td:nth-child(9),
@@ -41,12 +57,26 @@
   table#bmc_hosts_table th:nth-child(6),
   table#bmc_hosts_table td:nth-child(5),
   table#bmc_hosts_table th:nth-child(5),
+  table#zone_details_table td:nth-child(6),
+  table#zone_details_table th:nth-child(6),
+  table#zone_details_table td:nth-child(7),
+  table#zone_details_table th:nth-child(7),
+  table#zone_details_table td:nth-child(8),
+  table#zone_details_table th:nth-child(8),
   table#bmc_scan_requests_table td:nth-child(6),
   table#bmc_scan_requests_table th:nth-child(6),
   table#bmc_scan_requests_table td:nth-child(7),
   table#bmc_scan_requests_table th:nth-child(7),
   table#bmc_scan_requests_table td:nth-child(8),
-  table#bmc_scan_requests_table th:nth-child(8) {display: block;}
+  table#bmc_scan_requests_table th:nth-child(8),
+  table#bmc_scan_request_details_table td:nth-child(5),
+  table#bmc_scan_request_details_table th:nth-child(5),
+  table#bmc_scan_request_details_table td:nth-child(6),
+  table#bmc_scan_request_details_table th:nth-child(6),
+  table#bmc_scan_request_details_table td:nth-child(7),
+  table#bmc_scan_request_details_table th:nth-child(7),
+  table#bmc_scan_request_details_table td:nth-child(8),
+  table#bmc_scan_request_details_table th:nth-child(8) {display: block;}
 
   .dt-checkboxes-cell {
     display: none;

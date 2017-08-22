@@ -23,4 +23,6 @@
 //= require turbolinks
 //= require moment
 //= require local-time
+//= require i18n
+//= require i18n/translations
 //= require_tree .

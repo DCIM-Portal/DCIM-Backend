@@ -98,9 +98,30 @@ $(document).on 'turbolinks:load', ->
 
   document.render.detail_table.brute_list = (view) ->
     #Brute List main table
-    document.detail_table = $('#cred_table').DataTable
+    document.detail_table_selector = '#cred_table'
+    document.detail_table = $(document.detail_table_selector).dataTable
+      processing: true
+      serverSide: true
+      searching: true
+      deferLoading: 0
       data: view
-      rowId: 'id'
+      stateSave: true
+      stateSaveCallback: (settings, data) ->
+        document.datatables_state_cache[document.href] ||= {}
+        document.datatables_state_cache[document.href].brute_list = {'settings': settings, 'data': data}
+      stateLoadCallback: (settings, callback) ->
+        callback(document.datatables_state_cache[document.href]?.brute_list.data)
+        return undefined
+      lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
+      ajax: {
+        url: $(document.detail_table_selector).data('source')
+        data: (d) ->
+          if $('#filters').length
+            return $.extend {}, $('#filters').serializeObject(), d
+          else if document.datatables_state_cache[document.href]?.brute_list?.filters?
+            return $.extend {}, $(document.datatables_state_cache[document.href]?.brute_list?.filters).serializeObject(), d
+          return d
+      }
       columns: [
         { "data": "id" },
         { "data": "name" },
@@ -116,21 +137,11 @@ $(document).on 'turbolinks:load', ->
       columnDefs: [ 
         { targets: 3
         orderable: false
-        render: (data, type, full, meta) ->
-          '<a class="btn btn-info btn-sm" href="' + data + '">Details</a>'
         }
         { targets: 2
-        orderable: false
-        render: (data, type, full, meta) ->
-          moment(data).format 'MMMM D YYYY, h:mma'
+        orderable: true
         }
         orderable: false
         targets: [1]
       ]
       order: [ 0, 'asc' ]
-      drawCallback: ->
-        $('.overlay').hide()
-
-$(document).on 'turbolinks:before-cache', ->
-  #Hide cred table
-  $('#cred_table').DataTable().destroy()

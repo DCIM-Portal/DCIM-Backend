@@ -14,14 +14,14 @@ one:
   sync_status: 1
 
 two:
-  name: MyString
-  cpu_model: MyString
+  name: MyString2
+  cpu_model: MyString2
   cpu_cores: 1
   cpu_threads: 1
   cpu_count: 1
   ram_total: 1
   disk_total: 1
   disk_count: 1
-  os: MyString
-  os_release: MyString
+  os: MyString2
+  os_release: MyString2
   sync_status: 1

@@ -33,7 +33,9 @@
             <td id="category_bmc_scan_request_start_address" data-title="Start Address:"><%= @bmc_scan_request.start_address %></td>
             <td id="category_bmc_scan_request_end_address" data-title="End Address:"><%= @bmc_scan_request.end_address %></td>
             <td id="category_bmc_scan_request_status" data-title="Scan Status:">
-            <% if @bmc_scan_request.status == "scan_complete" %>
+            <% if @bmc_scan_request.status.nil? %>
+              <span class="badge blue-grey darken-2"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</span>
+            <% elsif @bmc_scan_request.status == "scan_complete" %>
               <span class="badge green lighten-2">Scan Complete</span>
             <% elsif @bmc_scan_request.status == "in_progress" %>
               <span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>
@@ -105,38 +107,33 @@
 
 <div class="card">
   <div class="card-block">
-    <h5>BMC Host List</h5>
-    <div class="overlay-container">
-      <%= render '/layouts/loading_overlay' %>
-      <div class="table-responsive">
-        <table id="bmc_scan_request_details_table" class="table table-striped nowrap" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>BMC Address</th>
-              <th>System Model</th>
-              <th>Serial</th>
-              <th>Power Status</th>
-              <th>Sync Status</th>
-              <th>Onboard Status</th>
-              <th>Onboard Step</th>
-              <th>Error Message</th>
-              <th>Synchronize Time</th>
-              <th></th>
-              <th>Host ID</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+    <div class="stand_alone">
+      <h5>BMC Host List</h5>
+    </div>
+    <%= render partial: "filter" %>
+    <div class="table-responsive">
+      <table id="bmc_scan_request_details_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_bmc_scan_request_path(format: :json) %>" >
+        <thead>
+          <tr>
+            <th></th>
+            <th>BMC Address</th>
+            <th>System Model</th>
+            <th>Serial</th>
+            <th>Power Status</th>
+            <th>Sync Status</th>
+            <th>Onboard Status</th>
+            <th>Onboard Step</th>
+            <th>Synchronize Time</th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 </div>
 <script type="text/javascript">
+  document.category_id   = <%= @bmc_scan_request.id %>
   document.category_name = 'bmc_scan_request'
   document.detail_name   = 'bmc_host'
-  document.join_name     = 'bmc_scan_request_host'
-  document.category_id   = <%= @bmc_scan_request.id %>
-  document.category_associations = [{'bmc_hosts':['onboard_request']}, 'brute_list', 'zone']
-  document.detail_associations   = ['onboard_request']
-  document.plurals['bmc_scan_request'] = 'bmc_scan_requests'
-  document.plurals['bmc_host']         = 'bmc_hosts'
+  document.category_associations = ['brute_list', 'zone']
 </script>

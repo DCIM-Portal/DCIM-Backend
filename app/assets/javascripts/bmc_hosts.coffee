@@ -1,15 +1,17 @@
 $(document).on 'turbolinks:load', ->
 
-  document.render.detail_table.bmc_host = ->
+  document.render.detail_table.bmc_host = (view) ->
     document.detail_table_selector = '#bmc_hosts_table'
     document.detail_table = $(document.detail_table_selector).dataTable
       processing: true
       serverSide: true
       searching: true
+      deferLoading: 0
+      data: view
       stateSave: true
       stateSaveCallback: (settings, data) ->
         document.datatables_state_cache[document.href] ||= {}
-        document.datatables_state_cache[document.href].bmc_host = {'settings': settings, 'data': data, 'filters': $('#filters').get()}
+        document.datatables_state_cache[document.href].bmc_host = {'settings': settings, 'data': data}
       stateLoadCallback: (settings, callback) ->
         callback(document.datatables_state_cache[document.href]?.bmc_host.data)
         return undefined
@@ -28,7 +30,7 @@ $(document).on 'turbolinks:load', ->
         {data: 'ip_address'}
         {data: 'system_model'}
         {data: 'serial'}
-        {data: 'zone'}
+        {data: 'zone_name'}
         {data: 'power_status'}
         {data: 'sync_status'}
         {data: 'onboard_request_status'}
@@ -37,7 +39,7 @@ $(document).on 'turbolinks:load', ->
         {data: 'url'}
       ]
       deferRender: true
-      order: [ 9, 'desc' ]
+      order: [ 1, 'asc' ]
       dom: '<"top clearfix"lf><"middle"B<"f_toolbar">><tr><"bottom"ip><"clearfix">'
       select: 'multi'
       createdRow: (row, data, dataIndex) ->
@@ -78,19 +80,17 @@ $(document).on 'turbolinks:load', ->
         searchable: false
         }
         { targets: 7
-        orderable: false
         render: (data, type, full) ->
           if !data
-            "No Onboard State"
+            '<div class="blue-grey lighten-1 white-text z-depth-1 sync"><i class="fa fa-minus-circle" aria-hidden="true"></i> Not Onboarded</div>'
           else if data == "success"
-            '<div class="green lighten-2 white-text z-depth-1 sync">Success: ' + full.onboard_request_step + '</div>'
+            '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> '  + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
           else if data == "in_progress"
-            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i> In Progress: ' + full.onboard_request_step + '</div>'
+            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i>' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
           else
-            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + data + ': ' + full.onboard_request_step + '</div>'
+            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>' 
         }
         { targets: 5
-        orderable: false
         render: (data, type, full, meta) ->
           if data == "on"
             '<div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>'
@@ -101,26 +101,18 @@ $(document).on 'turbolinks:load', ->
         width: 50
         }
         { targets: 6
-        orderable: false
         render: (data, type, full) ->
-          if data == "success"
-            '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Synchronized</div>'
-          else if data == "unknown_error"
-            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Unknown Error</div>'
-          else if data == "invalid_password_error"
-            '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error - Invalid Password</div>'
-          else if data == "invalid_username_error"
-            '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error - Invalid Username</div>'
-          else if data == "invalid_credentials_error"
-            '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error - Invalid Credentials</div>'
+          if !data
+            '<div class="blue-grey darken-2 white-text z-depth-1 sync"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</div>'
+          else if data == "success"
+            '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
+          else if /(invalid)/.test(data)
+            '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
           else if data == "in_progress"
-            '<div class="blue lighten-2 white-text z-depth-1 sync"><i class="fa fa-refresh fa-spin fa-fw" aria-hidden="true"></i> Syncing</div>'
+            '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> Syncing</div>'
           else
-            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + data + '</div>'
+            '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
         width: 200
-        }
-        { targets: 4
-        orderable: false
         }
         { targets: 2
         orderable: false
@@ -151,14 +143,6 @@ $(document).on 'turbolinks:load', ->
         width: 115
         }
         { targets: 1
-        orderable: false
         width: 75
         }
       ]
-    if document.datatables_state_cache[document.href]?.bmc_host?.filters
-      $(document.datatables_state_cache[document.href]?.bmc_host?.filters).appendTo('div.f_toolbar')
-    else
-      $('#filters').detach().appendTo('div.f_toolbar')
-      $('.m_select').material_select();
-    $('.ajax_reload').on 'change', ->
-      document.detail_table.api().ajax.reload();

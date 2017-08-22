@@ -2,44 +2,50 @@ class BmcScanRequestsController < ApplicationController
 
   before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
   before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
-  layout "bmc_page"
+  layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_index_path
+  add_breadcrumb "BMC Scans", :bmc_scan_requests_path
 
   def index
-    add_breadcrumb "BMC Scans", bmc_scan_requests_path 
     @bmc_scan_requests = BmcScanRequest.all
     @bmc_scan_request = BmcScanRequest.new
     @zones = Zone.all
     @creds = BruteList.all
+    @filters = {}
+    @filters[:bmc_scan_request] = {
+      zone: @zones.map { |key| [ key["name"],key["id"] ] }.to_h,
+      status: BmcScanRequest.statuses
+    }
     respond_to do |format|
       format.html
-      format.json {
-        render json: @bmc_scan_requests.collect {
-          |scan| {
-            id:  scan.id,
-            name: scan.name,
-            start_address: scan.start_address,
-            end_address: scan.end_address,
-            status: scan.status,
-            brute_list: scan.brute_list.name,
-            zone: scan.zone.name,
-            created_at: scan.created_at,
-            url: bmc_scan_request_path(BmcScanRequest.find(scan.id))
-          }
-        }
-      }
+      format.json { render json: BmcScanRequestDatatable.new(view_context, params) }
     end
   end
 
   def show
-    add_breadcrumb "BMC Scans", bmc_scan_requests_path
     add_breadcrumb @bmc_scan_request.name, bmc_scan_request_path
     @zones = Zone.all
     @creds = BruteList.all
+    @filters = {}
+    @filters[:bmc_host] = {
+      power_status: BmcHost.power_statuses,
+      sync_status: BmcHost.sync_statuses
+    }
+    @filters[:onboard_request] = {
+      status: OnboardRequest.statuses,
+      step: OnboardRequest.steps
+    }
+
     respond_to do |format|
       format.html
-      format.json { render json: @bmc_scan_request.to_json( include: :bmc_hosts ) }
+      format.json { render json: @bmc_scan_request.as_json(include: ['brute_list', 'zone']) }
+    end
+  end
+
+  def bmc_hosts
+    respond_to do |format|
+      format.json { render json: BmcScanRequestDetailsDatatable.new(view_context, params) }
     end
   end
 

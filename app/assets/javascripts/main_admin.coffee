@@ -98,7 +98,7 @@ $(document).on 'turbolinks:before-cache', ->
 
   #If we select any items in a datatable,
   #we must remove the selected attribute on reload
-  $('tr').removeClass('selected')
+  #$('tr').removeClass('selected')
   
   #Hide message divs on load
   $("#waiting_explanation").hide()

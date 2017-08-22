@@ -2,27 +2,23 @@ class ZonesController < ApplicationController
 
   before_action :set_zone, only: [:show, :update, :destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
-  layout "bmc_page"
+  layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_index_path
+  add_breadcrumb "Datacenter Zones", :zones_path
 
   def index
-    add_breadcrumb "Datacenter Zones", zones_path
     @zones = Zone.all
     @zone = Zone.new
     respond_to do |format|
       format.html
-      format.json {
-        render json: @zones.collect {
-          |zone| {
-            id:  zone.id,
-            name: zone.name,
-            foreman_location_id: zone.foreman_location_id,
-            created_at: zone.created_at,
-            url: zone_path(Zone.find(zone.id))
-          }
-        }
-      }
+      format.json { render json: ZoneDatatable.new(view_context, params) }
+    end
+  end
+
+  def bmc_hosts
+    respond_to do |format|
+      format.json { render json: ZoneDetailsDatatable.new(view_context, params) }
     end
   end
 
@@ -95,8 +91,21 @@ class ZonesController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Datacenter Zones", zones_path
     add_breadcrumb @zone.name, zone_path
+    @filters = {}
+    @filters[:bmc_host] = {
+      power_status: BmcHost.power_statuses,
+      sync_status: BmcHost.sync_statuses
+    }
+    @filters[:onboard_request] = {
+      status: OnboardRequest.statuses,
+      step: OnboardRequest.steps
+    }
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @zone }
+    end
   end
 
   def destroy

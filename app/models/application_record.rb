@@ -3,6 +3,6 @@ class ApplicationRecord < ActiveRecord::Base
   after_commit :emit_cable
 
   def emit_cable(**kwargs)
-    LiveViewBroadcastJob.perform_now self, **kwargs
+    ::LiveViewBroadcastJob.perform_now self, **kwargs
   end
 end

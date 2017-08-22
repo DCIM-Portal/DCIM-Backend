@@ -67,24 +67,27 @@
 
 <div class="card">
   <div class="card-block">
-    <h5>BMC Host List</h5>
-    <div class="overlay-container">
-      <%= render '/layouts/loading_overlay' %>
-      <div class="table-responsive">
-        <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>BMC Address</th>
-              <th>System Model</th>
-              <th>Serial</th>
-              <th>Power Status</th>
-              <th>Last Sync Status</th>
-              <th>Onboarded</th>
-              <th>Synchronize Date</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+    <div class="stand_alone">
+      <h5>BMC Host List</h5>
+    </div>
+    <%= render partial: "filter" %>
+    <div class="table-responsive">
+      <table id="zone_details_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_zone_path(format: :json) %>" >
+        <thead>
+          <tr>
+            <th></th>
+            <th>BMC Address</th>
+            <th>System Model</th>
+            <th>Serial</th>
+            <th>Power Status</th>
+            <th>Sync Status</th>
+            <th>Onboard Status</th>
+            <th>Onboard Step</th>
+            <th>Synchronize Time</th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 </div>

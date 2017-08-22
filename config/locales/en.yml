@@ -56,13 +56,41 @@ en:
         status: "Status"
         step: "Step"
     options:
-      onboard_request:
-        step:
-          bmc_creds: "BMC Creds"
-          pxe: "PXE"
+      bmc_scan_request:
+        status:
+          scan_complete: "Scan Complete"
+          in_progress: "In Progress"
+          smart_proxy_unreachable: "Smart Proxy Unreachable"
+          invalid_range: "Invalid Range"
+          removed: "Removed"
       bmc_host:
-        sync_status:
-          bmc_busy_error: "BMC Busy Error"
         power_status:
-          "on": "ON"
-          "off": "OFF"
+          "on": "On"
+          "off": "Off"
+        sync_status:
+          success: "Synchronized"
+          in_progress: "In progress"
+          unknown_error: "Error: Unknown"
+          stack_trace: "Error: Other (stack trace)"
+          smart_proxy_error: "Error: Smart Proxy"
+          connection_timeout_error: "Error: Connection timeout"
+          invalid_credentials_error: "Error: Invalid credentials"
+          invalid_username_error: "Error: Invalid username"
+          invalid_password_error: "Error: Invalid password"
+          unsupported_fru_error: "Error: Unsupported FRU"
+          session_timeout_error: "Error: Session timeout"
+          bmc_busy_error: "Error: BMC busy"
+      onboard_request:
+        status:
+          success: "Success"
+          in_progress: "In progress"
+          stack_trace: "Error (see stack trace)"
+          timeout: "Timeout"
+        step:
+          complete: "Finished"
+          shutdown: "Shut down"
+          power_off: "Power off"
+          pxe: "PXE boot"
+          discover: "Discover"
+          manage: "Promote to managed"
+          bmc_creds: "Save BMC login"

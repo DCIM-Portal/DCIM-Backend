@@ -110,20 +110,17 @@
       </div>
     </div>
 
-    <div class="overlay-container">
-      <%= render '/layouts/loading_overlay' %>
-      <div class="table-responsive">
-        <table id="cred_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>Credential List ID</th>
-              <th>Credential List Name</th>
-              <th>Date Created</th>
-              <th></th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+    <div class="table-responsive">
+      <table id="cred_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%" data-source="<%= brute_lists_path(format: :json) %>">
+        <thead>
+          <tr>
+            <th>Credential List ID</th>
+            <th>Credential List Name</th>
+            <th>Date Created</th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 </div>
@@ -131,7 +128,6 @@
 
 <script>
   document.detail_name = 'brute_list'
-  document.plurals['brute_list'] = 'brute_lists'
 
   $("form#ajax_card_cred").on("ajax:success", function(event, data, status, xhr) {
     $("form#ajax_card_cred")[0].reset();

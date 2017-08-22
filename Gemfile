@@ -32,6 +32,9 @@ gem 'momentjs-rails'
 #Local Time
 gem 'local_time'
 
+#Locales in Coffeescript
+gem "i18n-js"
+
 #Breadcrumbs
 gem "breadcrumbs_on_rails"
 

@@ -3,7 +3,7 @@
   <%= render '/layouts/header' %>
 
   <body>
-    <%= render '/layouts/bmc_menu' %>
+    <%= render '/layouts/admin_menu' %>
     <%= content_for :render_async %>
     <script>
       $('.button-collapse').sideNav({
@@ -12,6 +12,7 @@
       });
       $(document).ready(function () {
         $('.collapsible').collapsible();
+        $('ul.tabs').tabs();
       });
       $('.dropdown-button').dropdown({
         inDuration: 300,

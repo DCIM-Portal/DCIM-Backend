@@ -4,45 +4,45 @@ class LiveViewSubscription
     Sidekiq.redis { |c| c }
   end
 
-  def self.create(uuid)
-    redis.sadd('LiveViewSubscriptions', uuid)
+  def self.create(id)
+    redis.sadd('LiveViewSubscriptions', id)
   end
 
-  def self.set(uuid, *args)
-    create(uuid)
-    redis.hmset(uuid, *args)
+  def self.set(id, *args)
+    create(id)
+    redis.hmset(id, *args)
   end
 
   class << self
-    ['id', 'parser', 'source', 'query'].each do |attr|
-      define_method(attr) do |uuid|
-        redis.hget(uuid, attr)
+    ['name', 'parser', 'source', 'query'].each do |attr|
+      define_method(attr) do |id|
+        redis.hget(id, attr)
       end
 
-      define_method("#{attr}=") do |uuid, value|
-        set(uuid, attr, value)
+      define_method("#{attr}=") do |id, value|
+        set(id, attr, value)
       end
     end
   end
 
-  def self.destroy(uuid)
-    redis.del(uuid)
-    redis.del('LiveViewSubscriptions', uuid)
+  def self.destroy(id)
+    redis.del(id)
+    redis.srem('LiveViewSubscriptions', id)
   end
 
   def self.destroy_all
-    uuids = redis.smembers('LiveViewSubscriptions')
-    uuids.each do |uuid|
-      destroy(uuid)
+    ids = redis.smembers('LiveViewSubscriptions')
+    ids.each do |id|
+      destroy(id)
     end
     redis.del('LiveViewSubscriptions')
   end
 
   def self.all
     output = {}
-    uuids = redis.smembers('LiveViewSubscriptions')
-    uuids.each do |uuid|
-      output.merge!({uuid => redis.hgetall(uuid)})
+    ids = redis.smembers('LiveViewSubscriptions')
+    ids.each do |id|
+      output.merge!({id => redis.hgetall(id)})
     end
     output
   end
