@@ -28,7 +28,6 @@ document.render_count = 0
 
   #Click event for table refresh alert
   $('#reload_table').on 'click', ->
-    console.log "CLICKED RELOAD"
     document.detail_table?.api?().ajax.reload()
     $('.table-refresh-alert').slideUp 'fast'
     
@@ -94,7 +93,6 @@ document.make_detail_table = (record, destroyed) ->
   # Detail
   if data["request"]["name"] == document.detail_name
     new_dt = JSON.parse(data["response"])
-    console.log new_dt
     new_row_ids = new_dt.data.map (row) ->
       row.DT_RowId
     cur_row_ids = document.detail_table.api().rows().ids().toArray()
@@ -102,13 +100,9 @@ document.make_detail_table = (record, destroyed) ->
       v == new_row_ids[i]
     
     if !ids_matched
-      console.log("ROWS ADDED OR REMOVED; MANUALLY REFRESH TABLE")
-      console.log new_row_ids
-      console.log cur_row_ids
       $('.table-refresh-alert').slideDown 'fast' if $('.table-refresh-alert').css('display') == 'none'
       return
 
-    console.log("ADD CODE TO UPDATE TABLE HERE")
     document.detail_table.api().rows().data().each (v, i) ->
       # XXX: Find faster way to compare these objects
       if JSON.stringify(v) != JSON.stringify(new_dt.data[i])

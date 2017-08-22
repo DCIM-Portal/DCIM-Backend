@@ -14,8 +14,6 @@
       # Called when the subscription has been terminated by the server
   
     received: (data) ->
-      console.log "NEXT LINE SHOWS LIVE VIEW RECEIVED"
-      console.log data
       received_callback(data)
       # Called when there's incoming data on the websocket for this channel
   
