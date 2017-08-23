@@ -10,7 +10,7 @@ class BmcScanJob < ApplicationJob
       @foreman_resource = Dcim::ForemanApiFactory.instance
     end
     @request = kwargs[:request]
-    @logger = kwargs[:logger] || Rails.logger
+    @logger = kwargs[:logger] || Sidekiq::Logging.logger || Rails.logger
 
     @request.error_message = nil
     @request.bmc_hosts.destroy_all
@@ -44,14 +44,14 @@ class BmcScanJob < ApplicationJob
       bmc_host.bmc_scan_requests << @request
       bmc_host.save!
       bmc_host.smart_proxy = smart_proxy
-      promises[bmc_host_ip] = Concurrent::Promise.execute(executor: pool) do
+      promises[bmc_host_ip] = Concurrent::Promise.new(executor: pool) do
         @logger.debug bmc_host_ip + ": BMC host record established"
         secrets = [nil]
         secrets << @request.brute_list.brute_list_secrets
         secrets.each do |secret|
           begin
             success = nil
-            ActiveRecord::Base.connection_pool.with_connection do
+            ::ActiveRecord::Base.connection_pool.with_connection do
               success = bmc_host.refresh!(secret)
               @logger.debug bmc_host_ip + ": BMC host updated"
             end
@@ -64,8 +64,14 @@ class BmcScanJob < ApplicationJob
       end
     end
 
-    pool.shutdown
-    pool.wait_for_termination(timeout = 180)
+    ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+      promises.each do |bmc_host_ip, promise|
+        promise.execute
+      end
+
+      pool.shutdown
+      pool.wait_for_termination(timeout = 180)
+    end
 
     promises.each do |bmc_host_ip, promise|
       if promise.rejected?

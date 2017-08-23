@@ -46,4 +46,33 @@ class LiveViewSubscription
     end
     output
   end
+
+  def self.lock(broadcast_job_id)
+    redis.set('LiveViewBroadcastJobId', broadcast_job_id)
+  end
+
+  def self.unlock
+    redis.del('LiveViewBroadcastJobId')
+  end
+
+  def self.locked?
+    # TODO: Detect if worker is dead
+    !!redis.get('LiveViewBroadcastJobId')
+  end
+
+  def self.broadcast_job_id
+    redis.get('LiveViewBroadcastJobId')
+  end
+
+  def self.rerun?
+    !!redis.get('LiveViewBroadcastJobRerun')
+  end
+
+  def self.rerun
+    redis.set('LiveViewBroadcastJobRerun', '1')
+  end
+
+  def self.cancel_rerun
+    redis.del('LiveViewBroadcastJobRerun')
+  end
 end

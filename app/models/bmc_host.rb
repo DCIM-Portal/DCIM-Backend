@@ -38,9 +38,9 @@ class BmcHost < ApplicationRecord
     self.error_message = nil
     self.save!
     logger.debug "Getting FRU list..."
-    fru_list = freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).fru.list)
+    frulist = fru_list
     logger.debug "Parsing FRU list..."
-    model, serial = get_model_and_serial_from_fru_list(fru_list)
+    model, serial = get_model_and_serial_from_fru_list(frulist)
     logger.debug "Obtained model \"#{model}\" and serial \"#{serial}\""
     logger.debug "Getting power status..."
     power_status = power_on? ? :on : :off
@@ -75,6 +75,10 @@ class BmcHost < ApplicationRecord
   def smart_proxy=(smart_proxy_resource)
     return @smart_proxy_resource = smart_proxy_resource if smart_proxy_resource.is_a? Dcim::SmartProxyApi
     raise Dcim::InvalidSmartProxyError
+  end
+
+  def fru_list
+    freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).fru.list)
   end
 
   def shutdown
