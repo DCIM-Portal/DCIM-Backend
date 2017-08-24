@@ -20,8 +20,14 @@ gem 'font-awesome-sass', '4.7.0'
 #Rest-Client
 gem 'rest-client'
 
+#Redis store for Rails
+gem 'redis-rails'
+
 #Sidekiq for Background Jobs
 gem 'sidekiq', '5.0.4'
+
+#ActiveJob status tracking
+gem 'active_job_status', '>= 1.2.1'
 
 #Thread for concurrent processes
 gem 'thread'

@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  def datatable
+    respond_to do |format|
+      format.json { render json: params[:klass].new(view_context, params) }
+    end
+  end
 end

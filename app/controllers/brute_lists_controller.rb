@@ -14,7 +14,7 @@ class BruteListsController < ApplicationController
     @count = BruteList.count
     respond_to do |format|
       format.html
-      format.json { render json: BruteListDatatable.new(view_context, params) }
+      format.json { render json: @creds }
     end
   end
 

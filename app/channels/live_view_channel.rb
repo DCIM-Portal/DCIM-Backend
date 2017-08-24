@@ -11,7 +11,7 @@ class LiveViewChannel < ApplicationCable::Channel
   def watch_view(data)
     redisfied_data = {
       'name': params[:name].to_s,
-      'parser': data["parser"].to_s,
+      'renderer': data["renderer"].to_s,
       'source': data["source"].to_s,
       'query': data["query"].to_s
     }

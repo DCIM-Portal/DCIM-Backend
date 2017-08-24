@@ -14,7 +14,7 @@ class LiveViewSubscription
   end
 
   class << self
-    ['name', 'parser', 'source', 'query'].each do |attr|
+    ['name', 'renderer', 'source', 'query'].each do |attr|
       define_method(attr) do |id|
         redis.hget(id, attr)
       end
@@ -56,8 +56,7 @@ class LiveViewSubscription
   end
 
   def self.locked?
-    # TODO: Detect if worker is dead
-    !!redis.get('LiveViewBroadcastJobId')
+    [:queued, :working].include? ActiveJobStatus.fetch(redis.get('LiveViewBroadcastJobId')).status
   end
 
   def self.broadcast_job_id

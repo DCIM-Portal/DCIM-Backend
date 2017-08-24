@@ -12,13 +12,7 @@ class ZonesController < ApplicationController
     @zone = Zone.new
     respond_to do |format|
       format.html
-      format.json { render json: ZoneDatatable.new(view_context, params) }
-    end
-  end
-
-  def bmc_hosts
-    respond_to do |format|
-      format.json { render json: ZoneDetailsDatatable.new(view_context, params) }
+      format.json { render json: @zones }
     end
   end
 

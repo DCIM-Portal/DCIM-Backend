@@ -102,6 +102,7 @@ document.make_detail_table = (record, destroyed) ->
     if !ids_matched
       $('.table-refresh-alert').slideDown 'fast' if $('.table-refresh-alert').css('display') == 'none'
       return
+    $('.table-refresh-alert').slideUp 'fast'
 
     document.detail_table.api().rows().data().each (v, i) ->
       # XXX: Find faster way to compare these objects

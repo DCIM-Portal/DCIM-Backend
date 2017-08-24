@@ -70,7 +70,7 @@
     </div>
     <%= render partial: "filter" %>
     <div class="table-responsive">
-      <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0" data-source="<%= bmc_scan_requests_path(format: :json) %>" >
+      <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_bmc_scan_requests_path(format: :json) %>" >
         <thead>
           <tr>
             <th>Scan ID</th>

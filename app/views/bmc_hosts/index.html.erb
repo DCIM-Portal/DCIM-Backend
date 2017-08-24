@@ -23,7 +23,7 @@
     </div>
     <%= render partial: "filter" %>
     <div class="table-responsive">
-      <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_path(format: :json) %>">
+      <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= datatable_bmc_hosts_path(format: :json) %>">
         <thead>
           <tr>
             <th></th>

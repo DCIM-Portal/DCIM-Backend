@@ -17,5 +17,5 @@
       received_callback(data)
       # Called when there's incoming data on the websocket for this channel
   
-    watch_view: (parser, source, query) ->
-      @perform 'watch_view', parser: parser, source: source, query: query
+    watch_view: (renderer, source, query) ->
+      @perform 'watch_view', renderer: renderer, source: source, query: query

@@ -1,4 +1,5 @@
 class BmcScanJob < ApplicationJob
+  include MonitorMixin
   queue_as :default
 
   def perform(**kwargs)
@@ -47,7 +48,9 @@ class BmcScanJob < ApplicationJob
       promises[bmc_host_ip] = Concurrent::Promise.new(executor: pool) do
         @logger.debug bmc_host_ip + ": BMC host record established"
         secrets = [nil]
-        secrets << @request.brute_list.brute_list_secrets
+        synchronize do
+          secrets << @request.brute_list.brute_list_secrets
+        end
         secrets.each do |secret|
           begin
             success = nil

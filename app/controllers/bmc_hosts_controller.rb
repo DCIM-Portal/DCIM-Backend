@@ -23,7 +23,7 @@ class BmcHostsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: BmcHostDatatable.new(view_context, params) }
+      format.json { render json: @bmc_hosts }
     end
 
   end

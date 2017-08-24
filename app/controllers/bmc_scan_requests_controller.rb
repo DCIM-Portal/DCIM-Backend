@@ -19,7 +19,7 @@ class BmcScanRequestsController < ApplicationController
     }
     respond_to do |format|
       format.html
-      format.json { render json: BmcScanRequestDatatable.new(view_context, params) }
+      format.json { render json: @bmc_scan_requests }
     end
   end
 
@@ -40,12 +40,6 @@ class BmcScanRequestsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @bmc_scan_request.as_json(include: ['brute_list', 'zone']) }
-    end
-  end
-
-  def bmc_hosts
-    respond_to do |format|
-      format.json { render json: BmcScanRequestDetailsDatatable.new(view_context, params) }
     end
   end
 
