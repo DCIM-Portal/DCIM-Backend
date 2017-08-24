@@ -1,6 +1,5 @@
 class ZoneDatatable < AjaxDatatablesRails::Base
 
-  def_delegator :@view, :local_time
   def_delegator :@view, :link_to
 
   def view_columns
@@ -17,7 +16,7 @@ class ZoneDatatable < AjaxDatatablesRails::Base
       dcim_id: record.id,
       name: record.name,
       foreman_id: record.foreman_location_id,
-      created_at: local_time(record.updated_at.to_time.iso8601, '%B %e %Y, %l:%M%P'),
+      created_at: record.updated_at.to_time.iso8601,
       url: link_to('Details', record, class: "btn blue lighten-2"),
       'DT_RowId' => record.id
     }

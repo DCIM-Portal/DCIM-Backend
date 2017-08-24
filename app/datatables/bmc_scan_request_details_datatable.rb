@@ -1,6 +1,5 @@
 class BmcScanRequestDetailsDatatable < ApplicationDatatable
 
-  def_delegator :@view, :local_time
   def_delegator :@view, :link_to
   def_delegator :@view, :radio_button_tag
 
@@ -26,7 +25,7 @@ class BmcScanRequestDetailsDatatable < ApplicationDatatable
       sync_status: record.sync_status,
       onboard_request_status: record.onboard_request.try(:status),
       onboard_request_step: record.onboard_request.try(:step),
-      updated_at: local_time(record.updated_at.to_time.iso8601, '%B %e %Y, %l:%M%P'),
+      updated_at: record.updated_at.to_time.iso8601,
       checkbox: radio_button_tag('record', record.id),
       url: link_to('Details', record, class: "btn blue lighten-2"),
       'DT_RowId' => record.id
