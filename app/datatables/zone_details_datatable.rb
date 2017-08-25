@@ -6,7 +6,8 @@ class ZoneDetailsDatatable < ApplicationDatatable
   def view_columns
     @view_columns ||= {
       ip_address: {source: "BmcHost.ip_address"},
-      system_model: {source: "BmcHost.system_model"},
+      brand: {source: "BmcHost.brand"},
+      product: {source: "BmcHost.product"},
       serial: {source: "BmcHost.serial"},
       power_status: {source: "BmcHost.power_status", searchable: false, orderable: true},
       sync_status: {source: "BmcHost.sync_status", searchable: false, orderable: true},
@@ -19,7 +20,8 @@ class ZoneDetailsDatatable < ApplicationDatatable
   def data
     records.map do |record| {
       ip_address: record.ip_address,
-      system_model: record.system_model,
+      brand: record.brand,
+      product: record.product,
       serial: record.serial,
       power_status: record.power_status,
       sync_status: record.sync_status,

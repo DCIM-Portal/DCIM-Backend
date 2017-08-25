@@ -40,16 +40,19 @@ class BmcHost < ApplicationRecord
     logger.debug "Getting FRU list..."
     frulist = fru_list
     logger.debug "Parsing FRU list..."
-    model, serial = get_model_and_serial_from_fru_list(frulist)
-    logger.debug "Obtained model \"#{model}\" and serial \"#{serial}\""
+    brand = brand_from_fru_list(frulist)
+    product = product_from_fru_list(frulist)
+    serial = serial_from_fru_list(frulist)
+    logger.debug "Obtained brand \"#{brand}\", product \"#{product}\", and serial \"#{serial}\""
     logger.debug "Getting power status..."
     power_status = power_on? ? :on : :off
     logger.debug "Power status is #{power_status}"
     logger.debug "Updating record with obtained information..."
-    self.system_model  = model
-    self.serial        = serial
-    self.power_status  = power_status
-    self.sync_status   = :success
+    self.brand        = brand
+    self.product      = product
+    self.serial       = serial
+    self.power_status = power_status
+    self.sync_status  = :success
     self.save!
     logger.debug "Record updated!"
   rescue RuntimeError => e
@@ -181,17 +184,28 @@ class BmcHost < ApplicationRecord
     end
   end
 
-  def get_model_and_serial_from_fru_list(fru_list)
-    brand = deep_find('board_manufacturer', fru_list) ||
-            deep_find('board_mfg', fru_list)
-    product = deep_find('product_part/model_number', fru_list) ||
-              deep_find('product_name', fru_list) ||
-              deep_find('board_product_name', fru_list)
-    serial = deep_find('product_serial_number', fru_list)
-    raise Dcim::UnsupportedFruError, fru_list if !brand
-    # TODO: Modify this model to store brand and product separately
-    # so that we can isolate brand and product
-    return "#{brand} #{product}", serial
+  def brand_from_fru_list(fru)
+    output =
+    deep_find('board_manufacturer', fru) ||
+    deep_find('board_mfg', fru)
+    raise Dcim::UnsupportedFruError, fru if !output
+    output
+  end
+
+  def product_from_fru_list(fru)
+    output =
+    deep_find('product_part/model_number', fru) ||
+    deep_find('product_name', fru) ||
+    deep_find('board_product_name', fru)
+    raise Dcim::UnsupportedFruError, fru if !output
+    output
+  end
+
+  def serial_from_fru_list(fru)
+    output =
+    deep_find('product_serial_number', fru)
+    raise Dcim::UnsupportedFruError, fru if !output
+    output
   end
 
   def validate_correct_credentials

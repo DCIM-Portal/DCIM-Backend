@@ -6,7 +6,8 @@ class BmcHostDatatable < ApplicationDatatable
   def view_columns
     @view_columns ||= {
       ip_address: {source: "BmcHost.ip_address", orderable: true},
-      system_model: {source: "BmcHost.system_model"},
+      brand: {source: "BmcHost.brand"},
+      product: {source: "BmcHost.product"},
       serial: {source: "BmcHost.serial"},
       zone_name: {source: "Zone.name"},
       power_status: {source: "BmcHost.power_status", searchable: false, orderable: true},
@@ -20,7 +21,8 @@ class BmcHostDatatable < ApplicationDatatable
   def data
     records.map do |record| {
       ip_address: record.ip_address,
-      system_model: record.system_model,
+      brand: record.brand,
+      product: record.product,
       serial: record.serial,
       zone_name: record.zone.name,
       power_status: record.power_status,

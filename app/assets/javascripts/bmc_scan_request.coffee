@@ -120,7 +120,8 @@ $(document).on 'turbolinks:load', ->
       columns: [
         {data: 'checkbox'}
         {data: 'ip_address'}
-        {data: 'system_model'}
+        {data: 'brand'}
+        {data: 'product'}
         {data: 'serial'}
         {data: 'power_status'}
         {data: 'sync_status'}
@@ -135,12 +136,13 @@ $(document).on 'turbolinks:load', ->
       select: 'multi'
       createdRow: (row, data, dataIndex) ->
         $(row).find('td:eq(1)').attr 'data-title', 'BMC Address:'
-        $(row).find('td:eq(2)').attr 'data-title', 'System Model:'
-        $(row).find('td:eq(3)').attr 'data-title', 'Serial:'
-        $(row).find('td:eq(4)').attr 'data-title', 'Power Status:'
-        $(row).find('td:eq(5)').attr 'data-title', 'Last Sync Status:'
-        $(row).find('td:eq(6)').attr 'data-title', 'Onboard Status:'
-        $(row).find('td:eq(7)').attr 'data-title', 'Synchronize Date:'
+        $(row).find('td:eq(2)').attr 'data-title', 'Brand:'
+        $(row).find('td:eq(3)').attr 'data-title', 'Product:'
+        $(row).find('td:eq(4)').attr 'data-title', 'Serial:'
+        $(row).find('td:eq(5)').attr 'data-title', 'Power Status:'
+        $(row).find('td:eq(6)').attr 'data-title', 'Last Sync Status:'
+        $(row).find('td:eq(7)').attr 'data-title', 'Onboard Status:'
+        $(row).find('td:eq(8)').attr 'data-title', 'Synchronize Date:'
       buttons: [
         {
           extend: 'copyHtml5'
@@ -161,15 +163,15 @@ $(document).on 'turbolinks:load', ->
           selectRow: true
           }
         }
-        { targets: 9
+        { targets: 10
         orderable: false
         }
-        { targets: 7
+        { targets: 8
         orderable: false
         visible: false
         searchable: false
         }
-        { targets: 6
+        { targets: 7
         render: (data, type, full) ->
           if !data
             '<div class="blue-grey lighten-1 white-text z-depth-1 sync"><i class="fa fa-minus-circle" aria-hidden="true"></i> Not Onboarded</div>'
@@ -180,7 +182,7 @@ $(document).on 'turbolinks:load', ->
           else
             '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
         }
-        { targets: 4
+        { targets: 5
         render: (data, type, full, meta) ->
           if data == "on"
             '<div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>'
@@ -190,7 +192,7 @@ $(document).on 'turbolinks:load', ->
             '<div class="black-text">N/A</div>'
         width: 50
         }
-        { targets: 5
+        { targets: 6
         render: (data, type, full) ->
           if !data
             '<div class="blue-grey darken-2 white-text z-depth-1 sync"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</div>'
@@ -205,7 +207,7 @@ $(document).on 'turbolinks:load', ->
         width: 200
         }
         { targets: 2
-        orderable: false
+        orderable: true
         render: (data, type, full, meta) ->
           if /(HP)/.test(data)
             '<div class="model_wrapper"><div class="img-box"><img src="/images/hpe.png" height=25 width=57 /></div><div class="model_cell">' + data + '</div></div>'
@@ -221,10 +223,10 @@ $(document).on 'turbolinks:load', ->
             '<div class="model_cell">N/A</div>'
           else
             '<div class="model_cell">' + data + '</div>'
-        width: 325
+        width: 175
         }
-        { targets: 3
-        orderable: false
+        { targets: 4
+        orderable: true
         render: (data, type, full, meta) ->
           if data
             '<div class="serial">' + data + '</div>'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815154042) do
+ActiveRecord::Schema.define(version: 20170825122658) do
 
   create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "serial"
@@ -22,9 +22,10 @@ ActiveRecord::Schema.define(version: 20170815154042) do
     t.integer "system_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "system_model"
     t.integer "zone_id"
     t.text "error_message"
+    t.string "brand"
+    t.string "product"
     t.index ["ip_address"], name: "index_bmc_hosts_on_ip_address", unique: true
     t.index ["serial"], name: "index_bmc_hosts_on_serial", unique: true
     t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id"
