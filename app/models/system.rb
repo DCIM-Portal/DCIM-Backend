@@ -4,7 +4,8 @@ class System < ApplicationRecord
   enum sync_status: {
     success: 0,
     in_progress: 1,
-    stack_trace: 2
+    stack_trace: 2,
+    record_error: 3
   }
 
   @@sync_attribute_names = ['cpu_model', 'cpu_cores', 'cpu_threads', 'cpu_count', 'ram_total', 'disk_total', 'disk_count', 'os', 'os_release']
@@ -47,6 +48,10 @@ class System < ApplicationRecord
     end
     self.sync_status = :success
     self.save!
+  rescue Dcim::RecordError => e
+    self.sync_status = :record_error
+    self.error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")
+    self.save!
   rescue RuntimeError => e
     self.sync_status = :stack_trace
     self.error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")
@@ -54,7 +59,10 @@ class System < ApplicationRecord
   end
 
   def fetch_facts
-    name, facts = Dcim::ForemanApiFactory.instance.api.hosts(self.foreman_host_id).facts.get(payload: {per_page: 100000000}.to_json)["results"].first
+    reply = Dcim::ForemanApiFactory.instance.api.hosts(self.foreman_host_id).facts.get(payload: {per_page: 100000000}.to_json)
+    raise Dcim::DuplicateRecordError if reply["total"].to_i > 1
+    raise Dcim::MissingRecordError if reply["total"].to_i <= 0
+    name, facts = reply["results"].first
     facts
   end
 

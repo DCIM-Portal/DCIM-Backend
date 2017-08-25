@@ -7,12 +7,14 @@ module Dcim
 
     def instance(location_id)
       begin
-        smart_proxy_resource = @smart_proxies[:location_id]
+        smart_proxy_resource = @smart_proxies[location_id]
         raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.is_a? Dcim::SmartProxyApi
         raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.features.get.to_hash.include? "onboard"
-        return @smart_proxies[:location_id]
+        logger.debug "Returning cached Smart Proxy for Foreman location ID #{location_id} because it is still viable"
+        return @smart_proxies[location_id]
       rescue RuntimeError
-        return @smart_proxies[:location_id] = find_onboard_smart_proxy(location_id)
+        logger.debug "No Smart Proxy currently cached for Foreman location ID #{location_id}"
+        return @smart_proxies[location_id] = find_onboard_smart_proxy(location_id)
       end
     end
 
@@ -47,7 +49,7 @@ module Dcim
         rescue RuntimeError => e
           logger.warn "Smart Proxy " + smart_proxy["url"] + " error: " + e.message
         end
-        logger.debug "Smart Proxy " + smart_proxy["url"] + " not suitable because it does not have the \"onboard\" feature"
+        logger.debug "Smart Proxy " + smart_proxy["url"] + " is not suitable because it does not have the \"onboard\" feature"
       end
       raise Dcim::InvalidSmartProxyError
     end

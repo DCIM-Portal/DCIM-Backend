@@ -142,7 +142,7 @@ class BmcHost < ApplicationRecord
       raise Dcim::InvalidCredentialsError if result.value? "invalid"
       raise Dcim::ConnectionTimeoutError if result.value? "timeout"
       # freeipmi: {"":{"/path/to/binary":"string"}}
-      freeipmi_error = result[""]
+      freeipmi_error = result[""] if result.keys.length == 1
       unless freeipmi_error.nil?
         raise Dcim::InvalidUsernameError if freeipmi_error.value? "username invalid"
         raise Dcim::InvalidPasswordError if freeipmi_error.value? "password invalid"
@@ -151,8 +151,6 @@ class BmcHost < ApplicationRecord
         raise Dcim::BmcBusyError if freeipmi_error.value? "BMC busy"
         raise Dcim::SdrCacheError if freeipmi_error.value? "Please flush the cache and regenerate it"
         raise Dcim::UnsupportedApiResponseError if freeipmi_error.value? "missing argument"
-        # The following line is a workaround for yet another inconsistency with Smart Proxy FreeIPMI Rubyipmi
-        return result if freeipmi_error.value? "Received an Unexpected Open Session Response"
         # ¯\_(ツ)_/¯ 
         raise Dcim::UnknownError, result
       end
@@ -174,31 +172,26 @@ class BmcHost < ApplicationRecord
     result
   end
 
-  def get_model_and_serial_from_fru_list(fru_list)
-    #IBM or HP Server
-    if !fru_list["default_fru_device"].nil?
-      model = fru_list["default_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
-      serial = fru_list["default_fru_device"]["product_serial_number"]
-    elsif !fru_list["builtin_fru_device"].nil?
-      model = fru_list["builtin_fru_device"].values_at('board_manufacturer', 'product_name').join(' ')
-      serial = fru_list["builtin_fru_device"]["product_serial_number"]
-    #Dell Server
-    elsif !fru_list["system_board"].nil?
-      model = fru_list["system_board"].values_at('board_manufacturer', 'board_product_name').join(' ')
-      serial = fru_list["system_board"]["product_serial_number"]
-    #Cisco Server
-    elsif !fru_list["fru_ram"].nil?
-      model = fru_list["fru_ram"].values_at('board_manufacturer', 'product_name').join(' ')
-      serial = fru_list["fru_ram"]["product_serial_number"]
-    #Supermicro
-    elsif !fru_list["bmc_fru"].nil?
-      model = fru_list["bmc_fru"].values_at('board_manufacturer', 'product_part/model_number').join(' ')
-      serial = fru_list["bmc_fru"]["product_serial_number"]
-    #Unable to access BMC or unsupported model
-    else
-      raise Dcim::UnsupportedFruError, fru_list
+  def deep_find(key, object=self, found=nil)
+    if object.respond_to?(:key?) && object.key?(key)
+      return object[key]
+    elsif object.is_a? Enumerable
+      object.find { |*a| found = deep_find(key, a.last) }
+      return found
     end
-    return model, serial
+  end
+
+  def get_model_and_serial_from_fru_list(fru_list)
+    brand = deep_find('board_manufacturer', fru_list) ||
+            deep_find('board_mfg', fru_list)
+    product = deep_find('product_part/model_number', fru_list) ||
+              deep_find('product_name', fru_list) ||
+              deep_find('board_product_name', fru_list)
+    serial = deep_find('product_serial_number', fru_list)
+    raise Dcim::UnsupportedFruError, fru_list if !brand
+    # TODO: Modify this model to store brand and product separately
+    # so that we can isolate brand and product
+    return "#{brand} #{product}", serial
   end
 
   def validate_correct_credentials

@@ -1,12 +1,18 @@
 module Dcim
 
+# All DCIM errors
   class Error < RuntimeError
   end
 
+# BMC scan errors
   class BmcScanError < Dcim::Error
   end
 
-  class InvalidCredentialsError < Dcim::Error
+# BMC host errors
+  class BmcHostError < Dcim::Error
+  end
+
+  class InvalidCredentialsError < BmcHostError
   end
 
   class InvalidUsernameError < InvalidCredentialsError
@@ -15,7 +21,7 @@ module Dcim
   class InvalidPasswordError < InvalidCredentialsError
   end
 
-  class TimeoutError < Dcim::Error
+  class TimeoutError < BmcHostError
   end
 
   class ConnectionTimeoutError < TimeoutError
@@ -27,22 +33,30 @@ module Dcim
   class JobTimeoutError < TimeoutError
   end
 
-  class BmcBusyError < Dcim::Error
+  class BmcBusyError < BmcHostError
   end
 
-  class SdrCacheError < Dcim::Error
+  class SdrCacheError < BmcHostError
   end
 
-  class UnsupportedFruError < Dcim::Error
+  class UnsupportedFruError < BmcHostError
   end
 
+# Unknown errors
   class UnknownError < Dcim::Error
   end
 
+# API errors
   class UnsupportedApiResponseError < Dcim::Error
   end
 
-  class DuplicateRecordError < Dcim::Error
+  class RecordError < Dcim::Error
+  end
+
+  class MissingRecordError < RecordError
+  end
+
+  class DuplicateRecordError < RecordError
   end
 
   class DuplicateSerialError < DuplicateRecordError
