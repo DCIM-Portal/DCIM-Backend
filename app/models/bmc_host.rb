@@ -81,7 +81,7 @@ class BmcHost < ApplicationRecord
   end
 
   def fru_list
-    freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).fru.list)
+    freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).fru.list, timeout: 180)
   end
 
   def shutdown
@@ -121,21 +121,21 @@ class BmcHost < ApplicationRecord
     @foreman_resource ||= Dcim::ForemanApiFactory.instance
   end
 
-  def freeipmi_smart_proxy_bmc_request(query, payload: {}, method: :get)
-    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'freeipmi'}.merge(payload), method: method)
+  def freeipmi_smart_proxy_bmc_request(query, payload: {}, method: :get, **kwargs)
+    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'freeipmi'}.merge(payload), method: method, **kwargs)
   rescue Dcim::UnknownError
-    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'ipmitool'}.merge(payload), method: method)
+    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'ipmitool'}.merge(payload), method: method, **kwargs)
   end
 
-  def ipmitool_smart_proxy_bmc_request(query, payload: {}, method: :get)
-    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'ipmitool'}.merge(payload), method: method)
+  def ipmitool_smart_proxy_bmc_request(query, payload: {}, method: :get, **kwargs)
+    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'ipmitool'}.merge(payload), method: method, **kwargs)
   rescue Dcim::UnknownError
-    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'freeipmi'}.merge(payload), method: method)
+    http_smart_proxy_bmc_request(query, payload: {'bmc_provider':'freeipmi'}.merge(payload), method: method, **kwargs)
   end
 
-  def http_smart_proxy_bmc_request(query, payload: nil, method: :get)
+  def http_smart_proxy_bmc_request(query, payload: nil, method: :get, **kwargs)
     begin
-      result = query.send(method, user: self.username, password: self.password, payload: payload).to_hash["result"]
+      result = query.send(method, user: self.username, password: self.password, payload: payload, **kwargs).to_hash["result"]
     rescue RestClient::Unauthorized
       raise Dcim::InvalidCredentialsError
     end
@@ -176,7 +176,7 @@ class BmcHost < ApplicationRecord
   end
 
   def deep_find(key, object=self, found=nil)
-    if object.respond_to?(:key?) && object.key?(key)
+    if object.respond_to?(:key?) && object.key?(key) && object[key] != 'NONE'
       return object[key]
     elsif object.is_a? Enumerable
       object.find { |*a| found = deep_find(key, a.last) }
@@ -194,9 +194,9 @@ class BmcHost < ApplicationRecord
 
   def product_from_fru_list(fru)
     output =
-    deep_find('product_part/model_number', fru) ||
     deep_find('product_name', fru) ||
-    deep_find('board_product_name', fru)
+    deep_find('board_product_name', fru) ||
+    deep_find('product_part/model_number', fru)
     raise Dcim::UnsupportedFruError, fru if !output
     output
   end

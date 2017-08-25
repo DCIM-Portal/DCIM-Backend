@@ -33,21 +33,15 @@ module Dcim
             kwargs[:headers] ||= {}
             kwargs[:headers].merge!({'Content-Type':'application/json'})
           rescue JSON::ParserError => e
-            puts payload
-            puts e
           end
         end
 
         options.merge!(kwargs)
 
-        #resource = RestClient::Resource.new(@resource.instance_variable_get(:@url),
-        #                                    **options)
-        #rest_query = resource[@query.join('/')]
         result = RestClient::Request.execute(options.merge(
               method: method,
               url: @resource.send(:concat_urls, url, @query.join('/')),
               payload: payload))
-        #result = rest_query.send(method, *payload)
         ApiResult.new(result)
       end
     end
