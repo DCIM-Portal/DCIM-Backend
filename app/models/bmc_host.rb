@@ -111,6 +111,11 @@ class BmcHost < ApplicationRecord
     end
   end
 
+  def reset_bmc(type='cold')
+    type = 'cold' if type != 'warm'
+    ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).bmc.reset, payload: {type: type}, method: :put)
+  end
+
   private
 
   def logger
