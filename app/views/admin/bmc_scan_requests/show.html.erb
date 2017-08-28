@@ -3,7 +3,7 @@
   <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
 </div>
 <div class="card ovf-hidden">
-  <div class="card-block">
+  <div class="card-block" id="outer-card">
     <div class="clearfix">
       <%= link_to 'Back', admin_bmc_scan_requests_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
@@ -36,11 +36,11 @@
             <% if @bmc_scan_request.status.nil? %>
               <span class="badge blue-grey darken-2"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</span>
             <% elsif @bmc_scan_request.status == "scan_complete" %>
-              <span class="badge green lighten-2">Scan Complete</span>
+              <span class="badge green lighten-2"><%= t(@bmc_scan_request.status, scope: "filters.options.bmc_scan_request.status") %></span>
             <% elsif @bmc_scan_request.status == "in_progress" %>
               <span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>
             <% else %>
-              <span class="badge red lighten-2"><%= @bmc_scan_request.status %></span>
+              <span class="badge red lighten-2"><%= t(@bmc_scan_request.status, scope: "filters.options.bmc_scan_request.status") %></span>
             <% end %>
             </td>
             <td id="category_bmc_scan_request_brute_list_name" data-title="Associated Cred List:"><%= @bmc_scan_request.brute_list.name %></td>
@@ -48,7 +48,7 @@
             <td id="category_bmc_scan_request_updated_at" data-title="Scan Initiated:"><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Actions:">
               <a class="blue-grey-text activator" role="button"><i class="fa fa-pencil"></i></a>
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, admin_bmc_scan_request_path(@bmc_scan_request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @bmc_scan_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
             </td>
           </tr>
         </tbody>
@@ -111,21 +111,21 @@
       <h5>BMC Host List</h5>
     </div>
     <%= render partial: "filter" %>
-    <div class="table-responsive">
+    <div class="table-responsive z-depth-1">
       <table id="bmc_scan_request_details_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_datatable_admin_bmc_scan_request_path(format: :json) %>" >
         <thead>
           <tr>
-            <th></th>
-            <th>BMC Address</th>
-            <th>Brand</th>
-            <th>Product</th>
-            <th>Serial</th>
-            <th>Power Status</th>
-            <th>Sync Status</th>
-            <th>Onboard Status</th>
-            <th>Onboard Step</th>
-            <th>Synchronize Time</th>
-            <th></th>
+            <th class="th_checkbox"></th>
+            <th class="th_bmc_address">BMC Address</th>
+            <th class="th_brand">Brand</th>
+            <th class="th_product">Product</th>
+            <th class="th_serial">Serial</th>
+            <th class="th_power">Power Status</th>
+            <th class="th_bmc_sync">Sync Status</th>
+            <th class="th_onboard_status">Onboard Status</th>
+            <th class="th_onboard_step">Onboard Step</th>
+            <th class="th_time">Synchronize Time</th>
+            <th class="th_url"></th>
           </tr>
         </thead>
       </table>

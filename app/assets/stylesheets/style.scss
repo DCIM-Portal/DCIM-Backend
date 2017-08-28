@@ -153,6 +153,10 @@
   .fixed-side-nav { padding-left: 0px; margin-left: 2%; }
   .nav-wrapper div.bc_nav { padding-left: 0px; }
 }
+
+strong {
+  font-weight: 600;
+}
 //Container padding
 .container-fluid {
   padding-bottom: 50px;
@@ -597,14 +601,49 @@ form#filters {
     font-size: 0.90rem;
     background: #F2F2F2;
     padding: 0.5rem;
+    margin: 0;
   }
   .activator {
     position: relative;
+  }
+  .card-content {
+    padding: 20px;
   }
 }
 .stand_alone { margin-bottom: 1rem }
 
 //Modal Customizations
+div.modal {
+  bottom: inherit;
+  .modal-dialog {
+    margin: auto;
+    max-width: 100%;
+    .modal-body {
+      .alert p, .card .card-block p {
+        margin-bottom: 0;
+      }
+      .table-modal {
+        max-height: 19.5rem;
+        overflow-y: auto;
+      }
+      thead {
+        background: #7F8C93;
+        color: white;
+        tr th {
+          border-radius: 0;
+        }
+      }
+    }
+    .modal-header {
+      .modal-title {
+        font-size: 1.8rem;
+      }
+      .modal-action i {
+        color: #3c4b55;
+      }
+    }
+  }
+}
 div.modal.bottom-sheet {
   max-height: 65%;
   font-size: 0.8rem;
@@ -612,14 +651,82 @@ div.modal.bottom-sheet {
   .modal-content {
     padding: 1rem 1rem 0 1rem;
     background: #ebebeb;
+    min-height: 250px;
     h4 {
       font-size: 1.5rem;
-      margin: 0;
+      margin: 0 0 0.8rem 0;
       line-height: 1.0;
       padding: 0.5rem 1rem;
     }
+    blockquote {
+      margin: 0 0 0.5rem 0;
+      border-left: 5px solid #E57373;
+      font-size: 2rem;
+    }
   }
 }
+
+//Tabs Customizations
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color: transparent;
+  color: #000;
+  font-weight: 600;
+}
+.tabs {
+  .tab a {
+    color: #98aab3;
+  }
+  .indicator {
+    height: 0.15rem;
+    background-color: #90A4AE;
+  }
+}
+
+//Collection List Customization
+.collection.with-header .collection-header {
+  background-color: #d6d6d6;
+  border-bottom: none;
+  padding: 0.5rem 1.0rem;
+  h5 {
+    font-size: 1.0rem;
+    font-weight: 300;
+    line-height: 100%;
+    margin: 0;
+  }
+}
+.collection {
+  font-weight: 300;
+  font-size: 0.95rem;
+  border: none;
+  .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 0.1rem;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+    .badge {
+      font-size: 90%;
+      font-weight: 300;
+    }
+    .power_status {
+      display: inline-block;
+      font-size: 0.80rem;
+      width: 45px;
+      line-height: 1.2rem;
+    }
+  }
+  .collection-item:hover {
+    background-color: #d0d8dd;
+  }
+}
+.span_heading {
+  font-weight: 600;
+  margin-right: 1rem;
+  width: 110px;
+  display: inline-block;
+  vertical-align: center;
+}
+
 
 //Button Customizations
 a.btn-outline-default {
@@ -698,11 +805,14 @@ a.btn-table {
   z-index: 99;
   padding: 15px;
 }
-.card-block .alert p {
+.card-block .alert {
   margin-bottom: 0;
+  p {
+    margin-bottom: 0;
+  }
 }
 .ovf-hidden {
-  min-height: 216px;
+  min-height: 165px;
 }
 .card-block h5 {
   font-size: 1.2rem;
@@ -796,7 +906,7 @@ table.table {
 
 //Async Details
 #async_wrapper {
-  margin-bottom: 20px;
+  margin-top: -0.5rem;
 }
 
 //Spinkit Values
@@ -1063,19 +1173,8 @@ p.time_dock {
 .serial {
   font-weight: 600;
 }
-.model_wrapper {
-  min-width: 325px;
-  .model_cell {
+.model_cell {
   text-transform: uppercase;
-  }
-  .img-box {
-    float: left;
-    width: 57px;
-    margin-right: 10px;
-  }
-}
-@media screen and (min-width: 1900px) {
-    .model_wrapper { min-width: 0; }
 }
 @media screen and (max-width: 1205px) {
   tbody { font-size: 0.9rem  }

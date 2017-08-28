@@ -1,0 +1,67 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-header blue-grey">
+      <h4 class="modal-title white-text">Onboard Request</h4>
+      <a class="modal-action modal-close pull-right"><i class="fa fa-close fa-2x"></i></a>
+    </div>
+    <div class="modal-body">
+    <% if hosts.empty? %>
+      <p>
+        No BMC hosts were selected.  Please close this dialog and select the BMC hosts to onboard.
+      </p>
+    <% elsif hosts.all? {|host| (host.serial.nil? || host.onboard_request.try(:status) == "success")} %>
+      <p>
+        The BMC hosts that are selected have already been onboarded or do not have sufficient information
+        to be onboarded.  Please check and try again.
+      </p>
+    <% else %>
+      <div class="alert red lighten-2 z-depth-1">
+        <p>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+          This will onboard the selected BMC hosts into the Foreman backend.  Doing
+          so will cause the systems to <strong>reboot and become unavaialble</strong> during the onboarding process.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-block grey lighten-2">
+          <p>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+            Note that BMC hosts that have already been onboarded or do not have a serial number are automatically
+            removed from this list.
+          </p>
+        </div>
+      </div>
+      <div class="table-responsive table-modal z-depth-1">
+        <table class="table-sm striped centered responsive-table">
+          <thead>
+            <tr>
+              <th>BMC Address</th>
+              <th>Brand</th>
+              <th>Product</th>
+              <th>Serial</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% hosts.each do |host| %>
+            <% if !host.serial.nil? && host.onboard_request.try(:status) != "success" %>
+            <tr>
+              <td><%= host.ip_address %></td>
+              <td><%= host.brand %></td>
+              <td><%= host.product %></td>
+              <td><%= host.serial %></td>
+            </tr>
+            <%end%>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <hr class="invisible">
+      <p>To continue, please type <strong>Onboard Systems</strong>
+      in the text box below and click the Onboard button.</p>
+      <div class="modal-footer">
+        <input type="submit" name="commit" value="Onboard" data-dismiss="modal" class="btn btn-success" data-disable-with="Onboard" disabled="">
+        <input type="text" name="confirm" id="confirm" value="" class="form-control">
+        <a class="btn modal-action modal-close pull-right">Close</a>
+      </div>
+    <% end %>
+  </div>
+</div>

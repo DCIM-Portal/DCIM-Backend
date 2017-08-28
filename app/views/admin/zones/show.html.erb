@@ -4,7 +4,7 @@
 </div>
 
 <div class="card ovf-hidden">
-  <div class="card-block">
+  <div class="card-block" id="outer-card">
     <div class="clearfix">
       <%= link_to 'Back', admin_zones_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
@@ -31,7 +31,7 @@
             <td id="category_zone_update_at" data-title="Last Updated:"><%= local_time(@zone.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Actions:">
               <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, admin_zone_path(@zone), method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@zone.id}" %>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @zone], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@zone.id}" %>
             </td>
           </tr>
         </tbody>
@@ -71,21 +71,21 @@
       <h5>BMC Host List</h5>
     </div>
     <%= render partial: "filter" %>
-    <div class="table-responsive">
+    <div class="table-responsive z-depth-1">
       <table id="zone_details_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_datatable_admin_zone_path(format: :json) %>" >
         <thead>
           <tr>
-            <th></th>
-            <th>BMC Address</th>
-            <th>Brand</th>
-            <th>Product</th>
-            <th>Serial</th>
-            <th>Power Status</th>
-            <th>Sync Status</th>
-            <th>Onboard Status</th>
-            <th>Onboard Step</th>
-            <th>Synchronize Time</th>
-            <th></th>
+            <th class="th_checkbox"></th>
+            <th class="th_bmc_address">BMC Address</th>
+            <th class="th_brand">Brand</th>
+            <th class="th_product">Product</th>
+            <th class="th_serial">Serial</th>
+            <th class="th_power">Power Status</th>
+            <th class="th_bmc_sync">Sync Status</th>
+            <th class="th_onboard_status">Onboard Status</th>
+            <th class="th_onboard_step">Onboard Step</th>
+            <th class="th_time">Synchronize Time</th>
+            <th class="th_url"></th>
           </tr>
         </thead>
       </table>

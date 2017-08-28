@@ -25,4 +25,5 @@
 //= require local-time
 //= require i18n
 //= require i18n/translations
+//= require main_admin
 //= require_tree .

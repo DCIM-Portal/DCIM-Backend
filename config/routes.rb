@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :api_zone, :controller => :zones
     resources :bmc_hosts, :path => 'bmc_hosts' do
       collection do
+        post :onboard_modal
+        get :onboard_modal
         get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
       end
     end

@@ -4,9 +4,9 @@ class Admin::BmcHostsController < AdminController
   layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_path
+  add_breadcrumb "BMC Hosts", :admin_bmc_hosts_path
 
   def index
-    add_breadcrumb "BMC Hosts", admin_bmc_hosts_path
     @bmc_hosts = BmcHost.all
 
     #Set Custom Filters for Datatables
@@ -29,12 +29,21 @@ class Admin::BmcHostsController < AdminController
   end
 
   def show
+  add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
   end
 
   def update
+    @bmc_host.refresh!
   end
 
   def destroy
+  end
+
+  def onboard_modal
+    @selected_hosts = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:selected_ids])
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
