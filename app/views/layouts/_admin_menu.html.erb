@@ -20,18 +20,18 @@
           </a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, bmc_scan_requests_path, class: is_active('bmc_scan_requests') %></li>
-              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, brute_lists_path, class: is_active('brute_lists') %></li>
+              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: is_active('bmc_scan_requests') %></li>
+              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, admin_brute_lists_path, class: is_active('brute_lists') %></li>
             </ul>
           </div>
         </li>
       </ul>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, bmc_hosts_path, class: is_active('bmc_hosts') %>
+      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: is_active('bmc_hosts') %>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, zones_path, class: is_active('zones') %>
+      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: is_active('zones') %>
     </li>
 
   </ul>

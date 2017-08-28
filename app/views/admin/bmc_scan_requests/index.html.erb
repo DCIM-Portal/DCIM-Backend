@@ -1,0 +1,96 @@
+<div class="clearfix">
+  <h3 class="section_title">BMC Scans</h3>
+  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+</div>
+
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div id="async_wrapper">
+      <%= render_async admin_api_bmc_scan_request_path %>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">Add New Bmc Scan</a>
+    </div>
+
+  <div class="card-reveal">
+    <h4 class="card-title blue-grey darken-3">
+      <i class="fa fa-search relative" aria-hidden="true"></i>
+      Perform New Bmc Scan <i class="fa fa-close"></i>
+    </h4>
+    <p>This request will perform a scan of system BMCs within specified IP range.</p>
+    <hr>
+    <%= form_for([:admin, @bmc_scan_request], remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Bmc Scan Name", for: "bmc_scan_request_name" %>
+        <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>
+        <small id="name_help" class="form-text text-muted">Give this request a unique name.</small>
+      </div>
+      <div class="row form">
+        <div class="form-group">
+          <%= f.label :start_address, "Start Address", for: "bmc_scan_request_start_address" %>
+          <%= f.text_field :start_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_start_address", "aria-describedby": "address_help" %>
+        </div>
+       <div class="form-group">
+          <%= f.label :end_address, "End Address", for: "bmc_scan_request_end_address" %>
+          <%= f.text_field :end_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
+        </div>
+      </div>
+      <small id="address_help" class="form-text text-muted special_small_input_text">Give a start and end address of BMC IPv4 address range to scan.  The range can include up to 65,536 IP addresses.</small>
+      <div class="row form special-top">
+        <div class="form-group">
+          <%= f.label :zone_id, "Database Zone" %>
+          <%= f.select :zone_id, @zones.collect { |zone| [zone.name, zone.id] }, {}, { class: "form-control" } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :brute_list_id, "Credential List" %>
+          <%= f.select :brute_list_id, @creds.collect { |cred| [cred.name, cred.id] }, {}, { class: "form-control" } %>
+        </div>
+      </div>
+      <small class="form-text text-muted special_small_input_text">Select the datacenter zone in which the systems are located, and select a credential list for system authentication.</small>
+
+      <div class="clearfix">
+        <%= f.button 'Create New Bmc Scan', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
+      </div>
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to create bmc scan - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Bmc Scan Created!</div>
+    <%end %>
+  </div>
+
+</div>
+
+<hr class="invisible">
+<div class="card">
+  <div class="card-block">
+    <div class="clearfix">
+      <h5 class="table-title">BMC Scan List</h5>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+    <%= render partial: "filter" %>
+    <div class="table-responsive">
+      <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_admin_bmc_scan_requests_path(format: :json) %>" >
+        <thead>
+          <tr>
+            <th>Scan ID</th>
+            <th>Scan Name</th>
+            <th>Start Address</th>
+            <th>End Address</th>
+            <th>Scan Status</th>
+            <th>Associated Cred List</th>
+            <th>Datacenter Zone</th>
+            <th>Scan Initiated</th>
+            <th></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  $("form#ajax_card_form").on("ajax:success", function() {
+    $("form#ajax_card_form")[0].reset();
+  });
+  document.detail_name = 'bmc_scan_request'
+</script>

@@ -1,0 +1,73 @@
+<%= form_for([:admin, @cred], remote: true, html: {"data-type" => :json, id: "ajax_card_cred"}) do |f| %>
+  <h3>Credentials List <%= @cred.name %> Details</h3>
+  <div class="card">
+    <div class="card-block">
+      <div class="clearfix">
+        <%= link_to 'Back', admin_brute_lists_path, class: 'btn blue-grey lighten-2 back' %>
+        <div class="pull-right">
+          <p class="time_dock"><%= t :time_dock %></p>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-shadow">
+          <thead>
+            <tr>
+             <th>Credentials List ID</th>
+             <th>Credentials List Name</th>
+             <th>Date Created</th>
+             <th></th>
+           </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-title="Credentials List ID:"><%= @cred.id %></td>
+              <td data-title="Credentials List Name:"><%= f.text_field :name, class: "form-control browser-default" %></td>
+              <td data-title="Date Created:"><%= local_time(@cred.created_at, '%B %e %Y, %l:%M%P') %></td>
+              <td><%= link_to 'Delete', admin_brute_list_path(@cred), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-table red lighten-2', id: "delete_disable_#{@cred.id}" %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr class="invisible">
+  <div class="card wider" id="card-table">
+    <div class="card-block">
+      <h5>Username and Password List</h5>
+      <a id="add_credrow" class='btn btn-outline-info waves-effect btn-sm'>Add New Row</a>
+      <hr>
+      <div class="table-responsive">
+        <table id="cred_details" class="table table-striped table-shadow" width="100%" cellspacing="0">
+          <thead id="main_header">
+            <tr>
+              <th>Execute Order</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cred_detail_tbody">
+          <%= f.fields_for :brute_list_secrets, f.object.brute_list_secrets.order(:order) do |secret| %>
+            <tr class="credential_row">
+              <td data-title="Execute Order:"><span class="row_order"><%= secret.object.order %></span><%= secret.text_field :order, class: "number_order", type: "hidden", value: secret.object.order %></td>
+              <td data-title="Username:"><%= secret.text_field :username, class: "form-control browser-default" %></td>
+              <td data-title="Password:"><%= secret.text_field :password, class: "form-control browser-default" %></td>
+              <td><a id="del_credrow" class="btn btn-sm red lighten-2"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="clearfix">
+        <%= f.button 'Update', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_creds' %>
+      </div>
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to update credential list - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Credential List Updated!</div>
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, id: "flash_#{key}" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

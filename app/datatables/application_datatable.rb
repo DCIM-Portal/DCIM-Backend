@@ -1,4 +1,6 @@
 class ApplicationDatatable < AjaxDatatablesRails::Base
+  include Rails.application.routes.url_helpers
+
   # XXX: Workaround from https://github.com/jbox-web/ajax-datatables-rails/issues/228
   def retrieve_records
     records = fetch_records

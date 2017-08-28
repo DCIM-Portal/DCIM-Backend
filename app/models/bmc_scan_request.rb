@@ -7,8 +7,7 @@ class BmcScanRequest < ApplicationRecord
     scan_complete: 0,
     in_progress: 1,
     smart_proxy_unreachable: 2,
-    invalid_range: 3,
-    removed: 4
+    invalid_range: 3
   }
   belongs_to :zone
   belongs_to :brute_list

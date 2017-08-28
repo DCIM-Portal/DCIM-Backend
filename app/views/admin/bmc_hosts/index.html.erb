@@ -1,0 +1,56 @@
+<h3>Scanned BMC Hosts</h3>
+<div class="card ovf-hidden">
+  <div class="card-block">
+    <div id="async_wrapper">
+      <%= render_async admin_api_bmc_scan_request_path %>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">???</a>
+    </div>
+
+  <div class="card-reveal">
+  </div>
+
+</div>
+
+<hr class="invisible">
+<div class="card">
+  <div class="card-block">
+    <div class="clearfix">
+      <h5 class="table-title">BMC Scanned Host List</h5>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+    <%= render partial: "filter" %>
+    <div class="table-responsive">
+      <table id="bmc_hosts_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= datatable_admin_bmc_hosts_path(format: :json) %>">
+        <thead>
+          <tr>
+            <th></th>
+            <th>BMC Address</th>
+            <th>Brand</th>
+            <th>Product</th>
+            <th>Serial</th>
+            <th>Datacenter Zone</th>
+            <th>Power Status</th>
+            <th>Sync Status</th>
+            <th>Onboard Status</th>
+            <th>Onboard Step</th>
+            <th>Synchronize Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $("form#ajax_card_form").on("ajax:success", function() {
+    $("form#ajax_card_form")[0].reset();
+  });
+
+  document.detail_name = 'bmc_host'
+
+</script>
