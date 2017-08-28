@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get :datatable, to: 'application#datatable', klass: BruteListDatatable
     end
   end
-  resources :zones, :path => 'admin/datacenter_zones' , except: [:edit, :new] do
+  resources :zones, :path => 'admin/datacenter_zones', except: [:edit, :new] do
     collection do
       post :foreman_remove
       post :foreman_add
@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   end
   get :api_zone, :controller => :zones
   get :api_bmc_scan_request, :controller => :bmc_scan_requests
-  resources :bmc_hosts, :path => 'admin/bmc_hosts' do
+  resources :bmc_hosts, :path => 'admin/bmc_hosts', except: [:edit, :new] do
     collection do
+      post :onboard_modal
+      get :onboard_modal
       get :datatable, to: 'application#datatable', klass: BmcHostDatatable
     end
   end

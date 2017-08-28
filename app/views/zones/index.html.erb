@@ -3,7 +3,7 @@
   <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
 </div>
 <div class="card ovf-hidden">
-  <div class="card-block">
+  <div class="card-block" id="outer-card">
     <div id="async_wrapper">
       <%= render_async api_zone_path %>
     </div>
@@ -46,15 +46,15 @@
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive z-depth-1">
       <table id="zone_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%" data-source="<%= datatable_zones_path(format: :json) %>">
         <thead>
           <tr>
-            <th>DCIM Zone ID</th>
+            <th class="th_id">DCIM Zone ID</th>
             <th>Zone Name</th>
             <th>Foreman Zone ID</th>
-            <th>Date Added</th>
-            <th></th>
+            <th class="th_time">Date Added</th>
+            <th class="th_url"></th>
           </tr>
         </thead>
       </table>

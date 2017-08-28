@@ -4,7 +4,7 @@
 </div>
 
 <div class="card ovf-hidden">
-  <div class="card-block">
+  <div class="card-block" id="outer-card">
     <div id="async_wrapper">
     <div class="card">
       <div id="height_check" class="card-block grey lighten-5">
@@ -110,14 +110,14 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive z-depth-1">
       <table id="cred_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%" data-source="<%= datatable_brute_lists_path(format: :json) %>">
         <thead>
           <tr>
-            <th>Credential List ID</th>
+            <th class="th_id">Credential List ID</th>
             <th>Credential List Name</th>
-            <th>Date Created</th>
-            <th></th>
+            <th class="th_time">Date Created</th>
+            <th class="th_url"></th>
           </tr>
         </thead>
       </table>

@@ -100,10 +100,6 @@ $(document).on 'turbolinks:load', ->
     #Brute List main table
     document.detail_table_selector = '#cred_table'
     document.detail_table = $(document.detail_table_selector).dataTable
-      processing: true
-      serverSide: true
-      searching: true
-      deferLoading: 0
       data: view
       stateSave: true
       stateSaveCallback: (settings, data) ->
@@ -112,7 +108,6 @@ $(document).on 'turbolinks:load', ->
       stateLoadCallback: (settings, callback) ->
         callback(document.datatables_state_cache[document.href]?.brute_list.data)
         return undefined
-      lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
       ajax: {
         url: $(document.detail_table_selector).data('source')
         data: (d) ->
@@ -133,15 +128,4 @@ $(document).on 'turbolinks:load', ->
         $(row).find('td:eq(0)').attr 'data-title', 'Credential List ID:'
         $(row).find('td:eq(1)').attr 'data-title', 'Credential List Name:'
         $(row).find('td:eq(2)').attr 'data-title', 'Date Created:'
-      deferRender: true
-      columnDefs: [ 
-        { targets: 3
-        orderable: false
-        }
-        { targets: 2
-        orderable: true
-        }
-        orderable: false
-        targets: [1]
-      ]
       order: [ 0, 'asc' ]

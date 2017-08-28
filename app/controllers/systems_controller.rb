@@ -40,15 +40,7 @@ class SystemsController < ApplicationController
   # PATCH/PUT /systems/1
   # PATCH/PUT /systems/1.json
   def update
-    respond_to do |format|
-      if @system.update(system_params)
-        format.html { redirect_to @system, notice: 'System was successfully updated.' }
-        format.json { render :show, status: :ok, location: @system }
-      else
-        format.html { render :edit }
-        format.json { render json: @system.errors, status: :unprocessable_entity }
-      end
-    end
+    @system.refresh!
   end
 
   # DELETE /systems/1

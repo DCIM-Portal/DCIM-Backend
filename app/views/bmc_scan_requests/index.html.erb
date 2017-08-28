@@ -4,7 +4,7 @@
 </div>
 
 <div class="card ovf-hidden">
-  <div class="card-block">
+  <div class="card-block" id="outer-card">
     <div id="async_wrapper">
       <%= render_async api_bmc_scan_request_path %>
     </div>
@@ -69,19 +69,19 @@
       </div>
     </div>
     <%= render partial: "filter" %>
-    <div class="table-responsive">
+    <div class="table-responsive z-depth-1">
       <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_bmc_scan_requests_path(format: :json) %>" >
         <thead>
           <tr>
-            <th>Scan ID</th>
+            <th class="th_id">Scan ID</th>
             <th>Scan Name</th>
             <th>Start Address</th>
             <th>End Address</th>
-            <th>Scan Status</th>
+            <th class="th_scan_status">Scan Status</th>
             <th>Associated Cred List</th>
             <th>Datacenter Zone</th>
-            <th>Scan Initiated</th>
-            <th></th>
+            <th class="th_time">Scan Initiated</th>
+            <th class="th_url"></th>
           </tr>
         </thead>
       </table>

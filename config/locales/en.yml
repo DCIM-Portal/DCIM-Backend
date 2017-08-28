@@ -63,6 +63,11 @@ en:
           smart_proxy_unreachable: "Smart Proxy Unreachable"
           invalid_range: "Invalid Range"
           removed: "Removed"
+      system:
+        sync_status:
+          success: "Synchronized"
+          in_progress: "In progress"
+          stack_trace: "Error: Other (stack trace)"
       bmc_host:
         power_status:
           "on": "On"
