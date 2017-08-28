@@ -8,23 +8,26 @@ class LiveViewBroadcastJob < ApplicationJob
     logger.debug "Broadcast rerun requested"
     return false if LiveViewSubscription.locked?
     synchronize do
-      LiveViewSubscription.lock(job_id)
-      logger.debug "Broadcasts locked"
-      while LiveViewSubscription.rerun?
-        LiveViewSubscription.cancel_rerun
-        logger.debug "Broadcast rerun canceled"
-        subscriptions = LiveViewSubscription.all
-        logger.debug "Processing all subscriptions..."
-        # TODO: Improve performance by determining if source and query are likely to have been updated instead of blindly pushing to all subscribers.
-        subscriptions.each do |id, params|
-          output = "Unsupported push data"
-          route = ::Rails.application.routes.recognize_path params['source']
-          output = send("render_#{params['renderer']}", route, params) if respond_to? "render_#{params['renderer']}", :include_private
-          ActionCable.server.broadcast("liveview_#{id}", {request: params, response: output})
+      begin
+        LiveViewSubscription.lock(job_id)
+        logger.debug "Broadcasts locked"
+        while LiveViewSubscription.rerun?
+          LiveViewSubscription.cancel_rerun
+          logger.debug "Broadcast rerun canceled"
+          subscriptions = LiveViewSubscription.all
+          logger.debug "Processing all subscriptions..."
+          # TODO: Improve performance by determining if source and query are likely to have been updated instead of blindly pushing to all subscribers.
+          subscriptions.each do |id, params|
+            output = "Unsupported push data"
+            route = ::Rails.application.routes.recognize_path params['source']
+            output = send("render_#{params['renderer']}", route, params) if respond_to? "render_#{params['renderer']}", :include_private
+            ActionCable.server.broadcast("liveview_#{id}", {request: params, response: output})
+          end
         end
+      ensure
+        LiveViewSubscription.unlock
+        logger.debug "Broadcasts unlocked"
       end
-      LiveViewSubscription.unlock
-      logger.debug "Broadcasts unlocked"
     end
   end
 

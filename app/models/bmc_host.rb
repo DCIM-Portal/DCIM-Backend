@@ -176,7 +176,7 @@ class BmcHost < ApplicationRecord
   end
 
   def deep_find(key, object=self, found=nil)
-    if object.respond_to?(:key?) && object.key?(key) && object[key] != 'NONE'
+    if object.respond_to?(:key?) && object.key?(key)
       return object[key]
     elsif object.is_a? Enumerable
       object.find { |*a| found = deep_find(key, a.last) }
@@ -193,17 +193,29 @@ class BmcHost < ApplicationRecord
   end
 
   def product_from_fru_list(fru)
-    output =
-    deep_find('product_name', fru) ||
-    deep_find('board_product_name', fru) ||
-    deep_find('product_part/model_number', fru)
+    brand = brand_from_fru_list(fru).downcase
+    if brand == "ibm"
+      output = deep_find('product_name', fru)
+    elsif brand == "supermicro"
+      output = deep_find('product_part/model_number', fru)
+    else
+      output =
+      deep_find('board_product_name', fru) ||
+      deep_find('product_name', fru) ||
+      deep_find('product_part/model_number', fru)
+    end
     raise Dcim::UnsupportedFruError, fru if !output
     output
   end
 
   def serial_from_fru_list(fru)
     output =
-    deep_find('product_serial_number', fru)
+    deep_find('product_serial_number', fru) ||
+    deep_find('product_serial', fru) ||
+    deep_find('chassis_serial_number', fru) ||
+    deep_find('chassis_serial', fru) ||
+    deep_find('board_serial_number', fru) ||
+    deep_find('board_serial', fru)
     raise Dcim::UnsupportedFruError, fru if !output
     output
   end
