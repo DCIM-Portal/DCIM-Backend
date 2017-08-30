@@ -91,17 +91,3 @@ $(document).on 'turbolinks:load', ->
         $(row).find('td:eq(6)').attr 'data-title', 'Last Sync Status:'
         $(row).find('td:eq(7)').attr 'data-title', 'Onboard Status:'
         $(row).find('td:eq(8)').attr 'data-title', 'Synchronize Date:'
-      buttons: [
-        {
-          extend: 'copyHtml5'
-          text:  '<i class="fa fa-clipboard"></i> <span class="dt-btn-text">Copy to Clipboard</span>'
-          exportOptions: rows: '.selected'
-          className: 'btn grey lighten-2 waves-effect'
-        }
-        {
-          extend: 'csvHtml5'
-          text: '<i class="fa fa-file-text"></i> <span class="dt-btn-text">Save to Excel</span>'
-          exportOptions: rows: '.selected'
-          className: 'btn grey lighten-2 waves-effect'
-        }
-      ]

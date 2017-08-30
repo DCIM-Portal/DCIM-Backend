@@ -14,24 +14,24 @@
         <!-- Side navigation links -->
     <li>
       <ul class="collapsible collapsible-accordion">
-        <li id="<%= parent_menu('bmc_scan_requests') || parent_menu('brute_lists') %>">
-          <a class="collapsible-header waves-effect arrow-r <%= is_active('bmc_scan_requests') || is_active('brute_lists') %>">
+        <li id="<%= parent_menu('admin/bmc_scan_requests') || parent_menu('admin/brute_lists') %>">
+          <a class="collapsible-header waves-effect arrow-r <%= is_active('admin/bmc_scan_requests') || is_active('admin/brute_lists') %>">
             <i class="fa fa-share-square-o"></i>System Onboarding<i class="fa fa-angle-down rotate-icon"></i>
           </a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: is_active('bmc_scan_requests') %></li>
-              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, admin_brute_lists_path, class: is_active('brute_lists') %></li>
+              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: is_active('admin/bmc_scan_requests') %></li>
+              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, admin_brute_lists_path, class: is_active('admin/brute_lists') %></li>
             </ul>
           </div>
         </li>
       </ul>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: is_active('bmc_hosts') %>
+      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: is_active('admin/bmc_hosts') %>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: is_active('zones') %>
+      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: is_active('admin/zones') %>
     </li>
 
   </ul>

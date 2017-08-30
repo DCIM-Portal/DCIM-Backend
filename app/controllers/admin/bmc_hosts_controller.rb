@@ -36,6 +36,11 @@ class Admin::BmcHostsController < AdminController
     @bmc_host.refresh!
   end
 
+  def multi_refresh
+    selected_hosts = BmcHost.where(id: params[:selected_ids])
+    selected_hosts.each {|host| host.refresh!}
+  end
+
   def destroy
   end
 
@@ -44,6 +49,20 @@ class Admin::BmcHostsController < AdminController
     respond_to do |format|
       format.js
     end
+  end
+
+  def onboard_launch_job
+    hosts_to_onboard = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:hosts][:bmc_host_ids])
+    hosts_to_onboard.each do |host|
+      onboard_request = OnboardRequest.new(bmc_host: host) if host.onboard_request.nil?
+      onboard_request.save! if onboard_request
+      if !host.serial.nil? && host.onboard_request.try(:status) != "success"
+        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: host.onboard_request)
+      end
+    end
+  end
+
+  def onboard_confirm
   end
 
   private

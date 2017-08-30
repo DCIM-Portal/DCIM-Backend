@@ -144,11 +144,8 @@
   .table-striped tbody tr:nth-of-type(even) {
     background-color: rgba(0, 0, 0, 0.05);
   }
-  div.img-box {
-    display: none;
-  }
-  div.sync {
-    display: inline-block;
+  div table#bmc_hosts_table tr, div table#bmc_scan_request_details_table tr, div table#zone_details_table tr {
+    height: inherit;
   }
   div.serial {
     font-weight: 400;
@@ -197,7 +194,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table
 div.dataTables_scrollBody table {
   margin-bottom: 20px !important;
 }
-
+table#bmc_hosts_table, table#bmc_scan_request_details_table, table#zone_details_table {
+  tr { height: 2.5rem; }
+}
 .dataTables_wrapper {
   background: $table-background;
   padding: 20px;
@@ -224,12 +223,12 @@ div.dataTables_scrollBody table {
 //Dom Element Fixes
 div div.dataTables_wrapper .top {
   margin-bottom: 0px;
-  .dataTables_length { float: left; }
+  .dataTables_length { float: left; margin-top: 0.175rem;}
   .dataTables_filter { float: right; }
 }
-.bottom {
+div.dataTables_wrapper .bottom {
   margin-top: 20px;
-  .dataTables_info { float: left; font-size: 0.85rem; padding-top: 0.49rem; }
+  div.dataTables_info { float: left; font-size: 0.85rem; padding-top: 0.49rem; }
   .dataTables_paginate { float: right; }
 }
 @media screen and (max-width: 992px) {
@@ -248,8 +247,11 @@ div div.dataTables_wrapper .top {
   }
   .btn-default:hover, .btn-default:focus, .btn-default:active { background: #eee !important; }
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1040px) {
   .dt-btn-text { display: none; }
+}
+.dataTables_processing {
+  z-index: 2;
 }
 
 //FontAwesome Integration

@@ -10,21 +10,68 @@ $(document).on 'turbolinks:load', ->
     deferLoading: 0
     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
     deferRender: true
+    buttons: [
+      {
+        extend: 'copyHtml5'
+        text:  '<i class="fa fa-clipboard"></i> <span class="dt-btn-text">Copy to Clipboard</span>'
+        exportOptions: rows: '.selected'
+        className: 'btn grey lighten-2 waves-effect'
+      }
+      {
+        extend: 'csvHtml5'
+        text: '<i class="fa fa-file-text"></i> <span class="dt-btn-text">Save to Excel</span>'
+        exportOptions: rows: '.selected'
+        className: 'btn grey lighten-2 waves-effect'
+      }
+      {
+        text: '<i class="fa fa-minus-square-o"></i> <span class="dt-btn-text">De-select All</span>'
+        className: 'btn grey lighten-2 waves-effect'
+        action: () ->
+          document.detail_table.api().column(0).checkboxes.deselectAll()
+      }
+      {
+        text: '<i class="fa fa-share-square-o"></i> <span class="dt-btn-text">Onboard</span>'
+        className: 'btn grey lighten-2 waves-effect modal-trigger onboard_submit'
+        action: () ->
+          id_array = []
+          rows_selected = document.detail_table.api().column(0).checkboxes.selected();
+          $.each rows_selected, (index, rowId) ->
+            id_array.push rowId
+          $.ajax
+            url: '/admin/bmc_hosts/onboard_modal'
+            type: 'post'
+            data: selected_ids: id_array
+          $('.onboard_submit').attr 'href', '#onboard_modal'
+      }
+      {
+        text: '<i class="fa fa-refresh"></i> <span class="dt-btn-text">Refresh BMC Facts</span>'
+        className: 'btn grey lighten-2 waves-effect bmc_refresh_submit'
+        action: () ->
+          id_array = []
+          rows_selected = document.detail_table.api().column(0).checkboxes.selected();
+          $.each rows_selected, (index, rowId) ->
+            id_array.push rowId
+          $.ajax
+            url: '/admin/bmc_hosts/multi_refresh'
+            type: 'post'
+            data: selected_ids: id_array
+      }
+    ]
     columnDefs: [
       #LOGOS
       { targets: 'th_brand'
       orderable: true
       render: (data, type, full) ->
         if /(HP)/.test(data)
-          '<img src="/images/hpe.png" height=25 width=57 />'
+          '<img src="/images/hpe.svg" height=30 />'
         else if /(Cisco)/.test(data)
-          '<img src="/images/cisco.png" height=25 width=45 />'
+          '<img src="/images/cisco.svg" height=25 />'
         else if /(DELL)/.test(data)
-          '<img src="/images/dell.png" height=17 width=57 />'
+          '<img src="/images/dell.svg" height=18 />'
         else if /(IBM)/.test(data)
-          '<img src="/images/ibm.png" height=17 width=43 />'
+          '<img src="/images/ibm.svg" height=18 />'
         else if /(Supermicro)/.test(data)
-          '<img src="/images/supermicro.png" height=25 width=43 />'
+          '<img src="/images/supermicro.svg" height=10 />'
         else if !data
           'N/A'
         else
@@ -59,7 +106,7 @@ $(document).on 'turbolinks:load', ->
         else if data == "success"
           '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> '  + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
         else if data == "in_progress"
-          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
+          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
         else
           '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
       }
@@ -93,7 +140,10 @@ $(document).on 'turbolinks:load', ->
       { targets: 'th_product'
       orderable: true
       render: (data, type, full) ->
-        '<div class="model_cell">' + data + '</div>'
+        if !data
+          '<div class="model_cell">N/A</div>'
+        else
+          '<div class="model_cell">' + data + '</div>'
       }
       #Serial
       { targets: 'th_serial'

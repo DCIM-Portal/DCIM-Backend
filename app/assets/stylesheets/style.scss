@@ -615,10 +615,22 @@ form#filters {
 //Modal Customizations
 div.modal {
   bottom: inherit;
+  max-height: 85%;
+  outline: none;
   .modal-dialog {
     margin: auto;
     max-width: 100%;
+    outline: none;
     .modal-body {
+      outline: none;
+      .modal-footer {
+        display: block;
+        padding: 0.85rem 0;
+        border-top: 1px solid #c9c9c9;
+        .green {
+          margin-right: 1rem;
+        }
+      }
       .alert p, .card .card-block p {
         margin-bottom: 0;
       }
@@ -635,8 +647,9 @@ div.modal {
       }
     }
     .modal-header {
+      border-bottom: none;
       .modal-title {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
       }
       .modal-action i {
         color: #3c4b55;
@@ -818,6 +831,7 @@ a.btn-table {
   font-size: 1.2rem;
   margin: 0;
   font-weight: 300;
+  margin-bottom: 1rem;
 }
 #card-table {
   max-width: 750px;
@@ -902,6 +916,16 @@ table.table {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
+}
+
+@media only screen and (max-width: 992px) {
+  div.modal .modal-dialog .modal-body thead {
+    background: #FAFAFA;
+    color: inherit;
+  }
+}
+.selected .black-text {
+  color: #fff !important;
 }
 
 //Async Details
