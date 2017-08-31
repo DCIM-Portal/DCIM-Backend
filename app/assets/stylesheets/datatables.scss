@@ -194,9 +194,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table
 div.dataTables_scrollBody table {
   margin-bottom: 20px !important;
 }
-table#bmc_hosts_table, table#bmc_scan_request_details_table, table#zone_details_table {
-  tr { height: 2.5rem; }
-}
 .dataTables_wrapper {
   background: $table-background;
   padding: 20px;

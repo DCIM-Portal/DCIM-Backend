@@ -63,15 +63,15 @@ $(document).on 'turbolinks:load', ->
       orderable: true
       render: (data, type, full) ->
         if /(HP)/.test(data)
-          '<img src="/images/hpe.svg" height=30 />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/hpe.svg" height="18" />'
         else if /(Cisco)/.test(data)
-          '<img src="/images/cisco.svg" height=25 />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/cisco.svg" height="25" />'
         else if /(DELL)/.test(data)
-          '<img src="/images/dell.svg" height=18 />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/dell.svg" height="18" />'
         else if /(IBM)/.test(data)
-          '<img src="/images/ibm.svg" height=18 />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/ibm.svg" height="18" />'
         else if /(Supermicro)/.test(data)
-          '<img src="/images/supermicro.svg" height=10 />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/supermicro.svg" height="10" />'
         else if !data
           'N/A'
         else
