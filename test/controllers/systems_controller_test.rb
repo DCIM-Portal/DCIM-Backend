@@ -33,10 +33,10 @@ class SystemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update system" do
-    patch system_url(@system), params: { system: { cpu_cores: @system.cpu_cores, cpu_count: @system.cpu_count, cpu_model: @system.cpu_model, cpu_threads: @system.cpu_threads, disk_count: @system.disk_count, disk_total: @system.disk_total, name: @system.name, os: @system.os, os_release: @system.os_release, ram_total: @system.ram_total, sync_status: @system.sync_status } }
-    assert_redirected_to system_url(@system)
-  end
+#  test "should update system" do
+#    patch system_url(@system), params: { system: { cpu_cores: @system.cpu_cores, cpu_count: @system.cpu_count, cpu_model: @system.cpu_model, cpu_threads: @system.cpu_threads, disk_count: @system.disk_count, disk_total: @system.disk_total, name: @system.name, os: @system.os, os_release: @system.os_release, ram_total: @system.ram_total, sync_status: @system.sync_status } }
+#    assert_redirected_to system_url(@system)
+#  end
 
   test "should destroy system" do
     assert_difference('System.count', -1) do
