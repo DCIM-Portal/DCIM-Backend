@@ -45,19 +45,53 @@ class Admin::BmcHostsController < AdminController
   end
 
   def onboard_modal
-    @selected_hosts = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:selected_ids])
+    selected_hosts = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:selected_ids])
+    list_bmc_host_unonboardable = []
+    list_onboard_request_exists = []
+    list_no_onboard_request_yet = []
+    selected_hosts.each do |host|
+      unonboardable_reason = nil
+      begin
+        host.validate_onboardable
+      rescue RuntimeError => unonboardable_reason
+      end
+      # BmcHost fails validation
+      if unonboardable_reason
+        # TODO: Add this host to fail list
+      # OnboardRequest exists
+      elsif host.onboard_request
+        # TODO: Add this host to override prompt list
+      # New OnboardRequest
+      else
+        # TODO: Add this host to onboard list
+      end
+    end
     respond_to do |format|
-      format.js
+      format.html { render layout: false, locals: {hosts: selected_hosts} }
     end
   end
 
-  def onboard_launch_job
+  def multi_onboard
     hosts_to_onboard = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:hosts][:bmc_host_ids])
     hosts_to_onboard.each do |host|
-      onboard_request = OnboardRequest.new(bmc_host: host) if host.onboard_request.nil?
-      onboard_request.save! if onboard_request
-      if !host.serial.nil? && host.onboard_request.try(:status) != "success"
-        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: host.onboard_request)
+      unonboardable_reason = nil
+      begin
+        host.validate_onboardable
+      rescue RuntimeError => unonboardable_reason
+      end
+      # BmcHost fails validation
+      if unonboardable_reason
+        # TODO: Add this host to fail list
+      # OnboardRequest exists
+      elsif host.onboard_request
+        # TODO: Add this host to override prompt list
+      # New OnboardRequest
+      else
+       onboard_request = OnboardRequest.new(bmc_host: host) if host.onboard_request.nil?
+        onboard_request.save! if onboard_request
+        if !host.serial.nil? && host.onboard_request.try(:status) != "success"
+#          OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: host.onboard_request)
+        end
       end
     end
   end
@@ -67,8 +101,8 @@ class Admin::BmcHostsController < AdminController
 
   private
 
-    def set_bmc_host
-      @bmc_host = BmcHost.find(params[:id])
-    end
+  def set_bmc_host
+    @bmc_host = BmcHost.find(params[:id])
+  end
 
 end

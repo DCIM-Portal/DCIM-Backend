@@ -8,12 +8,14 @@
       <table class="table-responsive table-sm">
         <thead>
           <tr>
-            <th>DCIM Zone</th>
+            <th>Foreman Location ID</th>
+            <th>DCIM Zone Name</th>
           </tr>
         </thead>
         <tbody>
-        <% @dcim_extras.each do |name| %>
+        <% @dcim_extras.each do |id, name| %>
           <tr>
+            <td><%= id || 'N/A' %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
             <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
           </tr>
         <% end %>
@@ -26,7 +28,8 @@
     
     <%= form_tag({controller: "zones", action: "foreman_add"}, method: "post") do %>
 
-      <% @dcim_extras.each do |name| %>
+      <% @dcim_extras.each do |id, name| %>
+        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
         <%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
       <% end %>
 

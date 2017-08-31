@@ -1,7 +1,6 @@
 class Admin::BmcScanRequestDetailsDatatable < ApplicationDatatable
 
   def_delegator :@view, :link_to
-  def_delegator :@view, :radio_button_tag
 
   def view_columns
     @view_columns ||= {
@@ -28,7 +27,7 @@ class Admin::BmcScanRequestDetailsDatatable < ApplicationDatatable
       onboard_request_status: record.onboard_request.try(:status),
       onboard_request_step: record.onboard_request.try(:step),
       updated_at: record.updated_at.to_time.iso8601,
-      checkbox: radio_button_tag('record', record.id),
+      checkbox: record.id,
       url: link_to('Details', [:admin, record], class: "btn blue lighten-2"),
       'DT_RowId' => record.id
     }

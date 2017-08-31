@@ -26,8 +26,7 @@ Rails.application.routes.draw do
       collection do
         post :multi_refresh
         post :onboard_modal
-        get :onboard_modal
-        post :onboard_launch_job
+        post :multi_onboard
         get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
       end
     end

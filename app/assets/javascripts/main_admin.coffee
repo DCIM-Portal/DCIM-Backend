@@ -31,17 +31,25 @@ $(document).on 'turbolinks:load', ->
       }
       {
         text: '<i class="fa fa-share-square-o"></i> <span class="dt-btn-text">Onboard</span>'
-        className: 'btn grey lighten-2 waves-effect modal-trigger onboard_submit'
+        className: 'btn grey lighten-2 waves-effect onboard_submit'
         action: () ->
           id_array = []
           rows_selected = document.detail_table.api().column(0).checkboxes.selected();
           $.each rows_selected, (index, rowId) ->
             id_array.push rowId
+          # TODO: Better-looking loading indicator
+          $("#onboard_modal").html('Loading&hellip;')
+          $('#onboard_modal').modal('open')
           $.ajax
             url: '/admin/bmc_hosts/onboard_modal'
             type: 'post'
             data: selected_ids: id_array
-          $('.onboard_submit').attr 'href', '#onboard_modal'
+            success: (data) ->
+              $("#onboard_modal").html(data)
+              $('.onboard').prop('disabled', true)
+              $('#confirm').keyup ->
+                $('.onboard').prop 'disabled', if @value != 'Onboard Systems' then true else false
+              #$('#onboard_modal').modal('open')
       }
       {
         text: '<i class="fa fa-refresh"></i> <span class="dt-btn-text">Refresh BMC Facts</span>'

@@ -42,6 +42,9 @@ module Dcim
   class UnsupportedFruError < BmcHostError
   end
 
+  class BmcHostIncompleteError < BmcHostError
+  end
+
 # Unknown errors
   class UnknownError < Dcim::Error
   end

@@ -30,7 +30,7 @@
         </p>
       </div>
     </div>
-    <%= form_for(:hosts, url: onboard_launch_job_admin_bmc_hosts_path, remote: true, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
+    <%= form_for(:hosts, url: multi_onboard_admin_bmc_hosts_path, remote: true, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
       <div class="table-responsive table-modal z-depth-1">
         <table class="table-sm striped centered responsive-table">
           <thead>

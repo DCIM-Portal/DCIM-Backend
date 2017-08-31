@@ -1,5 +1,0 @@
-$("#onboard_modal").html("<%= escape_javascript(render partial: 'onboard_modal', locals: { hosts: @selected_hosts }) %>");
-$('.onboard').prop('disabled', true);
-$('#confirm').keyup(function() {
-  return $('.onboard').prop('disabled', this.value !== 'Onboard Systems' ? true : false);
-});

@@ -8,12 +8,14 @@
       <table class="table-responsive table-sm">
        <thead>
           <tr>
-            <th>Foreman Zone</th>
+            <th>Foreman Location ID</th>
+            <th>Foreman Location Name</th>
           </tr>
         </thead>
         <tbody>
-        <% @foreman_extras.each do |name| %>
+        <% @foreman_extras.each do |id, name| %>
           <tr>
+            <td><%= id %></td><%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
             <td><%= name %></td><%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
           </tr>
         <% end %>
@@ -26,7 +28,8 @@
 
     <%= form_tag({controller: "zones", action: "foreman_remove"}, method: "post") do %>
 
-      <% @foreman_extras.each do |name| %>
+      <% @foreman_extras.each do |id, name| %>
+        <%= text_field_tag :zone, "", :name => "zone[][id]", type: "hidden", value: id %>
         <%= text_field_tag :zone, "", :name => "zone[][name]", type: "hidden", value: name %>
       <% end %>
 

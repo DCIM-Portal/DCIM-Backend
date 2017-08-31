@@ -116,6 +116,12 @@ class BmcHost < ApplicationRecord
     ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).bmc.reset, payload: {type: type}, method: :put)
   end
 
+  def validate_onboardable
+    raise Dcim::BmcHostIncompleteError, 'serial' unless self.serial
+    validate_correct_credentials
+    true
+  end
+
   private
 
   def logger
@@ -235,8 +241,7 @@ class BmcHost < ApplicationRecord
       logger.debug "No credentials to validate"
       return true
     end
-    @smart_proxy_resource ||= get_onboard_smart_proxy
-    freeipmi_smart_proxy_bmc_request(@smart_proxy_resource.bmc(self.ip_address).chassis.power.status)
+    freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).chassis.power.status)
     logger.debug "Credentials validated"
     return true
 #  rescue Dcim::SmartProxyError
