@@ -1,0 +1,10 @@
+en:
+  exceptions:
+    messages:
+      serial: "serial"
+    dcim/bmc_host_incomplete_error: "BMC host is missing property: %{message}"
+    dcim/invalid_username_error: "Invalid BMC host username"
+    dcim/invalid_password_error: "Invalid BMC host password"
+    dcim/invalid_credentials_error: "Invalid BMC host credentials"
+    dcim/cooldown_error: "Cooldown required"
+    dcim/job_cooldown_error: "Job still active; cooldown period: %{message}"

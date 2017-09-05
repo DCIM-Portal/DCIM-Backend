@@ -33,23 +33,71 @@ $(document).on 'turbolinks:load', ->
         text: '<i class="fa fa-share-square-o"></i> <span class="dt-btn-text">Onboard</span>'
         className: 'btn grey lighten-2 waves-effect onboard_submit'
         action: () ->
+          #Show indicator that modal is loading
+          $("#load-indicator").fadeIn()
+          #Empty out any existing content to avoid old content visibility
+          $("#onboard_modal").empty()
+          #Make an array to store our IDs
           id_array = []
+          #Get table rows that have a check
           rows_selected = document.detail_table.api().column(0).checkboxes.selected();
           $.each rows_selected, (index, rowId) ->
+            #Add checked row IDs to the array
             id_array.push rowId
-          # TODO: Better-looking loading indicator
-          $("#onboard_modal").html('Loading&hellip;')
-          $('#onboard_modal').modal('open')
+          #Send array via an ajax request to load the modal
           $.ajax
             url: '/admin/bmc_hosts/onboard_modal'
             type: 'post'
             data: selected_ids: id_array
+            #If successful, load modal and conditions
             success: (data) ->
-              $("#onboard_modal").html(data)
-              $('.onboard').prop('disabled', true)
+              #Populate modal with data
+              $('#onboard_modal').html data
+              #Hide the load indicator
+              $('#load-indicator').hide()
+              #Set collapsible content for each category
+              $('.modal-content-collapsible').collapsible()
+              #Get initial checked rows in entire modal
+              initial_selected = $('div.table-modal table').find('td input[type="checkbox"]:checked').length
+              $('span#total_select').html initial_selected
+              #Select all checkbox function
+              $('.select_all').click ->
+                $(this).closest('div.table-modal table').find('td input').prop 'checked', @checked
+              #Checkbox click function
+              $('.table-modal table input[type="checkbox"]').click ->
+                table = $(this).closest('div.table-modal table')
+                total = table.find('td input[type="checkbox"]').length
+                count = table.find('td input[type="checkbox"]:checked').length
+                total_count = $('div.table-modal table').find('td input[type="checkbox"]:checked').length
+                select_all = table.find('th input[type="checkbox"]')
+                #Update selected number of rows
+                $(this).closest('li').find('span.num_selected').html count
+                #Update total selected in the modal
+                $('span#total_select').html total_count
+                #Make select_all checkbox indeterminate, checked,
+                #or unchecked depending on conditions
+                if count > 0 and count < total
+                  select_all.prop 'checked', true
+                  select_all.prop 'indeterminate', true
+                else if total == count
+                  select_all.prop 'indeterminate', false
+                  select_all.prop 'checked', true
+                else if count == 0
+                  select_all.prop 'checked', false
+                  select_all.prop 'indeterminate', false
+              #Parse times
+              # XXX: Make this universal
+              $('time').each (i, dom) ->
+                dom = $(dom)
+                dom.html(moment(dom.attr('datetime')).format('MMMM D YYYY, h:mma'))
+              #Open the modal
+              $('#onboard_modal').modal('open')
+              #Make the onboard submit button disabled
+              $('.onboard').prop 'disabled', true
+              #Make onboard submit button enabled on correct input value
               $('#confirm').keyup ->
                 $('.onboard').prop 'disabled', if @value != 'Onboard Systems' then true else false
-              #$('#onboard_modal').modal('open')
+
       }
       {
         text: '<i class="fa fa-refresh"></i> <span class="dt-btn-text">Refresh BMC Facts</span>'
@@ -71,7 +119,7 @@ $(document).on 'turbolinks:load', ->
       orderable: true
       render: (data, type, full) ->
         if /(HP)/.test(data)
-          '<img alt="'+data+'" title="'+data+'" src="/images/hpe.svg" height="18" />'
+          '<img alt="'+data+'" title="'+data+'" src="/images/hpe.svg" height="16" />'
         else if /(Cisco)/.test(data)
           '<img alt="'+data+'" title="'+data+'" src="/images/cisco.svg" height="25" />'
         else if /(DELL)/.test(data)

@@ -144,9 +144,6 @@
   .table-striped tbody tr:nth-of-type(even) {
     background-color: rgba(0, 0, 0, 0.05);
   }
-  div table#bmc_hosts_table tr, div table#bmc_scan_request_details_table tr, div table#zone_details_table tr {
-    height: inherit;
-  }
   div.serial {
     font-weight: 400;
   }

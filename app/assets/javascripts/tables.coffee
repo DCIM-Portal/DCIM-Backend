@@ -19,7 +19,7 @@ document.render_count = 0
   if document.documentElement.hasAttribute("data-turbolinks-preview")
     return
   document.detail_table?.api?().ajax.reload()
-  $("#cache-indicator").fadeOut(350)
+  $("#load-indicator").fadeOut(350)
   document.render_count += 1
 
   # Filters updated in detail table
@@ -66,7 +66,7 @@ $(document).on 'turbolinks:before-cache', ->
   document.category_id   = undefined
   document.category_associations = []
   document.detail_associations   = []
-  $("#cache-indicator").show()
+  $("#load-indicator").show()
 
 document.sync_view_category = (record, destroyed=null) ->
   document.render.category_table[document.category_name]?(record, destroyed)

@@ -21,18 +21,6 @@ module Dcim
   class InvalidPasswordError < InvalidCredentialsError
   end
 
-  class TimeoutError < BmcHostError
-  end
-
-  class ConnectionTimeoutError < TimeoutError
-  end
-
-  class SessionTimeoutError < TimeoutError
-  end
-
-  class JobTimeoutError < TimeoutError
-  end
-
   class BmcBusyError < BmcHostError
   end
 
@@ -43,6 +31,43 @@ module Dcim
   end
 
   class BmcHostIncompleteError < BmcHostError
+  end
+
+# Dcim timeout errors
+  class TimeoutError < Dcim::Error
+  end
+
+  class ConnectionTimeoutError < TimeoutError
+  end
+
+  class SessionTimeoutError < TimeoutError
+  end
+  
+  class JobTimeoutError < TimeoutError
+  end
+
+  class CooldownError < TimeoutError
+    attr_accessor :max, :elapsed
+
+    def initialize(msg = nil)
+      if msg.is_a? Hash
+        @max = msg[:max]
+        @elapsed = msg[:elapsed]
+        @instantiated_at = Time.now
+      end
+      super
+    end
+
+    def expiry
+      @instantiated_at + (@max - @elapsed)
+    end
+
+    def message
+      I18n.t(:cooldown_message_html, max: @max, elapsed: @elapsed, expiry: expiry.iso8601, default: "ends at #{expiry}")
+    end
+  end
+
+  class JobCooldownError < CooldownError
   end
 
 # Unknown errors

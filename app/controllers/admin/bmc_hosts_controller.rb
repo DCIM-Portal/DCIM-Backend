@@ -29,7 +29,7 @@ class Admin::BmcHostsController < AdminController
   end
 
   def show
-  add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
+    add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
   end
 
   def update
@@ -45,64 +45,80 @@ class Admin::BmcHostsController < AdminController
   end
 
   def onboard_modal
-    selected_hosts = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:selected_ids])
-    list_bmc_host_unonboardable = []
-    list_onboard_request_exists = []
-    list_no_onboard_request_yet = []
-    selected_hosts.each do |host|
-      unonboardable_reason = nil
-      begin
-        host.validate_onboardable
-      rescue RuntimeError => unonboardable_reason
-      end
-      # BmcHost fails validation
-      if unonboardable_reason
-        # TODO: Add this host to fail list
-      # OnboardRequest exists
-      elsif host.onboard_request
-        # TODO: Add this host to override prompt list
-      # New OnboardRequest
-      else
-        # TODO: Add this host to onboard list
-      end
-    end
+    selected_hosts = ids_to_bmc_hosts(params[:selected_ids])
+    green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
     respond_to do |format|
-      format.html { render layout: false, locals: {hosts: selected_hosts} }
+      format.html { render layout: false, locals: { hosts: selected_hosts, red: red, yellow: yellow, green: green } }
     end
   end
 
   def multi_onboard
-    hosts_to_onboard = BmcHost.includes(:onboard_request).references(:onboard_request).where(id: params[:hosts][:bmc_host_ids])
-    hosts_to_onboard.each do |host|
-      unonboardable_reason = nil
-      begin
-        host.validate_onboardable
-      rescue RuntimeError => unonboardable_reason
-      end
-      # BmcHost fails validation
-      if unonboardable_reason
-        # TODO: Add this host to fail list
-      # OnboardRequest exists
-      elsif host.onboard_request
-        # TODO: Add this host to override prompt list
-      # New OnboardRequest
-      else
-       onboard_request = OnboardRequest.new(bmc_host: host) if host.onboard_request.nil?
-        onboard_request.save! if onboard_request
-        if !host.serial.nil? && host.onboard_request.try(:status) != "success"
-#          OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: host.onboard_request)
-        end
-      end
+    input = params[:onboard]
+    unless input.is_a?(Hash) && input[:bmc_host_ids].is_a?(Array)
+      ids = []
+      #redirect_back fallback_location: {action: 'index'}
+      #return
+    else
+      ids = input[:bmc_host_ids]
     end
-  end
 
-  def onboard_confirm
+    selected_hosts = ids_to_bmc_hosts(ids)
+    green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
+
+    onboard_requests = []
+    green.each do |item|
+      bmc_host = item[:bmc_host]
+#      bmc_host.update(onboard_request: OnboardRequest.new(bmc_host: bmc_host))
+      onboard_requests << bmc_host.onboard_request
+    end
+    yellow.each do |item|
+      bmc_host = item[:bmc_host]
+      onboard_requests << bmc_host.onboard_request
+    end
+
+    onboard_requests.each do |onboard_request|
+#      OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request)
+    end
+
+    respond_to do |format|
+      format.html { render locals: { hosts: selected_hosts, red: red, yellow: yellow, green: green } }
+    end
   end
 
   private
 
   def set_bmc_host
     @bmc_host = BmcHost.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: {action: 'index'}
+  end
+
+  def ids_to_bmc_hosts(ids)
+    BmcHost.includes(:onboard_request).references(:onboard_request).where(id: ids)
+  end
+
+  def validate_bmc_hosts_for_onboard(bmc_hosts)
+    list_bmc_host_unonboardable = []
+    list_onboard_request_exists = []
+    list_no_onboard_request_yet = []
+    bmc_hosts.each do |host|
+      unonboardable_reason = nil
+      begin
+        host.validate_onboardable
+      rescue RuntimeError => unonboardable_reason
+      end
+      # BmcHost fails validation
+      if unonboardable_reason
+        list_bmc_host_unonboardable << { bmc_host: host, exception: unonboardable_reason }
+      # OnboardRequest exists
+      elsif host.onboard_request
+        list_onboard_request_exists << { bmc_host: host, onboard_request: host.onboard_request }
+      # New OnboardRequest
+      else
+        list_no_onboard_request_yet << { bmc_host: host }
+      end
+    end
+    [list_no_onboard_request_yet, list_onboard_request_exists, list_bmc_host_unonboardable]
   end
 
 end

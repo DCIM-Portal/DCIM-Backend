@@ -1,6 +1,6 @@
 <div class="clearfix">
   <h3 class="section_title">BMC Host <span class="category_bmc_host_ip_address"><%= @bmc_host.ip_address %></span> Details</h3>
-  <div id="cache-indicator" class="blue lighten-3" style="display: none">Refreshing&hellip; <i class="fa fa-refresh fa-spin fa-fw"></i></div>
+  <%= render '/layouts/data_load' %>
 </div>
 <div class="card">
   <div class="card-block">

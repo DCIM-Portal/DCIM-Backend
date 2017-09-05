@@ -42,6 +42,7 @@ en:
           attributes:
             name:
               blank: "is required!"
+  cooldown_message_html: "ends at <time class=\"momentjs-absolute\" datetime=\"%{expiry}\">%{expiry}</time>"
   filters:
     records:
       bmc_host: "BMC Host"

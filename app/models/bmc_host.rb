@@ -24,7 +24,7 @@ class BmcHost < ApplicationRecord
   }
   belongs_to :zone
   belongs_to :system, optional: true
-  validate :validate_correct_credentials
+  validate :validate_changed_credentials
   validates :ip_address, presence: true, uniqueness: true, format: { with: Resolv::IPv4::Regex }
 
   def refresh!(secret=nil)
@@ -118,7 +118,15 @@ class BmcHost < ApplicationRecord
 
   def validate_onboardable
     raise Dcim::BmcHostIncompleteError, 'serial' unless self.serial
-    validate_correct_credentials
+    raise Dcim::InvalidUsernameError unless self.username
+    raise Dcim::InvalidPasswordError unless self.password
+    if self.onboard_request.is_a? OnboardRequest
+      max = 600
+      elapsed = Time.now - self.onboard_request.updated_at
+      raise Dcim::JobCooldownError, {max: max, elapsed: elapsed} if elapsed <= max and self.onboard_request.status == :in_progress
+    end
+    # XXX: Next line is too slow if validating bulk BmcHostsController#onboard_modal
+    #validate_correct_credentials
     true
   end
 
@@ -231,7 +239,7 @@ class BmcHost < ApplicationRecord
     output
   end
 
-  def validate_correct_credentials
+  def validate_changed_credentials
     logger.debug "Validating credentials..."
     unless self.username_changed? or self.password_changed?
       logger.debug "Skipping validation; no change in credentials"
@@ -241,6 +249,10 @@ class BmcHost < ApplicationRecord
       logger.debug "No credentials to validate"
       return true
     end
+    validate_correct_credentials
+  end
+
+  def validate_correct_credentials
     freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).chassis.power.status)
     logger.debug "Credentials validated"
     return true

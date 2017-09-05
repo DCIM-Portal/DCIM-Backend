@@ -8,61 +8,216 @@
     <p>
       No BMC hosts were selected.  Please close this dialog and select the BMC hosts to onboard.
     </p>
-  <% elsif hosts.all? {|host| (host.serial.nil? || host.onboard_request.try(:status) == "success")} %>
-    <p>
-      The BMC hosts that are selected have already been onboarded or do not have sufficient information
-      to be onboarded.  Please check and try again.
-    </p>
+    <div class="modal-footer">
+      <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
+    </div>
   <% else %>
+
+    <% unless !red.empty? && (green.empty? && yellow.empty?) %>
     <div class="alert red lighten-2 z-depth-1">
       <p>
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
-        This will onboard the selected BMC hosts into the Foreman backend.  Doing
+        This action will onboard the selected BMC hosts into the Foreman backend.  Doing
         so will cause the systems to <strong>reboot and become unavaialble</strong> during the onboarding process.
       </p>
     </div>
-    <div class="card">
-      <div class="card-block grey lighten-2">
-        <p>
-          <i class="fa fa-exclamation-circle" aria-hidden="true"></i> 
-          Note that BMC hosts that have already been onboarded or do not have a serial number are automatically
-          removed from this list.
-        </p>
-      </div>
+    <% end %>
+
+    <div class="blue-grey white-text z-depth-1 sync">
+      <% if hosts.count == 1 %>
+        Total of <span id="total_select"></span> out of <%= hosts.count %> BMC host selected
+      <% else %>
+        Total of <span id="total_select"></span> out of <%= hosts.count %> BMC hosts selected
+      <% end %>
     </div>
-    <%= form_for(:hosts, url: multi_onboard_admin_bmc_hosts_path, remote: true, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
-      <div class="table-responsive table-modal z-depth-1">
-        <table class="table-sm striped centered responsive-table">
-          <thead>
-            <tr>
-              <th>BMC Address</th>
-              <th>Brand</th>
-              <th>Product</th>
-              <th>Serial</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% hosts.each do |host| %>
-            <% if !host.serial.nil? && host.onboard_request.try(:status) != "success" %>
-            <tr>
-              <td><%= host.ip_address %><%= f.hidden_field :bmc_host_ids, multiple: true, value: host.id %></td>
-              <td><%= host.brand %></td>
-              <td><%= host.product %></td>
-              <td><%= host.serial %></td>
-            </tr>
-            <%end%>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
+    <hr class="invisible">
+    <%= form_for(:onboard, url: multi_onboard_admin_bmc_hosts_path, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
+      <ul class="modal-content-collapsible" data-collapsible="accordion">
+
+      <% if !red.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="red_line">
+            BMC Hosts with Unsatisfied Conditions
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-right">
+            <% if red.count == 1 %>
+              <%= red.count %> BMC host
+            <% else %>
+              <%= red.count %> BMC hosts
+            <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="collapsible-body">
+          <p>These BMC hosts failed validation and cannot be onboarded unless the issues are resolved first.</p>
+          <div class="table-responsive table-modal z-depth-1">
+            <table class="table-sm striped centered responsive-table">
+              <thead>
+                <tr>
+                  <th>BMC Address</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                  <th>Issue</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% red.each do |x| %>
+                <tr>
+                  <td><%= x[:bmc_host].ip_address %></td>
+                  <td><%= x[:bmc_host].product.presence || "N/A" %></td>
+                  <td><%= x[:bmc_host].serial.presence || "N/A" %></td>
+                  <td>
+                    <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                      <!-- Not Finished -->
+                      <% key = x[:exception].class.name.underscore %>
+                      <% message = t(x[:exception].message, scope: 'exceptions.messages', default: x[:exception].message) %>
+                      <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x[:exception].class.name %>
+                      <% default = "#{x[:exception].class}: #{message}" %>
+                      <%= raw t(key, scope: 'exceptions', message: message, default: default) %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
       <hr class="invisible">
-      <p>To continue, please type <strong>Onboard Systems</strong>
-      in the text box below and click the Onboard button.</p>
-      <div class="modal-footer">
-        <%= f.submit "Onboard", "data-dismiss": "modal", class: "modal-action modal-close btn btn-sm green lighten-2 pull-left onboard" %>
-        <%= text_field_tag :confirm, "", class: 'pull-left form-control' %>
-        <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
-      </div>
+      <% end %>
+
+      <% if !yellow.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="yellow_line">
+            BMC Hosts with Existing Onboard Request
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-right">
+              <span class="num_selected">0</span> of <%= yellow.count %> BMC
+              <% if yellow.count == 1 %>
+                host
+              <% else %>
+                hosts
+              <% end %>
+              selected
+            </span>
+          </div>
+        </div>
+        <div class="collapsible-body">
+          <p>BMC hosts that are checked in this section will be requeued for onboarding.</p>
+          <div class="table-responsive table-modal z-depth-1">
+            <table class="table-sm striped centered responsive-table">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" class="select_all" id="select_all_yellow">
+                    <label for="select_all_yellow"></label>
+                  </th>
+                  <th>BMC Address</th>
+                  <th>Brand</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                  <th>Onboard State</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% yellow.each do |x|; host = x[:bmc_host] %>
+                <tr>
+                  <td>
+                    <%= f.check_box :bmc_host_ids, {multiple: true, id: "bmc_host_#{host.id}", class: "filled-in check_yellow"}, "#{host.id}", nil %>
+                    <label for="bmc_host_<%= host.id %>"></label>
+                  </td>
+                  <td><%= host.ip_address %></td>
+                  <td><%= host.brand %></td>
+                  <td><%= host.product %></td>
+                  <td><%= host.serial %></td>
+                  <td><%= host.onboard_request.status %>: <%= host.onboard_request.step %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <hr class="invisible">
+      <% end %>
+
+      <% if !green.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="green_line">
+            BMC Hosts Ready to Onboard
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-right">
+              <span class="num_selected"><%= green.count %></span> of <%= green.count %> BMC
+              <% if green.count == 1 %>
+                host
+              <% else %>
+                hosts
+              <% end %>
+              selected
+            </span>
+          </div>
+        </div>
+        <div class="collapsible-body">
+          <p>BMC hosts that are checked in this section will be queued for onboarding for the first time.</p>
+          <div class="table-responsive table-modal z-depth-1">
+            <table class="table-sm striped centered responsive-table">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" class="select_all" id="select_all_green" checked>
+                    <label for="select_all_green"></label>
+                  </th>
+                  <th>BMC Address</th>
+                  <th>Brand</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% green.each do |x|; host = x[:bmc_host] %>
+                <tr>
+                  <td>
+                    <%= f.check_box :bmc_host_ids, {multiple: true, checked: true, id: "bmc_host_#{host.id}", class: "filled-in check_green"}, "#{host.id}", nil %>
+                    <label for="bmc_host_<%= host.id %>"></label>
+                  </td>
+                  <td><%= host.ip_address %></td>
+                  <td><%= host.brand %></td>
+                  <td><%= host.product %></td>
+                  <td><%= host.serial %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <hr class="invisible">
+      <% end %>
+      </ul>
+
+      <% unless !red.empty? && (green.empty? && yellow.empty?) %>
+        <p>To continue, please type <strong>Onboard Systems</strong>
+        in the text box below and click the Onboard button.</p>
+        <div class="modal-footer">
+          <%= f.submit "Onboard", "data-dismiss": "modal", class: "modal-action modal-close btn btn-sm green lighten-2 pull-left onboard" %>
+          <%= text_field_tag :confirm, "", class: 'pull-left form-control' %>
+          <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
+        </div>
+      <% else %>
+        <div class="modal-footer">
+          <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
+        </div>
+      <% end %>
+
     <% end %>
   <% end %>
   </div>
