@@ -1,0 +1,73 @@
+// Base table style
+
+table.table {
+  background: $lighter-grey;
+  border-radius: 0.25rem;
+  th, td {
+    padding: 0.3rem;
+    vertical-align: middle;
+  }
+  thead {
+    border-bottom: none;
+  }
+}
+table.striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+// Small table
+
+.table-sm {
+  th,
+  td {
+    padding: .3rem;
+  }
+}
+
+// Selected row text needs to be white in tables
+
+.selected .black-text {
+  color: $white !important;
+}
+
+// Images as block element so they center in cell
+
+table tbody tr td img {
+  display: block;
+}
+
+// Standard show view table
+
+table#show_view_table {
+  a {
+    margin-left: 0;
+    padding-left: 0.4rem;
+    font-size: 1.2rem;
+  }
+  td, th {
+    padding: 10px;
+  }
+}
+
+// Cred detail table
+
+table#cred_details {
+  td, th {
+    padding: 10px;
+  }
+  a {
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 1.2rem;
+  }
+  #cred_detail_tbody tr td input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Font smaller as table shrinks
+
+@media screen and (max-width: 1205px) {
+  tbody { font-size: 0.9rem  }
+}

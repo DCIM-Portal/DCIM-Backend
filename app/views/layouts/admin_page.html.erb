@@ -13,15 +13,17 @@
       $(document).ready(function () {
         $('.collapsible').collapsible();
         $('ul.tabs').tabs();
-        $('.modal').modal();
+        $('#onboard_error').modal();
+        $('#sync_error').modal();
+        $('#system_sync_error').modal();
         $('#onboard_modal').modal({
-          startingTop: '4%',
-          endingTop: '6%'
+          startingTop: '0',
+          endingTop: '0'
         });
       });
       $('.dropdown-button').dropdown({
         inDuration: 300,
-        outDuration: 225
+        outDuration: 225,
       });
     </script>
   </body>

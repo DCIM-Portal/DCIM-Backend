@@ -4,7 +4,7 @@
 </div>
 
 <div class="card ovf-hidden">
-  <div class="card-block" id="outer-card">
+  <div class="card-content" id="outer-card">
     <div class="clearfix">
       <%= link_to 'Back', admin_zones_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
@@ -12,8 +12,8 @@
       </div>
     </div>
 
-    <div id="height_check" class="table-responsive">
-      <table class="table table-striped table-shadow" id="show_view_table">
+    <div id="height_check" class="z-depth-1">
+      <table class="table striped" id="show_view_table">
         <thead>
           <tr>
             <th>DCIM Zone ID</th>
@@ -66,13 +66,13 @@
 <hr class="invisible">
 
 <div class="card">
-  <div class="card-block">
+  <div class="card-content">
     <div class="stand_alone">
       <h5>BMC Host List</h5>
     </div>
     <%= render partial: "filter" %>
-    <div class="table-responsive z-depth-1">
-      <table id="zone_details_table" class="table table-striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_datatable_admin_zone_path(format: :json) %>" >
+    <div class="z-depth-1">
+      <table id="zone_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_datatable_admin_zone_path(format: :json) %>" >
         <thead>
           <tr>
             <th class="th_checkbox"></th>

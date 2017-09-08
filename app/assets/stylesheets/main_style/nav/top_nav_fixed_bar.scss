@@ -1,0 +1,50 @@
+// Top fixed nav
+
+.navbar-fixed {
+  height: 62px;
+  z-index: 801;
+  .nav-wrapper .bc_nav {
+    color: $navbar-orange-breadcrumb;
+    padding-left: $side-nav-padding;
+    margin-top: 3px;
+    font-size: 0.9rem;
+  }
+  .float-xs-left {
+    margin-top: -4px;
+  }
+  nav {
+    height: $nav-height;
+    top: 0;
+    left: 0;
+    a {
+      color: $black;
+    }
+    // Side-nav hamburger
+    a.button-collapse {
+      i.fa-bars {
+        height: 70px;
+        line-height: 70px;
+        color: $standard-grey;
+        font-size: 1.5rem;
+      }
+    }
+    // Nav top-right menu
+    ul {
+      margin-right: 10px;
+      li {
+        height: 40px;
+        margin-top: 15px;
+        a.nav-menu {
+          font-size: 0.9rem;
+          line-height: 40px;
+          display: block;
+          font-weight: $font-weight-light;
+          i.fa {
+            line-height: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}

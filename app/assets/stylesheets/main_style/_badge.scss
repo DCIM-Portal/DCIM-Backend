@@ -1,0 +1,53 @@
+// Badge base style
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: $font-tiny-size;
+  font-weight: bold;
+  line-height: 1;
+  color: $white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+// Span badge
+
+span.badge {
+  font-size: $font-smaller-size;
+  font-weight: $font-weight-light;
+  color: $white;
+  margin-left: 0;
+  float: left;
+  min-width: 3rem;
+  padding: 0 6px;
+  text-align: center;
+  line-height: 22px;
+  height: 22px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Power status badge
+
+.power_status {
+  color: $white;
+  text-align: center;
+  width: 50px;
+  border-radius: 2px;
+  font-weight: $font-weight-light;
+  font-size: 0.85rem;
+}
+
+// Sync status badge
+
+.sync {
+  padding: 0 0.5rem;
+  display: inline-block;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: $font-weight-light;
+  font-size: 0.85rem;
+}

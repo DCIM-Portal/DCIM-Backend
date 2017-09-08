@@ -69,6 +69,7 @@ en:
           success: "Synchronized"
           in_progress: "In progress"
           stack_trace: "Error: Other (stack trace)"
+          record_error: "Error: Record"
       bmc_host:
         power_status:
           "on": "On"

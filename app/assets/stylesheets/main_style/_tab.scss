@@ -1,0 +1,16 @@
+// Tab base style
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color: transparent;
+  color: $black;
+  font-weight: $font-weight-bold;
+}
+.tabs {
+  .tab a {
+    color: $muted-light;
+  }
+  .indicator {
+    height: 0.15rem;
+    background-color: $normal-blue-grey;
+  }
+}

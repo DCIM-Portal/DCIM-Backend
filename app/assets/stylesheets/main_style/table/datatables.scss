@@ -2,7 +2,8 @@
 @import "datatables/extensions/Responsive/responsive.bootstrap4";
 @import "datatables/extensions/Buttons/buttons.bootstrap4";
 
-//Mobile Compatibility
+// Mobile Compatibility
+
 @media only screen and (max-width: 1750px) {
 	table#bmc_hosts_table td:nth-child(10), 
 	table#bmc_hosts_table th:nth-child(10),
@@ -13,7 +14,6 @@
   table#bmc_scan_request_details_table td:nth-child(9),
   table#bmc_scan_request_details_table th:nth-child(9) {display: none;}
 }
- 
 @media only screen and (max-width: 1595px) {
 	table#bmc_hosts_table td:nth-child(7),
 	table#bmc_hosts_table th:nth-child(7),
@@ -83,7 +83,7 @@
   }
 
   #top-table {
-    background: #efefef;
+    background: $lighter-grey;
     border: 20px solid white;
   }
   div.top div.dataTables_length {
@@ -93,7 +93,7 @@
   div.top div.dataTables_filter {
     float: left;
   }
-  .card-block div#height_check table {
+  .card-content div#height_check table {
     background: transparent;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -113,8 +113,8 @@
     left: -9999px;
   }
   #cred_detail_tbody tr, .dataTables_wrapper div table tbody tr {
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: $level-1-shadow;
+    box-shadow: $level-1-shadow;
     margin-bottom: 20px;
     padding: 10px;
   }
@@ -126,13 +126,13 @@
     position: relative;
     padding-left: 50%; 
     white-space: normal;
-    text-align:left;
+    text-align: left;
   }
   td:before { 
     padding-right: 10px; 
     white-space: nowrap;
-    text-align:left;
-    font-weight: bold;
+    text-align: left;
+    font-weight: $font-weight-bold;
     display: block;
   }
   td:before { content: attr(data-title); }
@@ -141,11 +141,11 @@
      vertical-align: top;
      border-top: 0;
   }
-  .table-striped tbody tr:nth-of-type(even) {
+  table.striped tbody tr:nth-of-type(even) {
     background-color: rgba(0, 0, 0, 0.05);
   }
   div.serial {
-    font-weight: 400;
+    font-weight: $font-weight-normal;
   }
   div.bottom div.dataTables_info {
     display: none;
@@ -161,10 +161,11 @@
   }
 }
 
-//General Customize Datatable Style
+// Datatable base style
+
 div.dt-button-info h2 {
-  font-weight: 300;
-  font-size: 2rem;
+  font-weight: $font-weight-light;
+  font-size: $h2-standard;
 }
 table.dataTable.checkboxes-select tbody tr,
 table.dataTable thead .checkboxes-select-all {
@@ -174,12 +175,19 @@ div.dataTables_wrapper span.select-info,
 div.dataTables_wrapper span.select-item {
   margin-left: 0.5em;
 }
-table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected, table.striped tbody tr:nth-of-type(odd).selected {
   background-color: #608096;
   color: #fff;
+  box-shadow: $level-1-and-half-shadow;
+  -webkit-box-shadow: $level-1-and-half-shadow;
 }
-.table-striped > tbody > tr:hover {
+table.striped > tbody > tr:hover, table.striped tbody tr:nth-of-type(odd):hover {
   background-color: #d0d8dd;
+  cursor: default;
+}
+table.striped > tbody > tr.selected:hover, table.striped tbody tr:nth-of-type(odd).selected:hover {
+  background-color: #608096;
+  cursor: default;
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
   background-color: #b35959;
@@ -192,29 +200,27 @@ div.dataTables_scrollBody table {
   margin-bottom: 20px !important;
 }
 .dataTables_wrapper {
-  background: $table-background;
+  background: $lighter-grey;
   padding: 20px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 :focus {
   outline: -webkit-focus-ring-color none;
 }
-.page-item.disabled .page-link {
+.page-item.disabled .page-link, .page-item.disabled .page-link:focus,
+.page-item.disabled .page-link:hover {
   background-color: transparent;
 }
-.page-link:focus, .page-link:hover {
+.page-link:hover {
   color: white;
   text-decoration: none;
-  background-color: #A5D6A7;
-}
-.pagination .page-link:focus {
   background-color: #A5D6A7;
 }
 .page-link {
   color: #212121;
 }
 
-//Dom Element Fixes
+// Dom element fixes
+
 div div.dataTables_wrapper .top {
   margin-bottom: 0px;
   .dataTables_length { float: left; margin-top: 0.175rem;}
@@ -229,7 +235,8 @@ div.dataTables_wrapper .bottom {
   div.dataTables_wrapper div.dataTables_paginate { margin-right: 25px; }
 }
 
-//Button Customization
+// Datatable button style
+
 .middle {
   margin-bottom: 15px;
   .dt-buttons .btn {
@@ -248,7 +255,8 @@ div.dataTables_wrapper .bottom {
   z-index: 2;
 }
 
-//FontAwesome Integration
+// FontAwesome integration
+
 table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
   top: 7px;
   left: 4px;

@@ -1,0 +1,131 @@
+// Form base style
+
+.form-control {
+  max-width: 160px;
+  background: $form-white;
+  border: 1px solid $form-border-color;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: $font-standard_size;
+  line-height: 1.25;
+  color: $darker-grey;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+}
+.form-control:focus {
+  background: $form-white;
+  border-color: $form-border-color;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-no-input {
+  border: none;
+  padding-top: 9px;
+  padding-bottom: 6px;
+  width: 85px;
+  background: $lighter-grey;
+}
+
+// Label base style
+
+label {
+  font-size: 0.9rem;
+  color: $black;
+}
+form .form-group label {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+// Form groups in a row need margin
+
+form div.row {
+  .form-group {
+    margin-right: 2rem;
+  }
+}
+
+// Form filters (for datatables)
+
+form#filters {
+  select { display: none !important; }
+  input.select-dropdown {
+    max-width: 167px;
+    min-width: 167px;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 0.75rem;
+    webkit-box-shadow: $level-1-shadow;
+    box-shadow: $level-1-shadow;
+    padding: 0 5px;
+    background: $select-filter-background;
+    border-bottom: none;
+  }
+  input.select-dropdown:hover {
+    webkit-box-shadow: $level-1-and-half-shadow;
+    box-shadow: $level-1-and-half-shadow;
+  }
+  .form-group {
+    margin-bottom: 0;
+    label {
+      font-size: 0.9rem;
+    }
+  }
+  div.row {
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  .dropdown-content {
+    z-index: 80;
+    padding: 0.5rem;
+    // Override default top value
+    top: 1.53rem !important;
+    li {
+      line-height: 0.9rem;
+      min-height: 0px;
+      > span {
+        font-size: 0.85rem;
+        padding: 0;
+        box-shadow: none;
+        color: $select-text;
+      }
+    }
+    li:first-child {
+      display: none;
+    }
+  }
+  [type="checkbox"] + label:before {
+    width: 12px;
+    height: 12px;
+  }
+  [type="checkbox"]:checked + label:before {
+    width: 9px;
+    height: 13px;
+    top: -5px;
+    left: -3px;
+  }
+  [type="checkbox"] + label:before, [type="checkbox"]:not(.filled-in) + label:after {
+    top: -4px;
+    transition: unset;
+    -webkit-transition: unset;
+  }
+  .multiple-select-dropdown li [type="checkbox"] + label {
+    height: 5px;
+  }
+  [type="radio"] + label, [type="checkbox"] + label {
+    padding-left: 20px;
+  }
+  .select-wrapper span.caret {
+    top: 4px;
+    z-index: 2;
+    right: 5px;
+    color: $black;
+  }
+}
+

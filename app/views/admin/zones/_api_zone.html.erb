@@ -1,5 +1,5 @@
 <div class="card">
-  <div id="height_check" class="card-block grey lighten-5">
+  <div id="height_check" class="card-content grey lighten-5">
     <% if @logger.error? %>
       <% @logger.all.each do |x| %>
       <div class="alert <%= x[:type] %>">

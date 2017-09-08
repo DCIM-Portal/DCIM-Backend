@@ -1,0 +1,79 @@
+// General rules for pages with a fixed side nav
+
+.fixed-side-nav {
+  padding-left: $side-nav-padding;
+  margin-left: $standard-margin-left;
+  margin-right: $standard-margin-right;
+  h3 {
+    font-size: $h3-standard;
+    margin-bottom: 7.5px;
+  }
+  h2 {
+    font-size: $h2-standard;
+    font-weight: 300;
+  }
+  // Apply default shadow values for fixed-side-nav pages
+  // Level 1 shadow
+  .z-depth-1, .jumbotron,
+  .navbar,
+  .badge,
+  .btn,
+  .card:not([class*="card-outline-"]),
+  .pagination .active .page-link,
+  .modal-dialog.cascading-modal .modal-c-tabs .nav-tabs,
+  .modal-dialog.modal-notify .modal-header,
+  .dropdown-content,
+  .side-nav {
+    box-shadow: $level-1-shadow;
+    -webkit-box-shadow: $level-1-shadow;
+  }
+  // Level 1 and a half shadow
+  .z-depth-1-half,
+  .btn:hover,
+  .btn:active,
+  .btn:focus,
+  .modal-dialog .modal-content,
+  .modal-dialog.cascading-modal .modal-header,
+  .btn-floating, .nav-tabs,
+  .nav-link.active:hover,
+  .dropdown .dropdown-menu .dropdown-item:hover,
+  .dropdown .dropdown-menu .dropdown-item:active,
+  .dropdown-content li.active span,
+  .btn-floating.btn-flat.active,
+  .form-header {
+    box-shadow: $level-1-and-half-shadow;
+    -webkit-box-shadow: $level-1-and-half-shadow;
+  }
+  // Level 2 shadow
+  .z-depth-2,
+  .modal-dialog.cascading-modal.modal-avatar .modal-header img,
+  .btn-floating:hover,
+  .card.card-cascade .view,
+  .card-overlay,
+  .dropdown-content li a:hover,
+  .dropdown-content li span:hover {
+    box-shadow: $level-2-shadow;
+    -webkit-box-shadow: $level-2-shadow;
+  }
+  // Level 3 shadow
+  .z-depth-3 {
+    box-shadow: $level-3-shadow;
+    -webkit-box-shadow: $level-3-shadow;
+  }
+  // Level 4 shadow
+  .z-depth-4 {
+    box-shadow: $level-4-shadow;
+    -webkit-box-shadow: $level-4-shadow;
+  }
+  // Level 5 shadow
+  .z-depth-5 {
+    box-shadow: $level-5-shadow;
+    -webkit-box-shadow: $level-5-shadow;
+  }
+}
+
+// When side-nav disappears, re-adjust margins and padding
+@media (max-width: 992px) {
+  .fixed-side-nav { padding-left: 0px; margin-left: 2%; }
+  .nav-wrapper div.bc_nav { padding-left: 0px; }
+}

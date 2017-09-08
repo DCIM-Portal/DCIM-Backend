@@ -3,7 +3,7 @@
   <%= render '/layouts/data_load' %>
 </div>
 <div class="card ovf-hidden">
-  <div class="card-block" id="outer-card">
+  <div class="card-content" id="outer-card">
     <div id="async_wrapper">
       <%= render_async admin_api_zone_path %>
     </div>
@@ -39,15 +39,16 @@
 <hr class="invisible">
 
 <div class="card">
-  <div class="card-block">
+  <div class="card-content">
     <div class="clearfix">
       <h5 class="table-title">Datacenter Zone List</h5>
       <div class="pull-right">
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
-    <div class="table-responsive z-depth-1">
-      <table id="zone_table" class="table table-striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%" data-source="<%= datatable_admin_zones_path(format: :json) %>">
+    <br>
+    <div class="z-depth-1">
+      <table id="zone_table" class="table striped nowrap" data-scroll-x="true" scroll-collapse="false" cellspacing="0" width="100%" data-source="<%= datatable_admin_zones_path(format: :json) %>">
         <thead>
           <tr>
             <th class="th_id">DCIM Zone ID</th>

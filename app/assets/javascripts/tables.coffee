@@ -83,6 +83,16 @@ document.make_detail_table = (record, destroyed) ->
     $('#filters').detach().appendTo('div.f_toolbar')
   $('.m_select').material_select('destroy');
   $('.m_select').material_select();
+  $('div.m_select input').on 'click', ->
+    if $(this).parent('div').hasClass('active')
+      $('.select-dropdown').dropdown 'close'
+      $(this).parent('div').removeClass 'active'
+    else
+      $('div.m_select').removeClass 'active'
+      $(this).parent('div').addClass 'active'
+  $(document).on 'click', (e) ->
+    if $(e.target).is('div.m_select input') == false
+      $('div.m_select').removeClass 'active'
 
 @received_callback = (data) ->
   # Category

@@ -1,0 +1,88 @@
+// HTML, body, and main
+
+html, body {
+  background: $main-background;
+  font-family: $main-font;
+  font-size: $font-body-size;
+}
+main {
+  font-family: $main-font;
+}
+
+@media (min-width: 1400px) {
+  .fixed-sn main {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+}
+
+// Container
+
+.container-fluid {
+    // Need padding since there is no footer
+    // Possibly will change this in future
+    padding-bottom: $container-bottom-padding;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: $standard-padding;
+    padding-left: $standard-padding;
+}
+
+// Invisible
+
+.invisible {
+  visibility: hidden;
+}
+
+// Horizontal break line
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid $slight-grey;
+}
+
+// Overflow-x container class
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+// Horizontal row
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: -15px;
+}
+
+// Stand alone margin class
+
+.stand_alone {
+  margin-bottom: 1rem;
+}
+
+// Special top margin class
+
+.special-top {
+  margin-top: 1.4rem;
+}
+
+// Async wrapper margin fix
+
+#async_wrapper {
+  margin-top: -0.5rem;
+}
+
+// Clearfix
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

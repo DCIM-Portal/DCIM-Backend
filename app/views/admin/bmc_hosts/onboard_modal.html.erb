@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog z-depth-3" role="document">
   <div class="modal-header blue-grey z-depth-1">
     <h4 class="modal-title white-text">Onboard Request</h4>
     <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a>
@@ -25,14 +25,14 @@
 
     <div class="blue-grey white-text z-depth-1 sync">
       <% if hosts.count == 1 %>
-        Total of <span id="total_select"></span> out of <%= hosts.count %> BMC host selected
+        Total of <%= hosts.count %> BMC host
       <% else %>
-        Total of <span id="total_select"></span> out of <%= hosts.count %> BMC hosts selected
+        Total of <%= hosts.count %> BMC hosts
       <% end %>
     </div>
     <hr class="invisible">
     <%= form_for(:onboard, url: multi_onboard_admin_bmc_hosts_path, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
-      <ul class="modal-content-collapsible" data-collapsible="accordion">
+      <ul class="modal-content-collapsible" data-collapsible="expandable">
 
       <% if !red.empty? %>
       <li>
@@ -41,7 +41,7 @@
             BMC Hosts with Unsatisfied Conditions
           </blockquote>
           <div class="clearfix">
-            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-left list_banner">Click to expand list.</span>
             <span class="small pull-right">
             <% if red.count == 1 %>
               <%= red.count %> BMC host
@@ -51,10 +51,10 @@
             </span>
           </div>
         </div>
-        <div class="collapsible-body">
+        <div class="z-depth-1 collapsible-body">
           <p>These BMC hosts failed validation and cannot be onboarded unless the issues are resolved first.</p>
-          <div class="table-responsive table-modal z-depth-1">
-            <table class="table-sm striped centered responsive-table">
+          <div class="overflow-x table-modal z-depth-1">
+            <table class="table-sm striped centered">
               <thead>
                 <tr>
                   <th>BMC Address</th>
@@ -96,7 +96,7 @@
             BMC Hosts with Existing Onboard Request
           </blockquote>
           <div class="clearfix">
-            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-left list_banner">Click to expand list.</span>
             <span class="small pull-right">
               <span class="num_selected">0</span> of <%= yellow.count %> BMC
               <% if yellow.count == 1 %>
@@ -108,7 +108,7 @@
             </span>
           </div>
         </div>
-        <div class="collapsible-body">
+        <div class="z-depth-1 collapsible-body">
           <p>BMC hosts that are checked in this section will be requeued for onboarding.</p>
           <div class="table-responsive table-modal z-depth-1">
             <table class="table-sm striped centered responsive-table">
@@ -154,7 +154,7 @@
             BMC Hosts Ready to Onboard
           </blockquote>
           <div class="clearfix">
-            <span class="small pull-left">Click to expand list.</span>
+            <span class="small pull-left list_banner">Click to expand list.</span>
             <span class="small pull-right">
               <span class="num_selected"><%= green.count %></span> of <%= green.count %> BMC
               <% if green.count == 1 %>
@@ -166,7 +166,7 @@
             </span>
           </div>
         </div>
-        <div class="collapsible-body">
+        <div class="z-depth-1 collapsible-body">
           <p>BMC hosts that are checked in this section will be queued for onboarding for the first time.</p>
           <div class="table-responsive table-modal z-depth-1">
             <table class="table-sm striped centered responsive-table">

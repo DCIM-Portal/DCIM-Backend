@@ -1,0 +1,98 @@
+// Colors
+
+$white: #fff !default;
+$off-white: #fafafa !default;
+$black: #000 !default;
+$primary-green-hover: #A5D6A7 !default;
+$primary-green: #81C784 !default;
+$primary-red: #E57373 !default;
+$primary-yellow: #FFB74D !default;
+$primary-blue-hover: #d0d8dd !default;
+
+
+$standard-grey: #afafaf !default;
+$darker-grey: #464a4c !default;
+$lighter-grey: #efefef !default;
+$slight-grey: rgba(0, 0, 0, 0.23) !default;
+
+$muted: #77868f !default;
+$muted-light: #98aab3 !default;
+
+$deep-blue-grey: #455A64 !default;
+$normal-blue-grey: #90A4AE !default;
+
+$main-background: #E4E5E6 !default;
+
+$card-form-background: #f2f2f2 !default;
+
+$navbar-border-color: #333 !default;
+$navbar-orange: #ffab00 !default;
+$navbar-orange-breadcrumb: #e3a245 !default;
+$navbar-hover-item: #566773 !default;
+$navbar-active-item: #627582 !default;
+
+$form-white: #fbfbfb !default;
+$form-border-color: #3F729B !default;
+$form-border-bottom: rgba(94, 94, 94, 0.65) !default;
+$select-text: #71aac5 !default;
+$select-filter-background: #E0E0E0 !default;
+
+$button-text: #4c5a5f !default;
+$green-btn-outline: #81c784 !default;
+$orange-btn-outline: #FF8800 !default;
+$blue-btn-outline: #0099CC !default;
+
+$modal-footer-border: #c9c9c9 !default;
+$modal-header-background: #7F8C93 !default;
+$modal-close-color: #3c4b55 !default;
+
+$collection-header-grey: #d6d6d6 !default;
+$collection-border: #e0e0e0 !default;
+
+$spinkit-background-bounce: #83A7BF !default;
+
+// Font weights and sizes
+
+$main-font: 'Roboto Condensed';
+
+$h3-standard: 1.7rem !default;
+$h2-standard: 2.0rem !default;
+
+$font-body-size: 0.97rem !default;
+$font-standard-size: 1rem !default;
+$font-smaller-size: 90% !default;
+$font-tiny-size: 75% !default;
+
+$no-letter-spacing: 0px !default;
+
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-semi-bold: 500 !default;
+$font-weight-bold: 600 !default;
+
+// Shadows
+
+$level-1-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !default;
+$level-1-and-half-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !default;
+$level-2-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !default;
+$level-3-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19) !default;
+$level-4-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21) !default;
+$level-5-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22) !default;
+
+// Padding, Margins, Width, Height
+
+$side-nav-padding: 240px !default;
+$side-nav-width: 225px !default;
+$side-nav-height: 45px !default;
+
+$nav-height: 61px !default;
+
+$standard-margin-left: 1% !default;
+$standard-margin-right: 2% !default;
+$standard-padding: 15px !default;
+
+$container-bottom-padding: 50px !default;
+
+// Transistions
+
+$default-transition-duration: 0.25s !default;

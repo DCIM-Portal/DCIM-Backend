@@ -2,7 +2,17 @@
 
 $(document).on 'turbolinks:load', ->
 
-  #Datatable Defaults
+  # Due to materialize bug, we have to set click for these modal buttons
+  $('#onboard_error_button').click ->
+    $('#onboard_error').modal('open')
+
+  $('#sync_error_button').click ->
+    $('#sync_error').modal('open')
+
+  $('#system_sync_error_button').click ->
+    $('#system_sync_error').modal('open')
+
+  # Datatable Defaults
   $.extend true, $.fn.dataTable.defaults,
     processing: true
     serverSide: true
@@ -33,49 +43,47 @@ $(document).on 'turbolinks:load', ->
         text: '<i class="fa fa-share-square-o"></i> <span class="dt-btn-text">Onboard</span>'
         className: 'btn grey lighten-2 waves-effect onboard_submit'
         action: () ->
-          #Show indicator that modal is loading
+          # Show indicator that modal is loading
           $("#load-indicator").fadeIn()
-          #Empty out any existing content to avoid old content visibility
+          # Empty out any existing content to avoid old content visibility
           $("#onboard_modal").empty()
-          #Make an array to store our IDs
+          # Make an array to store our IDs
           id_array = []
-          #Get table rows that have a check
+          # Get table rows that have a check
           rows_selected = document.detail_table.api().column(0).checkboxes.selected();
           $.each rows_selected, (index, rowId) ->
-            #Add checked row IDs to the array
+            # Add checked row IDs to the array
             id_array.push rowId
-          #Send array via an ajax request to load the modal
+          # Send array via an ajax request to load the modal
           $.ajax
             url: '/admin/bmc_hosts/onboard_modal'
             type: 'post'
             data: selected_ids: id_array
-            #If successful, load modal and conditions
+            # If successful, load modal and conditions
             success: (data) ->
-              #Populate modal with data
+              # Populate modal with data
               $('#onboard_modal').html data
-              #Hide the load indicator
+              # Hide the load indicator
               $('#load-indicator').hide()
-              #Set collapsible content for each category
-              $('.modal-content-collapsible').collapsible()
-              #Get initial checked rows in entire modal
-              initial_selected = $('div.table-modal table').find('td input[type="checkbox"]:checked').length
-              $('span#total_select').html initial_selected
-              #Select all checkbox function
+              # Set collapsible content
+              $('.modal-content-collapsible').collapsible
+                onOpen: (e) ->
+                  $(e).find('span.list_banner').html 'Click to hide list'
+                onClose: (e) ->
+                  $(e).find('span.list_banner').html 'Click to expand list'
+              # Select all checkbox function
               $('.select_all').click ->
                 $(this).closest('div.table-modal table').find('td input').prop 'checked', @checked
-              #Checkbox click function
+              # Checkbox click function
               $('.table-modal table input[type="checkbox"]').click ->
                 table = $(this).closest('div.table-modal table')
                 total = table.find('td input[type="checkbox"]').length
                 count = table.find('td input[type="checkbox"]:checked').length
-                total_count = $('div.table-modal table').find('td input[type="checkbox"]:checked').length
                 select_all = table.find('th input[type="checkbox"]')
-                #Update selected number of rows
+                # Update selected number of rows
                 $(this).closest('li').find('span.num_selected').html count
-                #Update total selected in the modal
-                $('span#total_select').html total_count
-                #Make select_all checkbox indeterminate, checked,
-                #or unchecked depending on conditions
+                # Make select_all checkbox indeterminate, checked,
+                # or unchecked depending on conditions
                 if count > 0 and count < total
                   select_all.prop 'checked', true
                   select_all.prop 'indeterminate', true
@@ -85,16 +93,22 @@ $(document).on 'turbolinks:load', ->
                 else if count == 0
                   select_all.prop 'checked', false
                   select_all.prop 'indeterminate', false
-              #Parse times
+              # Parse times
               # XXX: Make this universal
               $('time').each (i, dom) ->
                 dom = $(dom)
                 dom.html(moment(dom.attr('datetime')).format('MMMM D YYYY, h:mma'))
-              #Open the modal
+              # Open the modal
               $('#onboard_modal').modal('open')
-              #Make the onboard submit button disabled
+              # Custom modal close action
+              $('div#onboard_modal.open, .modal-close').click ->
+                $('#onboard_modal').modal('close')
+              # Ensure that clicking inside the modal won't close it
+              $('div.modal-dialog').click (e) ->
+                e.stopPropagation()
+              # Make the onboard submit button disabled
               $('.onboard').prop 'disabled', true
-              #Make onboard submit button enabled on correct input value
+              # Make onboard submit button enabled on correct input value
               $('#confirm').keyup ->
                 $('.onboard').prop 'disabled', if @value != 'Onboard Systems' then true else false
 
@@ -114,7 +128,7 @@ $(document).on 'turbolinks:load', ->
       }
     ]
     columnDefs: [
-      #LOGOS
+      # Logos
       { targets: 'th_brand'
       orderable: true
       render: (data, type, full) ->
@@ -133,28 +147,28 @@ $(document).on 'turbolinks:load', ->
         else
           data
       }
-      #CHECKBOXES
+      # Checkboxes
       { targets: 'th_checkbox'
       checkboxes: {
         selectRow: true
         }
       }
-      #URL
+      # URL
       { targets: 'th_url' 
       orderable: false
       }
-      #Time
+      # Time
       { targets: 'th_time'
       render: (data, type, full) ->
         moment(data).format 'MMMM D YYYY, h:mma'
       }
-      #Onboard Step
+      # Onboard Step
       { targets: 'th_onboard_step'
       orderable: false
       visible: false
       searchable: false
       }
-      #Onboard Status
+      # Onboard Status
       { targets: 'th_onboard_status'
       render: (data, type, full) ->
         if !data
@@ -166,7 +180,7 @@ $(document).on 'turbolinks:load', ->
         else
           '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
       }
-      #Power Status
+      # Power Status
       { targets: 'th_power'
       render: (data, type, full, meta) ->
         if data == "on"
@@ -177,7 +191,7 @@ $(document).on 'turbolinks:load', ->
           '<div class="black-text">N/A</div>'
       width: 50
       }
-      #Sync Status
+      # Sync Status
       { targets: 'th_bmc_sync'
       render: (data, type, full) ->
         if !data
@@ -192,7 +206,7 @@ $(document).on 'turbolinks:load', ->
           '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
       width: 200
       }
-      #Product
+      # Product
       { targets: 'th_product'
       orderable: true
       render: (data, type, full) ->
@@ -201,7 +215,7 @@ $(document).on 'turbolinks:load', ->
         else
           '<div class="model_cell">' + data + '</div>'
       }
-      #Serial
+      # Serial
       { targets: 'th_serial'
       orderable: true
       render: (data, type, full, meta) ->
@@ -211,11 +225,11 @@ $(document).on 'turbolinks:load', ->
           '<div class="serial">N/A</div>'
       width: 115
       }
-      #BMC Address
+      # BMC Address
       { targets: 'th_bmc_address'
       width: 75
       }
-      #Scan Status
+      # Scan Status
       { targets: 'th_scan_status'
       searchable: false
       render: (data, type, full, meta) ->
@@ -233,7 +247,7 @@ $(document).on 'turbolinks:load', ->
       }
     ]
 
-  #Nav Menu Expand Parent if Active
+  # Nav Menu Expand Parent if Active
   setTimeout (->
     $('li#unfold > div.collapsible-body').slideDown
       duration: 350
@@ -246,12 +260,12 @@ $(document).on 'turbolinks:load', ->
     $('li#unfold > a.collapsible-header').addClass 'active'
   ), 150
 
-  #Hide message divs on load
+  # Hide message divs on load
   $("#success_explanation").hide()
   $('.form_card_error').hide()
   $("#waiting_explanation").hide()
 
-  #Submit Ajax Form
+  # Submit Ajax Form
   $('#ajax_submit_button').on 'click', (event) ->
     event.preventDefault()
     $('#ajax_submit_button').prop 'disabled', true
@@ -264,7 +278,7 @@ $(document).on 'turbolinks:load', ->
     $('.card-reveal').css 'height', '100%'
     $('.ovf-hidden').animate { height: autoHeight }, 150
 
-  #Reveal form and adjust card height
+  # Reveal form and adjust card height
   $('.activator').click ->
     $('.card-reveal').css 'height', 'auto'
     autoHeight = $('.card-reveal').outerHeight()
@@ -272,33 +286,33 @@ $(document).on 'turbolinks:load', ->
     $('.ovf-hidden').animate { height: autoHeight }, 250
     $('#outer-card').hide()
 
-  #Original card, adjust height
+  # Original card, adjust height
   $('.card-title').click ->
     $('#outer-card').show()
-    #Identify Internet Explorer because it handles height differently
+    # Identify Internet Explorer because it handles height differently
     ua = window.navigator.userAgent
     trident = ua.indexOf('Trident/')
-    #Give more height to IE browser
+    # Give more height to IE browser
     if trident > 0
       originalHeight = $('#height_check').outerHeight() + 107
     else
       originalHeight = $('#height_check').outerHeight() + 71
     $('.ovf-hidden').animate { height: originalHeight }, 250
 
-  #Resize card if table becomes block
+  # Resize card if table becomes block
   $(window).on 'resize', (event) ->
     windowSize = $(this).width()
     if windowSize = 865 && $('.card-reveal').css('display') == 'none'
       ua = window.navigator.userAgent
       trident = ua.indexOf('Trident/')
-      #Give more height to IE browser
+      # Give more height to IE browser
       if trident > 0
         originalHeight = $('#height_check').outerHeight() + 107
       else
         originalHeight = $('#height_check').outerHeight() + 71
       $('.ovf-hidden').stop().animate { height: originalHeight }, 250
 
-  #Ajax Form Success
+  # Ajax Form Success
   $("form#ajax_card_form").on "ajax:success", (event, data, status, xhr) ->
     $("#waiting_explanation").hide()
     $("#success_explanation").show()
@@ -310,7 +324,7 @@ $(document).on 'turbolinks:load', ->
       $('.ovf-hidden').animate { height: autoHeight }, 250
     $('#ajax_submit_button').prop('disabled', false)
 
-  #Ajax Form Error
+  # Ajax Form Error
   $("form#ajax_card_form").on "ajax:error", (event, xhr, status, error) ->
     $("#waiting_explanation").hide()
     errors = jQuery.parseJSON(xhr.responseText)
@@ -328,20 +342,16 @@ $(document).on 'turbolinks:load', ->
     $('#ajax_submit_button').prop('disabled', false)
 
 $(document).on 'turbolinks:before-cache', ->
-  #Load overlay
+  # Load overlay
   $('.overlay').show()
 
-  #If we select any items in a datatable,
-  #we must remove the selected attribute on reload
-  #$('tr').removeClass('selected')
-  
-  #Hide message divs on load
+  # Hide message divs on load
   $("#waiting_explanation").hide()
   $("#success_explanation").hide()
   $('.form_card_error').hide()
   
-  #Hide Async Wrapper
+  # Hide Async Wrapper
   $('#async_wrapper').hide()
 
-  #Prevent duplicate selects
+  # Prevent duplicate selects
   $('.m_select').material_select 'destroy'

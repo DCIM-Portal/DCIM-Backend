@@ -4,7 +4,7 @@
 </div>
 
 <div class="card ovf-hidden">
-  <div class="card-block" id="outer-card">
+  <div class="card-content" id="outer-card">
     <div id="async_wrapper">
       <%= render_async admin_api_bmc_scan_request_path %>
     </div>
@@ -34,7 +34,7 @@
           <%= f.text_field :end_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
         </div>
       </div>
-      <small id="address_help" class="form-text text-muted special_small_input_text">Give a start and end address of BMC IPv4 address range to scan.  The range can include up to 65,536 IP addresses.</small>
+      <small id="address_help" class="form-text text-muted small">Give a start and end address of BMC IPv4 address range to scan.  The range can include up to 65,536 IP addresses.</small>
       <div class="row form special-top">
         <div class="form-group">
           <%= f.label :zone_id, "Database Zone" %>
@@ -45,7 +45,7 @@
           <%= f.select :brute_list_id, @creds.collect { |cred| [cred.name, cred.id] }, {}, { class: "form-control" } %>
         </div>
       </div>
-      <small class="form-text text-muted special_small_input_text">Select the datacenter zone in which the systems are located, and select a credential list for system authentication.</small>
+      <small class="form-text text-muted small">Select the datacenter zone in which the systems are located, and select a credential list for system authentication.</small>
 
       <div class="clearfix">
         <%= f.button 'Create New Bmc Scan', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
@@ -61,16 +61,17 @@
 
 <hr class="invisible">
 <div class="card">
-  <div class="card-block">
+  <div class="card-content">
     <div class="clearfix">
       <h5 class="table-title">BMC Scan List</h5>
       <div class="pull-right">
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
+    <br>
     <%= render partial: "filter" %>
-    <div class="table-responsive z-depth-1">
-      <table id="bmc_scan_requests_table" class="table table-striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_admin_bmc_scan_requests_path(format: :json) %>" >
+    <div class="z-depth-1">
+      <table id="bmc_scan_requests_table" class="table striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_admin_bmc_scan_requests_path(format: :json) %>" >
         <thead>
           <tr>
             <th class="th_id">Scan ID</th>

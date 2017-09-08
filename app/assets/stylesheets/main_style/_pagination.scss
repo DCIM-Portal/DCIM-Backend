@@ -1,0 +1,49 @@
+// Pagination base style
+
+.pagination {
+ .page-link {
+    background-color: white;
+    font-size: 0.8rem;
+    border: 0;
+    -webkit-transition: all $default-transition-duration linear;
+    transition: all $default-transition-duration linear;
+
+  }
+  .active {
+    .page-link {
+      border-radius: 2px;
+      -webkit-transition: all $default-transition-duration linear;
+      transition: all $default-transition-duration linear;
+    }
+  }
+  a.page-link:hover {
+    color: $white;
+    -webkit-transition: all $default-transition-duration linear;
+    transition: all $default-transition-duration linear;
+    background-color: $primary-green-hover;
+  }
+  .page-item.disabled .page-link:hover {
+    color: $muted;
+  }
+  .page-item.active .page-link {
+    background-color: $primary-green;
+  }
+}
+
+// Pagination circle style
+
+.pagination.pagination-circle {
+  .page-link {
+    border-radius: 50%;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  .page-link:hover {
+    border-radius: 50%;
+  }
+  .active {
+    .page-link {
+      border-radius: 50%;
+    }
+  }
+}

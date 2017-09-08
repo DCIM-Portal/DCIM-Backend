@@ -1,0 +1,41 @@
+// Alert base style
+
+.alert {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+// Table refresh alert
+
+.table-refresh-alert {
+  display: none;
+  position: fixed;
+  top: 4.7em;
+  left: 50%;
+  height: 30px;
+  width: 258px;
+  margin-left: -18px;
+  z-index: 800;
+  font-weight: $font-weight-light;
+  font-size: 0.8rem;
+  p {
+    line-height: 5px;
+    margin: 0;
+    span.reload-table {
+      font-weight: $font-weight-normal;
+      cursor: pointer;
+    }
+  }
+  i.fa {
+    line-height: 5px;
+  }
+}
+
+// Adjust table refresh alert position on mobile view
+
+@media only screen and (max-width: 992px) {
+  .table-refresh-alert { margin-left: -103px; }
+}
+

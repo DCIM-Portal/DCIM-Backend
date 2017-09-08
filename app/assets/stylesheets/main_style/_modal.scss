@@ -1,0 +1,248 @@
+// Modal base style
+
+div.modal {
+  bottom: inherit;
+  max-height: 90%;
+  outline: none;
+  .modal-dialog {
+    margin: auto;
+    max-width: 100%;
+    outline: none;
+    .modal-body {
+      outline: none;
+      position: relative;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 15px;
+      .collapsible-header {
+        border-bottom: none;
+        padding: 0.8rem;
+        display: block;
+      }
+      .collapsible-body {
+        border-bottom: none;
+        border: solid 1px $standard-grey;
+        border-top: none;
+      }
+      hr {
+        margin: 0.5rem;
+      }
+      blockquote.red_line {
+        font-size: 1.1rem;
+        border-left: 5px solid $primary-red;
+        padding-left: 0.5rem;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+      blockquote.yellow_line {
+        font-size: 1.1rem;
+        border-left: 5px solid $primary-yellow;
+        padding-left: 0.5rem;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+      blockquote.green_line {
+        font-size: 1.1rem;
+        border-left: 5px solid $primary-green;
+        padding-left: 0.5rem;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+      .modal-footer {
+        display: block;
+        padding: 0.85rem 0;
+        border-top: 1px solid $modal-footer-border;
+        .green {
+          margin-right: 1rem;
+        }
+      }
+      .alert p, .card .card-content p {
+        margin-bottom: 0;
+      }
+      .alert {
+        margin-bottom: 1rem;
+      }
+      .table-modal {
+        tr th [type="checkbox"]:not(:checked),
+        tr th [type="checkbox"]:checked,
+        tr td [type="checkbox"]:not(:checked),
+        tr td [type="checkbox"]:checked {
+          display: none;
+        }
+        label {
+          color: transparent;
+        }
+        [type="checkbox"] + label {
+          padding-left: 0;
+          padding: 0.15rem;
+          height: 0.5rem;
+          line-height: 0.5rem;
+        }
+        [type="checkbox"].filled-in:not(:checked) + label:after,
+        [type="checkbox"].filled-in:checked + label:after {
+          height: 16px;
+          width: 16px;
+          top: -5px;
+          left: -1px;
+        }
+        tr th [type="checkbox"].filled-in:not(:checked) + label:after {
+          border: 2px solid $white;
+        }
+        [type="checkbox"].filled-in:checked + label:after {
+          border: 2px solid $primary-green;
+          background-color: $primary-green;
+        }
+        [type="checkbox"].filled-in:checked + label:before {
+          top: -4.5px;
+          left: 1px;
+          width: 5px;
+          height: 10px;
+        }
+        [type="checkbox"]:checked + label:before {
+          z-index: 1;
+          top: -5px;
+          left: 1px;
+          width: 5px;
+          height: 10px;
+          border-right: 2px solid $white;
+          border-bottom: 2px solid $white;
+        }
+        [type="checkbox"] + label:before, [type="checkbox"]:not(.filled-in) + label:after {
+          border: none;
+        }
+        [type="checkbox"]:not(.filled-in) + label:after {
+          border: 0;
+          border-radius: 2px;
+          border: 2px solid $white;
+          height: 16px;
+          width: 16px;
+          top: -7px;
+          left: -1px;
+          transform: scale(1);
+        }
+        [type="checkbox"]:indeterminate + label:before {
+          top: -1px;
+          left: 1px;
+          width: 4px;
+          height: 4px;
+          border-right: 4px solid $white;
+          z-index: 1;
+        }
+      }
+      thead {
+        background: $modal-header-background;
+        color: $white;
+        tr th {
+          border-radius: 0;
+        }
+      }
+    }
+    .modal-header {
+      border-bottom: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      padding: 15px;
+      .modal-title {
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+      .modal-action i {
+        color: $modal-close-color;
+      }
+    }
+  }
+}
+
+// Bottom sheet modal
+
+div.modal.bottom-sheet {
+  max-height: 65%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  .modal-content {
+    padding: 1rem 1rem 0 1rem;
+    background: #ebebeb;
+    min-height: 250px;
+    h4 {
+      font-size: 1.5rem;
+      margin: 0 0 0.8rem 0;
+      line-height: 1.0;
+      padding: 0.5rem 1rem;
+    }
+    blockquote {
+      margin: 0 0 0.5rem 0;
+      border-left: 5px solid $primary-red;
+      font-size: 2rem;
+      i.fa-close {
+        font-size: 1.5rem;
+        color: $modal-close-color;
+        display: block;
+        margin-top: 0.3rem;
+      }
+    }
+  }
+}
+
+// Onboard modal
+
+div#onboard_modal {
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  transform: translate(0, -100%) scale(1) !important;
+  .modal-dialog {
+    width: 65%;
+    background: $off-white;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+// Override default materialize modal animation
+
+div#onboard_modal.open:not([style*="display: none"]):not([style*="opacity: 0;"]) {
+  transform: translate(0, 0%) !important;
+}
+
+// Onboard modal widen for mobile view
+
+@media only screen and (max-width: 992px) {
+  div#onboard_modal {
+    .modal-dialog {
+      width: 85%;
+      .modal-body {
+        .table-modal {
+          thead {
+            background: $off-white;
+            color: inherit;
+            th {
+              [type="checkbox"]:checked + label:before {
+                border-right: 2px solid $black;
+                border-bottom: 2px solid $black;
+              }
+              [type="checkbox"]:not(.filled-in) + label:after {
+                border: 2px solid $black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+           

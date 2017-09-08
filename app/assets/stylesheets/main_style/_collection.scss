@@ -1,0 +1,38 @@
+// Collection base style
+
+.collection.with-header .collection-header {
+  background-color: $collection-header-grey;
+  border-bottom: none;
+  padding: 0.5rem 1.0rem;
+  h5 {
+    font-size: 1.0rem;
+    font-weight: $font-weight-light;
+    line-height: 100%;
+    margin: 0;
+  }
+}
+.collection {
+  font-weight: $font-weight-light;
+  font-size: 0.95rem;
+  border: none;
+  .collection-item {
+    background-color: $white;
+    line-height: 1.5rem;
+    padding: 0.1rem;
+    margin: 0;
+    border-bottom: 1px solid $collection-border;
+    .badge {
+      font-size: $font-smaller-size;
+      font-weight: $font-weight-light;
+    }
+    .power_status {
+      display: inline-block;
+      font-size: 0.80rem;
+      width: 45px;
+      line-height: 1.2rem;
+    }
+  }
+  .collection-item:hover {
+    background-color: $primary-blue-hover;
+  }
+}

@@ -5,14 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-#Bootstrap 4
-gem 'bootstrap', '4.0.0.alpha6'
-
 #Materialize
 gem 'materialize-sass'
-
-#Tether Support
-gem 'tether-rails'
 
 #Font-Awesome
 gem 'font-awesome-sass', '4.7.0'

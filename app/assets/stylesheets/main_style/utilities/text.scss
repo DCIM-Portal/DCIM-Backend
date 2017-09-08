@@ -1,0 +1,144 @@
+// Default Font
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-BoldItalic.eot');
+	src: url('roboto-condensed/RobotoCondensed-BoldItalic.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-BoldItalic.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-BoldItalic.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-BoldItalic.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-Italic.eot');
+	src: url('roboto-condensed/RobotoCondensed-Italic.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-Italic.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-Italic.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-Bold.eot');
+	src: url('roboto-condensed/RobotoCondensed-Bold.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-Bold.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-Bold.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-Regular.eot');
+	src: url('roboto-condensed/RobotoCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-Regular.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-Regular.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-Light.eot');
+	src: url('roboto-condensed/RobotoCondensed-Light.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-Light.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-Light.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	src: url('roboto-condensed/RobotoCondensed-LightItalic.eot');
+	src: url('roboto-condensed/RobotoCondensed-LightItalic.eot?#iefix') format('embedded-opentype'),
+		url('roboto-condensed/RobotoCondensed-LightItalic.woff2') format('woff2'),
+		url('roboto-condensed/RobotoCondensed-LightItalic.woff') format('woff'),
+		url('roboto-condensed/RobotoCondensed-LightItalic.ttf') format('truetype');
+	font-weight: 300;
+	font-style: italic;
+}
+
+// Bold Element
+
+strong {
+  font-weight: $font-weight-bold;
+}
+
+// Paragraph
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Uppercase
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+// Smaller font
+
+.form-group small, .small {
+  font-size: $font-smaller-size;
+}
+
+// Muted text
+
+.text-muted {
+  color: $muted;
+}
+
+// Form text
+
+.form-text {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+// Span heading
+
+.span_heading {
+  font-weight: 600;
+  margin-right: 1rem;
+  width: 110px;
+  display: inline-block;
+  vertical-align: center;
+}
+
+// Serial text
+
+.serial {
+  font-weight: 600;
+}
+
+// Model text
+
+.model_cell {
+  text-transform: uppercase;
+}
+
+// Section title
+
+.section_title {
+  float: left;
+  strong {
+    font-weight: $font-weight-bold;
+  }
+}
+
+// Hide text in mobile views
+
+@media (max-width: 767px) {
+  .hidden-sm-down {
+    display: none;
+  }
+}

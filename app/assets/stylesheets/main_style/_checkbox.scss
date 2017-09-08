@@ -1,0 +1,9 @@
+// Table checkboxes
+
+tr th [type="checkbox"]:not(:checked), tr th [type="checkbox"]:checked,
+tr td [type="checkbox"]:not(:checked), tr td [type="checkbox"]:checked {
+  position: relative;
+  opacity: 1;
+  pointer-events: none;
+  margin-top: 0.25rem;
+}

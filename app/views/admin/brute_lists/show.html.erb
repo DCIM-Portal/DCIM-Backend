@@ -1,15 +1,15 @@
 <%= form_for([:admin, @cred], remote: true, html: {"data-type" => :json, id: "ajax_card_cred"}) do |f| %>
   <h3>Credentials List <%= @cred.name %> Details</h3>
   <div class="card">
-    <div class="card-block">
+    <div class="card-content">
       <div class="clearfix">
         <%= link_to 'Back', admin_brute_lists_path, class: 'btn blue-grey lighten-2 back' %>
         <div class="pull-right">
           <p class="time_dock"><%= t :time_dock %></p>
         </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table-striped table-shadow">
+      <div class="z-depth-1">
+        <table class="table striped">
           <thead>
             <tr>
              <th>Credentials List ID</th>
@@ -32,12 +32,12 @@
   </div>
   <hr class="invisible">
   <div class="card wider" id="card-table">
-    <div class="card-block">
+    <div class="card-content">
       <h5>Username and Password List</h5>
       <a id="add_credrow" class='btn btn-outline-info waves-effect btn-sm'>Add New Row</a>
       <hr>
-      <div class="table-responsive">
-        <table id="cred_details" class="table table-striped table-shadow" width="100%" cellspacing="0">
+      <div class="z-depth-1">
+        <table id="cred_details" class="table striped" width="100%" cellspacing="0">
           <thead id="main_header">
             <tr>
               <th>Execute Order</th>

@@ -1,0 +1,49 @@
+// Ajax response messages
+
+#success_explanation {
+  padding: 20px;
+  display: inline-block;
+}
+#error_explanation {
+  padding: 20px;
+  display: inline-block;
+  ul {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+#waiting_explanation {
+  padding: 20px;
+  display: inline-block;
+}
+
+//Flash response messages
+
+#flash_error {
+  padding: 20px;
+  background: $primary-red;
+  display: inline-block;
+}
+#flash_success {
+  padding: 20px;
+  background: $primary-green;
+  display: inline-block;
+}
+
+// Timedock
+
+p.time_dock {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: $font-weight-light;
+}
+
+// Data load indicator
+
+#load-indicator {
+  float: right;
+  margin-top: 1.6rem;
+  padding: 0 0.4rem;
+  color: $white;
+  display: none;
+}

@@ -11,16 +11,14 @@
 // about supported directives.
 //
 //= require jquery3
-//= require tether
-//= require bootstrap
 //= require jquery_ujs
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery.serialize-object
-//= require materialize
 //= require datatables
 //= require dataTables.checkboxes
 //= require turbolinks
+//= require materialize-sprockets
 //= require moment
 //= require local-time
 //= require i18n
