@@ -1,6 +1,6 @@
 // HTML, body, and main
 
-html, body {
+html {
   background: $main-background;
   font-family: $main-font;
   font-size: $font-body-size;
@@ -14,6 +14,61 @@ main {
     margin-left: 3%;
     margin-right: 3%;
   }
+}
+
+// Logo
+.logo {
+  font-family: 'Okula Hayir Soft';
+  margin-top: 3rem;
+}
+
+.logo .title {
+  font-size: 6rem;
+  text-transform: uppercase;
+  line-height: 6rem;
+}
+
+.logo .subtitle {
+  font-size: 3rem;
+  line-height: 2rem;
+  margin-bottom: 3rem;
+}
+
+// Log in page
+.intro-bg {
+  background: url('/images/intro-bg.svg');
+  background-color: #1B1A19;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1000;
+}
+
+.login-card {
+  /* max-width: 30rem; */
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 2rem;
+  display: inline-block;
+  text-align: left;
+}
+
+// Footer
+.floating-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 0.5rem;
+}
+
+.version {
+  font-size: 0.75rem;
+  color: $white;
 }
 
 // Container

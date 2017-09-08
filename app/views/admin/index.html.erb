@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="intro-bg" data-src="/images/intro-bg.svg"></div>
+  <div class="logo green-text text-lighten-2">
+    <div class="center">
+      <img src="/images/rails_dcim_portal-logo.svg" alt="Rails DCIM Portal" />
+      <div class="title">Rails</div>
+      <div class="subtitle">DCIM Portal</div>
+    </div>
+  </div>
+  <div style="text-align: center">
+    <div class="card-panel login-card">
+      <%= form_for(:todo, url: 'todo') do |f| %>
+        <div class="row">
+          <div class="col">
+            <%= f.label :username %>
+            <%= f.text_field :username, class: 'form-control' %>
+      
+            <%= f.label :password %>
+            <%= f.password_field :password, class: 'form-control' %>
+          </div>
+          <div class="col">
+            <%= f.label :auth_provider %>
+            <div>
+              <%= f.radio_button :auth_provider, 'auto' %>
+              <%= f.label :auth_provider_auto, "Autodetect" %>
+            </div>
+            <div>
+              <%= f.radio_button :auth_provider, 'foreman' %>
+              <%= f.label :auth_provider_foreman, "Foreman" %>
+            </div>
+            <div>
+              <%= f.radio_button :auth_provider, 'ldap' %>
+              <%= f.label :auth_provider_ldap, "LDAP" %>
+            </div>
+            <div>
+              <%= f.radio_button :auth_provider, 'local' %>
+              <%= f.label :auth_provider_local, "Local" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= f.submit t(:log_in, default: 'Log in'), class: 'btn btn-sm green lighten-2' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render "footers/version" %>
