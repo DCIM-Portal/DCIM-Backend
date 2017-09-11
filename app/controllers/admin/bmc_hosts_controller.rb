@@ -38,6 +38,7 @@ class Admin::BmcHostsController < AdminController
 
   def multi_refresh
     selected_hosts = BmcHost.where(id: params[:selected_ids])
+    # TODO: Parallelize this.
     selected_hosts.each {|host| host.refresh!}
   end
 
