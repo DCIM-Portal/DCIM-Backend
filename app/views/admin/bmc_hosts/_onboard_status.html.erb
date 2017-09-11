@@ -1,0 +1,32 @@
+<% if host.onboard_request.is_a? OnboardRequest %>
+  <% if host.onboard_request.status.nil? %>
+    <div class="blue-grey lighten-1 white-text z-depth-1 sync">
+      <i class="fa fa-minus-circle" aria-hidden="true"></i>
+      Not Onboarded
+    </div>
+  <% elsif host.onboard_request.status == "success" %>
+    <div class="green lighten-2 white-text z-depth-1 sync">
+      <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+      <%= t(host.onboard_request.status, scope: 'filters.options.onboard_request.status') %>:
+      <%= t(host.onboard_request.step, scope: 'filters.options.onboard_request.step') %>
+    </div>
+  <% elsif host.onboard_request.status == "in_progress" %>
+    <div class="blue lighten-2 white-text z-depth-1 sync">
+      <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+      <%= t(host.onboard_request.status, scope: 'filters.options.onboard_request.status') %>:
+      <%= t(host.onboard_request.step, scope: 'filters.options.onboard_request.step') %>
+    </div>
+  <% else %>
+    <div class="red lighten-2 white-text z-depth-1 sync">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      <%= t(host.onboard_request.status, scope: 'filters.options.onboard_request.status') %>:
+      <%= t(host.onboard_request.step, scope: 'filters.options.onboard_request.step') %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="blue-grey lighten-1 white-text z-depth-1 sync">
+    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+    Not Onboarded
+  </div>
+<% end %>
+

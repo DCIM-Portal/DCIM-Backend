@@ -68,7 +68,7 @@
                 <tr>
                   <td><%= x[:bmc_host].ip_address %></td>
                   <td><%= x[:bmc_host].product.presence || "N/A" %></td>
-                  <td><%= x[:bmc_host].serial.presence || "N/A" %></td>
+                  <td><div class="serial"><%= x[:bmc_host].serial.presence || "N/A" %></div></td>
                   <td>
                     <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                       <!-- Not Finished -->
@@ -135,8 +135,8 @@
                   <td><%= host.ip_address %></td>
                   <td><%= host.brand %></td>
                   <td><%= host.product %></td>
-                  <td><%= host.serial %></td>
-                  <td><%= host.onboard_request.status %>: <%= host.onboard_request.step %></td>
+                  <td><div class="serial"><%= host.serial %></div></td>
+                  <td><%= render 'onboard_status', host: host %></td>
                 </tr>
               <% end %>
               </tbody>
@@ -192,7 +192,7 @@
                   <td><%= host.ip_address %></td>
                   <td><%= host.brand %></td>
                   <td><%= host.product %></td>
-                  <td><%= host.serial %></td>
+                  <td><div class="serial"><%= host.serial %></div></td>
                 </tr>
               <% end %>
               </tbody>

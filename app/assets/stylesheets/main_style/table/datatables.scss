@@ -178,8 +178,8 @@ div.dataTables_wrapper span.select-item {
 table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected, table.striped tbody tr:nth-of-type(odd).selected {
   background-color: #608096;
   color: #fff;
-  box-shadow: $level-1-and-half-shadow;
-  -webkit-box-shadow: $level-1-and-half-shadow;
+  box-shadow: $level-1-shadow;
+  -webkit-box-shadow: $level-1-shadow;
 }
 table.striped > tbody > tr:hover, table.striped tbody tr:nth-of-type(odd):hover {
   background-color: #d0d8dd;

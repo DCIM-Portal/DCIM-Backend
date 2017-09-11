@@ -40,7 +40,7 @@ $(document).on 'turbolinks:load', ->
           document.detail_table.api().column(0).checkboxes.deselectAll()
       }
       {
-        text: '<i class="fa fa-share-square-o"></i> <span class="dt-btn-text">Onboard</span>'
+        text: '<i class="fa fa-sign-in"></i> <span class="dt-btn-text">Onboard</span>'
         className: 'btn grey lighten-2 waves-effect onboard_submit'
         action: () ->
           # Show indicator that modal is loading

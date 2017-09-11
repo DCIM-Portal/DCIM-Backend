@@ -11,7 +11,14 @@
         edge: 'left'
       });
       $(document).ready(function () {
-        $('.collapsible').collapsible();
+        $('.collapsible').collapsible({
+          onOpen: function(e) {
+            $(e).find('span.list_banner').html('Click to hide list');
+          },
+          onClose: function(e) {
+            $(e).find('span.list_banner').html('Click to expand list');
+          }
+        });
         $('ul.tabs').tabs();
         $('#onboard_error').modal();
         $('#sync_error').modal();

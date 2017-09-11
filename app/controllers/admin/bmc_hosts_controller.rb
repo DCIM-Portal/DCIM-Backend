@@ -53,14 +53,18 @@ class Admin::BmcHostsController < AdminController
   end
 
   def multi_onboard
+    add_breadcrumb "Onboard Request".html_safe
     input = params[:onboard]
-    unless input.is_a?(Hash) && input[:bmc_host_ids].is_a?(Array)
+    unless input.is_a?(ActionController::Parameters) && input[:bmc_host_ids].is_a?(Array)
       ids = []
       #redirect_back fallback_location: {action: 'index'}
       #return
     else
       ids = input[:bmc_host_ids]
     end
+
+    puts "HERE ARE IDS"
+    puts ids
 
     selected_hosts = ids_to_bmc_hosts(ids)
     green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)

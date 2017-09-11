@@ -1,0 +1,221 @@
+<div class="clearfix">
+  <h3 class="section_title">Onboard Request</h3>
+  <%= render '/layouts/data_load' %>
+</div>
+
+<% if hosts.empty? %>
+  <p>
+    Does not appear to be a BMC host list to onboard.  Please go back and try again.
+  </p>
+  <%= link_to 'Back', admin_bmc_hosts_path, class: 'back btn blue-grey lighten-2' %>
+
+<% else %>
+
+<div class="card">
+  <div class="card-content">
+    <div class="clearfix">
+      <%= link_to 'Back', admin_bmc_hosts_path, class: 'back btn blue-grey lighten-2' %>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+    <% unless !red.empty? && (green.empty? && yellow.empty?) %>
+    <div class="card">
+      <div class="card-content">
+        <div class="alert green lighten-2 z-depth-1">
+          <i class="fa fa-sign-on" aria-hidden="true"></i>
+          BMC hosts are being onboarded.  This request was made on <strong><%= local_time(Time.now.iso8601, '%B %e %Y, %l:%M%P') %></strong>. Please review below.
+        </div>
+      </div>
+    </div>
+    <% else %>
+    <div class="card">
+      <div class="card-content">
+        <div class="alert red lighten-2 z-depth-1">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          The BMC hosts in this list could not be onboarded.  Please review below.
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<hr class="invisible">
+
+<div class="card">
+  <div class="card-content">
+    <div class="stand_alone">
+      <h5>Onboard Details</h5>
+    </div>
+
+    <div class="blue-grey white-text z-depth-1 sync">
+      <% if hosts.count == 1 %>
+        Total of <%= hosts.count %> BMC host
+      <% else %>
+        Total of <%= hosts.count %> BMC hosts
+      <% end %>
+    </div>
+
+    <hr>
+
+    <ul class="collapsible" data-collapsible="expandable">
+
+    <% if !red.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="red_line">
+            BMC Hosts with Unsatisfied Conditions
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left list_banner">Click to expand list.</span>
+            <span class="small pull-right">
+            <% if red.count == 1 %>
+              <%= red.count %> BMC host
+            <% else %>
+              <%= red.count %> BMC hosts
+            <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="z-depth-1 collapsible-body">
+          <p>These BMC hosts failed validation during the time of submittal.  Please review the details below.</p>
+          <br>
+          <div class="overflow-x table-modal z-depth-1">
+            <table class="table-sm striped centered">
+              <thead>
+                <tr>
+                  <th>BMC Address</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                  <th>Issue</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% red.each do |x| %>
+                <tr>
+                  <td><%= x[:bmc_host].ip_address %></td>
+                  <td><%= x[:bmc_host].product.presence || "N/A" %></td>
+                  <td><div class="serial"><%= x[:bmc_host].serial.presence || "N/A" %></div></td>
+                  <td>
+                    <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                      <% key = x[:exception].class.name.underscore %>
+                      <% message = t(x[:exception].message, scope: 'exceptions.messages', default: x[:exception].message) %>
+                      <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x[:exception].class.name %>
+                      <% default = "#{x[:exception].class}: #{message}" %>
+                      <%= raw t(key, scope: 'exceptions', message: message, default: default) %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+    <hr class="invisible">
+    <% end %>
+
+    <% if !yellow.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="yellow_line">
+            BMC Hosts with Existing Onboard Request
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left list_banner">Click to expand list.</span>
+            <span class="small pull-right">
+              <%= yellow.count %> BMC
+              <% if yellow.count == 1 %>
+                host
+              <% else %>
+                hosts
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="z-depth-1 collapsible-body">
+          <p>BMC hosts in this list are in the process of being re-onboarded.</p>
+          <br>
+          <div class="table-responsive table-modal z-depth-1">
+            <table class="table-sm striped centered responsive-table">
+              <thead>
+                <tr>
+                  <th>BMC Address</th>
+                  <th>Brand</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                  <th>Onboard State</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% yellow.each do |x|; host = x[:bmc_host] %>
+                <tr>
+                  <td><%= host.ip_address %></td>
+                  <td><%= host.brand %></td>
+                  <td><%= host.product %></td>
+                  <td><div class="serial"><%= host.serial %></div></td>
+                  <td><%= render 'onboard_status', host: host %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <hr class="invisible">
+    <% end %>
+
+    <% if !green.empty? %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="green_line">
+            BMC Hosts Getting Onboarded for First Time
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left list_banner">Click to expand list.</span>
+            <span class="small pull-right">
+              <%= green.count %> BMC
+              <% if green.count == 1 %>
+                host
+              <% else %>
+                hosts
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="z-depth-1 collapsible-body">
+          <p>BMC hosts in this list are in the process of being onboarded for the first time.</p>
+          <br>
+          <div class="table-responsive table-modal z-depth-1">
+            <table class="table-sm striped centered responsive-table">
+              <thead>
+                <tr>
+                  <th>BMC Address</th>
+                  <th>Brand</th>
+                  <th>Product</th>
+                  <th>Serial</th>
+                  <th>Onboard State</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% green.each do |x|; host = x[:bmc_host] %>
+                <tr>
+                  <td><%= host.ip_address %></td>
+                  <td><%= host.brand %></td>
+                  <td><%= host.product %></td>
+                  <td><div class="serial"><%= host.serial %></div></td>
+                  <td><%= render 'onboard_status', host: host %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+
+  <% end %>
+</div>
