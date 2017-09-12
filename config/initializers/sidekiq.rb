@@ -8,5 +8,3 @@ Sidekiq.configure_client do |config|
 end
 
 Sidekiq.default_worker_options['retry'] = 0
-
-LiveViewSubscription.destroy_all

@@ -366,10 +366,8 @@ $(document).on 'turbolinks:before-cache', ->
 
 # LiveUpdates
 @live_update_connected = ->
-  console.log "LiveUpdate active!"
 
 @live_update_received = (time) ->
-  console.log "LiveUpdate received at " + time
 
   # Renderer: Model
   $('[data-livetype="model"]').each (i, dom) ->
@@ -381,7 +379,7 @@ $(document).on 'turbolinks:before-cache', ->
       headers:
         'Accept': 'application/json'
       success: (data) ->
-        document.sync_view_category(data)
+        document.sync_model(data)
       error: (xhr, status, exception) ->
         console.log "LiveUpdate error: AJAX received " + exception + " with XHR:"
         console.log xhr
