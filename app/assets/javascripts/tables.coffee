@@ -18,7 +18,7 @@ document.render_count = 0
   document.make_detail_table?(document.data_cache?[document.location.href]?[document.detail_name])
   if document.documentElement.hasAttribute("data-turbolinks-preview")
     return
-  document.detail_table?.api?().ajax.reload()
+  document.detail_table?.api?().ajax.reload(null, false)
   $("#load-indicator").fadeOut(350)
   document.render_count += 1
 
@@ -28,12 +28,13 @@ document.render_count = 0
 
   #Click event for table refresh alert
   $('#reload_table').on 'click', ->
-    document.detail_table?.api?().ajax.reload()
+    document.detail_table?.api?().ajax.reload(null, false)
     $('.table-refresh-alert').slideUp 'fast'
     
 
-  subscribe_to_live_view(document.category_name)
-  subscribe_to_live_view(document.detail_name)
+#  subscribe_to_live_view(document.category_name)
+#  subscribe_to_live_view(document.detail_name)
+  subscribe_to_live_update()
 
 $(document).on 'turbolinks:render', ->
   ready()

@@ -71,7 +71,7 @@
     <br>
     <%= render partial: "layouts/filter" %>
     <div class="z-depth-1">
-      <table id="bmc_scan_requests_table" class="table striped nowrap" width="100%" cellspacing="0" data-source="<%= datatable_admin_bmc_scan_requests_path(format: :json) %>" >
+      <table id="bmc_scan_requests_table" class="table striped nowrap" width="100%" cellspacing="0" data-livetype="datatable" data-source="<%= datatable_admin_bmc_scan_requests_path(format: :json) %>" >
         <thead>
           <tr>
             <th class="th_id">Scan ID</th>

@@ -22,7 +22,7 @@
     <br>
     <%= render partial: "layouts/filter" %>
     <div class="z-depth-1 overflow-x">
-      <table id="bmc_hosts_table" class="table striped nowrap" cellspacing="0" width="100%" data-source="<%= datatable_admin_bmc_hosts_path(format: :json) %>">
+      <table id="bmc_hosts_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= datatable_admin_bmc_hosts_path(format: :json) %>">
         <thead>
           <tr>
             <th class="th_checkbox"></th>

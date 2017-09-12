@@ -14,12 +14,6 @@ $(document).on 'turbolinks:load', ->
         return undefined
       ajax: {
         url: $(document.detail_table_selector).data('source')
-        data: (d) ->
-          if $('#filters').length
-            return $.extend {}, $('#filters').serializeObject(), d
-          else if document.datatables_state_cache[document.href]?.bmc_scan_request?.filters?
-            return $.extend {}, $(document.datatables_state_cache[document.href]?.bmc_scan_request?.filters).serializeObject(), d
-          return d
       }
       columns: [
         { "data": "id" },
@@ -78,12 +72,6 @@ $(document).on 'turbolinks:load', ->
         return undefined
       ajax: {
         url: $(document.detail_table_selector).data('source')
-        data: (d) ->
-          if $('#filters').length
-            return $.extend {}, $('#filters').serializeObject(), d
-          else if document.datatables_state_cache[document.href]?.bmc_host?.filters?
-            return $.extend {}, $(document.datatables_state_cache[document.href]?.bmc_host?.filters).serializeObject(), d
-          return d
       }
       columns: [
         {data: 'checkbox'}

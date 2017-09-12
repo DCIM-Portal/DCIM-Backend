@@ -12,7 +12,7 @@
     </div>
 
     <div id="height_check" class="z-depth-1 overflow-x">
-      <table class="table striped" id="show_view_table">
+      <table class="table striped" id="show_view_table" data-source="<%= request.env['PATH_INFO'] %>" data-livetype="model">
         <thead>
           <tr>
             <th>Scan ID</th>
@@ -112,7 +112,7 @@
     </div>
     <%= render partial: "layouts/filter" %>
     <div class="z-depth-1 overflow-x">
-      <table id="bmc_scan_request_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-source="<%= bmc_hosts_datatable_admin_bmc_scan_request_path(format: :json) %>" >
+      <table id="bmc_scan_request_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= bmc_hosts_datatable_admin_bmc_scan_request_path(format: :json) %>" >
         <thead>
           <tr>
             <th class="th_checkbox"></th>

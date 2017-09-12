@@ -110,12 +110,6 @@ $(document).on 'turbolinks:load', ->
         return undefined
       ajax: {
         url: $(document.detail_table_selector).data('source')
-        data: (d) ->
-          if $('#filters').length
-            return $.extend {}, $('#filters').serializeObject(), d
-          else if document.datatables_state_cache[document.href]?.brute_list?.filters?
-            return $.extend {}, $(document.datatables_state_cache[document.href]?.brute_list?.filters).serializeObject(), d
-          return d
       }
       columns: [
         { "data": "id" },

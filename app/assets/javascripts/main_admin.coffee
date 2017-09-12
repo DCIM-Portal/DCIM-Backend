@@ -20,6 +20,14 @@ $(document).on 'turbolinks:load', ->
     deferLoading: 0
     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
     deferRender: true
+    ajax: {
+      data: (d) ->
+        if $('#filters').length
+          return $.extend {}, $('#filters').serializeObject(), d
+        else if document.datatables_state_cache[document.href]?.bmc_scan_request?.filters?
+          return $.extend {}, $(document.datatables_state_cache[document.href]?.bmc_scan_request?.filters).serializeObject(), d
+        return d
+    }
     buttons: [
       {
         extend: 'copyHtml5'
@@ -355,3 +363,62 @@ $(document).on 'turbolinks:before-cache', ->
 
   # Prevent duplicate selects
   $('.m_select').material_select 'destroy'
+
+# LiveUpdates
+@live_update_connected = ->
+  console.log "LiveUpdate active!"
+
+@live_update_received = (time) ->
+  console.log "LiveUpdate received at " + time
+
+  # Renderer: Model
+  $('[data-livetype="model"]').each (i, dom) ->
+    j = $(dom)
+    url = j.data('source') || window.location.pathname
+    $.ajax
+      url: url
+      method: 'get'
+      headers:
+        'Accept': 'application/json'
+      success: (data) ->
+        document.sync_view_category(data)
+      error: (xhr, status, exception) ->
+        console.log "LiveUpdate error: AJAX received " + exception + " with XHR:"
+        console.log xhr
+
+  # Renderer: Datatable
+  $('[data-livetype="datatable"]').each (i, dom) ->
+    j = $(dom)
+    t = j.dataTable().api()
+    params = t.ajax.params()
+    $.ajax
+      url: j.data('source')
+      data: params
+      method: 'get'
+      headers:
+        'Accept': 'application/json'
+      success: (new_dt) ->
+        new_row_ids = new_dt.data.map (row) ->
+          row.DT_RowId
+        cur_row_ids = document.detail_table.api().rows().ids().toArray()
+        ids_matched = cur_row_ids.length == new_row_ids.length && cur_row_ids.every (v, i) ->
+          v == new_row_ids[i]
+        
+        if !ids_matched
+          $('.table-refresh-alert').slideDown 'fast' if $('.table-refresh-alert').css('display') == 'none'
+          return
+        $('.table-refresh-alert').slideUp 'fast'
+    
+        document.detail_table.api().rows().data().each (v, i) ->
+          # XXX: Find faster way to compare these objects
+          if JSON.stringify(v) != JSON.stringify(new_dt.data[i])
+            document.detail_table.api().row('#'+v.DT_RowId).data(new_dt.data[i])
+    
+        # TODO: Update recordsTotal
+        # TODO: Update recordsFiltered 
+      error: (xhr, status, exception) ->
+        console.log "LiveUpdate error: AJAX received " + exception + " with XHR:"
+        console.log xhr
+
+  # Renderer: Partial
+  # TODO
