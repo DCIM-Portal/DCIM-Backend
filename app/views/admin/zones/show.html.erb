@@ -46,7 +46,7 @@
     </h4>
     <p>Edit a datacenter zone name.</p>
     <hr>
-    <%= form_for([:admin, @zone], remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+    <%= form_for([:admin, @zone], remote: true, html: {"data-type" => :json, id: "ajax_card_form_update"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Zone Name", for: "zone_name" %>
         <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "zone_name", "aria-describedby": "name_help" %>

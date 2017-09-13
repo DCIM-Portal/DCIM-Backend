@@ -43,7 +43,7 @@
     </h4>
     <p>Create a credential list.  Authentication is done in the order of the username/password list.</p>
     <hr>
-    <%= form_for([:admin, @cred], remote: true, html: {"data-type" => :json, id: "ajax_card_cred"}) do |f| %>
+    <%= form_for([:admin, @cred], remote: true, html: {"data-type" => :json, id: "ajax_card_cred_new"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Credential List Name", for: "brute_list_name" %>
         <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "brute_list_name" %>

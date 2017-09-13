@@ -18,7 +18,7 @@
     </h4>
     <p>This request will perform a scan of system BMCs within specified IP range.</p>
     <hr>
-    <%= form_for([:admin, @bmc_scan_request], remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+    <%= form_for([:admin, @bmc_scan_request], remote: true, html: {"data-type" => :json, id: "ajax_card_form_new"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Bmc Scan Name", for: "bmc_scan_request_name" %>
         <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>
@@ -90,8 +90,5 @@
   </div>
 </div>
 <script>
-  $("form#ajax_card_form").on("ajax:success", function() {
-    $("form#ajax_card_form")[0].reset();
-  });
   document.detail_name = 'bmc_scan_request'
 </script>

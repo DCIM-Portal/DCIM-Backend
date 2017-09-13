@@ -1,0 +1,47 @@
+<li>
+  <div class="collapsible-header z-depth-1">
+    <blockquote class="yellow_line">
+      BMC Hosts with Existing Onboard Request
+    </blockquote>
+    <div class="clearfix">
+      <span class="small pull-left list_banner">Click to expand list.</span>
+      <span class="small pull-right">
+        <%= yellow.count %> BMC
+        <% if yellow.count == 1 %>
+          host
+        <% else %>
+          hosts
+        <% end %>
+      </span>
+    </div>
+  </div>
+  <div class="z-depth-1 collapsible-body">
+    <p>BMC hosts in this list are in the process of being re-onboarded.</p>
+    <br>
+    <div class="table-responsive table-modal z-depth-1">
+      <table class="table-sm striped centered responsive-table">
+        <thead>
+          <tr>
+            <th>BMC Address</th>
+            <th>Brand</th>
+            <th>Product</th>
+            <th>Serial</th>
+            <th>Onboard State</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% yellow.each do |x|; host = x[:bmc_host] %>
+          <tr>
+            <td><%= host.ip_address %></td>
+            <td><%= host.brand %></td>
+            <td><%= host.product %></td>
+            <td><div class="serial"><%= host.serial %></div></td>
+            <td><%= render 'onboard_status', host: host %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</li>
+<hr class="invisible">

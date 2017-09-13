@@ -37,9 +37,7 @@ class Admin::BmcHostsController < AdminController
   end
 
   def multi_refresh
-    selected_hosts = BmcHost.where(id: params[:selected_ids])
-    # TODO: Parallelize this.
-    selected_hosts.each {|host| host.refresh!}
+    BmcRefreshJob.perform_later(params[:selected_ids])
   end
 
   def destroy
@@ -63,9 +61,6 @@ class Admin::BmcHostsController < AdminController
     else
       ids = input[:bmc_host_ids]
     end
-
-    puts "HERE ARE IDS"
-    puts ids
 
     selected_hosts = ids_to_bmc_hosts(ids)
     green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)

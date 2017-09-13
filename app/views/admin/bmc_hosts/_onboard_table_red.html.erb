@@ -1,0 +1,51 @@
+<li>
+  <div class="collapsible-header z-depth-1">
+    <blockquote class="red_line">
+      BMC Hosts with Unsatisfied Conditions
+    </blockquote>
+    <div class="clearfix">
+      <span class="small pull-left list_banner">Click to expand list.</span>
+      <span class="small pull-right">
+      <% if red.count == 1 %>
+        <%= red.count %> BMC host
+      <% else %>
+        <%= red.count %> BMC hosts
+      <% end %>
+      </span>
+    </div>
+  </div>
+  <div class="z-depth-1 collapsible-body">
+    <p>These BMC hosts failed validation and cannot be onboarded unless the issues are resolved first.</p>
+    <div class="overflow-x table-modal z-depth-1">
+      <table class="table-sm striped centered">
+        <thead>
+          <tr>
+            <th>BMC Address</th>
+            <th>Product</th>
+            <th>Serial</th>
+            <th>Issue</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% red.each do |x| %>
+          <tr>
+            <td><%= x[:bmc_host].ip_address %></td>
+            <td><%= x[:bmc_host].product.presence || "N/A" %></td>
+            <td><div class="serial"><%= x[:bmc_host].serial.presence || "N/A" %></div></td>
+            <td>
+              <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                <% key = x[:exception].class.name.underscore %>
+                <% message = t(x[:exception].message, scope: 'exceptions.messages', default: x[:exception].message) %>
+                <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x[:exception].class.name %>
+                <% default = "#{x[:exception].class}: #{message}" %>
+                <%= raw t(key, scope: 'exceptions', message: message, default: default) %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</li>
+<hr class="invisible">

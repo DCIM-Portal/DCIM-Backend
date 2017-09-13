@@ -63,7 +63,7 @@
     </h4>
     <p>Update this request and rescan for system BMCs within the specified IP range.</p>
     <hr>
-    <%= form_for([:admin, @bmc_scan_request], remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+    <%= form_for([:admin, @bmc_scan_request], remote: true, html: {"data-type" => :json, id: "ajax_card_form_update"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Bmc Scan Name", for: "bmc_scan_request_name" %>
         <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "bmc_scan_request_name", "aria-describedby": "name_help" %>

@@ -17,7 +17,7 @@
     </h4>
     <p>Add a datacenter zone to place systems in.</p>
     <hr>
-    <%= form_for([:admin, @zone], remote: true, html: {"data-type" => :json, id: "ajax_card_form"}) do |f| %>
+    <%= form_for([:admin, @zone], remote: true, html: {"data-type" => :json, id: "ajax_card_form_new"}) do |f| %>
       <div class="form-group">
         <%= f.label :name, "Datacenter Zone Name", for: "zone_name" %>
         <%= f.text_field :name, class: "form-control browser-default", type: "text", id: "zone_name", "aria-describedby": "name_help" %>
@@ -63,9 +63,5 @@
   </div>
 </div>
 <script>
-  $("form#ajax_card_form").on("ajax:success", function() {
-    $("form#ajax_card_form")[0].reset();
-  });
-
   document.detail_name = 'zone'
 </script>

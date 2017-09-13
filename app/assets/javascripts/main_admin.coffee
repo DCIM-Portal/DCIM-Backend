@@ -119,7 +119,20 @@ $(document).on 'turbolinks:load', ->
               # Make onboard submit button enabled on correct input value
               $('#confirm').keyup ->
                 $('.onboard').prop 'disabled', if @value != 'Onboard Systems' then true else false
-
+            error: (event, exception, status) ->
+              data = '<div class="modal-dialog z-depth-3" role="document">' +
+              '<div class="modal-header red lighten-2 z-depth-1">' +
+              '<h4 class="modal-title white-text">Error</h4>' +
+              '<a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a>' +
+              '</div>' +
+              '<div class="modal-body">' +
+              '<p>Unable to process due to <strong><em>' + exception + ': ' + status + '</em></strong>.</p>' +
+              '<div class="modal-footer">' +
+              '<a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>' +
+              '</div></div></div>'
+              $('#onboard_modal').html data
+              $('#load-indicator').hide()
+              $('#onboard_modal').modal('open')
       }
       {
         text: '<i class="fa fa-refresh"></i> <span class="dt-btn-text">Refresh BMC Facts</span>'
@@ -273,6 +286,9 @@ $(document).on 'turbolinks:load', ->
   $('.form_card_error').hide()
   $("#waiting_explanation").hide()
 
+  # Define standard ajax forms
+  ajax_forms = "form#ajax_card_form_new, form#ajax_card_form_update, form#ajax_card_cred_new, form#ajax_card_cred_update"
+
   # Submit Ajax Form
   $('#ajax_submit_button').on 'click', (event) ->
     event.preventDefault()
@@ -280,7 +296,7 @@ $(document).on 'turbolinks:load', ->
     $('#error_explanation').hide()
     $('#success_explanation').hide()
     $('#waiting_explanation').show()
-    $('#ajax_card_form').submit()
+    $(ajax_forms).submit()
     $('.card-reveal').css 'height', 'auto'
     autoHeight = $('.card-reveal').outerHeight()
     $('.card-reveal').css 'height', '100%'
@@ -321,7 +337,7 @@ $(document).on 'turbolinks:load', ->
       $('.ovf-hidden').stop().animate { height: originalHeight }, 250
 
   # Ajax Form Success
-  $("form#ajax_card_form").on "ajax:success", (event, data, status, xhr) ->
+  $(ajax_forms).on "ajax:success", (event, data, status, xhr) ->
     $("#waiting_explanation").hide()
     $("#success_explanation").show()
     $('.form_card_error').hide()
@@ -330,10 +346,10 @@ $(document).on 'turbolinks:load', ->
       autoHeight = $('.card-reveal').outerHeight()
       $('.card-reveal').css 'height', '100%'
       $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_button').prop('disabled', false)
+    $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
 
   # Ajax Form Error
-  $("form#ajax_card_form").on "ajax:error", (event, xhr, status, error) ->
+  $(ajax_forms).on "ajax:error", (event, xhr, status, error) ->
     $("#waiting_explanation").hide()
     errors = jQuery.parseJSON(xhr.responseText)
     $("#success_explanation").hide()
@@ -347,7 +363,11 @@ $(document).on 'turbolinks:load', ->
       autoHeight = $('.card-reveal').outerHeight()
       $('.card-reveal').css 'height', '100%'
       $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_button').prop('disabled', false)
+    $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
+
+  # Clear out ajax new form submission on success
+  $('form#ajax_card_form_new, form#ajax_card_cred_new').on 'ajax:success', ->
+    $('form#ajax_card_form_new, form#ajax_card_cred_new')[0].reset()
 
 $(document).on 'turbolinks:before-cache', ->
   # Load overlay

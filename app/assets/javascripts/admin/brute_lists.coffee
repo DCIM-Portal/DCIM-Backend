@@ -2,24 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#Update credential row span value (visual only)
+# Update credential row span value (visual only)
 updateCredrow = ->
   $('.row_order').each (i) ->
     $(this).html i + 1
 
-#Update execute order
+# Update execute order
 updateIndexes = ->
   $('.number_order').each (i) ->
     $(this).val i + 1
 
-#Remove credential row and update span value
+# Remove credential row and update span value
 $(document).on 'click', '#del_credrow', (e) ->
   e.preventDefault()
   $(this).parent().parent().remove()
   updateCredrow()
   $('.ovf-hidden').animate { height: '-=78' }, 150
 
-#Add new credential row
+# Add new credential row
 $(document).on 'click', '#add_credrow', (e) ->
     e.preventDefault()
     counter = $('#cred_details').find("tbody > .credential_row").length + 1
@@ -28,7 +28,7 @@ $(document).on 'click', '#add_credrow', (e) ->
 
 $(document).on 'turbolinks:load', ->
 
-  #When page loads, remove any duplicate rows (visual only)
+  # When page loads, remove any duplicate rows (visual only)
   seen = {}
   $('#cred_detail_tbody tr').each ->
     txt = $(this).text()
@@ -37,7 +37,7 @@ $(document).on 'turbolinks:load', ->
     else
       seen[txt] = true
 
-  #Submit Cred Ajax Form
+  # Submit Cred Ajax Form
   $('#ajax_submit_creds').on 'click', (event) ->
     event.preventDefault()
     $('#ajax_submit_creds').prop 'disabled', true
@@ -52,44 +52,16 @@ $(document).on 'turbolinks:load', ->
         name = name.replace(/\[[0-9]+\]/g, '[' + i + ']')
         $(this).attr 'name', name
     updateIndexes()
-    $('#ajax_card_cred').submit()
+    $('#ajax_card_cred_new, #ajax_card_cred_update').submit()
     $('.card-reveal').css 'height', 'auto'
     autoHeight = $('.card-reveal').outerHeight()
     $('.card-reveal').css 'height', '100%'
     $('.ovf-hidden').animate { height: autoHeight }, 150
 
-
-  #Cred Ajax Form Success
-  $("form#ajax_card_cred").on "ajax:success", (event, data, status, xhr) ->
-    $("#waiting_explanation").hide()
-    $("#success_explanation").show()
-    $('.form_card_error').hide()
-    $('.card-reveal').css 'height', 'auto'
-    autoHeight = $('.card-reveal').outerHeight()
-    $('.card-reveal').css 'height', '100%'
-    $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_creds').prop('disabled', false)
-
-  #Cred Ajax Form Error
-  $("form#ajax_card_cred").on "ajax:error", (event, xhr, status, error) ->
-    $("#waiting_explanation").hide()
-    errors = jQuery.parseJSON(xhr.responseText)
-    $("#success_explanation").hide()
-    $('.form_card_error').empty()
-    $('.form_card_error').append('<ul>')
-    for e in errors
-      $('.form_card_error ul').append('<li>' + e + '</li>')
-    $('.form_card_error').show()
-    $('.card-reveal').css 'height', 'auto'
-    autoHeight = $('.card-reveal').outerHeight()
-    $('.card-reveal').css 'height', '100%'
-    $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_creds').prop('disabled', false)
-
-  #Values for soft function on edit page
+  # Values for soft function on edit page
   sort_edit = $('#cred_detail_tbody')
 
-  #Enable sorting of table rows on edit page
+  # Enable sorting of table rows on edit page
   sort_edit.sortable
     itemSelector: '.credential_row'
     containerSelector: '#cred_detail_tbody'
@@ -97,7 +69,7 @@ $(document).on 'turbolinks:load', ->
       updateCredrow()
 
   document.render.detail_table.brute_list = (view) ->
-    #Brute List main table
+    # Brute List main table
     document.detail_table_selector = '#cred_table'
     document.detail_table = $(document.detail_table_selector).dataTable
       data: view
