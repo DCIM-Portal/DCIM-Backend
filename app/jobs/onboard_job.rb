@@ -1,3 +1,4 @@
+# XXX: Redo this for new OnboardRequest class
 class OnboardJob < ApplicationJob
   queue_as :default
 

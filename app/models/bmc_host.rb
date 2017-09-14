@@ -3,11 +3,12 @@ require 'resolv'
 class BmcHost < ApplicationRecord
   has_many :bmc_scan_request_hosts
   has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts
-  has_one :onboard_request
+  has_many :onboard_request_bmc_hosts
+  has_many :onboard_requests, -> { distinct }, through: :onboard_request_bmc_hosts
   enum power_status: {
     off: 0,
     on: 1
-  }
+  }, _prefix: true
   enum sync_status: {
     success: 0,
     in_progress: 1,
@@ -21,7 +22,22 @@ class BmcHost < ApplicationRecord
     unsupported_fru_error: 9,
     session_timeout_error: 10,
     bmc_busy_error: 11
-  }
+  }, _prefix: true
+  enum onboard_status: {
+    success: 0,
+    in_progress: 1,
+    stack_trace: 2,
+    timeout: 3
+  }, _prefix: true
+  enum onboard_step: {
+    complete: 0,
+    shutdown: 1,
+    power_off: 2,
+    pxe: 3,
+    discover: 4,
+    manage: 5,
+    bmc_creds: 6
+  }, _prefix: true
   belongs_to :zone
   belongs_to :system, optional: true
   validate :validate_changed_credentials
@@ -120,10 +136,10 @@ class BmcHost < ApplicationRecord
     raise Dcim::BmcHostIncompleteError, 'serial' unless self.serial
     raise Dcim::InvalidUsernameError unless self.username
     raise Dcim::InvalidPasswordError unless self.password
-    if self.onboard_request.is_a? OnboardRequest
+    if self.onboard_updated_at
       max = 600
-      elapsed = Time.now - self.onboard_request.updated_at
-      raise Dcim::JobCooldownError, {max: max, elapsed: elapsed} if elapsed <= max and self.onboard_request.status == :in_progress
+      elapsed = Time.now - self.onboard_updated_at
+      raise Dcim::JobCooldownError, {max: max, elapsed: elapsed} if elapsed <= max and self.onboard_status == :in_progress
     end
     # XXX: Next line is too slow if validating bulk BmcHostsController#onboard_modal
     #validate_correct_credentials

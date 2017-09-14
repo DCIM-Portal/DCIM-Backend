@@ -36,7 +36,7 @@
             <td id="onboard_table_<%= host.id %>_brand"><%= host.brand %></td>
             <td id="onboard_table_<%= host.id %>_product"><%= host.product %></td>
             <td id="onboard_table_<%= host.id %>_serial" class="serial"><%= host.serial %></td>
-            <td id="onboard_table_<%= host.id %>_onboard_status" class="onboard_status"><% if host.onboard_request %><%= host.onboard_request.status %>: <%= host.onboard_request.step %><% end %></td>
+            <td id="onboard_table_<%= host.id %>_onboard_status" class="onboard_status"><%= host.onboard_status %>: <%= host.onboard_step %></td>
           </tr>
         <% end %>
         </tbody>

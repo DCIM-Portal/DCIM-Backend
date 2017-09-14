@@ -29,8 +29,8 @@ $(document).on 'turbolinks:load', ->
         {data: 'zone_name'}
         {data: 'power_status'}
         {data: 'sync_status'}
-        {data: 'onboard_request_status'}
-        {data: 'onboard_request_step'}
+        {data: 'onboard_status'}
+        {data: 'onboard_step'}
         {data: 'updated_at'}
         {data: 'url'}
       ]

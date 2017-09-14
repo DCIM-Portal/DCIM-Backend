@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825122658) do
+ActiveRecord::Schema.define(version: 20170914204338) do
 
   create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "serial"
@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 20170825122658) do
     t.text "error_message"
     t.string "brand"
     t.string "product"
+    t.integer "onboard_status"
+    t.integer "onboard_step"
+    t.text "onboard_error_message"
+    t.datetime "onboard_updated_at"
     t.index ["ip_address"], name: "index_bmc_hosts_on_ip_address", unique: true
     t.index ["serial"], name: "index_bmc_hosts_on_serial", unique: true
     t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id"
@@ -72,14 +76,19 @@ ActiveRecord::Schema.define(version: 20170825122658) do
     t.index ["name"], name: "index_brute_lists_on_name", unique: true
   end
 
-  create_table "onboard_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "status"
-    t.integer "step"
+  create_table "onboard_request_bmc_hosts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "bmc_host_id"
+    t.bigint "onboard_request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "bmc_host_id"
-    t.text "error_message"
-    t.index ["bmc_host_id"], name: "index_onboard_requests_on_bmc_host_id"
+    t.index ["bmc_host_id"], name: "index_onboard_request_bmc_hosts_on_bmc_host_id"
+    t.index ["onboard_request_id"], name: "index_onboard_request_bmc_hosts_on_onboard_request_id"
+  end
+
+  create_table "onboard_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "systems", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

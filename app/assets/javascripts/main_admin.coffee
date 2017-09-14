@@ -64,7 +64,7 @@ $(document).on 'turbolinks:load', ->
             id_array.push rowId
           # Send array via an ajax request to load the modal
           $.ajax
-            url: '/admin/bmc_hosts/onboard_modal'
+            url: '/admin/bmc_hosts/onboard_requests/new_modal'
             type: 'post'
             data: selected_ids: id_array
             # If successful, load modal and conditions
@@ -195,11 +195,11 @@ $(document).on 'turbolinks:load', ->
         if !data
           '<div class="blue-grey lighten-1 white-text z-depth-1 sync"><i class="fa fa-minus-circle" aria-hidden="true"></i> Not Onboarded</div>'
         else if data == "success"
-          '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> '  + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
+          '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> '  + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
         else if data == "in_progress"
-          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
+          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> ' + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
         else
-          '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.onboard_request.status') + ': ' + I18n.t(full.onboard_request_step, scope: 'filters.options.onboard_request.step') + '</div>'
+          '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
       }
       # Power Status
       { targets: 'th_power'
@@ -404,9 +404,9 @@ $(document).on 'turbolinks:before-cache', ->
       else
         color = 'red lighten-2'
         prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
-    content ||= I18n.t(status, scope: 'filters.options.onboard_request.status', defaultValue: status) +
+    content ||= I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) +
                 ': ' +
-                I18n.t(step, scope: 'filters.options.onboard_request.step', defaultValue: step)
+                I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
     j.html('<div class="'+color+' white-text z-depth-1 sync">' +
            prefix + ' ' + content + '</div>')
 

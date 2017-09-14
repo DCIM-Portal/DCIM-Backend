@@ -4,7 +4,8 @@ require_relative '../../app/lib/dcim/exception'
 class OnboardJobTest < ActiveJob::TestCase
   setup do
     @mock_foreman_resource = Dcim::ForemanApi.new
-    @mock_request = OnboardRequest.new
+#    @mock_request = OnboardRequest.new
+    @mock_request = mock('object')
     @mock_request.bmc_host = BmcHost.new
 #    @onboard_job = OnboardJob.new(foreman_resource: @mock_foreman_resource,
 #                                  request: @mock_request)

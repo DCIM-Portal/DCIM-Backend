@@ -31,7 +31,7 @@
       <% end %>
     </div>
     <hr class="invisible">
-    <%= form_for(:onboard, url: multi_onboard_admin_bmc_hosts_path, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
+    <%= form_for(:onboard, url: admin_onboard_requests_path, html: {"data-type" => :json, id: "onboard_launch_job"}) do |f| %>
       <ul class="modal-content-collapsible" data-collapsible="expandable">
 
       <% if !red.empty? %>

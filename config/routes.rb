@@ -25,8 +25,6 @@ Rails.application.routes.draw do
     resources :bmc_hosts, :path => 'bmc_hosts' do
       collection do
         post :multi_refresh
-        post :onboard_modal
-        post :multi_onboard
         get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
       end
     end
@@ -39,6 +37,11 @@ Rails.application.routes.draw do
       end
     end
     get :api_bmc_scan_request, :controller => :bmc_scan_requests
+    resources :onboard_requests, :path => 'bmc_hosts/onboard_requests', except: [:edit, :new] do
+      collection do
+        post :new_modal
+      end
+    end
   end
   resources :systems
   mount Sidekiq::Web => '/sidekiq'

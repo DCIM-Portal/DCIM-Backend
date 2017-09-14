@@ -46,16 +46,14 @@ en:
   filters:
     records:
       bmc_host: "BMC Host"
-      onboard_request: "Onboard"
       zone: "Datacenter Zone"
     attributes:
       bmc_host:
         power_status: "Power Status"
         sync_status: "Sync Status"
         zone: "Datacenter Zone"
-      onboard_request:
-        status: "Status"
-        step: "Step"
+        onboard_status: "Onboard Status"
+        onboard_step: "Onboard Step"
     options:
       bmc_scan_request:
         status:
@@ -87,13 +85,12 @@ en:
           unsupported_fru_error: "Error: Unsupported FRU"
           session_timeout_error: "Error: Session timeout"
           bmc_busy_error: "Error: BMC busy"
-      onboard_request:
-        status:
+        onboard_status:
           success: "Success"
           in_progress: "In progress"
           stack_trace: "Error (see stack trace)"
           timeout: "Timeout"
-        step:
+        onboard_step:
           complete: "Finished"
           shutdown: "Shut down"
           power_off: "Power off"

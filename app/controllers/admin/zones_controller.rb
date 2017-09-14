@@ -86,11 +86,9 @@ class Admin::ZonesController < AdminController
     @filters = {}
     @filters[:bmc_host] = {
       power_status: BmcHost.power_statuses,
-      sync_status: BmcHost.sync_statuses
-    }
-    @filters[:onboard_request] = {
-      status: OnboardRequest.statuses,
-      step: OnboardRequest.steps
+      sync_status: BmcHost.sync_statuses,
+      onboard_status: BmcHost.onboard_statuses,
+      onboard_step: BmcHost.onboard_steps
     }
 
     respond_to do |format|

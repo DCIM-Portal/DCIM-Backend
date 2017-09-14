@@ -68,8 +68,8 @@ $(document).on 'turbolinks:load', ->
         {data: 'serial'}
         {data: 'power_status'}
         {data: 'sync_status'}
-        {data: 'onboard_request_status'}
-        {data: 'onboard_request_step'}
+        {data: 'onboard_status'}
+        {data: 'onboard_step'}
         {data: 'updated_at'}
         {data: 'url'}
       ]

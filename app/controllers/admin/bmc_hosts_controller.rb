@@ -14,11 +14,9 @@ class Admin::BmcHostsController < AdminController
     @filters[:bmc_host] = {
       zone: Zone.all.map { |key| [ key["name"],key["id"] ] }.to_h,
       power_status: BmcHost.power_statuses,
-      sync_status: BmcHost.sync_statuses
-    }
-    @filters[:onboard_request] = {
-      status: OnboardRequest.statuses,
-      step: OnboardRequest.steps
+      sync_status: BmcHost.sync_statuses,
+      onboard_status: BmcHost.onboard_statuses,
+      onboard_step: BmcHost.onboard_steps
     }
 
     respond_to do |format|
@@ -94,34 +92,6 @@ class Admin::BmcHostsController < AdminController
     @bmc_host = BmcHost.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_back fallback_location: {action: 'index'}
-  end
-
-  def ids_to_bmc_hosts(ids)
-    BmcHost.includes(:onboard_request).references(:onboard_request).where(id: ids)
-  end
-
-  def validate_bmc_hosts_for_onboard(bmc_hosts)
-    list_bmc_host_unonboardable = []
-    list_onboard_request_exists = []
-    list_no_onboard_request_yet = []
-    bmc_hosts.each do |host|
-      unonboardable_reason = nil
-      begin
-        host.validate_onboardable
-      rescue RuntimeError => unonboardable_reason
-      end
-      # BmcHost fails validation
-      if unonboardable_reason
-        list_bmc_host_unonboardable << { bmc_host: host, exception: unonboardable_reason }
-      # OnboardRequest exists
-      elsif host.onboard_request
-        list_onboard_request_exists << { bmc_host: host, onboard_request: host.onboard_request }
-      # New OnboardRequest
-      else
-        list_no_onboard_request_yet << { bmc_host: host }
-      end
-    end
-    [list_no_onboard_request_yet, list_onboard_request_exists, list_bmc_host_unonboardable]
   end
 
 end

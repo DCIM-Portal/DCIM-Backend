@@ -10,8 +10,8 @@ class Admin::ZoneDetailsDatatable < ApplicationDatatable
       serial: {source: "BmcHost.serial"},
       power_status: {source: "BmcHost.power_status", searchable: false, orderable: true},
       sync_status: {source: "BmcHost.sync_status", searchable: false, orderable: true},
-      onboard_request_status: {source: "OnboardRequest.status", searchable: false, orderable: true},
-      onboard_request_step: {source: "OnboardRequest.step", searchable: false, orderable: false},
+      onboard_status: {source: "BmcHost.onboard_status", searchable: false, orderable: true},
+      onboard_step: {source: "BmcHost.onboard_step", searchable: false, orderable: false},
       updated_at: {source: "BmcHost.updated_at", searchable: false, orderable: true}
     }
   end
@@ -24,8 +24,8 @@ class Admin::ZoneDetailsDatatable < ApplicationDatatable
       serial: record.serial,
       power_status: record.power_status,
       sync_status: record.sync_status,
-      onboard_request_status: record.onboard_request.try(:status),
-      onboard_request_step: record.onboard_request.try(:step),
+      onboard_status: record.onboard_status,
+      onboard_step: record.onboard_step,
       updated_at: record.updated_at.to_time.iso8601,
       checkbox: record.id,
       url: link_to('Details', [:admin, record], class: "btn blue lighten-2"),
@@ -37,14 +37,10 @@ class Admin::ZoneDetailsDatatable < ApplicationDatatable
   private
 
   def get_raw_records
-    query = Zone.find(params[:id]).bmc_hosts.includes(:onboard_request).references(:onboard_request)
+    query = Zone.find(params[:id]).bmc_hosts
     params_bmc_host = params[:bmc_host] || {}
-    params_onboard_request = params[:onboard_request] || {}
     params_bmc_host.each do |key, value|
       query = query.where({key.to_sym => value}) if value.present?
-    end
-    params_onboard_request.each do |key, value|
-      query = query.joins(:onboard_request).merge(OnboardRequest.where({key.to_sym => value})) if value.present?
     end
     query
   end
