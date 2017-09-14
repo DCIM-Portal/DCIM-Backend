@@ -22,6 +22,9 @@ table.striped tbody tr:nth-of-type(odd) {
   td {
     padding: .3rem;
   }
+  thead {
+    font-size: 0.9rem;
+  }
 }
 
 // Selected row text needs to be white in tables

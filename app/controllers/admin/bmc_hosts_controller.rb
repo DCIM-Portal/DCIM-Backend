@@ -68,7 +68,7 @@ class Admin::BmcHostsController < AdminController
     onboard_requests = []
     green.each do |item|
       bmc_host = item[:bmc_host]
-#      bmc_host.update(onboard_request: OnboardRequest.new(bmc_host: bmc_host))
+#      bmc_host.update(onboard_request: OnboardRequest.new(bmc_host: bmc_host)) unless params[:noop]
       onboard_requests << bmc_host.onboard_request
     end
     yellow.each do |item|
@@ -77,11 +77,14 @@ class Admin::BmcHostsController < AdminController
     end
 
     onboard_requests.each do |onboard_request|
-#      OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request)
+#      OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request) unless params[:noop]
     end
 
+    locals = { hosts: selected_hosts, red: red, yellow: yellow, green: green }
+
     respond_to do |format|
-      format.html { render locals: { hosts: selected_hosts, red: red, yellow: yellow, green: green } }
+      format.html { render locals: locals }
+      format.json { render json: locals }
     end
   end
 

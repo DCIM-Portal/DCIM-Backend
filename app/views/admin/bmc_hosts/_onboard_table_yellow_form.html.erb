@@ -18,7 +18,7 @@
   </div>
   <div class="z-depth-1 collapsible-body">
     <p>BMC hosts that are checked in this section will be requeued for onboarding.</p>
-    <div class="table-responsive table-modal z-depth-1">
+    <div class="table-modal z-depth-1">
       <table class="table-sm striped centered responsive-table">
         <thead>
           <tr>
@@ -40,11 +40,11 @@
               <%= f.check_box :bmc_host_ids, {multiple: true, id: "bmc_host_#{host.id}", class: "filled-in check_yellow"}, "#{host.id}", nil %>
               <label for="bmc_host_<%= host.id %>"></label>
             </td>
-            <td><%= host.ip_address %></td>
-            <td><%= host.brand %></td>
-            <td><%= host.product %></td>
-            <td><div class="serial"><%= host.serial %></div></td>
-            <td><%= render 'onboard_status', host: host %></td>
+            <td id="onboard_table_<%= host.id %>_ip_address"><%= host.ip_address %></td>
+            <td id="onboard_table_<%= host.id %>_brand"><%= host.brand %></td>
+            <td id="onboard_table_<%= host.id %>_product"><%= host.product %></td>
+            <td id="onboard_table_<%= host.id %>_serial" class="serial"><%= host.serial %></td>
+            <td id="onboard_table_<%= host.id %>_onboard_status" class="onboard_status"><% if host.onboard_request %><%= host.onboard_request.status %>: <%= host.onboard_request.step %><% end %></td>
           </tr>
         <% end %>
         </tbody>

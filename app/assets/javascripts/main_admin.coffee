@@ -384,6 +384,37 @@ $(document).on 'turbolinks:before-cache', ->
   # Prevent duplicate selects
   $('.m_select').material_select 'destroy'
 
+@render_onboard_status = ->
+  $('.onboard_status').each (i, dom) ->
+    j = $(dom)
+    status_and_step = j.html().split(': ')
+    status = status_and_step.shift()
+    step = status_and_step.join(': ')
+    switch status
+      when "success" 
+        color = 'green lighten-2'
+        prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
+      when "in_progress"
+        color = 'blue lighten-2'
+        prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
+      when ""
+        color = 'blue-grey lighten-1'
+        prefix = '<i class="fa fa-minus-circle" aria-hidden="true"></i>'
+        content = 'Not Onboarded'
+      else
+        color = 'red lighten-2'
+        prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+    content ||= I18n.t(status, scope: 'filters.options.onboard_request.status', defaultValue: status) +
+                ': ' +
+                I18n.t(step, scope: 'filters.options.onboard_request.step', defaultValue: step)
+    j.html('<div class="'+color+' white-text z-depth-1 sync">' +
+           prefix + ' ' + content + '</div>')
+
+$(document).on 'ajaxSuccess', ->
+  do render_onboard_status
+$(document).on 'turbolinks:load', ->
+  do render_onboard_status
+
 # LiveUpdates
 @live_update_connected = ->
 
