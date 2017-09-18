@@ -79,6 +79,10 @@ class OnboardJob < ApplicationJob
     bmc_host.onboard_step = :complete
     bmc_host.onboard_status = :success
     bmc_host.save!
+  rescue Dcim::JobTimeoutError => e
+    bmc_host.onboard_status = :timeout
+    bmc_host.onboard_error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")
+    bmc_host.save!
   rescue StandardError => e
     bmc_host.onboard_status = :stack_trace
     bmc_host.onboard_error_message = e.class.name + ": " + e.message + "\n" + e.backtrace.join("\n")

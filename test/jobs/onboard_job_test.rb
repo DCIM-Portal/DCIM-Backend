@@ -385,7 +385,7 @@ class OnboardJobTest < ActiveJob::TestCase
     @onboard_job.expects(:serial_onboarded?).with(bmc_host.serial).returns(false)
     @onboard_job.expects(:keep_trying).at_least_once.raises Timeout::Error
     @onboard_job.onboard(bmc_host)
-    assert_equal "stack_trace", bmc_host.onboard_status, "BmcHost onboard status should be stack trace"
+    assert_equal "timeout", bmc_host.onboard_status, "BmcHost onboard status should be timeout"
     assert bmc_host.onboard_error_message.try(:include?, "Dcim::JobTimeoutError"), "BmcHost onboard error message should contain name of exception"
   end
 
@@ -394,8 +394,17 @@ class OnboardJobTest < ActiveJob::TestCase
     @onboard_job.expects(:serial_onboarded?).with(bmc_host.serial).returns(true)
     @onboard_job.expects(:keep_trying).at_least_once.raises Timeout::Error
     @onboard_job.onboard(bmc_host)
-    assert_equal "stack_trace", bmc_host.onboard_status, "BmcHost onboard status should be stack trace"
+    assert_equal "timeout", bmc_host.onboard_status, "BmcHost onboard status should be timeout"
     assert bmc_host.onboard_error_message.try(:include?, "Dcim::JobTimeoutError"), "BmcHost onboard error message should contain name of exception"
+  end
+
+  test "onboard raises other exception" do
+    bmc_host = @mock_request.bmc_hosts.first
+    @onboard_job.expects(:serial_onboarded?).with(bmc_host.serial).returns(false)
+    @onboard_job.expects(:keep_trying).at_least_once.raises Dcim::InvalidCredentialsError
+    @onboard_job.onboard(bmc_host)
+    assert_equal "stack_trace", bmc_host.onboard_status, "BmcHost onboard status should be stack trace"
+    assert bmc_host.onboard_error_message.try(:include?, "Dcim::InvalidCredentialsError"), "BmcHost onboard error message should contain name of exception"
   end
 
   test "onboard try shutdown" do
