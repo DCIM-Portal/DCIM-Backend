@@ -14,12 +14,15 @@ module Dcim
       @result.body
     end
 
-    def to_hash
+    def to_h
       JSON.parse(self)
+    end
+    def to_hash
+      self.to_h
     end
 
     def [](key)
-      self.to_hash[key]
+      self.to_h[key]
     end
 
   end

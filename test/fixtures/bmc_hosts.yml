@@ -2,10 +2,12 @@
 
 one:
   serial: MyString1
-  ip_address: MyString1
+  ip_address: 192.168.0.1
   power_status: 1
+  zone: one
 
 two:
   serial: MyString2
-  ip_address: MyString2
+  ip_address: 192.168.0.2
   power_status: 1
+  zone: two

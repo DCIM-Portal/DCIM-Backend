@@ -43,6 +43,8 @@ class BmcHost < ApplicationRecord
   validate :validate_changed_credentials
   validates :ip_address, presence: true, uniqueness: true, format: { with: Resolv::IPv4::Regex }
 
+  before_save { self.onboard_updated_at = Time.now unless self.changes.select { |key| key.starts_with?('onboard_') }.empty? }
+
   def refresh!(secret=nil)
     secret = secret.as_json if secret.is_a? ApplicationRecord
     if secret.is_a? Hash
@@ -144,6 +146,11 @@ class BmcHost < ApplicationRecord
     # XXX: Next line is too slow if validating bulk BmcHostsController#onboard_modal
     #validate_correct_credentials
     true
+  end
+
+  def forget_onboard!
+    attributes = self.class.column_names.select { |key| key.starts_with? 'onboard_' }.zip([]).to_h
+    self.update_columns(attributes)
   end
 
   private

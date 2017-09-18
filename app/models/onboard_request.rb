@@ -4,5 +4,6 @@ class OnboardRequest < ApplicationRecord
   enum status: {
     complete: 0,
     in_progress: 1,
+    stack_trace: 2,
   }
 end

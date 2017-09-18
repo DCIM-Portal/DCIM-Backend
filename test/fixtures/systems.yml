@@ -2,6 +2,7 @@
 
 one:
   name: MyString
+  foreman_host_id: 1337
   cpu_model: MyString
   cpu_cores: 1
   cpu_threads: 1
@@ -15,6 +16,7 @@ one:
 
 two:
   name: MyString2
+  foreman_host_id: 2
   cpu_model: MyString2
   cpu_cores: 1
   cpu_threads: 1
