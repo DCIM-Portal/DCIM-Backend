@@ -1,79 +1,125 @@
 <div class="clearfix">
-  <h3 class="section_title">Onboard Request</h3>
+  <h3 class="section_title">Onboard Request <span class="category_onboard_request_id"><%= @onboard_request.id %></span> Details</h3>
   <%= render '/layouts/data_load' %>
 </div>
-
-<% if hosts.empty? %>
-  <p>
-    Does not appear to be a BMC host list to onboard.  Please go back and try again.
-  </p>
-  <%= link_to 'Back', admin_bmc_hosts_path, class: 'back btn blue-grey lighten-2' %>
-
-<% else %>
-
 <div class="card">
   <div class="card-content">
     <div class="clearfix">
-      <%= link_to 'Back', admin_bmc_hosts_path, class: 'back btn blue-grey lighten-2' %>
+      <%= link_to 'Back', admin_onboard_requests_path, class: 'btn blue-grey lighten-2 back' %>
       <div class="pull-right">
         <p class="time_dock"><%= t :time_dock %></p>
       </div>
     </div>
-    <% unless !red.empty? && (green.empty? && yellow.empty?) %>
-    <div class="card">
-      <div class="card-content">
-        <div class="alert green lighten-2 z-depth-1">
-          <i class="fa fa-sign-on" aria-hidden="true"></i>
-          BMC hosts are being onboarded.  This request was made on <strong><%= local_time(Time.now.iso8601, '%B %e %Y, %l:%M%P') %></strong>. Please review below.
-        </div>
-      </div>
+
+    <div id="height_check" class="z-depth-1 overflow-x">
+      <table class="table striped" id="show_view_table" data-source="<%= request.env['PATH_INFO'] %>" data-livetype="model">
+        <thead>
+          <tr>
+            <th>Request ID</th>
+            <th>Request Status</th>
+            <th>Request Time</th>
+            <th>Delete Request</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="category_onboard_request_id" data-title="Request ID:"><%= @onboard_request.id %></td>
+            <td id="category_onboard_request_status" class="standard_request_status" data-title="Request Status:"><%= @onboard_request.status %></td>
+            <td id="category_onboard_request_updated_at" data-title="Request Time:"><%= local_time(@onboard_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
+            <td data-title="Delete Request:">
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @onboard_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <% else %>
-    <div class="card">
-      <div class="card-content">
-        <div class="alert red lighten-2 z-depth-1">
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          The BMC hosts in this list could not be onboarded.  Please review below.
-        </div>
-      </div>
-    </div>
-    <% end %>
   </div>
 </div>
 
 <hr class="invisible">
 
-<div class="card" data-livetype="model" data-source="<%= "TODO" %>">
+<% if !flash[:red].nil? %>
+<div class="card">
   <div class="card-content">
     <div class="stand_alone">
-      <h5>Onboard Details</h5>
+      <h5>BMC Hosts Not Onboarded</h5>
     </div>
-
-    <div class="blue-grey white-text z-depth-1 sync">
-      <% if hosts.count == 1 %>
-        Total of <%= hosts.count %> BMC host
-      <% else %>
-        Total of <%= hosts.count %> BMC hosts
-      <% end %>
-    </div>
-
-    <hr>
-
+    <p class="small">These BMC hosts failed validation during submission and cannot be onboarded unless the issues are resolved first.</p>
     <ul class="collapsible" data-collapsible="expandable">
-
-    <% if !red.empty? %>
-      <%= render 'onboard_table_red', red: red %>
-    <% end %>
-
-    <% if !yellow.empty? %>
-      <%= render 'onboard_table_yellow', yellow: yellow %>
-    <% end %>
-
-    <% if !green.empty? %>
-      <%= render 'onboard_table_green', green: green %>
-    <% end %>
+      <li>
+        <div class="collapsible-header z-depth-1">
+          <blockquote class="red_line">
+            BMC Host List with Unsatisfied Conditions
+          </blockquote>
+          <div class="clearfix">
+            <span class="small pull-left list_banner">Click to expand list.</span>
+          </div>
+        </div>
+        <div class="z-depth-1 collapsible-body">
+          <table class="table-sm striped centered responsive-table">
+            <thead>
+              <tr>
+                <th>BMC Address</th>
+                <th>Product</th>
+                <th>Serial</th>
+                <th>Issue</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% flash[:red].each do |x| %>
+              <tr>
+                <td><%= x["bmc_host"]["ip_address"] %></td>
+                <td><%= x["bmc_host"]["product"].presence || "N/A" %></td>
+                <td><div class="serial"><%= x["bmc_host"]["serial"].presence || "N/A" %></div></td>
+                <td>
+                  <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <% key = x["exception_name"].underscore %>
+                    <% message = t(x["exception_message"], scope: 'exceptions.messages', default: x["exception_message"]) %>
+                    <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x["exception_name"] %>
+                    <% default = "#{x["exception_name"]}: #{message}" %>
+                    <%= raw t(key, scope: 'exceptions', message: message, default: default) %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </li>
     </ul>
   </div>
-
-  <% end %>
 </div>
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <div class="stand_alone">
+      <h5>BMC Host List</h5>
+    </div>
+    <%= render partial: "layouts/filter" %>
+    <div class="z-depth-1 overflow-x">
+      <table id="onboard_request_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= bmc_hosts_datatable_admin_onboard_request_path(format: :json) %>" >
+        <thead>
+          <tr>
+            <th class="th_bmc_address">BMC Address</th>
+            <th class="th_brand">Brand</th>
+            <th class="th_product">Product</th>
+            <th class="th_serial">Serial</th>
+            <th class="th_power">Power Status</th>
+            <th class="th_bmc_sync">Sync Status</th>
+            <th class="th_onboard_status">Onboard Status</th>
+            <th class="th_onboard_step">Onboard Step</th>
+            <th class="th_time">Onboard Request Time</th>
+            <th class="th_url"></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.category_name = 'onboard_request'
+  document.detail_name   = 'bmc_host'
+</script>
+

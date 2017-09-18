@@ -2,6 +2,7 @@ class Admin::ZonesController < AdminController
 
   before_action :set_zone, only: [:show, :update, :destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
+  include Admin::Filters
   layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_path
@@ -83,13 +84,8 @@ class Admin::ZonesController < AdminController
 
   def show
     add_breadcrumb @zone.name, admin_zone_path
-    @filters = {}
-    @filters[:bmc_host] = {
-      power_status: BmcHost.power_statuses,
-      sync_status: BmcHost.sync_statuses,
-      onboard_status: BmcHost.onboard_statuses,
-      onboard_step: BmcHost.onboard_steps
-    }
+
+    pick_filters(:bmc_host, bmc_host_filters)
 
     respond_to do |format|
       format.html

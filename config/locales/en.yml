@@ -62,6 +62,10 @@ en:
           smart_proxy_unreachable: "Smart Proxy Unreachable"
           invalid_range: "Invalid Range"
           removed: "Removed"
+      onboard_request:
+        status:
+          complete: "Complete"
+          in_progress: "In Progress"
       system:
         sync_status:
           success: "Synchronized"

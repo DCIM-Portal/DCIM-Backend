@@ -34,10 +34,10 @@
             <td><div class="serial"><%= x[:bmc_host].serial.presence || "N/A" %></div></td>
             <td>
               <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                <% key = x[:exception].class.name.underscore %>
-                <% message = t(x[:exception].message, scope: 'exceptions.messages', default: x[:exception].message) %>
-                <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x[:exception].class.name %>
-                <% default = "#{x[:exception].class}: #{message}" %>
+                <% key = x[:exception_name].underscore %>
+                <% message = t(x[:exception_message], scope: 'exceptions.messages', default: x[:exception_message]) %>
+                <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x[:exception_name] %>
+                <% default = "#{x[:exception_name]}: #{message}" %>
                 <%= raw t(key, scope: 'exceptions', message: message, default: default) %>
               </div>
             </td>

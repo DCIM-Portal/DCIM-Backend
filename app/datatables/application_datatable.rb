@@ -1,6 +1,9 @@
 class ApplicationDatatable < AjaxDatatablesRails::Base
   include Rails.application.routes.url_helpers
 
+  # Give all tables the link_to helper
+  def_delegator :@view, :link_to
+
   # XXX: Workaround from https://github.com/jbox-web/ajax-datatables-rails/issues/228
   def retrieve_records
     records = fetch_records

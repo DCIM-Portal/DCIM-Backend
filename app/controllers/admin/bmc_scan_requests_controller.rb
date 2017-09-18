@@ -2,6 +2,7 @@ class Admin::BmcScanRequestsController < AdminController
 
   before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
   before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
+  include Admin::Filters
   layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_path
@@ -12,11 +13,7 @@ class Admin::BmcScanRequestsController < AdminController
     @bmc_scan_request = BmcScanRequest.new
     @zones = Zone.all
     @creds = BruteList.all
-    @filters = {}
-    @filters[:bmc_scan_request] = {
-      zone: @zones.map { |key| [ key["name"],key["id"] ] }.to_h,
-      status: BmcScanRequest.statuses
-    }
+    pick_filters(:bmc_scan_request, zone_filters, bmc_scan_request_filters)
     respond_to do |format|
       format.html
       format.json { render json: @bmc_scan_requests }
@@ -27,14 +24,7 @@ class Admin::BmcScanRequestsController < AdminController
     add_breadcrumb @bmc_scan_request.name, admin_bmc_scan_request_path
     @zones = Zone.all
     @creds = BruteList.all
-    @filters = {}
-    @filters[:bmc_host] = {
-      power_status: BmcHost.power_statuses,
-      sync_status: BmcHost.sync_statuses,
-      onboard_status: BmcHost.onboard_statuses,
-      onboard_step: BmcHost.onboard_steps
-    }
-
+    pick_filters(:bmc_host, bmc_host_filters)
     respond_to do |format|
       format.html
       format.json { render json: @bmc_scan_request.as_json(include: ['brute_list', 'zone']) }

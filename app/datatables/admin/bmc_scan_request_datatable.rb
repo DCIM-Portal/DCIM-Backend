@@ -1,8 +1,5 @@
 class Admin::BmcScanRequestDatatable < ApplicationDatatable
 
-  def_delegator :@view, :link_to
-  def_delegator :@view, :radio_button_tag
-
   def view_columns
     @view_columns ||= {
       id: {source: "BmcScanRequest.id"},
