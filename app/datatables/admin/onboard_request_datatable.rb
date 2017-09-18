@@ -1,18 +1,18 @@
-class Admin::BruteListDatatable < ApplicationDatatable
+class Admin::OnboardRequestDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      id: {source: "BruteList.id"},
-      name: {source: "BruteList.name"},
-      created_at: {source: "BruteList.created_at", searchable: false, orderable: true}
+      id: {source: "OnboardRequest.id"},
+      status: {source: "OnboardRequest.status", searchable: false, orderable: true},
+      updated_at: {source: "OnboardRequest.updated_at", searchable: false, orderable: true}
     }
   end
 
   def data
     records.map do |record| {
       id: record.id,
-      name: record.name,
-      created_at: record.updated_at.to_time.iso8601,
+      status: record.status,
+      updated_at: record.updated_at.to_time.iso8601,
       url: link_to('Details', [:admin, record], class: "btn blue lighten-2"),
       'DT_RowId' => record.id
     }
@@ -22,7 +22,12 @@ class Admin::BruteListDatatable < ApplicationDatatable
   private
 
   def get_raw_records
-    BruteList.all
+    query = OnboardRequest.all
+    params_onboard_request = params[:onboard_request] || {}
+    params_onboard_request.each do |key, value|
+      query = query.where({key.to_sym => value}) if value.present?
+    end
+    query
   end
 
   # ==== These methods represent the basic operations to perform on records

@@ -9,6 +9,15 @@ Rails.application.routes.draw do
         get :datatable, to: 'brute_lists#datatable', klass: Admin::BruteListDatatable
       end
     end
+    resources :onboard_requests, :path => 'bmc_hosts/onboard_requests', except: [:edit, :new] do
+      collection do
+        get :datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDatatable
+        post :new_modal
+      end
+      member do
+        get :bmc_hosts_datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDetailsDatatable
+      end
+    end
     resources :zones, :path => 'datacenter_zones' , except: [:edit, :new] do
       collection do
         post :foreman_remove
@@ -37,11 +46,6 @@ Rails.application.routes.draw do
       end
     end
     get :api_bmc_scan_request, :controller => :bmc_scan_requests
-    resources :onboard_requests, :path => 'bmc_hosts/onboard_requests', except: [:edit, :new] do
-      collection do
-        post :new_modal
-      end
-    end
   end
   resources :systems
   mount Sidekiq::Web => '/sidekiq'

@@ -1,6 +1,7 @@
 class Admin::BmcHostsController < AdminController
 
   before_action :set_bmc_host, only: [:show, :update, :destroy]
+  include Admin::Filters
   layout "admin_page"
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_path
@@ -9,16 +10,8 @@ class Admin::BmcHostsController < AdminController
   def index
     @bmc_hosts = BmcHost.all
 
-    #Set Custom Filters for Datatables
-    @filters = {}
-    @filters[:bmc_host] = {
-      zone: Zone.all.map { |key| [ key["name"],key["id"] ] }.to_h,
-      power_status: BmcHost.power_statuses,
-      sync_status: BmcHost.sync_statuses,
-      onboard_status: BmcHost.onboard_statuses,
-      onboard_step: BmcHost.onboard_steps
-    }
-
+    pick_filters(:bmc_host, zone_filters, bmc_host_filters)
+    
     respond_to do |format|
       format.html
       format.json { render json: @bmc_hosts }

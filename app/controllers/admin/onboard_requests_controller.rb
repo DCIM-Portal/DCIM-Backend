@@ -1,19 +1,30 @@
 class Admin::OnboardRequestsController < ApplicationController
+
   before_action :set_onboard_request, only: [:show, :destroy]
+  include Admin::Filters
+  layout "admin_page"
 
   add_breadcrumb "Home", "/"
   add_breadcrumb "Admin", :admin_path
   add_breadcrumb "Onboard Requests", :admin_onboard_requests_path
 
   def index
+    @onboard_requests = OnboardRequest.all
+
+    pick_filters(:onboard_request, onboard_request_filters)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @onboard_requests }
+    end
   end
 
   def show
-    hosts = @onboard_request.bmc_hosts
-    green, yellow, red = validate_bmc_hosts_for_onboard(hosts)
-
+    pick_filters(:bmc_host, bmc_host_filters)
+    add_breadcrumb @onboard_request.id, admin_onboard_request_path
     respond_to do |format|
-      format.html { render locals: { hosts: hosts, green: green, yellow: yellow, red: red } }
+      format.html
+      format.json { render json: @onboard_request.as_json }
     end
   end
 
@@ -51,7 +62,7 @@ class Admin::OnboardRequestsController < ApplicationController
     respond_to do |format|
       if @onboard_request.save!
 #        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request)
-        format.html { redirect_to [:admin, @onboard_request], notice: 'Onboard request was successfully created.' }
+        format.html { redirect_to [:admin, @onboard_request], flash: { red: red }, notice: 'Onboard request was successfully created.' }
         format.json { render :show, status: :created, location: @onboard_request }
       else
         format.html { render :new }
@@ -61,6 +72,10 @@ class Admin::OnboardRequestsController < ApplicationController
   end
 
   def destroy
+    @onboard_request.destroy!
+    respond_to do |format|
+      format.html { redirect_to admin_onboard_requests_url }
+    end
   end
 
   private
@@ -85,7 +100,7 @@ class Admin::OnboardRequestsController < ApplicationController
       end
       # BmcHost fails validation
       if unonboardable_reason
-        list_bmc_host_unonboardable << { bmc_host: host, exception: unonboardable_reason }
+        list_bmc_host_unonboardable << { bmc_host: host, exception: unonboardable_reason, exception_name: unonboardable_reason.class.name, exception_message: unonboardable_reason.message }
       # Onboard attempted before
       elsif host.onboard_status
         list_onboard_attempted << { bmc_host: host }

@@ -1,7 +1,5 @@
 class Admin::ZoneDatatable < ApplicationDatatable
 
-  def_delegator :@view, :link_to
-
   def view_columns
     @view_columns ||= {
       dcim_id: {source: "Zone.id"},

@@ -181,7 +181,10 @@ $(document).on 'turbolinks:load', ->
       # Time
       { targets: 'th_time'
       render: (data, type, full) ->
-        moment(data).format 'MMMM D YYYY, h:mma'
+        if !data
+          "N/A"
+        else
+          moment(data).format 'MMMM D YYYY, h:mma'
       }
       # Onboard Step
       { targets: 'th_onboard_step'
@@ -387,6 +390,7 @@ $(document).on 'turbolinks:before-cache', ->
 @render_onboard_status = ->
   $('.onboard_status').each (i, dom) ->
     j = $(dom)
+    return false if j.has('div').length
     status_and_step = j.html().split(': ')
     status = status_and_step.shift()
     step = status_and_step.join(': ')
@@ -410,10 +414,34 @@ $(document).on 'turbolinks:before-cache', ->
     j.html('<div class="'+color+' white-text z-depth-1 sync">' +
            prefix + ' ' + content + '</div>')
 
+@render_standard_request_status = ->
+  $('.standard_request_status').each (i, dom) ->
+    j = $(dom)
+    status = j.html()
+    switch status
+      when "success", "scan_complete"
+        color = 'green lighten-2'
+        prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
+      when "in_progress"
+        color = 'blue lighten-2'
+        prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
+      when ""
+        color = 'blue-grey darken-2'
+        prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
+        content = 'Queued'
+      else
+        color = 'red lighten-2'
+        prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+    content ||= I18n.t(status, scope: 'filters.options.onboard_request.status', defaultValue: status) if j.attr('id') == 'category_onboard_request_status'
+    content ||= I18n.t(status, scope: 'filters.options.bmc_scan_request.status', defaultValue: status) if j.attr('id') == 'category_bmc_scan_request_status' 
+    j.html('<span class="badge '+color+'">' +
+           prefix + ' ' + content + '</span>')
+
 $(document).on 'ajaxSuccess', ->
   do render_onboard_status
 $(document).on 'turbolinks:load', ->
   do render_onboard_status
+  do render_standard_request_status
 
 # LiveUpdates
 @live_update_connected = ->

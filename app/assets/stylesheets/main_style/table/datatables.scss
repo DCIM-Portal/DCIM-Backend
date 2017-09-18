@@ -12,7 +12,9 @@
   table#bmc_scan_requests_table td:nth-child(8),
   table#bmc_scan_requests_table th:nth-child(8),
   table#bmc_scan_request_details_table td:nth-child(9),
-  table#bmc_scan_request_details_table th:nth-child(9) {display: none;}
+  table#bmc_scan_request_details_table th:nth-child(9),
+  table#onboard_request_details_table td:nth-child(6),
+  table#onboard_request_details_table th:nth-child(6) {display: none;}
 }
 @media only screen and (max-width: 1595px) {
 	table#bmc_hosts_table td:nth-child(7),
@@ -22,7 +24,9 @@
   table#bmc_scan_requests_table td:nth-child(6),
   table#bmc_scan_requests_table th:nth-child(6),
   table#bmc_scan_request_details_table td:nth-child(8),
-  table#bmc_scan_request_details_table th:nth-child(8) {display: none;}
+  table#bmc_scan_request_details_table th:nth-child(8),
+  table#onboard_request_details_table td:nth-child(8),
+  table#onboard_request_details_table th:nth-child(8) {display: none;}
 }
 @media only screen and (max-width: 1450px) {
   table#bmc_hosts_table td:nth-child(9),
@@ -44,7 +48,9 @@
   table#bmc_scan_requests_table td:nth-child(7),
   table#bmc_scan_requests_table th:nth-child(7),
   table#bmc_scan_request_details_table td:nth-child(7),
-  table#bmc_scan_request_details_table th:nth-child(7) {display: none;}
+  table#bmc_scan_request_details_table th:nth-child(7),
+  table#onboard_request_details_table td:nth-child(5),
+  table#onboard_request_details_table th:nth-child(5) {display: none;}
 }
 @media only screen and (max-width: 865px) {
   table#bmc_hosts_table td:nth-child(10),
@@ -76,7 +82,13 @@
   table#bmc_scan_request_details_table td:nth-child(8),
   table#bmc_scan_request_details_table th:nth-child(8),
   table#bmc_scan_request_details_table td:nth-child(9),
-  table#bmc_scan_request_details_table th:nth-child(9) {display: block;}
+  table#bmc_scan_request_details_table th:nth-child(9),
+  table#onboard_request_details_table td:nth-child(8),
+  table#onboard_request_details_table th:nth-child(8),
+  table#onboard_request_details_table td:nth-child(6),
+  table#onboard_request_details_table th:nth-child(6),
+  table#onboard_request_details_table td:nth-child(5),
+  table#onboard_request_details_table th:nth-child(5) {display: block;}
 
   .dt-checkboxes-cell {
     display: none;
@@ -233,6 +245,9 @@ div.dataTables_wrapper .bottom {
 }
 @media screen and (max-width: 992px) {
   div.dataTables_wrapper div.dataTables_paginate { margin-right: 25px; }
+}
+@media screen and (max-width: 545px) {
+  div div.dataTables_wrapper .top .dataTables_filter { float: left; width: 100%; text-align: left; margin-top: 20px; }
 }
 
 // Datatable button style
