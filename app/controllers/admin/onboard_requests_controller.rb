@@ -40,8 +40,8 @@ class Admin::OnboardRequestsController < ApplicationController
     input = params[:onboard]
     unless input.is_a?(ActionController::Parameters) && input[:bmc_host_ids].is_a?(Array)
       ids = []
-      #redirect_back fallback_location: {action: 'index'}
-      #return
+      redirect_back fallback_location: {action: 'index'}
+      return
     else
       ids = input[:bmc_host_ids]
     end
@@ -61,7 +61,7 @@ class Admin::OnboardRequestsController < ApplicationController
 
     respond_to do |format|
       if @onboard_request.save!
-#        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request)
+        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: @onboard_request)
         format.html { redirect_to [:admin, @onboard_request], flash: { red: red }, notice: 'Onboard request was successfully created.' }
         format.json { render :show, status: :created, location: @onboard_request }
       else

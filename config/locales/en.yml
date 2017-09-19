@@ -95,6 +95,7 @@ en:
           stack_trace: "Error (see stack trace)"
           timeout: "Timeout"
         onboard_step:
+          none: "Preparing to start"
           complete: "Finished"
           shutdown: "Shut down"
           power_off: "Power off"

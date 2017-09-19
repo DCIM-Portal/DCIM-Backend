@@ -195,14 +195,7 @@ $(document).on 'turbolinks:load', ->
       # Onboard Status
       { targets: 'th_onboard_status'
       render: (data, type, full) ->
-        if !data
-          '<div class="blue-grey lighten-1 white-text z-depth-1 sync"><i class="fa fa-minus-circle" aria-hidden="true"></i> Not Onboarded</div>'
-        else if data == "success"
-          '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> '  + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
-        else if data == "in_progress"
-          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> ' + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
-        else
-          '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.onboard_status') + ': ' + I18n.t(full.onboard_step, scope: 'filters.options.bmc_host.onboard_step') + '</div>'
+        text_to_onboard_status(data + ': ' + full.onboard_step)
       }
       # Power Status
       { targets: 'th_power'
@@ -253,18 +246,20 @@ $(document).on 'turbolinks:load', ->
       { targets: 'th_bmc_address'
       width: 75
       }
-      # Scan Status
+      # BMC Scan Request Status
       { targets: 'th_scan_status'
       searchable: false
       render: (data, type, full, meta) ->
-        if !data
-          '<div class="blue-grey darken-2 white-text z-depth-1 sync"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</div>'
-        else if data == "scan_complete"
-          '<div class="green lighten-2 white-text z-depth-1 sync">' + I18n.t(data, scope: 'filters.options.bmc_scan_request.status') + '</div>'
-        else if data == "in_progress"
-          '<div class="blue lighten-2 white-text z-depth-1 sync">' + I18n.t(data, scope: 'filters.options.bmc_scan_request.status') + ' <div class="throbber-loader"></div></div>'
-        else
-          '<div class="red lighten-2 white-text z-depth-1 sync">' + I18n.t(data, scope: 'filters.options.bmc_scan_request.status') + '</div>'
+        text_to_request_status('bmc_scan_request', data)
+      }
+      { targets: 'th_id'
+      width: 50
+      }
+      # Onboard Request Status
+      { targets: 'th_ob_scan_status'
+      searchable: false
+      render: (data, type, full, meta) ->
+        text_to_request_status('onboard_request', data)
       }
       { targets: 'th_id'
       width: 50
@@ -387,13 +382,10 @@ $(document).on 'turbolinks:before-cache', ->
   # Prevent duplicate selects
   $('.m_select').material_select 'destroy'
 
-@render_onboard_status = ->
-  $('.onboard_status').each (i, dom) ->
-    j = $(dom)
-    return false if j.has('div').length
-    status_and_step = j.html().split(': ')
+@text_to_onboard_status = (text) ->
+    status_and_step = text.split(': ')
     status = status_and_step.shift()
-    step = status_and_step.join(': ')
+    step = status_and_step.join(': ') || 'none'
     switch status
       when "success" 
         color = 'green lighten-2'
@@ -411,31 +403,41 @@ $(document).on 'turbolinks:before-cache', ->
     content ||= I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) +
                 ': ' +
                 I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
-    j.html('<div class="'+color+' white-text z-depth-1 sync">' +
-           prefix + ' ' + content + '</div>')
+    return '<div class="'+color+' white-text z-depth-1 sync">' +
+           prefix + ' ' + content + '</div>'
+
+@render_onboard_status = ->
+  $('.onboard_status').each (i, dom) ->
+    j = $(dom)
+    return false if j.has('div').length
+    status_and_step = j.html()
+    j.html(text_to_onboard_status(status_and_step))
+
+@text_to_request_status = (type, text) ->
+  switch text
+    when "complete", "scan_complete"
+      color = 'green lighten-2'
+      prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
+    when "in_progress"
+      color = 'blue lighten-2'
+      prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
+    when ""
+      color = 'blue-grey darken-2'
+      prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
+      content = 'Queued'
+    else
+      color = 'red lighten-2'
+      prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+  content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text)
+  return '<span class="badge '+color+'">' + prefix + ' ' + content + '</span>'
 
 @render_standard_request_status = ->
   $('.standard_request_status').each (i, dom) ->
     j = $(dom)
     status = j.html()
-    switch status
-      when "success", "scan_complete"
-        color = 'green lighten-2'
-        prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
-      when "in_progress"
-        color = 'blue lighten-2'
-        prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
-      when ""
-        color = 'blue-grey darken-2'
-        prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
-        content = 'Queued'
-      else
-        color = 'red lighten-2'
-        prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
-    content ||= I18n.t(status, scope: 'filters.options.onboard_request.status', defaultValue: status) if j.attr('id') == 'category_onboard_request_status'
-    content ||= I18n.t(status, scope: 'filters.options.bmc_scan_request.status', defaultValue: status) if j.attr('id') == 'category_bmc_scan_request_status' 
-    j.html('<span class="badge '+color+'">' +
-           prefix + ' ' + content + '</span>')
+    type = 'onboard_request' if j.attr('id') == 'category_onboard_request_status'
+    type = 'bmc_scan_request' if j.attr('id') == 'category_bmc_scan_request_status' 
+    j.html(text_to_request_status(type, status))
 
 $(document).on 'ajaxSuccess', ->
   do render_onboard_status

@@ -40,23 +40,22 @@ $(document).on 'turbolinks:load', ->
   
   document.render.category_table.bmc_scan_request = (record) ->
     for key, value of record
-      $("#category_" + document.category_name + "_" + key).html(value)
-      $(".category_" + document.category_name + "_" + key).html(value)
-      if key == "status" && value == "in_progress"
-        $("#category_" + document.category_name + "_" + key).html('<span class="badge blue lighten-2">Scan in progress <div class="throbber-loader"></div></span>')
-        $('.action_button').prop('disabled', true);
-        $('.action_button').addClass('disabled');
-      else if key == "status" && value =="scan_complete"
-        $("#category_" + document.category_name + "_" + key).html('<span class="badge green lighten-2">Scan Complete</span>')
-        $('.action_button').prop('disabled', false);
-        $('.action_button').removeClass('disabled');
-      else if key == "status"
-        $("#category_" + document.category_name + "_" + key).html('<span class="badge red lighten-2">' + value + '</span>')
-        $('.action_button').prop('disabled', false);
-        $('.action_button').removeClass('disabled');
-      $("#category_" + document.category_name + "_brute_list_name").html(value.name) if key == "brute_list"
-      $("#category_" + document.category_name + "_zone_name").html(value.name) if key == "zone"
-      $("#category_" + document.category_name + "_updated_at").html(moment(value).format('MMM DD YYYY, h:mma')) if key == "updated_at"
+      switch key
+        when "status"
+          if value == "in_progress"
+            $('.action_button').prop('disabled', true);
+            $('.action_button').addClass('disabled');
+          else
+            $('.action_button').prop('disabled', false);
+            $('.action_button').removeClass('disabled');
+          value = text_to_request_status('bmc_scan_request', value)
+        when "brute_list"
+          value = value.name
+        when "zone"
+          value = value.name
+        when "updated_at"
+          value = moment(value).format('MMM DD YYYY, h:mma')
+      $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
   
   document.render.detail_table.bmc_scan_request.bmc_host = (view) ->
     document.detail_table_selector = '#bmc_scan_request_details_table'

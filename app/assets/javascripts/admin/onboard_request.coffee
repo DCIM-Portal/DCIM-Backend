@@ -28,6 +28,15 @@ $(document).on 'turbolinks:load', ->
         $(row).find('td:eq(2)').attr 'data-title', 'Request Time:'
       order: [ 0, 'asc' ]
 
+  document.render.category_table.onboard_request = (record) ->
+    for key, value of record
+      switch key
+        when "status"
+          value = text_to_request_status('onboard_request', value)
+        when "updated_at"
+          value = moment(value).format('MMM DD YYYY, h:mma')
+      $("#category_" + document.category_name + "_" + key).html(value)
+
   document.render.detail_table.onboard_request.bmc_host = (view) ->
     document.detail_table_selector = '#onboard_request_details_table'
     #OnboardRequest Host List Table

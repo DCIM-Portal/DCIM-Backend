@@ -21,6 +21,10 @@ class Admin::BmcHostsController < AdminController
 
   def show
     add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
+    respond_to do |format|
+      format.html
+      format.json { render json: @bmc_host }
+    end
   end
 
   def update

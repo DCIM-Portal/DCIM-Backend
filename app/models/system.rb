@@ -60,8 +60,9 @@ class System < ApplicationRecord
 
   def fetch_facts
     reply = Dcim::ForemanApiFactory.instance.api.hosts(self.foreman_host_id).facts.get(payload: {per_page: 100000000}.to_json)
-    raise Dcim::DuplicateRecordError if reply["total"].to_i > 1
-    raise Dcim::MissingRecordError if reply["total"].to_i <= 0
+    keys = reply["results"].try :keys
+    raise Dcim::DuplicateRecordError, "1 expected, #{keys.length} returned" if keys.length > 1
+    raise Dcim::MissingRecordError, "1 expected, #{keys.length} returned" if keys.length <= 0
     name, facts = reply["results"].first
     facts
   end
