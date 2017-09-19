@@ -82,6 +82,7 @@ class BmcHost < ApplicationRecord
       self.sync_status = :stack_trace
       self.save!
     end
+    false
   end
 
   def smart_proxy

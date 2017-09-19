@@ -49,7 +49,7 @@ class BmcScanJob < ApplicationJob
         @logger.debug bmc_host_ip + ": BMC host record established"
         secrets = [nil]
         synchronize do
-          secrets << @request.brute_list.brute_list_secrets
+          secrets.push *@request.brute_list.brute_list_secrets
         end
         secrets.each do |secret|
           begin
