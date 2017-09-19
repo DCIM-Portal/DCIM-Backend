@@ -28,7 +28,7 @@ class Admin::BmcHostsController < AdminController
   end
 
   def multi_refresh
-    BmcRefreshJob.perform_later(params[:selected_ids])
+    BmcHostsRefreshJob.perform_later(params[:selected_ids])
   end
 
   def destroy

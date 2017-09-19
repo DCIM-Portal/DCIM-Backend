@@ -1,4 +1,4 @@
-class BmcRefreshJob < ApplicationJob
+class BmcHostsRefreshJob < ApplicationJob
   queue_as :default
 
   def perform(host_ids)

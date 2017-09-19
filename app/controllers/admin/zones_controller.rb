@@ -1,7 +1,7 @@
 class Admin::ZonesController < AdminController
 
   before_action :set_zone, only: [:show, :update, :destroy]
-  before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:api_zone, :create, :destroy, :update]
+  before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: [:check_foreman_locations_synced, :create, :destroy, :update]
   include Admin::Filters
   layout "admin_page"
   add_breadcrumb "Home", "/"
@@ -17,8 +17,8 @@ class Admin::ZonesController < AdminController
     end
   end
 
-  def api_zone
-    render :partial => "api_zone"
+  def check_foreman_locations_synced
+    render :partial => "check_foreman_locations_synced"
   end
 
   def foreman_remove

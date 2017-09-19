@@ -1,7 +1,7 @@
 class Admin::BmcScanRequestsController < AdminController
 
   before_action :set_bmc_scan_request, only: [:show, :update, :destroy]
-  before_action :get_dashboard_hosts, only: [:api_bmc_scan_request]
+  before_action :get_dashboard_hosts, only: [:check_foreman_reachable]
   include Admin::Filters
   layout "admin_page"
   add_breadcrumb "Home", "/"
@@ -31,10 +31,10 @@ class Admin::BmcScanRequestsController < AdminController
     end
   end
 
-  def api_bmc_scan_request
+  def check_foreman_reachable
     @zone_count = Zone.count
     @cred_count = BruteList.count
-    render :partial => "api_bmc_scan_request"
+    render :partial => "check_foreman_reachable"
   end
 
   def create
