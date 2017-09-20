@@ -37,7 +37,7 @@ $(document).on 'turbolinks:load', ->
     for key, value of record
       $("#category_" + document.category_name + "_" + key).html(value)
       $(".category_" + document.category_name + "_" + key).html(value)
-      $("#category_" + document.category_name + "_updated_at").html(moment(value).format('MMM DD YYYY, h:mma')) if key == "updated_at"
+      $("#category_" + document.category_name + "_updated_at").html(moment(value).format('MMMM DD YYYY, h:mma')) if key == "updated_at"
 
   document.render.detail_table.zone.bmc_host = (view) ->
     #Zone Host List Table

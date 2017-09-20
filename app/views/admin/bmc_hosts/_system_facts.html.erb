@@ -1,0 +1,68 @@
+<div id="sys_facts">
+<% if bmc_host.onboard_status.nil? %>
+  <p>System is not yet onboarded.</p>
+<% end %>
+<% if !bmc_host.system.nil? %>
+  <%= form_for(bmc_host.system) do |f| %>
+    <%= f.button '<i class="fa fa-refresh"></i> Refresh System Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
+<% end %>
+  <ul class="collection with-header z-depth-1">
+    <li class="collection-item">
+      <span class="span_heading">System Sync Status:</span>
+      <div class="category_system_sync_status standard_request_status inline-block-div"><%= bmc_host.system.sync_status %></div>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">System Sync Time:</span>
+      <span class="category_system_updated_at"><%= local_time(bmc_host.system.updated_at.iso8601, '%B %e %Y, %l:%M%P') %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">Foreman Host ID:</span>
+      <span class="category_system_foreman_host_id"><%= bmc_host.system.foreman_host_id %></span>
+    </li>
+  </ul>
+
+  <h5>System Specs</h5>
+
+  <ul class="collection with-header z-depth-1">
+    <li class="collection-header"><h5>CPU</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">CPU Model:</span>
+      <span class="category_system_cpu_model"><%= bmc_host.system.cpu_model %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">Number of CPUs:</span>
+      <span class="category_system_cpu_count"><%= bmc_host.system.cpu_count %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">CPU Threads:</span>
+      <span class="category_system_cpu_threads"><%= bmc_host.system.cpu_threads %></span>
+    </li>
+    <li class="collection-header"><h5>Memory</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">Total Memory:</span>
+      <span class="category_system_ram_total"><%= number_to_human_size(bmc_host.system.ram_total) %></span>
+    </li>
+    <li class="collection-header"><h5>Disk</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">Number of Disks:</span>
+      <span class="category_system_disk_count"><%= bmc_host.system.disk_count %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">Total Storage:</span>
+      <span class="category_system_disk_total"><%= bmc_host.system.disk_total %></span>
+    </li>
+    <li class="collection-header"><h5>OS</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">Installed OS:</span>
+      <span class="category_system_os"><%= bmc_host.system.os %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">OS Release:</span>
+      <span class="category_system_os_release"><%= bmc_host.system.os_release %></span>
+    </li>
+  </ul>
+  
+<% else %>
+  <p>No system information collected yet.</p>
+<% end %>
+</div>

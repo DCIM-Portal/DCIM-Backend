@@ -47,3 +47,17 @@ $(document).on 'turbolinks:load', ->
         $(row).find('td:eq(7)').attr 'data-title', 'Last Sync Status:'
         $(row).find('td:eq(8)').attr 'data-title', 'Onboard Status:'
         $(row).find('td:eq(9)').attr 'data-title', 'Synchronize Date:'
+
+  document.render.category_table.bmc_host = (record) ->
+    for key, value of record
+      switch key
+        when "status"
+          value = text_to_request_status('bmc_host', value)
+        when "updated_at", "onboard_updated_at"
+          value = moment(value).format('MMMM DD YYYY, h:mma')
+        when "onboard_status"
+          value = text_to_onboard_status(value + ': ' + record["onboard_step"])
+        when "system"
+          document.render.category_table.system?(value)
+      $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
+      $(".category_" + document.category_name + "_" + key).html(value) if value != $(".category_" + document.category_name + "_" + key).html()

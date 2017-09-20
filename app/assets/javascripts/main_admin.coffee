@@ -382,10 +382,30 @@ $(document).on 'turbolinks:before-cache', ->
   # Prevent duplicate selects
   $('.m_select').material_select 'destroy'
 
+@formatBytes = (a, b) ->
+  if 0 == a || !a
+    return ''
+  c = 1024
+  d = b or 1
+  e = [
+    'Bytes'
+    'KB'
+    'MB'
+    'GB'
+    'TB'
+    'PB'
+    'EB'
+    'ZB'
+    'YB'
+  ]
+  f = Math.floor(Math.log(a) / Math.log(c))
+  parseFloat((a / c ** f).toFixed(d)) + ' ' + e[f]
+
 @text_to_onboard_status = (text) ->
     status_and_step = text.split(': ')
-    status = status_and_step.shift()
+    status = status_and_step.shift() || 'none'
     step = status_and_step.join(': ') || 'none'
+    append = ''
     switch status
       when "success" 
         color = 'green lighten-2'
@@ -393,16 +413,15 @@ $(document).on 'turbolinks:before-cache', ->
       when "in_progress"
         color = 'blue lighten-2'
         prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
-      when ""
+        append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
+      when "none"
         color = 'blue-grey lighten-1'
         prefix = '<i class="fa fa-minus-circle" aria-hidden="true"></i>'
-        content = 'Not Onboarded'
       else
         color = 'red lighten-2'
         prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
-    content ||= I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) +
-                ': ' +
-                I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
+        append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
+    content = I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) + append
     return '<div class="'+color+' white-text z-depth-1 sync">' +
            prefix + ' ' + content + '</div>'
 
@@ -413,9 +432,10 @@ $(document).on 'turbolinks:before-cache', ->
     status_and_step = j.html()
     j.html(text_to_onboard_status(status_and_step))
 
+#XXX: Change naming
 @text_to_request_status = (type, text) ->
   switch text
-    when "complete", "scan_complete"
+    when "complete", "scan_complete", "success"
       color = 'green lighten-2'
       prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
     when "in_progress"
@@ -425,22 +445,31 @@ $(document).on 'turbolinks:before-cache', ->
       color = 'blue-grey darken-2'
       prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
       content = 'Queued'
+    when /invalid/
+      color = 'orange lighten-2'
+      prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
     else
       color = 'red lighten-2'
       prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
-  content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text)
+  content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if type.includes("request")
+  content ||= I18n.t(text, scope: 'filters.options.'+type+'.sync_status', defaultValue: text) if (type == "bmc_host" || type == "system")
   return '<span class="badge '+color+'">' + prefix + ' ' + content + '</span>'
 
+#XXX: Change naming
 @render_standard_request_status = ->
   $('.standard_request_status').each (i, dom) ->
     j = $(dom)
+    return false if j.has('span').length
     status = j.html()
     type = 'onboard_request' if j.attr('id') == 'category_onboard_request_status'
     type = 'bmc_scan_request' if j.attr('id') == 'category_bmc_scan_request_status' 
+    type = 'bmc_host' if j.hasClass 'category_bmc_host_sync_status'
+    type = 'system' if j.hasClass 'category_system_sync_status'
     j.html(text_to_request_status(type, status))
 
 $(document).on 'ajaxSuccess', ->
   do render_onboard_status
+  do render_standard_request_status
 $(document).on 'turbolinks:load', ->
   do render_onboard_status
   do render_standard_request_status

@@ -42,7 +42,7 @@ module Dcim
               method: method,
               url: @resource.send(:concat_urls, url, @query.join('/')),
               payload: payload))
-        ApiResult.new(result)
+        ::Dcim::ApiResult.new(result)
       end
     end
 

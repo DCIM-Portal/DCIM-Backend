@@ -1,14 +1,22 @@
 // Collection base style
 
-.collection.with-header .collection-header {
-  background-color: $collection-header-grey;
-  border-bottom: none;
-  padding: 0.5rem 1.0rem;
-  h5 {
-    font-size: 1.0rem;
-    font-weight: $font-weight-light;
-    line-height: 100%;
-    margin: 0;
+.collection.with-header {
+  padding: 0.5rem;
+  background: white;
+  .collection-header {
+    background-color: $normal-blue-grey;
+    border-bottom: none;
+    padding: 0.5rem 1.0rem;
+    h5 {
+      font-size: 1.0rem;
+      font-weight: $font-weight-light;
+      line-height: 100%;
+      color: $white;
+      margin: 0;
+    }
+  }
+  .collection-item {
+    padding-left: 0.5rem;
   }
 }
 .collection {
@@ -20,7 +28,8 @@
     line-height: 1.5rem;
     padding: 0.1rem;
     margin: 0;
-    border-bottom: 1px solid $collection-border;
+    border-bottom: none;
+    font-weight: $font-weight-normal;
     .badge {
       font-size: $font-smaller-size;
       font-weight: $font-weight-light;

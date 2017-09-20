@@ -12,7 +12,7 @@
     </div>
 
     <div id="height_check" class="overflow-x z-depth-1">
-      <table class="table striped" id="show_view_table">
+      <table class="table striped" id="show_view_table" data-source="<%= request.env['PATH_INFO'] %>" data-livetype="model">
         <thead>
           <tr>
             <th>BMC Address</th>
@@ -27,14 +27,13 @@
         </thead>
         <tbody>
           <tr>
-            <td id="category_bmc_host_ip_address" data-title="BMC Address:"><%= @bmc_host.ip_address %></td>
-            <td id="category_bmc_host_brand" data-title="Brand:"><%= @bmc_host.brand %></td>
-            <td id="category_bmc_host_product" data-title="Product:"><%= @bmc_host.product %></td>
-            <td id="category_bmc_host_serial" data-title="Serial:"><strong><%= @bmc_host.serial %></strong></td>
-            <td id="category_bmc_host_zone_name" data-title="Datacenter Zone:"><%= @bmc_host.zone.name %></td>
-            
+            <td class="category_bmc_host_ip_address" data-title="BMC Address:"><%= @bmc_host.ip_address %></td>
+            <td class="category_bmc_host_brand" data-title="Brand:"><%= @bmc_host.brand %></td>
+            <td class="category_bmc_host_product" data-title="Product:"><%= @bmc_host.product %></td>
+            <td class="category_bmc_host_serial" data-title="Serial:"><strong><%= @bmc_host.serial %></strong></td>
+            <td class="category_bmc_host_zone_name" data-title="Datacenter Zone:"><%= @bmc_host.zone.name %></td>
             <td id="category_bmc_host_onboard_status" data-title="Onboarded:" class="onboard_status"><%= @bmc_host.onboard_status %>: <%= @bmc_host.onboard_step %></td>
-            <td id="category_bmc_host_onboard_updated_at" data-title="Onboard Time:">
+            <td class="category_bmc_host_onboard_updated_at" data-title="Onboard Time:">
             <% if @bmc_host.onboard_updated_at.nil? %>
               N/A
             <% else %>
@@ -59,110 +58,11 @@
     </ul>
   </div>
 
-  <div class="card-content blue-grey lighten-5">
-    <div id="bmc_facts">
-      <%= form_for([:admin, @bmc_host]) do |f| %>
-        <%= f.button 'Refresh BMC Facts', class: 'btn blue lighten-2' %>
-      <% end %>
-      <ul class="collection with-header z-depth-1">
-        <li class="collection-header"><h5>BMC Sync Status</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Status:</span>
-          <% if @bmc_host.sync_status.nil? %>
-            <div class="badge blue-grey darken-2"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</div>
-          <% elsif @bmc_host.sync_status == "success" %>
-            <div class="badge green lighten-2"><i class="fa fa-check-circle-o" aria-hidden="true"></i> <%= t(@bmc_host.sync_status, scope: "filters.options.bmc_host.sync_status") %></div>
-          <% elsif @bmc_host.sync_status == "in_progress" %>
-            <div class="badge blue lighten-2"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> Syncing</div>
-          <% elsif @bmc_host.sync_status.include? "invalid" %>
-            <div class="badge orange lighten-2"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <%= t(@bmc_host.sync_status, scope: "filters.options.bmc_host.sync_status") %></div>
-          <% else %>
-            <div id="sync_error_button"  class="waves-effect waves-light badge red lighten-2 modal-trigger" data-target="sync_error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <%= t(@bmc_host.sync_status, scope: "filters.options.bmc_host.sync_status") %></div>
-          <% end %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">Sync Time:</span>
-          <%= local_time(@bmc_host.updated_at.iso8601, '%B %e %Y, %l:%M%P') %>
-        </li>
-        <li class="collection-header"><h5>Host Health</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Power:</span>
-          <% if @bmc_host.power_status == "on" %>
-            <div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>
-          <% elsif @bmc_host.power_status == "off" %>
-            <div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>
-          <% else %>
-            N/A
-          <% end %>
-        </li>
-      </ul>
-    </div>
+  <div class="card-content grey lighten-4">
 
-    <div id="sys_facts">
-    <% if @bmc_host.onboard_status.nil? %>
-      <p>System is not yet onboarded.  <a>Click here</a> to onboard this system.</p>
-    <% end %>
-    <% if !@bmc_host.system.nil? %>
-      <%= form_for(@bmc_host.system) do |f| %>
-        <%= f.button 'Refresh System Facts', class: 'btn blue lighten-2' %>
-      <% end %>
-      <ul class="collection with-header z-depth-1">
-        <li class="collection-header"><h5>Foreman Sync Status</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Sync Status:</span>
-          <% if @bmc_host.system.sync_status == "success" %>
-            <div class="badge green lighten-2"><i class="fa fa-check-circle-o" aria-hidden="true"></i> <%= t(@bmc_host.system.sync_status, scope: "filters.options.system.sync_status") %></div>
-          <% elsif @bmc_host.system.sync_status == "in_progress" %>
-            <div class="badge blue lighten-2"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> Syncing</div>
-          <% elsif @bmc_host.system.sync_status.nil? %>
-            <div id="system_sync_error_button" class="waves-effect waves-light badge red lighten-2 modal-trigger" data-target="system_sync_error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Unknown Error</div>
-          <% else %>
-            <div id="system_sync_error_button" class="waves-effect waves-light badge red lighten-2 modal-trigger" data-target="system_sync_error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <%= t(@bmc_host.system.sync_status, scope: "filters.options.system.sync_status") %></div>
-          <% end %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">Sync Time:</span><%= local_time(@bmc_host.system.updated_at.iso8601, '%B %e %Y, %l:%M%P') %>
-        </li>
-        <li class="collection-header"><h5>Foreman Host</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Foreman Host ID:</span><%= @bmc_host.system.foreman_host_id %>
-        </li>
-      </ul>
-      <ul class="collection with-header z-depth-1">
-        <li class="collection-header"><h5>CPU</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">CPU Model:</span><%= @bmc_host.system.cpu_model %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">Number of CPUs:</span><%= @bmc_host.system.cpu_count %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">CPU Cores:</span><%= @bmc_host.system.cpu_cores %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">CPU Threads:</span><%= @bmc_host.system.cpu_threads %>
-        </li>
-        <li class="collection-header"><h5>Memory</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Total Memory:</span><%= number_to_human_size(@bmc_host.system.ram_total) %>
-        </li>
-  		  <li class="collection-header"><h5>Disk</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Number of Disks:</span><%= @bmc_host.system.disk_count %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">Total Storage:</span><%= @bmc_host.system.disk_total %>
-        </li>
-        <li class="collection-header"><h5>OS</h5></li>
-        <li class="collection-item">
-          <span class="span_heading">Installed OS:</span><%= @bmc_host.system.os %>
-        </li>
-        <li class="collection-item">
-          <span class="span_heading">OS Release:</span><%= @bmc_host.system.os_release %>
-        </li>
-      </ul>
-    <% end %>
-    </div>
+    <%= render 'bmc_host_facts', bmc_host: @bmc_host %>
+
+    <%= render 'system_facts', bmc_host: @bmc_host %>
 
     <div id="owner">Owner Stuff</div>
     <div id="catalog_status">Catalog Status</div>
@@ -205,3 +105,6 @@
     <% end %>
   </div>
 </div>
+<script>
+  document.category_name = 'bmc_host'
+</script>

@@ -1,0 +1,44 @@
+<div id="bmc_facts">
+  <%= form_for([:admin, bmc_host]) do |f| %>
+    <%= f.button '<i class="fa fa-refresh"></i> Refresh BMC Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
+  <% end %>
+  <ul class="collection with-header z-depth-1">
+    <li class="collection-item">
+      <span class="span_heading">BMC Sync Status:</span>
+      <div class="category_bmc_host_sync_status standard_request_status inline-block-div"><%= bmc_host.sync_status %></div>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">BMC Sync Time:</span>
+      <span class="category_bmc_host_updated_at"><%= local_time(bmc_host.updated_at.iso8601, '%B %e %Y, %l:%M%P') %></span>
+    </li>
+  </ul>
+
+  <h5>BMC Host Specs</h5>
+
+  <ul class="collection with-header z-depth-1">
+    <li class="collection-header"><h5>BMC Host Info</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">BMC Address:</span>
+      <span class="category_bmc_host_ip_address"><%= bmc_host.ip_address %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">Brand:</span>
+      <span class="category_bmc_host_brand"><%= bmc_host.brand %></span>
+    </li>
+    <li class="collection-item">
+      <span class="span_heading">Product:</span>
+      <span class="category_bmc_host_product"><%= bmc_host.product %></span>
+    </li>
+    <li class="collection-header"><h5>BMC Host Health</h5></li>
+    <li class="collection-item">
+      <span class="span_heading">Power:</span>
+      <% if bmc_host.power_status == "on" %>
+        <div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>
+      <% elsif bmc_host.power_status == "off" %>
+        <div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>
+      <% else %>
+        N/A
+      <% end %>
+    </li>
+  </ul>
+</div>
