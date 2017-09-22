@@ -190,6 +190,7 @@ class BmcHost < ApplicationRecord
       # freeipmi: {"":{"/path/to/binary":"string"}}
       freeipmi_error = result[""] if result.keys.length == 1
       unless freeipmi_error.nil?
+        raise Dcim::SmartProxyError, freeipmi_error if freeipmi_error.is_a?(Hash) and freeipmi_error.any? { |key, value| key =~ /cannot_.*_cache_directory/ }
         raise Dcim::InvalidUsernameError if freeipmi_error.value? "username invalid"
         raise Dcim::InvalidPasswordError if freeipmi_error.value? "password invalid"
         raise Dcim::ConnectionTimeoutError if freeipmi_error.value? "connection timeout"
@@ -244,6 +245,7 @@ class BmcHost < ApplicationRecord
     else
       output =
       deep_find('board_product_name', fru) ||
+      deep_find('board_product', fru) ||
       deep_find('product_name', fru) ||
       deep_find('product_part/model_number', fru)
     end
