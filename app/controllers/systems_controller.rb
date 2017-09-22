@@ -40,7 +40,7 @@ class SystemsController < ApplicationController
   # PATCH/PUT /systems/1
   # PATCH/PUT /systems/1.json
   def update
-    @system.refresh!
+    SystemsRefreshJob.perform_later([@system.id])
   end
 
   # DELETE /systems/1

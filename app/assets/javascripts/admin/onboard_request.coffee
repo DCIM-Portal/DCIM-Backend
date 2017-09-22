@@ -34,7 +34,7 @@ $(document).on 'turbolinks:load', ->
         when "status"
           value = text_to_request_status('onboard_request', value)
         when "updated_at"
-          value = moment(value).format('MMM DD YYYY, h:mma')
+          value = moment(value).format('MMMM DD YYYY, h:mma')
       $("#category_" + document.category_name + "_" + key).html(value)
 
   document.render.detail_table.onboard_request.bmc_host = (view) ->

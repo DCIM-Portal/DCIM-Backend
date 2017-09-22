@@ -17,6 +17,7 @@ main {
 }
 
 // Logo
+
 .logo {
   font-family: 'Okula Hayir Soft';
   margin-top: 3rem;
@@ -35,9 +36,10 @@ main {
 }
 
 // Log in page
+
 .intro-bg {
   background: url('/images/intro-bg.svg');
-  background-color: #1B1A19;
+  background-color: #1B1A19; //XXX: Change to SASS variable
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -59,6 +61,7 @@ main {
 }
 
 // Footer
+//XXX: Make footer its own SASS file
 .floating-footer {
   position: fixed;
   bottom: 0;
@@ -132,6 +135,13 @@ hr {
 
 #async_wrapper {
   margin-top: -0.5rem;
+}
+
+// Inline-block div
+
+.inline-block-div {
+  display: inline-block;
+  height: 1rem;
 }
 
 // Clearfix

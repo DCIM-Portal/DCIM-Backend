@@ -38,4 +38,11 @@ ul.collapsible, .modal-content-collapsible {
     margin: 0;
     margin-bottom: 0.5rem;
   }
+  blockquote.primary_line {
+    font-size: 1.1rem;
+    border-left: 5px solid $normal-blue-grey;
+    padding-left: 0.5rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
 }

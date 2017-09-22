@@ -14,3 +14,11 @@
     background-color: $normal-blue-grey;
   }
 }
+
+// Shrink tab font in mobile view
+
+@media only screen and (max-width: 700px) {
+  .tabs .tab a {
+    font-size: 0.7rem;
+  }
+}

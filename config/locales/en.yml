@@ -90,6 +90,7 @@ en:
           session_timeout_error: "Error: Session timeout"
           bmc_busy_error: "Error: BMC busy"
         onboard_status:
+          none: "Not onboarded"
           success: "Success"
           in_progress: "In progress"
           stack_trace: "Error (see stack trace)"

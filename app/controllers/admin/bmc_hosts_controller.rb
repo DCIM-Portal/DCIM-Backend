@@ -23,12 +23,12 @@ class Admin::BmcHostsController < AdminController
     add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
     respond_to do |format|
       format.html
-      format.json { render json: @bmc_host }
+      format.json { render json: @bmc_host.as_json(include: ['system']) }
     end
   end
 
   def update
-    @bmc_host.refresh!
+    BmcHostsRefreshJob.perform_later([@bmc_host.id])
   end
 
   def multi_refresh
@@ -43,43 +43,6 @@ class Admin::BmcHostsController < AdminController
     green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
     respond_to do |format|
       format.html { render layout: false, locals: { hosts: selected_hosts, red: red, yellow: yellow, green: green } }
-    end
-  end
-
-  def multi_onboard
-    add_breadcrumb "Onboard Request".html_safe
-    input = params[:onboard]
-    unless input.is_a?(ActionController::Parameters) && input[:bmc_host_ids].is_a?(Array)
-      ids = []
-      #redirect_back fallback_location: {action: 'index'}
-      #return
-    else
-      ids = input[:bmc_host_ids]
-    end
-
-    selected_hosts = ids_to_bmc_hosts(ids)
-    green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
-
-    onboard_requests = []
-    green.each do |item|
-      bmc_host = item[:bmc_host]
-#      bmc_host.update(onboard_request: OnboardRequest.new(bmc_host: bmc_host)) unless params[:noop]
-      onboard_requests << bmc_host.onboard_request
-    end
-    yellow.each do |item|
-      bmc_host = item[:bmc_host]
-      onboard_requests << bmc_host.onboard_request
-    end
-
-    onboard_requests.each do |onboard_request|
-#      OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: onboard_request) unless params[:noop]
-    end
-
-    locals = { hosts: selected_hosts, red: red, yellow: yellow, green: green }
-
-    respond_to do |format|
-      format.html { render locals: locals }
-      format.json { render json: locals }
     end
   end
 

@@ -54,8 +54,9 @@ $(document).on 'turbolinks:load', ->
         when "zone"
           value = value.name
         when "updated_at"
-          value = moment(value).format('MMM DD YYYY, h:mma')
+          value = moment(value).format('MMMM DD YYYY, h:mma')
       $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
+      $(".category_" + document.category_name + "_" + key).html(value) if value != $(".category_" + document.category_name + "_" + key).html()
   
   document.render.detail_table.bmc_scan_request.bmc_host = (view) ->
     document.detail_table_selector = '#bmc_scan_request_details_table'

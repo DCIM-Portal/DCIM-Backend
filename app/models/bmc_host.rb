@@ -120,14 +120,11 @@ class BmcHost < ApplicationRecord
   end
 
   def power_on?
-    case ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).chassis.power.status)
-      when "on"
-        return true
-      when "off"
-        return false
-      else
-        raise Dcim::UnsupportedApiResponseError
-    end
+    status = ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).chassis.power.status)
+    self.update(power_status: status)
+    self.power_status_on?
+  rescue ArgumentError => e
+    raise Dcim::UnsupportedApiResponseError, "#{e}", e.backtrace
   end
 
   def reset_bmc(type='cold')
