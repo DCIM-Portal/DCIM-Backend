@@ -100,7 +100,14 @@ class BmcHost < ApplicationRecord
   end
 
   def fru_list
+    tries_remaining ||= 3
     freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(self.ip_address).fru.list, timeout: 180)
+  rescue Dcim::SdrCacheError
+    if (tries_remaining -= 1) > 0 and http_smart_proxy_bmc_request(smart_proxy.onboard.bmc.sdr_cache, method: :delete)
+      retry
+    else
+      raise
+    end
   end
 
   def shutdown
