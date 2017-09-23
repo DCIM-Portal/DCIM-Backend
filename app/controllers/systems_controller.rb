@@ -1,5 +1,5 @@
 class SystemsController < ApplicationController
-  before_action :set_system, only: [:show, :edit, :update, :destroy]
+  before_action :set_system, only: %i[show edit update destroy]
 
   # GET /systems
   # GET /systems.json
@@ -9,8 +9,7 @@ class SystemsController < ApplicationController
 
   # GET /systems/1
   # GET /systems/1.json
-  def show
-  end
+  def show; end
 
   # GET /systems/new
   def new
@@ -18,8 +17,7 @@ class SystemsController < ApplicationController
   end
 
   # GET /systems/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /systems
   # POST /systems.json
@@ -54,13 +52,26 @@ class SystemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_system
-      @system = System.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def system_params
-      params.require(:system).permit(:name, :cpu_model, :cpu_cores, :cpu_threads, :cpu_count, :ram_total, :disk_total, :disk_count, :os, :os_release, :sync_status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_system
+    @system = System.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def system_params
+    params.require(:system).permit(
+      :name,
+      :cpu_model,
+      :cpu_cores,
+      :cpu_threads,
+      :cpu_count,
+      :ram_total,
+      :disk_total,
+      :disk_count,
+      :os,
+      :os_release,
+      :sync_status
+    )
+  end
 end

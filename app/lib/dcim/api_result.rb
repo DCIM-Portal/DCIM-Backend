@@ -1,7 +1,5 @@
-module Dcim 
-
+module Dcim
   class ApiResult
-
     def initialize(result)
       @result = result
     end
@@ -9,7 +7,7 @@ module Dcim
     def method_missing(method, *args)
       @result.send(method, *args)
     end
-  
+
     def to_str
       @result.body
     end
@@ -17,14 +15,13 @@ module Dcim
     def to_h
       JSON.parse(self)
     end
+
     def to_hash
-      self.to_h
+      to_h
     end
 
     def [](key)
-      self.to_h[key]
+      to_h[key]
     end
-
   end
-
 end

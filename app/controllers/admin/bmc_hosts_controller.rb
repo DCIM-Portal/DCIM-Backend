@@ -1,22 +1,20 @@
 class Admin::BmcHostsController < AdminController
-
-  before_action :set_bmc_host, only: [:show, :update, :destroy]
+  before_action :set_bmc_host, only: %i[show update destroy]
   include Admin::Filters
-  layout "admin_page"
-  add_breadcrumb "Home", "/"
-  add_breadcrumb "Admin", :admin_path
-  add_breadcrumb "BMC Hosts", :admin_bmc_hosts_path
+  layout 'admin_page'
+  add_breadcrumb 'Home', '/'
+  add_breadcrumb 'Admin', :admin_path
+  add_breadcrumb 'BMC Hosts', :admin_bmc_hosts_path
 
   def index
     @bmc_hosts = BmcHost.all
 
     pick_filters(:bmc_host, zone_filters, bmc_host_filters)
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @bmc_hosts }
     end
-
   end
 
   def show
@@ -35,8 +33,7 @@ class Admin::BmcHostsController < AdminController
     BmcHostsRefreshJob.perform_later(params[:selected_ids])
   end
 
-  def destroy
-  end
+  def destroy; end
 
   def onboard_modal
     selected_hosts = ids_to_bmc_hosts(params[:selected_ids])
@@ -51,7 +48,6 @@ class Admin::BmcHostsController < AdminController
   def set_bmc_host
     @bmc_host = BmcHost.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_back fallback_location: {action: 'index'}
+    redirect_back fallback_location: { action: 'index' }
   end
-
 end

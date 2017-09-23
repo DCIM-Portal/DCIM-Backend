@@ -19,7 +19,7 @@ module Admin::Filters
 
   def zone_filters
     {
-      zone: Zone.all.map { |key| [ key["name"],key["id"] ] }.to_h
+      zone: Zone.all.map { |key| [key['name'], key['id']] }.to_h
     }
   end
 
@@ -37,5 +37,4 @@ module Admin::Filters
       status: OnboardRequest.statuses
     }
   end
-
 end

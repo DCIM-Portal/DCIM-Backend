@@ -15,13 +15,10 @@ class BmcHostsRefreshJob < ApplicationJob
     end
 
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-      promises.each do |host, promise|
-        promise.execute
-      end
+      promises.each_value(&:execute)
 
       pool.shutdown
-      pool.wait_for_termination(timeout = 180)
+      pool.wait_for_termination(180)
     end
-
   end
 end

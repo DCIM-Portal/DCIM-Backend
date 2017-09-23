@@ -1,1 +1,1 @@
-json.partial! "systems/system", system: @system
+json.partial! 'systems/system', system: @system

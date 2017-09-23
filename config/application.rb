@@ -13,13 +13,13 @@ module DcimPortal
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :sidekiq
     config.time_zone = 'Central Time (US & Canada)'
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.eager_load_paths += ["#{config.root}/app/lib/dcim"]
     config.middleware.use I18n::JS::Middleware
   end
 end
 
-module ForemanCreds 
+module ForemanCreds
   class Application < Rails::Application
     config.foreman = config_for(:foreman)
   end

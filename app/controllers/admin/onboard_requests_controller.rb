@@ -1,12 +1,11 @@
 class Admin::OnboardRequestsController < ApplicationController
-
-  before_action :set_onboard_request, only: [:show, :destroy]
+  before_action :set_onboard_request, only: %i[show destroy]
   include Admin::Filters
-  layout "admin_page"
+  layout 'admin_page'
 
-  add_breadcrumb "Home", "/"
-  add_breadcrumb "Admin", :admin_path
-  add_breadcrumb "Onboard Requests", :admin_onboard_requests_path
+  add_breadcrumb 'Home', '/'
+  add_breadcrumb 'Admin', :admin_path
+  add_breadcrumb 'Onboard Requests', :admin_onboard_requests_path
 
   def index
     @onboard_requests = OnboardRequest.all
@@ -38,30 +37,26 @@ class Admin::OnboardRequestsController < ApplicationController
 
   def create
     input = params[:onboard]
-    unless input.is_a?(ActionController::Parameters) && input[:bmc_host_ids].is_a?(Array)
-      ids = []
-      redirect_back fallback_location: {action: 'index'}
-      return
-    else
+    if input.is_a?(ActionController::Parameters) && input[:bmc_host_ids].is_a?(Array)
       ids = input[:bmc_host_ids]
+    else
+      redirect_back fallback_location: { action: 'index' }
+      return
     end
 
     selected_hosts = ids_to_bmc_hosts(ids)
     green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
 
     @onboard_request = OnboardRequest.new
-    green.each do |item|
-      bmc_host = item[:bmc_host]
-      @onboard_request.bmc_hosts << bmc_host
-    end
-    yellow.each do |item|
+    to_onboard = green + yellow
+    to_onboard.each do |item|
       bmc_host = item[:bmc_host]
       @onboard_request.bmc_hosts << bmc_host
     end
 
     respond_to do |format|
       if @onboard_request.save!
-        OnboardJob.perform_later(foreman_resource: YAML::dump(@foreman_resource), request: @onboard_request)
+        OnboardJob.perform_later(foreman_resource: YAML.dump(@foreman_resource), request: @onboard_request)
         format.html { redirect_to [:admin, @onboard_request], flash: { red: red }, notice: 'Onboard request was successfully created.' }
         format.json { render :show, status: :created, location: @onboard_request }
       else
@@ -93,16 +88,19 @@ class Admin::OnboardRequestsController < ApplicationController
     list_onboard_attempted = []
     list_no_onboard_attempted = []
     bmc_hosts.each do |host|
-      unonboardable_reason = nil
       begin
         host.validate_onboardable
       rescue RuntimeError => unonboardable_reason
+        # BmcHost fails validation
+        list_bmc_host_unonboardable << {
+          bmc_host: host,
+          exception: unonboardable_reason,
+          exception_name: unonboardable_reason.class.name,
+          exception_message: unonboardable_reason.message
+        }
       end
-      # BmcHost fails validation
-      if unonboardable_reason
-        list_bmc_host_unonboardable << { bmc_host: host, exception: unonboardable_reason, exception_name: unonboardable_reason.class.name, exception_message: unonboardable_reason.message }
       # Onboard attempted before
-      elsif host.onboard_status
+      if host.onboard_status
         list_onboard_attempted << { bmc_host: host }
       # New onboard
       else
@@ -111,5 +109,4 @@ class Admin::OnboardRequestsController < ApplicationController
     end
     [list_no_onboard_attempted, list_onboard_attempted, list_bmc_host_unonboardable]
   end
-
 end

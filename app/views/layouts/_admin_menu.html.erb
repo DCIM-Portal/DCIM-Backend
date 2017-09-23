@@ -15,24 +15,24 @@
     <li>
       <ul class="collapsible collapsible-accordion">
         <li id="<%= parent_menu('admin/bmc_scan_requests') || parent_menu('admin/brute_lists') || parent_menu('admin/onboard_requests') %>">
-          <a class="collapsible-header waves-effect arrow-r <%= is_active('admin/bmc_scan_requests') || is_active('admin/brute_lists') || is_active('admin/onboard_requests') %>">
+          <a class="collapsible-header waves-effect arrow-r <%= active?('admin/bmc_scan_requests') || active?('admin/brute_lists') || active?('admin/onboard_requests') %>">
             <i class="fa fa-sign-in"></i>System Onboarding<i class="fa fa-angle-down rotate-icon"></i>
           </a>
           <div class="collapsible-body">
             <ul>
-              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: is_active('admin/bmc_scan_requests') %></li>
-              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, admin_brute_lists_path, class: is_active('admin/brute_lists') %></li>
-              <li><%= link_to '<i class="fa fa-upload"></i>Onboard Requests'.html_safe, admin_onboard_requests_path, class: is_active('admin/onboard_requests') %></li>
+              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: active?('admin/bmc_scan_requests') %></li>
+              <li><%= link_to '<i class="fa fa-address-card"></i>Credentials List'.html_safe, admin_brute_lists_path, class: active?('admin/brute_lists') %></li>
+              <li><%= link_to '<i class="fa fa-upload"></i>Onboard Requests'.html_safe, admin_onboard_requests_path, class: active?('admin/onboard_requests') %></li>
             </ul>
           </div>
         </li>
       </ul>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: is_active('admin/bmc_hosts') %>
+      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: active?('admin/bmc_hosts') %>
     </li>
     <li class="direct_link">
-      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: is_active('admin/zones') %>
+      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: active?('admin/zones') %>
     </li>
 
   </ul>

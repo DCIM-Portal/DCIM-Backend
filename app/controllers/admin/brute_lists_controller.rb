@@ -1,13 +1,12 @@
 class Admin::BruteListsController < AdminController
-
-  layout "admin_page"
-  before_action :set_cred, only: [:show, :update, :destroy]
-  add_breadcrumb "Home", "/"
-  add_breadcrumb "Admin", :admin_path
-  add_breadcrumb "BMC Scans", :admin_bmc_scan_requests_path
+  layout 'admin_page'
+  before_action :set_cred, only: %i[show update destroy]
+  add_breadcrumb 'Home', '/'
+  add_breadcrumb 'Admin', :admin_path
+  add_breadcrumb 'BMC Scans', :admin_bmc_scan_requests_path
 
   def index
-    add_breadcrumb "BMC Credentials List", admin_brute_lists_path
+    add_breadcrumb 'BMC Credentials List', admin_brute_lists_path
     @creds = BruteList.all
     @cred = BruteList.new
     @cred.brute_list_secrets.build
@@ -30,8 +29,8 @@ class Admin::BruteListsController < AdminController
   end
 
   def update
-    param_invalid = param_check(params["brute_list"]["brute_list_secrets_attributes"])
-    name_invalid = name_check(params["brute_list"]["name"])
+    param_invalid = param_check(params['brute_list']['brute_list_secrets_attributes'])
+    name_invalid = name_check(params['brute_list']['name'])
     respond_to do |format|
       if param_invalid == false && name_invalid == false
         BruteListSecret.where(brute_list_id: @cred.id).delete_all
@@ -45,7 +44,7 @@ class Admin::BruteListsController < AdminController
   end
 
   def show
-    add_breadcrumb "BMC Credentials List", admin_brute_lists_path
+    add_breadcrumb 'BMC Credentials List', admin_brute_lists_path
     add_breadcrumb @cred.name, admin_brute_list_path
   end
 
@@ -53,48 +52,42 @@ class Admin::BruteListsController < AdminController
     name = @cred.name
     begin
       @cred.destroy
-      flash[:success] = "Successfully deleted credential list #{ name }"
+      flash[:success] = "Successfully deleted credential list #{name}"
       redirect_to admin_brute_lists_url
     rescue ActiveRecord::DeleteRestrictionError => e
       @cred.errors.add(:base, e)
-      flash[:error] = "#{e}"
+      flash[:error] = e.to_s
       redirect_to [:admin, @cred]
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cred
-      @cred = BruteList.find(params[:id])
-    end
 
-    # Since we are deleting associated collection, check parameters for any errors
-    def param_check(args)
-      if args.inspect != "nil"
-        secret_keys = args.keys
-        secret_keys.each do |x|
-          @check = args[x].values.any? {|v| v.blank?}
-          break if @check == true
-        end
-        return @check
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cred
+    @cred = BruteList.find(params[:id])
+  end
 
-    # Ensure name is valid
-    def name_check(args)
-      name = args
-      if name == @cred.name
-        return false
-      elsif BruteList.where(name: name).empty? && !name.blank?
-        return false
-      else
-        return true
-      end
+  # Since we are deleting associated collection, check parameters for any errors
+  # XXX: Bad name for this method
+  def param_check(args)
+    return true unless args.respond_to? :each
+    args.each_value do |arg|
+      return true if arg.values.any?(&:blank?)
     end
+    false
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bmc_credential_params
-      params.require(:brute_list).permit(:name, brute_list_secrets_attributes: [:username, :password, :order])
-    end
+  # Ensure name is valid
+  # XXX: Bad name for this method
+  def name_check(args)
+    name = args
+    return false if name == @cred.name || (BruteList.where(name: name).empty? && !name.blank?)
+    true
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def bmc_credential_params
+    params.require(:brute_list).permit(:name, brute_list_secrets_attributes: %i[username password order])
+  end
 end

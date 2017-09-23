@@ -27,15 +27,14 @@ class MergeOnboardRequestIntoBmcHost < ActiveRecord::Migration[5.1]
     end
 
     BmcHost.all.each do |bmc_host|
-      if bmc_host.onboard_status
-        onboard_request = OnboardRequest.new
-        onboard_request.bmc_host = bmc_host
-        onboard_request.status = bmc_host.onboard_status
-        onboard_request.step = bmc_host.onboard_step
-        onboard_request.error_message = bmc_host.onboard_error_message
-        onboard_request.updated_at = bmc_host.onboard_updated_at
-        onboard_request.save!
-      end
+      next unless bmc_host.onboard_status
+      onboard_request = OnboardRequest.new
+      onboard_request.bmc_host = bmc_host
+      onboard_request.status = bmc_host.onboard_status
+      onboard_request.step = bmc_host.onboard_step
+      onboard_request.error_message = bmc_host.onboard_error_message
+      onboard_request.updated_at = bmc_host.onboard_updated_at
+      onboard_request.save!
     end
 
     remove_column :bmc_hosts, :onboard_status

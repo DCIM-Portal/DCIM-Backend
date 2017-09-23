@@ -7,11 +7,11 @@ module Dcim
     attr_reader :version, :major, :minor, :patch
 
     def initialize(override_version = nil)
-      if override_version
-        @version = override_version
-      else
-        @version = File.read("#{Rails.root}/VERSION").chomp
-      end
+      @version = if override_version
+                   override_version
+                 else
+                   File.read("#{Rails.root}/VERSION").chomp
+                 end
       @major, @minor, @patch = @version.scan(/\d+/)
     rescue Errno::ENOENT
       @version = 'unknown'
@@ -35,7 +35,7 @@ module Dcim
     end
 
     def self.method_missing(method, *args)
-      self.instance.send method, *args
+      instance.send method, *args
     end
 
     def self.<=>(other)

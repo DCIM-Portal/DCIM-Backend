@@ -1,16 +1,14 @@
 class Admin::ZoneDetailsDatatable < Admin::BmcHostBaseDatatable
-
   private
 
   def get_raw_records
     query = Zone.find(params[:id]).bmc_hosts
     params_bmc_host = params[:bmc_host] || {}
     params_bmc_host.each do |key, value|
-      query = query.where({key.to_sym => value}) if value.present?
+      query = query.where(key.to_sym => value) if value.present?
     end
     query
   end
-
 
   # ==== These methods represent the basic operations to perform on records
   # and feel free to override them

@@ -1,14 +1,13 @@
 module Dcim
-
-# All DCIM errors
+  # All DCIM errors
   class Error < RuntimeError
   end
 
-# BMC scan errors
+  # BMC scan errors
   class BmcScanError < Dcim::Error
   end
 
-# BMC host errors
+  # BMC host errors
   class BmcHostError < Dcim::Error
   end
 
@@ -33,7 +32,7 @@ module Dcim
   class BmcHostIncompleteError < BmcHostError
   end
 
-# Dcim timeout errors
+  # Dcim timeout errors
   class TimeoutError < Dcim::Error
   end
 
@@ -42,7 +41,7 @@ module Dcim
 
   class SessionTimeoutError < TimeoutError
   end
-  
+
   class JobTimeoutError < TimeoutError
   end
 
@@ -70,11 +69,11 @@ module Dcim
   class JobCooldownError < CooldownError
   end
 
-# Unknown errors
+  # Unknown errors
   class UnknownError < Dcim::Error
   end
 
-# API errors
+  # API errors
   class UnsupportedApiResponseError < Dcim::Error
   end
 
@@ -98,6 +97,4 @@ module Dcim
 
   class InvalidSmartProxyError < SmartProxyError
   end
-
 end
-

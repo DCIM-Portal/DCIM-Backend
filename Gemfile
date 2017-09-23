@@ -1,60 +1,60 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
-#Materialize
+# Materialize
 gem 'materialize-sass'
 
-#Font-Awesome
+# Font-Awesome
 gem 'font-awesome-sass', '4.7.0'
 
-#Rest-Client
+# Rest-Client
 gem 'rest-client'
 
-#Redis store for Rails
+# Redis store for Rails
 gem 'redis-rails'
 
-#Sidekiq for Background Jobs
+# Sidekiq for Background Jobs
 gem 'sidekiq', '5.0.4'
 
-#ActiveJob status tracking
+# ActiveJob status tracking
 gem 'active_job_status', '>= 1.2.1'
 
-#Thread for concurrent processes
+# Thread for concurrent processes
 gem 'thread'
 
-#Momentjs for Javascript date conversions
+# Momentjs for Javascript date conversions
 gem 'momentjs-rails'
 
-#Local Time
+# Local Time
 gem 'local_time'
 
-#Locales in Coffeescript
-gem "i18n-js"
+# Locales in Coffeescript
+gem 'i18n-js'
 
-#Breadcrumbs
-gem "breadcrumbs_on_rails"
+# Breadcrumbs
+gem 'breadcrumbs_on_rails'
 
-#Jquery DataTables
+# Jquery DataTables
 gem 'jquery-datatables'
 
-#Server Side Datatables
+# Server Side Datatables
 gem 'ajax-datatables-rails'
 
-#Jquery Serialize Objects for Rails
+# Jquery Serialize Objects for Rails
 gem 'jquery-serialize-object-rails'
 
-#Render Async for our API calls
+# Render Async for our API calls
 gem 'render_async'
 
-#Concurrent Ruby
+# Concurrent Ruby
 gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.3'
+gem 'rails', '5.1.4'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
@@ -93,12 +93,12 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.5.1'
   gem 'listen', '~> 3.1.5'
+  gem 'web-console', '>= 3.5.1'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

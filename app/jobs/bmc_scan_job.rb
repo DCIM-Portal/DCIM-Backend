@@ -5,7 +5,7 @@ class BmcScanJob < ApplicationJob
   def perform(**kwargs)
     begin
       @foreman_resource = kwargs[:foreman_resource]
-      @foreman_resource = YAML::load(@foreman_resource) unless @foreman_resource.is_a? Dcim::ForemanApi
+      @foreman_resource = YAML.load(@foreman_resource) unless @foreman_resource.is_a? Dcim::ForemanApi
     rescue RuntimeError
       # Default to system-wide ForemanApi
       @foreman_resource = Dcim::ForemanApiFactory.instance
@@ -24,7 +24,7 @@ class BmcScanJob < ApplicationJob
       @request.update(status: :smart_proxy_unreachable)
       return false
     end
-    @logger.info "Suitable Smart Proxy found: " + smart_proxy.instance_variable_get(:@resource).instance_variable_get(:@url)
+    @logger.info 'Suitable Smart Proxy found: ' + smart_proxy.instance_variable_get(:@resource).instance_variable_get(:@url)
 
     begin
       bmc_hosts = list_bmc_hosts(smart_proxy)
@@ -33,34 +33,33 @@ class BmcScanJob < ApplicationJob
       @request.update(status: :invalid_range)
       return false
     end
-    @logger.info "BMC hosts found: " + bmc_hosts.to_s
+    @logger.info 'BMC hosts found: ' + bmc_hosts.to_s
 
     pool = Concurrent::FixedThreadPool.new(100)
 
     promises = {}
     bmc_hosts.each do |bmc_host_ip|
       bmc_host = BmcHost.find_by(ip_address: bmc_host_ip)
-      bmc_host = BmcHost.new(ip_address: bmc_host_ip,
-                             zone: @request.zone) if !bmc_host
+      bmc_host ||= BmcHost.new(ip_address: bmc_host_ip,
+                               zone: @request.zone)
       bmc_host.bmc_scan_requests << @request
       bmc_host.save!
       bmc_host.smart_proxy = smart_proxy
       promises[bmc_host_ip] = Concurrent::Promise.new(executor: pool) do
-        @logger.debug bmc_host_ip + ": BMC host record established"
+        @logger.debug bmc_host_ip + ': BMC host record established'
         secrets = [nil]
         synchronize do
-          secrets.push *@request.brute_list.brute_list_secrets
+          secrets.push(*@request.brute_list.brute_list_secrets)
         end
         secrets.each do |secret|
           begin
             success = nil
             ::ActiveRecord::Base.connection_pool.with_connection do
               success = bmc_host.refresh!(secret)
-              @logger.debug bmc_host_ip + ": BMC host updated"
+              @logger.debug bmc_host_ip + ': BMC host updated'
             end
             break if success
           rescue Dcim::InvalidCredentialsError => e
-            no_credentials_worked = true
             next
           end
         end
@@ -73,22 +72,21 @@ class BmcScanJob < ApplicationJob
       end
 
       pool.shutdown
-      pool.wait_for_termination(timeout = 180)
+      pool.wait_for_termination(180)
     end
 
     promises.each do |bmc_host_ip, promise|
-      if promise.rejected?
-        error = promise.reason
-        @logger.warn bmc_host_ip + ": Promise rejected with reason: " + error.to_s
-        bmc_host = BmcHost.find_by(ip_address: bmc_host_ip)
-        begin
-          bmc_host.sync_status = error.class.name.demodulize.underscore
-        rescue ArgumentError
-          bmc_host.sync_status = :stack_trace
-          bmc_host.error_message = error.class.name + ": " + error.message + "\n" + error.backtrace.join("\n")
-        end
-        bmc_host.save!
+      next unless promise.rejected?
+      error = promise.reason
+      @logger.warn bmc_host_ip + ': Promise rejected with reason: ' + error.to_s
+      bmc_host = BmcHost.find_by(ip_address: bmc_host_ip)
+      begin
+        bmc_host.sync_status = error.class.name.demodulize.underscore
+      rescue ArgumentError
+        bmc_host.sync_status = :stack_trace
+        bmc_host.error_message = error.class.name + ': ' + error.message + "\n" + error.backtrace.join("\n")
       end
+      bmc_host.save!
     end
 
     @request.reload
@@ -100,8 +98,7 @@ class BmcScanJob < ApplicationJob
 
   def list_bmc_hosts(smart_proxy_resource)
     response = smart_proxy_resource.onboard.bmc.scan.range(@request.start_address, @request.end_address).get(timeout: 600).to_hash
-    raise Dcim::BmcScanError, response["error"] if response.key?("error")
-    response["result"]
+    raise Dcim::BmcScanError, response['error'] if response.key?('error')
+    response['result']
   end
-
 end

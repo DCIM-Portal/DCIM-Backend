@@ -1,15 +1,14 @@
 class Admin::BmcScanRequestDatatable < ApplicationDatatable
-
   def view_columns
     @view_columns ||= {
-      id: {source: "BmcScanRequest.id"},
-      name: {source: "BmcScanRequest.name"},
-      start_address: {source: "BmcScanRequest.start_address"},
-      end_address: {source: "BmcScanRequest.end_address"},
-      status: {source: "BmcScanRequest.status", searchable: false, orderable: false},
-      cred_list: {source: "BruteList.name"},
-      zone: {source: "Zone.name"},
-      updated_at: {source: "BmcScanRequest.updated_at", searchable: false, orderable: true}
+      id: { source: 'BmcScanRequest.id' },
+      name: { source: 'BmcScanRequest.name' },
+      start_address: { source: 'BmcScanRequest.start_address' },
+      end_address: { source: 'BmcScanRequest.end_address' },
+      status: { source: 'BmcScanRequest.status', searchable: false, orderable: false },
+      cred_list: { source: 'BruteList.name' },
+      zone: { source: 'Zone.name' },
+      updated_at: { source: 'BmcScanRequest.updated_at', searchable: false, orderable: true }
     }
   end
 
@@ -24,7 +23,7 @@ class Admin::BmcScanRequestDatatable < ApplicationDatatable
         cred_list: record.brute_list.name,
         zone: record.zone.name,
         updated_at: record.updated_at.to_time.iso8601,
-        url: link_to('Details', [:admin, record], class: "btn blue lighten-2"),
+        url: link_to('Details', [:admin, record], class: 'btn blue lighten-2'),
         'DT_RowId' => record.id
       }
     end
@@ -36,7 +35,7 @@ class Admin::BmcScanRequestDatatable < ApplicationDatatable
     query = BmcScanRequest.includes(:brute_list, :zone).references(:brute_list, :zone).all
     params_bmc_scan_request = params[:bmc_scan_request] || {}
     params_bmc_scan_request.each do |key, value|
-      query = query.where({key.to_sym => value}) if value.present?
+      query = query.where(key.to_sym => value) if value.present?
     end
     query
   end

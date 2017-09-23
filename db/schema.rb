@@ -10,114 +10,112 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915163031) do
-
-  create_table "bmc_hosts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "serial"
-    t.string "ip_address"
-    t.string "username"
-    t.string "password"
-    t.integer "power_status"
-    t.integer "sync_status"
-    t.integer "system_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "zone_id"
-    t.text "error_message"
-    t.string "brand"
-    t.string "product"
-    t.integer "onboard_status"
-    t.integer "onboard_step"
-    t.text "onboard_error_message"
-    t.datetime "onboard_updated_at"
-    t.index ["ip_address"], name: "index_bmc_hosts_on_ip_address", unique: true
-    t.index ["serial"], name: "index_bmc_hosts_on_serial", unique: true
-    t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id"
+ActiveRecord::Schema.define(version: 20_170_915_163_031) do
+  create_table 'bmc_hosts', id: :integer, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'serial'
+    t.string 'ip_address'
+    t.string 'username'
+    t.string 'password'
+    t.integer 'power_status'
+    t.integer 'sync_status'
+    t.integer 'system_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'zone_id'
+    t.text 'error_message'
+    t.string 'brand'
+    t.string 'product'
+    t.integer 'onboard_status'
+    t.integer 'onboard_step'
+    t.text 'onboard_error_message'
+    t.datetime 'onboard_updated_at'
+    t.index ['ip_address'], name: 'index_bmc_hosts_on_ip_address', unique: true
+    t.index ['serial'], name: 'index_bmc_hosts_on_serial', unique: true
+    t.index ['zone_id'], name: 'index_bmc_hosts_on_zone_id'
   end
 
-  create_table "bmc_scan_request_hosts", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "bmc_scan_request_id"
-    t.integer "bmc_host_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bmc_host_id"], name: "index_bmc_scan_request_hosts_on_bmc_host_id"
-    t.index ["bmc_scan_request_id"], name: "index_bmc_scan_request_hosts_on_bmc_scan_request_id"
+  create_table 'bmc_scan_request_hosts', id: false, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.integer 'bmc_scan_request_id'
+    t.integer 'bmc_host_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['bmc_host_id'], name: 'index_bmc_scan_request_hosts_on_bmc_host_id'
+    t.index ['bmc_scan_request_id'], name: 'index_bmc_scan_request_hosts_on_bmc_scan_request_id'
   end
 
-  create_table "bmc_scan_requests", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.string "start_address"
-    t.string "end_address"
-    t.integer "status"
-    t.string "error_message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "brute_list_id"
-    t.integer "zone_id"
-    t.index ["brute_list_id"], name: "index_bmc_scan_requests_on_brute_list_id"
-    t.index ["name"], name: "index_bmc_scan_requests_on_name", unique: true
-    t.index ["zone_id"], name: "index_bmc_scan_requests_on_zone_id"
+  create_table 'bmc_scan_requests', id: :integer, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'name'
+    t.string 'start_address'
+    t.string 'end_address'
+    t.integer 'status'
+    t.string 'error_message'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'brute_list_id'
+    t.integer 'zone_id'
+    t.index ['brute_list_id'], name: 'index_bmc_scan_requests_on_brute_list_id'
+    t.index ['name'], name: 'index_bmc_scan_requests_on_name', unique: true
+    t.index ['zone_id'], name: 'index_bmc_scan_requests_on_zone_id'
   end
 
-  create_table "brute_list_secrets", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "username"
-    t.string "password"
-    t.integer "order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "brute_list_id"
-    t.index ["brute_list_id"], name: "index_brute_list_secrets_on_brute_list_id"
+  create_table 'brute_list_secrets', id: :integer, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'username'
+    t.string 'password'
+    t.integer 'order'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'brute_list_id'
+    t.index ['brute_list_id'], name: 'index_brute_list_secrets_on_brute_list_id'
   end
 
-  create_table "brute_lists", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_brute_lists_on_name", unique: true
+  create_table 'brute_lists', id: :integer, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['name'], name: 'index_brute_lists_on_name', unique: true
   end
 
-  create_table "onboard_request_bmc_hosts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "bmc_host_id"
-    t.bigint "onboard_request_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bmc_host_id"], name: "index_onboard_request_bmc_hosts_on_bmc_host_id"
-    t.index ["onboard_request_id"], name: "index_onboard_request_bmc_hosts_on_onboard_request_id"
+  create_table 'onboard_request_bmc_hosts', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.bigint 'bmc_host_id'
+    t.bigint 'onboard_request_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['bmc_host_id'], name: 'index_onboard_request_bmc_hosts_on_bmc_host_id'
+    t.index ['onboard_request_id'], name: 'index_onboard_request_bmc_hosts_on_onboard_request_id'
   end
 
-  create_table "onboard_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "error_message"
+  create_table 'onboard_requests', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.integer 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.text 'error_message'
   end
 
-  create_table "systems", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.integer "foreman_host_id"
-    t.string "cpu_model"
-    t.integer "cpu_cores"
-    t.integer "cpu_threads"
-    t.integer "cpu_count"
-    t.bigint "ram_total"
-    t.bigint "disk_total"
-    t.integer "disk_count"
-    t.string "os"
-    t.string "os_release"
-    t.integer "sync_status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "error_message"
-    t.index ["foreman_host_id"], name: "index_systems_on_foreman_host_id", unique: true
-    t.index ["name"], name: "index_systems_on_name"
+  create_table 'systems', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'name'
+    t.integer 'foreman_host_id'
+    t.string 'cpu_model'
+    t.integer 'cpu_cores'
+    t.integer 'cpu_threads'
+    t.integer 'cpu_count'
+    t.bigint 'ram_total'
+    t.bigint 'disk_total'
+    t.integer 'disk_count'
+    t.string 'os'
+    t.string 'os_release'
+    t.integer 'sync_status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.text 'error_message'
+    t.index ['foreman_host_id'], name: 'index_systems_on_foreman_host_id', unique: true
+    t.index ['name'], name: 'index_systems_on_name'
   end
 
-  create_table "zones", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.integer "foreman_location_id"
-    t.index ["name"], name: "index_zones_on_name", unique: true
+  create_table 'zones', id: :integer, force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'name'
+    t.integer 'foreman_location_id'
+    t.index ['name'], name: 'index_zones_on_name', unique: true
   end
-
 end

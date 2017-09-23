@@ -1,21 +1,21 @@
 class Admin::BruteListDatatable < ApplicationDatatable
-
   def view_columns
     @view_columns ||= {
-      id: {source: "BruteList.id"},
-      name: {source: "BruteList.name"},
-      created_at: {source: "BruteList.created_at", searchable: false, orderable: true}
+      id: { source: 'BruteList.id' },
+      name: { source: 'BruteList.name' },
+      created_at: { source: 'BruteList.created_at', searchable: false, orderable: true }
     }
   end
 
   def data
-    records.map do |record| {
-      id: record.id,
-      name: record.name,
-      created_at: record.updated_at.to_time.iso8601,
-      url: link_to('Details', [:admin, record], class: "btn blue lighten-2"),
-      'DT_RowId' => record.id
-    }
+    records.map do |record|
+      {
+        id: record.id,
+        name: record.name,
+        created_at: record.updated_at.to_time.iso8601,
+        url: link_to('Details', [:admin, record], class: 'btn blue lighten-2'),
+        'DT_RowId' => record.id
+      }
     end
   end
 

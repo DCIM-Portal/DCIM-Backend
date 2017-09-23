@@ -1,0 +1,47 @@
+inherit_from: .rubocop_todo.yml
+
+# Configuration parameters: CountComments.
+Metrics/ClassLength:
+  Max: 256
+  Exclude:
+    - 'test/**/*'
+
+# Cop supports --auto-correct.
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+Metrics/LineLength:
+  Max: 160
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/datatables/**/*'
+
+Security/YAMLLoad:
+  Enabled: false

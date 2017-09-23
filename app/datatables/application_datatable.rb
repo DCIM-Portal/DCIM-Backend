@@ -8,7 +8,7 @@ class ApplicationDatatable < AjaxDatatablesRails::Base
   def retrieve_records
     records = fetch_records
     records = filter_records(records)
-    records = sort_records_including_ip_address(records)     if datatable.orderable?
+    records = sort_records_including_ip_address(records) if datatable.orderable?
     records = paginate_records(records) if datatable.paginate?
     records
   end
@@ -27,16 +27,15 @@ class ApplicationDatatable < AjaxDatatablesRails::Base
       if column && column.field == :ip_address
         # XXX: Only works for MySQL?
         queries << order.query("INET_ATON(#{column.sort_query})")
-      else
-        queries << order.query(column.sort_query) if column
+      elsif column
+        queries << order.query(column.sort_query)
       end
     end
-    records.order(sort_by.join(", "))
+    records.order(sort_by.join(', '))
   end
 
   # def paginate_records(records)
   # end
 
   # ==== Insert 'presenter'-like methods below if necessary
-
 end
