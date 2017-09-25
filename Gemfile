@@ -89,6 +89,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Code coverage
   gem 'simplecov', require: false
+  # Static code analysis
+  gem 'rubocop', require: false
 end
 
 group :development do
