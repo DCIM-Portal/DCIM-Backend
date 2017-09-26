@@ -5,6 +5,7 @@
   <body>
     <%= render '/layouts/admin_menu' %>
     <%= content_for :render_async %>
+    <div id="modal_error" class="modal bottom-sheet"></div>
     <script>
       $('.button-collapse').sideNav({
         menuWidth: 225,
@@ -20,9 +21,7 @@
           }
         });
         $('ul.tabs').tabs();
-        $('#onboard_error').modal();
-        $('#sync_error').modal();
-        $('#system_sync_error').modal();
+        $('#modal_error').modal();
         $('#onboard_modal').modal({
           startingTop: '0',
           endingTop: '0'

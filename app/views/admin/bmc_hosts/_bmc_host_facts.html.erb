@@ -1,11 +1,11 @@
-<div id="bmc_facts">
+<div id="bmc_facts" data-source="<%= request.env['PATH_INFO'] %>">
   <%= form_for([:admin, bmc_host]) do |f| %>
     <%= f.button '<i class="fa fa-refresh"></i> Refresh BMC Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
   <% end %>
   <ul class="collection with-header z-depth-1">
     <li class="collection-item">
       <span class="span_heading">BMC Sync Status:</span>
-      <div class="category_bmc_host_sync_status standard_request_status inline-block-div"><%= bmc_host.sync_status %></div>
+      <div class="category_bmc_host_sync_status standard_request_status inline-block-div" data-errorfield="bmc_host_error_message"><%= bmc_host.sync_status %></div>
     </li>
     <li class="collection-item">
       <span class="span_heading">BMC Sync Time:</span>
@@ -23,11 +23,11 @@
     </li>
     <li class="collection-item">
       <span class="span_heading">Brand:</span>
-      <span class="category_bmc_host_brand"><%= bmc_host.brand %></span>
+      <span class="category_bmc_host_brand"><%= bmc_host.brand.presence || 'N/A' %></span>
     </li>
     <li class="collection-item">
       <span class="span_heading">Product:</span>
-      <span class="category_bmc_host_product"><%= bmc_host.product %></span>
+      <span class="category_bmc_host_product"><%= bmc_host.product.presence || 'N/A' %></span>
     </li>
     <li class="collection-header"><h5>BMC Host Health</h5></li>
     <li class="collection-item">

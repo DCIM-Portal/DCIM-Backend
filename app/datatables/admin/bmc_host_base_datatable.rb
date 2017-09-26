@@ -32,7 +32,8 @@ class Admin::BmcHostBaseDatatable < ApplicationDatatable
         checkbox: record.id,
         zone_id: record.zone.id,
         url: link_to('Details', [:admin, record], class: 'btn blue lighten-2'),
-        'DT_RowId' => record.id
+        'DT_RowId' => record.id,
+        host_path: admin_bmc_host_path(record.id)
       }
     end
   end

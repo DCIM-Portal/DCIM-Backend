@@ -24,7 +24,8 @@ class Admin::BmcScanRequestDatatable < ApplicationDatatable
         zone: record.zone.name,
         updated_at: record.updated_at.to_time.iso8601,
         url: link_to('Details', [:admin, record], class: 'btn blue lighten-2'),
-        'DT_RowId' => record.id
+        'DT_RowId' => record.id,
+        scan_path: admin_bmc_scan_request_path(record.id)
       }
     end
   end

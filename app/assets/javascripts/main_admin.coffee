@@ -2,16 +2,6 @@
 
 $(document).on 'turbolinks:load', ->
 
-  # Due to materialize bug, we have to set click for these modal buttons
-  $('#onboard_error_button').click ->
-    $('#onboard_error').modal('open')
-
-  $('#sync_error_button').click ->
-    $('#sync_error').modal('open')
-
-  $('#system_sync_error_button').click ->
-    $('#system_sync_error').modal('open')
-
   # Datatable Defaults
   $.extend true, $.fn.dataTable.defaults,
     processing: true
@@ -28,6 +18,8 @@ $(document).on 'turbolinks:load', ->
           return $.extend {}, $(document.datatables_state_cache[document.href]?.bmc_scan_request?.filters).serializeObject(), d
         return d
     }
+    createdRow: (row, data, dataIndex) ->
+      $(row).attr 'data-source', data.host_path
     buttons: [
       {
         extend: 'copyHtml5'
@@ -167,6 +159,8 @@ $(document).on 'turbolinks:load', ->
           'N/A'
         else
           data
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Brand:'
       }
       # Checkboxes
       { targets: 'th_checkbox'
@@ -185,6 +179,8 @@ $(document).on 'turbolinks:load', ->
           "N/A"
         else
           moment(data).format 'MMMM D YYYY, h:mma'
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Updated At:'
       }
       # Onboard Step
       { targets: 'th_onboard_step'
@@ -196,6 +192,9 @@ $(document).on 'turbolinks:load', ->
       { targets: 'th_onboard_status'
       render: (data, type, full) ->
         text_to_onboard_status(data + ': ' + full.onboard_step)
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-errorfield', 'onboard_error_message' if (rowData.onboard_status.includes("stack_trace") || rowData.onboard_status.includes("timeout"))
+        $(td).attr 'data-title', 'Onboard Status:'
       }
       # Power Status
       { targets: 'th_power'
@@ -207,21 +206,17 @@ $(document).on 'turbolinks:load', ->
         else
           '<div class="black-text">N/A</div>'
       width: 50
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Power Status:'
       }
       # Sync Status
       { targets: 'th_bmc_sync'
       render: (data, type, full) ->
-        if !data
-          '<div class="blue-grey darken-2 white-text z-depth-1 sync"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Queued</div>'
-        else if data == "success"
-          '<div class="green lighten-2 white-text z-depth-1 sync"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
-        else if /(invalid)/.test(data)
-          '<div class="orange lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
-        else if data == "in_progress"
-          '<div class="blue lighten-2 white-text z-depth-1 sync"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg> Syncing</div>'
-        else
-          '<div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ' + I18n.t(data, scope: 'filters.options.bmc_host.sync_status') + '</div>'
+        text_to_request_status('bmc_host', data)
       width: 200
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-errorfield', 'bmc_host_error_message' if (rowData.sync_status.includes("error") || rowData.sync_status.includes("stack_trace"))
+        $(td).attr 'data-title', 'Sync Status:'
       }
       # Product
       { targets: 'th_product'
@@ -231,6 +226,8 @@ $(document).on 'turbolinks:load', ->
           '<div class="model_cell">N/A</div>'
         else
           '<div class="model_cell">' + data + '</div>'
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Product:'
       }
       # Serial
       { targets: 'th_serial'
@@ -240,17 +237,23 @@ $(document).on 'turbolinks:load', ->
           '<div class="serial">' + data + '</div>'
         else
           '<div class="serial">N/A</div>'
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Serial:'
       width: 115
       }
       # BMC Address
       { targets: 'th_bmc_address'
       width: 75
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'BMC Address:'
       }
       # BMC Scan Request Status
       { targets: 'th_scan_status'
       searchable: false
       render: (data, type, full, meta) ->
         text_to_request_status('bmc_scan_request', data)
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-errorfield', 'bmc_scan_request_error_message' if (rowData.status.includes("smart") || rowData.status.includes("invalid"))
       }
       { targets: 'th_id'
       width: 50
@@ -260,9 +263,16 @@ $(document).on 'turbolinks:load', ->
       searchable: false
       render: (data, type, full, meta) ->
         text_to_request_status('onboard_request', data)
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-errorfield', 'onboard_request_error_message' if (rowData.status.includes("error") || rowData.status.includes("stack_trace"))
       }
       { targets: 'th_id'
       width: 50
+      }
+      # Zone
+      { targets: 'th_zone'
+      createdCell: (td, cellData, rowData) ->
+        $(td).attr 'data-title', 'Datacenter Zone:'
       }
     ]
 
@@ -284,34 +294,47 @@ $(document).on 'turbolinks:load', ->
   $('.form_card_error').hide()
   $("#waiting_explanation").hide()
 
-  # Define standard ajax forms
-  ajax_forms = "form#ajax_card_form_new, form#ajax_card_form_update, form#ajax_card_cred_new, form#ajax_card_cred_update"
+# Define standard ajax forms
+ajax_forms = "form#ajax_card_form_new, form#ajax_card_form_update, form#ajax_card_cred_new, form#ajax_card_cred_update"
 
-  # Submit Ajax Form
-  $('#ajax_submit_button').on 'click', (event) ->
-    event.preventDefault()
-    $('#ajax_submit_button').prop 'disabled', true
-    $('#error_explanation').hide()
-    $('#success_explanation').hide()
-    $('#waiting_explanation').show()
-    $(ajax_forms).submit()
-    $('.card-reveal').css 'height', 'auto'
-    autoHeight = $('.card-reveal').outerHeight()
-    $('.card-reveal').css 'height', '100%'
-    $('.ovf-hidden').animate { height: autoHeight }, 150
+# Submit Ajax Form
+$(document).on 'click', '#ajax_submit_button', (event) ->
+  event.preventDefault()
+  $('#ajax_submit_button').prop 'disabled', true
+  $('#error_explanation').hide()
+  $('#success_explanation').hide()
+  $('#waiting_explanation').show()
+  $(ajax_forms).submit()
+  $('.card-reveal').css 'height', 'auto'
+  autoHeight = $('.card-reveal').outerHeight()
+  $('.card-reveal').css 'height', '100%'
+  $('.ovf-hidden').animate { height: autoHeight }, 150
 
-  # Reveal form and adjust card height
-  $('.activator').click ->
-    $('.card-reveal').css 'height', 'auto'
-    autoHeight = $('.card-reveal').outerHeight()
-    $('.card-reveal').css 'height', '100%'
-    $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#outer-card').hide()
+# Reveal form and adjust card height
+$(document).on 'click', '.activator', ->
+  $('.card-reveal').css 'height', 'auto'
+  autoHeight = $('.card-reveal').outerHeight()
+  $('.card-reveal').css 'height', '100%'
+  $('.ovf-hidden').animate { height: autoHeight }, 250
+  $('#outer-card').hide()
 
-  # Original card, adjust height
-  $('.card-title').click ->
-    $('#outer-card').show()
-    # Identify Internet Explorer because it handles height differently
+# Original card, adjust height
+$(document).on 'click', '.card-title', ->
+  $('#outer-card').show()
+  # Identify Internet Explorer because it handles height differently
+  ua = window.navigator.userAgent
+  trident = ua.indexOf('Trident/')
+  # Give more height to IE browser
+  if trident > 0
+    originalHeight = $('#height_check').outerHeight() + 107
+  else
+    originalHeight = $('#height_check').outerHeight() + 71
+  $('.ovf-hidden').animate { height: originalHeight }, 250
+
+# Resize card if table becomes block
+$(window).on 'resize', (event) ->
+  windowSize = $(this).width()
+  if windowSize = 865 && $('.card-reveal').css('display') == 'none'
     ua = window.navigator.userAgent
     trident = ua.indexOf('Trident/')
     # Give more height to IE browser
@@ -319,53 +342,100 @@ $(document).on 'turbolinks:load', ->
       originalHeight = $('#height_check').outerHeight() + 107
     else
       originalHeight = $('#height_check').outerHeight() + 71
-    $('.ovf-hidden').animate { height: originalHeight }, 250
+    $('.ovf-hidden').stop().animate { height: originalHeight }, 250
 
-  # Resize card if table becomes block
-  $(window).on 'resize', (event) ->
-    windowSize = $(this).width()
-    if windowSize = 865 && $('.card-reveal').css('display') == 'none'
-      ua = window.navigator.userAgent
-      trident = ua.indexOf('Trident/')
-      # Give more height to IE browser
-      if trident > 0
-        originalHeight = $('#height_check').outerHeight() + 107
-      else
-        originalHeight = $('#height_check').outerHeight() + 71
-      $('.ovf-hidden').stop().animate { height: originalHeight }, 250
+# Ajax Form Success
+$(document).on 'ajax:success', ajax_forms, (event, data, status, xhr) ->
+  $("#waiting_explanation").hide()
+  $("#success_explanation").show()
+  $('.form_card_error').hide()
+  if $('.card-reveal').css('display') == 'block'
+    $('.card-reveal').css 'height', 'auto'
+    autoHeight = $('.card-reveal').outerHeight()
+    $('.card-reveal').css 'height', '100%'
+    $('.ovf-hidden').animate { height: autoHeight }, 250
+  $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
 
-  # Ajax Form Success
-  $(ajax_forms).on "ajax:success", (event, data, status, xhr) ->
-    $("#waiting_explanation").hide()
-    $("#success_explanation").show()
-    $('.form_card_error').hide()
-    if $('.card-reveal').css('display') == 'block'
-      $('.card-reveal').css 'height', 'auto'
-      autoHeight = $('.card-reveal').outerHeight()
-      $('.card-reveal').css 'height', '100%'
-      $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
+# Ajax Form Error
+$(document).on 'ajax:error', ajax_forms, (event, xhr, status, error) ->
+  $("#waiting_explanation").hide()
+  errors = jQuery.parseJSON(xhr.responseText)
+  $("#success_explanation").hide()
+  $('.form_card_error').empty()
+  $('.form_card_error').append('<ul>')
+  for e in errors
+    $('.form_card_error ul').append('<li>' + e + '</li>')
+  $('.form_card_error').show()
+  if $('.card-reveal').css('display') == 'block'
+    $('.card-reveal').css 'height', 'auto'
+    autoHeight = $('.card-reveal').outerHeight()
+    $('.card-reveal').css 'height', '100%'
+    $('.ovf-hidden').animate { height: autoHeight }, 250
+  $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
 
-  # Ajax Form Error
-  $(ajax_forms).on "ajax:error", (event, xhr, status, error) ->
-    $("#waiting_explanation").hide()
-    errors = jQuery.parseJSON(xhr.responseText)
-    $("#success_explanation").hide()
-    $('.form_card_error').empty()
-    $('.form_card_error').append('<ul>')
-    for e in errors
-      $('.form_card_error ul').append('<li>' + e + '</li>')
-    $('.form_card_error').show()
-    if $('.card-reveal').css('display') == 'block'
-      $('.card-reveal').css 'height', 'auto'
-      autoHeight = $('.card-reveal').outerHeight()
-      $('.card-reveal').css 'height', '100%'
-      $('.ovf-hidden').animate { height: autoHeight }, 250
-    $('#ajax_submit_button, #ajax_submit_creds').prop('disabled', false)
+# Clear out ajax new form submission on success
+$(document).on 'ajax_success', 'form#ajax_card_form_new, form#ajax_card_cred_new', ->
+  $('form#ajax_card_form_new, form#ajax_card_cred_new')[0].reset()
 
-  # Clear out ajax new form submission on success
-  $('form#ajax_card_form_new, form#ajax_card_cred_new').on 'ajax:success', ->
-    $('form#ajax_card_form_new, form#ajax_card_cred_new')[0].reset()
+# Modal status errors
+$(document).on 'click', '.modal_error_button', ->
+  # Show indicator that modal is loading
+  $("#load-indicator").fadeIn()
+  # Empty out any existing content to avoid old content visibility
+  $("#modal_error").empty()
+  source = $(this).closest('[data-source]').data('source')
+  error_type = $(this).closest('[data-errorfield]').data('errorfield')
+  $.ajax
+    url: source + '.json'
+    type: 'GET'
+    success: (data) ->
+      # BMC Sync Status Error
+      if error_type == "bmc_host_error_message"
+        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
+        data.ip_address + ' Sync Status - ' + data.sync_status +
+        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        if !data.error_message
+          '<p>No additional details were captured for this error.</p></div>'
+        else
+          simpleFormat(data.error_message) + '</div>'
+      # BMC Onboard Error
+      else if error_type == "onboard_error_message"
+        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
+        data.ip_address + ' Onboard Status - ' + data.onboard_status + ': ' + data.onboard_step +
+        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        if !data.onboard_error_message
+          '<p>No additional details were captured for this error.</p></div>'
+        else
+          simpleFormat(data.onboard_error_message) + '</div>'
+      # System Sync Status Error
+      else if error_type == "system_error_message"
+        $('#modal_error').html '<div class="modal-content"><blockquote>Foreman System ' +
+        data.foreman_host_id + ' Sync Status - ' + data.sync_status +
+        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        if !data.error_message
+          '<p>No additional details were captured for this error.</p></div>'
+        else
+          simpleFormat(data.error_message) + '</div>'
+      # BmcScanRequest status error
+      else if error_type == "bmc_scan_request_error_message"
+        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Scan Request ' +
+        data.id + ' Status - ' + data.status +
+        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        if !data.error_message
+          '<p>No additional details were captured for this error.</p></div>'
+        else
+          simpleFormat(data.error_message) + '</div>'
+      # OnboardRequest status error
+      else if error_type == "onboard_request_error_message"
+        $('#modal_error').html '<div class="modal-content"><blockquote>Onboard Request ' +
+        data.id + ' Status - ' + data.status +
+        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        if !data.error_message
+          '<p>No additional details were captured for this error.</p></div>'
+        else
+          simpleFormat(data.error_message) + '</div>'
+      $('#load-indicator').hide()
+      $('#modal_error').modal('open')
 
 $(document).on 'turbolinks:before-cache', ->
   # Load overlay
@@ -401,10 +471,19 @@ $(document).on 'turbolinks:before-cache', ->
   f = Math.floor(Math.log(a) / Math.log(c))
   parseFloat((a / c ** f).toFixed(d)) + ' ' + e[f]
 
+@simpleFormat = (str) ->
+  str = str.replace(/\r\n?/, '\n')
+  str = $.trim(str)
+  if str.length > 0
+    str = str.replace(/\n\n+/g, '</p><p>')
+    str = str.replace(/\n/g, '<br />')
+    str = '<p>' + str + '</p>'
+  str
+
 @text_to_onboard_status = (text) ->
     status_and_step = text.split(': ')
-    status = status_and_step.shift() || 'none'
-    step = status_and_step.join(': ') || 'none'
+    status = status_and_step.shift() || "null"
+    step = status_and_step.join(': ') || "null"
     append = ''
     switch status
       when "success" 
@@ -414,7 +493,7 @@ $(document).on 'turbolinks:before-cache', ->
         color = 'blue lighten-2'
         prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
-      when "none"
+      when "null"
         color = 'blue-grey lighten-1'
         prefix = '<i class="fa fa-minus-circle" aria-hidden="true"></i>'
       else
@@ -422,8 +501,8 @@ $(document).on 'turbolinks:before-cache', ->
         prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
     content = I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) + append
-    return '<div class="'+color+' white-text z-depth-1 sync">' +
-           prefix + ' ' + content + '</div>'
+    return '<div class="'+color+' white-text z-depth-1 sync">' + prefix + ' ' + content + '</div>' if !color.includes("red")
+    return '<div class="'+color+' white-text z-depth-1 sync modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</div>' if color.includes("red")
 
 @render_onboard_status = ->
   $('.onboard_status').each (i, dom) ->
@@ -445,7 +524,7 @@ $(document).on 'turbolinks:before-cache', ->
       color = 'blue-grey darken-2'
       prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
       content = 'Queued'
-    when /invalid/
+    when "invalid_credentials_error", "invalid_username_error", "invalid_password_error"
       color = 'orange lighten-2'
       prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
     else
@@ -453,7 +532,8 @@ $(document).on 'turbolinks:before-cache', ->
       prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if type.includes("request")
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.sync_status', defaultValue: text) if (type == "bmc_host" || type == "system")
-  return '<span class="badge '+color+'">' + prefix + ' ' + content + '</span>'
+  return '<span class="white-text z-depth-1 sync '+color+'">' + prefix + ' ' + content + '</span>' if !color.includes("red")
+  return '<span class="white-text z-depth-1 sync '+color+' modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</span>' if color.includes("red")
 
 #XXX: Change naming
 @render_standard_request_status = ->

@@ -24,7 +24,7 @@
         <tbody>
           <tr>
             <td id="category_onboard_request_id" data-title="Request ID:"><%= @onboard_request.id %></td>
-            <td id="category_onboard_request_status" class="standard_request_status" data-title="Request Status:"><%= @onboard_request.status %></td>
+            <td id="category_onboard_request_status" data-errorfield="onboard_request_error_message" class="standard_request_status" data-title="Request Status:"><%= @onboard_request.status %></td>
             <td id="category_onboard_request_updated_at" data-title="Request Time:"><%= local_time(@onboard_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Delete Request:">
               <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @onboard_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>

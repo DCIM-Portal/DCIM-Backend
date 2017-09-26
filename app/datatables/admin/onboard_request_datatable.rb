@@ -14,7 +14,8 @@ class Admin::OnboardRequestDatatable < ApplicationDatatable
         status: record.status,
         updated_at: record.updated_at.to_time.iso8601,
         url: link_to('Details', [:admin, record], class: 'btn blue lighten-2'),
-        'DT_RowId' => record.id
+        'DT_RowId' => record.id,
+        onboard_request_path: admin_onboard_request_path(record.id)
       }
     end
   end

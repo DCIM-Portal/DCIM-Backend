@@ -5,11 +5,21 @@ class SystemsController < ApplicationController
   # GET /systems.json
   def index
     @systems = System.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @systems }
+    end
+
   end
 
   # GET /systems/1
   # GET /systems/1.json
-  def show; end
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @system.as_json }
+    end
+  end
 
   # GET /systems/new
   def new
@@ -71,7 +81,7 @@ class SystemsController < ApplicationController
       :disk_count,
       :os,
       :os_release,
-      :sync_status
+      :sync_status,
     )
   end
 end

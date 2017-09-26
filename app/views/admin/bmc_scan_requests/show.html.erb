@@ -32,7 +32,7 @@
             <td id="category_bmc_scan_request_name" data-title="Scan Name:"><%= @bmc_scan_request.name %></td>
             <td id="category_bmc_scan_request_start_address" data-title="Start Address:"><%= @bmc_scan_request.start_address %></td>
             <td id="category_bmc_scan_request_end_address" data-title="End Address:"><%= @bmc_scan_request.end_address %></td>
-            <td id="category_bmc_scan_request_status" class="standard_request_status" data-title="Scan Status:"><%= @bmc_scan_request.status %></td>
+            <td id="category_bmc_scan_request_status" data-errorfield="bmc_scan_request_error_message" class="standard_request_status" data-title="Scan Status:"><%= @bmc_scan_request.status %></td>
             <td id="category_bmc_scan_request_brute_list_name" data-title="Associated Cred List:"><%= @bmc_scan_request.brute_list.name %></td>
             <td id="category_bmc_scan_request_zone_name" data-title="Datacenter Zone:"><%= @bmc_scan_request.zone.name %></td>
             <td id="category_bmc_scan_request_updated_at" data-title="Scan Initiated:"><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>

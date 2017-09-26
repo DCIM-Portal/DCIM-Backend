@@ -28,11 +28,11 @@
         <tbody>
           <tr>
             <td class="category_bmc_host_ip_address" data-title="BMC Address:"><%= @bmc_host.ip_address %></td>
-            <td class="category_bmc_host_brand" data-title="Brand:"><%= @bmc_host.brand %></td>
-            <td class="category_bmc_host_product" data-title="Product:"><%= @bmc_host.product %></td>
-            <td class="category_bmc_host_serial" data-title="Serial:"><strong><%= @bmc_host.serial %></strong></td>
+            <td class="category_bmc_host_brand" data-title="Brand:"><%= @bmc_host.brand.presence || 'N/A' %></td>
+            <td class="category_bmc_host_product" data-title="Product:"><%= @bmc_host.product.presence || 'N/A' %></td>
+            <td class="category_bmc_host_serial" data-title="Serial:"><strong><%= @bmc_host.serial.presence || 'N/A' %></strong></td>
             <td class="category_bmc_host_zone_name" data-title="Datacenter Zone:"><%= @bmc_host.zone.name %></td>
-            <td id="category_bmc_host_onboard_status" data-title="Onboarded:" class="onboard_status"><%= @bmc_host.onboard_status %>: <%= @bmc_host.onboard_step %></td>
+            <td id="category_bmc_host_onboard_status" data-errorfield="onboard_error_message" data-title="Onboarded:" class="onboard_status"><%= @bmc_host.onboard_status %>: <%= @bmc_host.onboard_step %></td>
             <td class="category_bmc_host_onboard_updated_at" data-title="Onboard Time:">
             <% if @bmc_host.onboard_updated_at.nil? %>
               N/A
@@ -58,7 +58,7 @@
     </ul>
   </div>
 
-  <div class="card-content grey lighten-4">
+  <div class="card-content grey lighten-4 source_data">
 
     <%= render 'bmc_host_facts', bmc_host: @bmc_host %>
 
@@ -69,42 +69,6 @@
   </div>
 </div>
 
-<div id="sync_error" class="modal bottom-sheet">
-  <div class="modal-content">
-    <blockquote>BMC Host <%= @bmc_host.ip_address %> Sync Status - <%= t(@bmc_host.sync_status, scope: "filters.options.bmc_host.sync_status") %> <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>
-    <% if @bmc_host.error_message.nil? %>
-      <p>No additional details were captured for this error.</p>
-    <% else %>
-      <p><%= simple_format @bmc_host.error_message %></p>
-    <% end %>
-  </div>
-</div>
-
-<div id="onboard_error" class="modal bottom-sheet">
-  <div class="modal-content">
-    <blockquote>BMC Host <%= @bmc_host.ip_address %> Onboard Status - <%= t(@bmc_host.onboard_status, scope: "filters.options.bmc_host.onboard_status") %>: <%= t(@bmc_host.onboard_step, scope: "filters.options.bmc_host.onboard_step") %> <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>
-    <% if @bmc_host.onboard_error_message.nil? %>
-      <p>No additional details were captured for this error.</p>
-    <% else %>
-      <p><%= simple_format @bmc_host.onboard_error_message %></p>
-    <% end %>
-  </div>
-</div>
-
-<div id="system_sync_error" class="modal bottom-sheet">
-  <div class="modal-content">
-    <% if @bmc_host.system.try(:sync_status).nil? %>
-      <blockquote>Foreman System <%= @bmc_host.system.try(:foreman_host_id) %> Sync Status - Unknown Error<a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>
-    <% else %>
-      <blockquote>Foreman System <%= @bmc_host.system.try(:foreman_host_id) %> Sync Status - <%= t(@bmc_host.system.sync_status, scope: "filters.options.system.sync_status") %> <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>
-    <% end %>
-    <% if @bmc_host.system.try(:error_message).nil? %>
-      <p>No additional details were captured for this error.</p>
-    <% else %>
-      <p><%= simple_format @bmc_host.system.error_message %></p>
-    <% end %>
-  </div>
-</div>
 <script>
   document.category_name = 'bmc_host'
 </script>

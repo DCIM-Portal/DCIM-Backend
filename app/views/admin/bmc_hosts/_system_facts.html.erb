@@ -1,4 +1,4 @@
-<div id="sys_facts">
+<div id="sys_facts" data-source="<%= system_path(bmc_host.system) if !bmc_host.system.nil? %>">
 <% if bmc_host.onboard_status.nil? %>
   <p>System is not yet onboarded.</p>
 <% end %>
@@ -9,7 +9,7 @@
   <ul class="collection with-header z-depth-1">
     <li class="collection-item">
       <span class="span_heading">System Sync Status:</span>
-      <div class="category_system_sync_status standard_request_status inline-block-div"><%= bmc_host.system.sync_status %></div>
+      <div class="category_system_sync_status standard_request_status inline-block-div" data-errorfield="system_error_message"><%= bmc_host.system.sync_status %></div>
     </li>
     <li class="collection-item">
       <span class="span_heading">System Sync Time:</span>

@@ -38,15 +38,8 @@ $(document).on 'turbolinks:load', ->
       dom: '<"top clearfix"lf><"middle"B<"f_toolbar">><tr><"bottom"ip><"clearfix">'
       select: 'multi'
       createdRow: (row, data, dataIndex) ->
-        $(row).find('td:eq(1)').attr 'data-title', 'BMC Address:'
-        $(row).find('td:eq(2)').attr 'data-title', 'Brand:'
-        $(row).find('td:eq(3)').attr 'data-title', 'Product:'
-        $(row).find('td:eq(4)').attr 'data-title', 'Serial:'
-        $(row).find('td:eq(5)').attr 'data-title', 'Datacenter Zone:'
-        $(row).find('td:eq(6)').attr 'data-title', 'Power Status:'
-        $(row).find('td:eq(7)').attr 'data-title', 'Last Sync Status:'
-        $(row).find('td:eq(8)').attr 'data-title', 'Onboard Status:'
-        $(row).find('td:eq(9)').attr 'data-title', 'Synchronize Date:'
+        $(row).find('td:eq(9)').attr 'data-title', 'Synchronize Time:'
+        $(row).attr 'data-source', data.host_path
 
   document.render.category_table.bmc_host = (record) ->
     for key, value of record
