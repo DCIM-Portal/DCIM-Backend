@@ -9,7 +9,6 @@ class SystemsController < ApplicationController
       format.html
       format.json { render json: @systems }
     end
-
   end
 
   # GET /systems/1
@@ -81,7 +80,7 @@ class SystemsController < ApplicationController
       :disk_count,
       :os,
       :os_release,
-      :sync_status,
+      :sync_status
     )
   end
 end

@@ -193,7 +193,7 @@ $(document).on 'turbolinks:load', ->
       render: (data, type, full) ->
         text_to_onboard_status(data + ': ' + full.onboard_step)
       createdCell: (td, cellData, rowData) ->
-        $(td).attr 'data-errorfield', 'onboard_error_message' if (rowData.onboard_status.includes("stack_trace") || rowData.onboard_status.includes("timeout"))
+        $(td).attr 'data-errorfield', 'onboard_error_message' if /(stack_trace|timeout)/.test(rowData.onboard_status)
         $(td).attr 'data-title', 'Onboard Status:'
       }
       # Power Status
@@ -215,7 +215,7 @@ $(document).on 'turbolinks:load', ->
         text_to_request_status('bmc_host', data)
       width: 200
       createdCell: (td, cellData, rowData) ->
-        $(td).attr 'data-errorfield', 'bmc_host_error_message' if (rowData.sync_status.includes("error") || rowData.sync_status.includes("stack_trace"))
+        $(td).attr 'data-errorfield', 'bmc_host_error_message' if /(error|stack_trace)/.test(rowData.sync_status)
         $(td).attr 'data-title', 'Sync Status:'
       }
       # Product
@@ -253,7 +253,7 @@ $(document).on 'turbolinks:load', ->
       render: (data, type, full, meta) ->
         text_to_request_status('bmc_scan_request', data)
       createdCell: (td, cellData, rowData) ->
-        $(td).attr 'data-errorfield', 'bmc_scan_request_error_message' if (rowData.status.includes("smart") || rowData.status.includes("invalid"))
+        $(td).attr 'data-errorfield', 'bmc_scan_request_error_message' if /(smart|invalid)/.test(rowData.status)
       }
       { targets: 'th_id'
       width: 50
@@ -264,7 +264,7 @@ $(document).on 'turbolinks:load', ->
       render: (data, type, full, meta) ->
         text_to_request_status('onboard_request', data)
       createdCell: (td, cellData, rowData) ->
-        $(td).attr 'data-errorfield', 'onboard_request_error_message' if (rowData.status.includes("error") || rowData.status.includes("stack_trace"))
+        $(td).attr 'data-errorfield', 'onboard_request_error_message' if /(error|stack_trace)/.test(rowData.status)
       }
       { targets: 'th_id'
       width: 50
@@ -501,8 +501,8 @@ $(document).on 'turbolinks:before-cache', ->
         prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
     content = I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) + append
-    return '<div class="'+color+' white-text z-depth-1 sync">' + prefix + ' ' + content + '</div>' if !color.includes("red")
-    return '<div class="'+color+' white-text z-depth-1 sync modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</div>' if color.includes("red")
+    return '<div class="'+color+' white-text z-depth-1 sync">' + prefix + ' ' + content + '</div>' unless /red/.test(color)
+    return '<div class="'+color+' white-text z-depth-1 sync modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</div>' if /red/.test(color)
 
 @render_onboard_status = ->
   $('.onboard_status').each (i, dom) ->
@@ -530,10 +530,10 @@ $(document).on 'turbolinks:before-cache', ->
     else
       color = 'red lighten-2'
       prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
-  content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if type.includes("request")
+  content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if /request/.test(type)
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.sync_status', defaultValue: text) if (type == "bmc_host" || type == "system")
-  return '<span class="white-text z-depth-1 sync '+color+'">' + prefix + ' ' + content + '</span>' if !color.includes("red")
-  return '<span class="white-text z-depth-1 sync '+color+' modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</span>' if color.includes("red")
+  return '<span class="white-text z-depth-1 sync '+color+'">' + prefix + ' ' + content + '</span>' unless /red/.test(color)
+  return '<span class="white-text z-depth-1 sync '+color+' modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</span>' if /red/.test(color)
 
 #XXX: Change naming
 @render_standard_request_status = ->
@@ -557,12 +557,36 @@ $(document).on 'turbolinks:load', ->
 # LiveUpdates
 @live_update_connected = ->
 
+@live_update_lock = (j) ->
+  j.attr('data-livelocked', true)
+
+@live_update_locked = (j) ->
+  return j.attr('data-livelocked')
+
+@live_update_unlock = (j) ->
+  j.removeAttr('data-livelocked')
+
+@live_update_set_run_again = ->
+  document.live_update_run_again = true
+
+@live_update_should_run_again = ->
+  return false if $('[data-livelocked]').length > 0
+  return document.live_update_run_again
+
+@live_update_run_again = ->
+  document.live_update_run_again = false
+  live_update_received((new Date).getTime())
+
 @live_update_received = (time) ->
 
   # Renderer: Model
   $('[data-livetype="model"]').each (i, dom) ->
     j = $(dom)
     url = j.data('source') || window.location.pathname
+    if live_update_locked(j)
+      live_update_set_run_again
+      return true
+    live_update_lock(j)
     $.ajax
       url: url
       method: 'get'
@@ -573,12 +597,19 @@ $(document).on 'turbolinks:load', ->
       error: (xhr, status, exception) ->
         console.log "LiveUpdate error: AJAX received " + exception + " with XHR:"
         console.log xhr
+      complete: ->
+        live_update_unlock(j)
+        live_update_run_again() if live_update_should_run_again()
 
   # Renderer: Datatable
   $('[data-livetype="datatable"]').each (i, dom) ->
     j = $(dom)
     t = j.dataTable().api()
     params = t.ajax.params()
+    if live_update_locked(j)
+      live_update_set_run_again
+      return true
+    live_update_lock(j)
     $.ajax
       url: j.data('source')
       data: params
@@ -607,6 +638,9 @@ $(document).on 'turbolinks:load', ->
       error: (xhr, status, exception) ->
         console.log "LiveUpdate error: AJAX received " + exception + " with XHR:"
         console.log xhr
+      complete: ->
+        live_update_unlock(j)
+        live_update_run_again() if live_update_should_run_again()
 
   # Renderer: Partial
   # TODO

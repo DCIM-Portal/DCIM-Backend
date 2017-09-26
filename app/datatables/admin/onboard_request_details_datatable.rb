@@ -2,7 +2,7 @@ class Admin::OnboardRequestDetailsDatatable < Admin::BmcHostBaseDatatable
   private
 
   def get_raw_records
-    query = OnboardRequest.find(params[:id]).bmc_hosts
+    query = OnboardRequest.find(params[:id]).bmc_hosts.includes(:zone).references(:zone)
     params_bmc_host = params[:bmc_host] || {}
     params_bmc_host.each do |key, value|
       query = query.where(key.to_sym => value) if value.present?

@@ -66,6 +66,7 @@ en:
         status:
           complete: "Complete"
           in_progress: "In Progress"
+          stack_trace: "Error (stack trace)"
       system:
         sync_status:
           success: "Synchronized"
