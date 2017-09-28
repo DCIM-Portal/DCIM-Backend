@@ -1,5 +1,8 @@
 # Rails DCIM Portal
 
+[![Latest release](https://img.shields.io/github/release/buddwm/Rails_DCIM_Portal/all.svg)](https://github.com/buddwm/Rails_DCIM_Portal/releases)
+[![Latest tag](https://img.shields.io/github/tag/buddwm/Rails_DCIM_Portal.svg)](https://github.com/buddwm/Rails_DCIM_Portal/tags)
+
 **Rails DCIM Portal** is an early development Ruby on Rails implementation of a data center inventory management system that integrates with [Foreman](https://github.com/theforeman/foreman).
 
 ## Installation
