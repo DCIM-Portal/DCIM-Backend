@@ -389,10 +389,11 @@ $(document).on 'click', '.modal_error_button', ->
     url: source + '.json'
     type: 'GET'
     success: (data) ->
+      # XXX: Make locale translation into a function
       # BMC Sync Status Error
       if error_type == "bmc_host_error_message"
         $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
-        data.ip_address + ' Sync Status - ' + data.sync_status +
+        data.ip_address + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.bmc_host.sync_status', defaultValue: data.sync_status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
@@ -401,7 +402,7 @@ $(document).on 'click', '.modal_error_button', ->
       # BMC Onboard Error
       else if error_type == "onboard_error_message"
         $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
-        data.ip_address + ' Onboard Status - ' + data.onboard_status + ': ' + data.onboard_step +
+        data.ip_address + ' Onboard Status - ' + I18n.t(data.onboard_status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: data.onboard_status) + ': ' + I18n.t(data.onboard_step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: data.onboard_step) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.onboard_error_message
           '<p>No additional details were captured for this error.</p></div>'
@@ -410,7 +411,7 @@ $(document).on 'click', '.modal_error_button', ->
       # System Sync Status Error
       else if error_type == "system_error_message"
         $('#modal_error').html '<div class="modal-content"><blockquote>Foreman System ' +
-        data.foreman_host_id + ' Sync Status - ' + data.sync_status +
+        data.foreman_host_id + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.system.sync_status', defaultValue: data.sync_status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
@@ -419,7 +420,7 @@ $(document).on 'click', '.modal_error_button', ->
       # BmcScanRequest status error
       else if error_type == "bmc_scan_request_error_message"
         $('#modal_error').html '<div class="modal-content"><blockquote>BMC Scan Request ' +
-        data.id + ' Status - ' + data.status +
+        data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.bmc_scan_request.status', defaultValue: data.status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
@@ -428,7 +429,7 @@ $(document).on 'click', '.modal_error_button', ->
       # OnboardRequest status error
       else if error_type == "onboard_request_error_message"
         $('#modal_error').html '<div class="modal-content"><blockquote>Onboard Request ' +
-        data.id + ' Status - ' + data.status +
+        data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.onboard_request.status', defaultValue: data.status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'

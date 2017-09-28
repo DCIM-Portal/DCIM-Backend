@@ -10,11 +10,11 @@
     padding-right: 0px;
     display: block;
     height: $side-nav-height;
-    line-height: $side-nav-height;
+    line-height: 30px;
     text-transform: none;
     margin-bottom: 0px;
     font-weight: 400;
-    font-size: 1.07em;
+    font-size: $font-standard-size;
     -o-transition: .35s;
     -ms-transition: .35s;
     -moz-transition: .35s;
@@ -50,6 +50,7 @@
   li.direct_link {
     padding-left: 0.5rem;
     padding-right: 0.7rem;
+    padding-bottom: 5px;
   }
   li.active {
     background-color: transparent;
@@ -67,8 +68,9 @@
       color: $navbar-orange;
       margin-right: 5px;
       min-width: 20px;
-      font-size: $font-standard-size;
-      line-height: 35px;
+      font-size: $font-smaller-size;
+      line-height: 20px;
+      height: auto;
       float: none;
     }
   }
@@ -79,7 +81,7 @@
       text-transform: none;
       margin-bottom: 0px;
       font-weight: 400;
-      font-size: 1.07em;
+      font-size: 1.0rem;
       text-transform: none;
       text-transform: none;
       -o-transition: .35s;
@@ -89,7 +91,7 @@
       transition: .35s;
       color: $white;
       height: $side-nav-height;
-      line-height: $side-nav-height;
+      line-height: 30px;
     }
     a:hover {
       background: $navbar-hover-item;
@@ -102,24 +104,31 @@
     padding-left: 0.5rem;
     padding-right: 1rem;
     border-radius: 2px;
+    padding-bottom: 5px;
     a.collapsible-header:hover {
       background: $navbar-hover-item;
     }
   }
   .collapsible-header {
-    padding: 0 8px;
+    padding: 0 10px;
+    i {
+      padding-right: 11px;
+    }
+    i.fa-angle-down {
+      padding-right: 0px;
+    }
   }
   .collapsible-body {
     background-color: transparent;
     li {
-      height: 35px;
+      height: auto;
       margin-bottom: 5px;
       margin-top: 5px;
       a {
-        padding-left: 40px;
-        font-size: $font-standard-size;
-        line-height: 35px;
-        height: 35px;
+        padding-left: 31px;
+        font-size: $font-smaller-size;
+        line-height: 25px;
+        height: auto;
         background: none;
       }
     }
@@ -127,7 +136,8 @@
       background: $navbar-active-item
     }
     .fa {
-      font-size: 0.80rem;
+      font-size: 0.75rem;
+      height: auto;
     }
   }
 }
