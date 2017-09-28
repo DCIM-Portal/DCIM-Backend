@@ -55,34 +55,29 @@ class BmcHost < ApplicationRecord
     self.sync_status = :in_progress
     self.error_message = nil
     save!
+    logger.debug 'Getting power status...'
+    self.power_status = power_on? ? :on : :off
+    logger.debug "Power status is #{self.power_status}"
     logger.debug 'Getting FRU list...'
     frulist = fru_list
     logger.debug 'Parsing FRU list...'
-    brand = brand_from_fru_list(frulist)
-    product = product_from_fru_list(frulist)
-    serial = serial_from_fru_list(frulist)
-    logger.debug "Obtained brand \"#{brand}\", product \"#{product}\", and serial \"#{serial}\""
-    logger.debug 'Getting power status...'
-    power_status = power_on? ? :on : :off
-    logger.debug "Power status is #{power_status}"
+    self.brand = brand_from_fru_list(frulist)
+    self.product = product_from_fru_list(frulist)
+    self.serial = serial_from_fru_list(frulist)
+    logger.debug "Obtained brand \"#{self.brand}\", product \"#{self.product}\", and serial \"#{self.serial}\""
     logger.debug 'Updating record with obtained information...'
-    self.brand        = brand
-    self.product      = product
-    self.serial       = serial
-    self.power_status = power_status
     self.sync_status  = :success
-    save!
-    logger.debug 'Record updated!'
   rescue RuntimeError => e
     self.error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
     begin
       self.sync_status = e.class.name.demodulize.underscore
-      save!
     rescue ArgumentError
       self.sync_status = :stack_trace
-      save!
     end
     false
+  ensure
+    save!
+    logger.debug 'Record updated!'
   end
 
   def smart_proxy
@@ -260,6 +255,7 @@ class BmcHost < ApplicationRecord
       deep_find('board_serial_number', fru) ||
       deep_find('board_serial', fru)
     raise Dcim::UnsupportedFruError, fru unless output
+    raise Dcim::BmcHostIncompleteError, "Serial number is blank" if output.empty?
     output
   end
 

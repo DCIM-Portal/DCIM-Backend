@@ -71,7 +71,8 @@ class Admin::BruteListsController < AdminController
   # Since we are deleting associated collection, check parameters for any errors
   # XXX: Bad name for this method
   def param_check(args)
-    return true unless args.respond_to? :each
+    args = args.to_unsafe_h if args.is_a? ActionController::Parameters
+    return true unless args.respond_to? :each_value
     args.each_value do |arg|
       return true if arg.values.any?(&:blank?)
     end

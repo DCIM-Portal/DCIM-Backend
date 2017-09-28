@@ -52,5 +52,6 @@ $(document).on 'turbolinks:load', ->
           value = text_to_onboard_status(value + ': ' + record["onboard_step"])
         when "system"
           document.render.category_table.system?(value)
+        // TODO: Badge for power status
       $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
       $(".category_" + document.category_name + "_" + key).html(value) if value != $(".category_" + document.category_name + "_" + key).html()
