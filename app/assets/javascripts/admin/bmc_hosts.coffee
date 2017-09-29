@@ -47,11 +47,19 @@ $(document).on 'turbolinks:load', ->
         when "status"
           value = text_to_request_status('bmc_host', value)
         when "updated_at", "onboard_updated_at"
-          value = moment(value).format('MMMM DD YYYY, h:mma')
+          value = moment(value).format('MMMM DD YYYY, h:mma') if value
+          value = "N/A" if !value
         when "onboard_status"
           value = text_to_onboard_status(value + ': ' + record["onboard_step"])
         when "system"
           document.render.category_table.system?(value)
-        # TODO: Badge for power status
+        when "serial"
+          value = "<strong>N/A</strong>" if !value
+        when "product", "brand"
+          value = "N/A" if !value
+        when "power_status"
+          value = '<div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>' if value == "on"
+          value = '<div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>' if value == "off"
+          value = "N/A" if !value
       $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
       $(".category_" + document.category_name + "_" + key).html(value) if value != $(".category_" + document.category_name + "_" + key).html()
