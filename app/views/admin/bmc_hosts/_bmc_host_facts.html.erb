@@ -31,7 +31,7 @@
     </li>
     <li class="collection-header"><h5>BMC Host Health</h5></li>
     <li class="collection-item">
-      <span class="span_heading">Power:</span>
+      <span class="span_heading">Power:</span><span class="category_bmc_host_power_status">
       <% if bmc_host.power_status == "on" %>
         <div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>
       <% elsif bmc_host.power_status == "off" %>
@@ -39,6 +39,7 @@
       <% else %>
         N/A
       <% end %>
+      </span>
     </li>
   </ul>
 </div>
