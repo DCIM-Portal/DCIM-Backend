@@ -3,7 +3,7 @@
   <p>System is not yet onboarded.</p>
 <% end %>
 <% if !bmc_host.system.nil? %>
-  <%= form_for(bmc_host.system) do |f| %>
+  <%= form_for(bmc_host.system, remote: true) do |f| %>
     <%= f.button '<i class="fa fa-refresh"></i> Refresh System Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
 <% end %>
   <ul class="collection with-header z-depth-1">

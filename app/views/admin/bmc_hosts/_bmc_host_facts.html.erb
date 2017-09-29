@@ -1,5 +1,5 @@
 <div id="bmc_facts" data-source="<%= request.env['PATH_INFO'] %>">
-  <%= form_for([:admin, bmc_host]) do |f| %>
+  <%= form_for([:admin, bmc_host], remote: true) do |f| %>
     <%= f.button '<i class="fa fa-refresh"></i> Refresh BMC Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
   <% end %>
   <ul class="collection with-header z-depth-1">

@@ -589,10 +589,10 @@ $(document).on 'turbolinks:load', ->
       return true
     live_update_lock(j)
     $.ajax
-      url: url
+      url: url + '.json'
       method: 'get'
-      headers:
-        'Accept': 'application/json'
+      #headers:
+      #  'Accept': 'application/json'
       success: (data) ->
         document.sync_model(data)
       error: (xhr, status, exception) ->
