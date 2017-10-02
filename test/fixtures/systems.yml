@@ -27,3 +27,7 @@ two:
   os: MyString2
   os_release: MyString2
   sync_status: 1
+
+minimum:
+  name: System3
+  foreman_host_id: 3

@@ -1,4 +1,6 @@
 class System < ApplicationRecord
+  include DeviceTarget
+
   has_one :bmc_host
 
   enum sync_status: {

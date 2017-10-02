@@ -11,3 +11,8 @@ two:
   ip_address: 192.168.0.2
   power_status: 1
   zone: two
+
+minimum:
+  serial: MyString3
+  ip_address: 192.168.0.3
+  zone: one

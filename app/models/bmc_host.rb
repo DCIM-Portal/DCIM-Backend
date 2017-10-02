@@ -1,6 +1,8 @@
 require 'resolv'
 
 class BmcHost < ApplicationRecord
+  include DeviceTarget
+
   has_many :bmc_scan_request_hosts
   has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts
   has_many :onboard_request_bmc_hosts
@@ -57,14 +59,14 @@ class BmcHost < ApplicationRecord
     save!
     logger.debug 'Getting power status...'
     self.power_status = power_on? ? :on : :off
-    logger.debug "Power status is #{self.power_status}"
+    logger.debug "Power status is #{power_status}"
     logger.debug 'Getting FRU list...'
     frulist = fru_list
     logger.debug 'Parsing FRU list...'
     self.brand = brand_from_fru_list(frulist)
     self.product = product_from_fru_list(frulist)
     self.serial = serial_from_fru_list(frulist)
-    logger.debug "Obtained brand \"#{self.brand}\", product \"#{self.product}\", and serial \"#{self.serial}\""
+    logger.debug "Obtained brand \"#{brand}\", product \"#{product}\", and serial \"#{serial}\""
     logger.debug 'Updating record with obtained information...'
     self.sync_status  = :success
   rescue RuntimeError => e
@@ -255,7 +257,7 @@ class BmcHost < ApplicationRecord
       deep_find('board_serial_number', fru) ||
       deep_find('board_serial', fru)
     raise Dcim::UnsupportedFruError, fru unless output
-    raise Dcim::BmcHostIncompleteError, "Serial number is blank" if output.empty?
+    raise Dcim::BmcHostIncompleteError, 'Serial number is blank' if output.empty?
     output
   end
 

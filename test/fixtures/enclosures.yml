@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  u_lower: 1
+  u_upper: 1
+  enclosure_rack: one
+
+two:
+  u_lower: 1
+  u_upper: 1
+  enclosure_rack: two
+
+minimum:
+  u_lower: 2
+  u_upper: 5
+  enclosure_rack: one

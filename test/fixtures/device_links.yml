@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  device: one
+#  linked_device: two
+#
+#two:
+#  device: two
+#  linked_device: one
