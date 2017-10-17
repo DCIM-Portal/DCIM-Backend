@@ -1,0 +1,43 @@
+<div class="clearfix">
+  <h3 class="section_title"></h3>
+  <%= render '/layouts/data_load' %>
+</div>
+<label for="indexText">Rack Name: </label><input type="text" id="indexText"> <button>Add</button>
+<span style="float:right; margin-right:10px"><button>Save</button></span>
+<hr class="invisible">
+<div class="grid-stack z-depth-1">
+</div>
+<script>
+$(function () {
+  var options = {
+    float: true,
+    verticalMargin: 2,
+    disableResize: true,
+    disableOneColumnMode: true,
+    staticValue: true
+  };
+  $('.grid-stack').gridstack(options);
+
+  new function () {
+    this.serializedData = [
+      <% @zone.enclosure_racks.each do |rack| %>
+      {x: <%= rack.x %>, y: <%= rack.y %>, width: 1, height: 1, name: "<%= "#{rack.name}" %>", id: <%= rack.id %>},
+      <% end %>
+    ];
+
+    this.grid = $('.grid-stack').data('gridstack');
+
+    this.loadGrid = function () {
+      this.grid.removeAll();
+      var items = GridStackUI.Utils.sort(this.serializedData);
+      _.each(items, function (node) {
+        this.grid.addWidget($('<div><div class="grid-stack-item-content z-depth-1"><div class="card blue-grey darken-1"><div class="card-content white-text">' + node.name + '</div><div class="card-action"><a href="#">Details</a></div></div></div></div>'),
+        node.x, node.y, node.width, node.height);
+      }, this);
+      return false;
+    }.bind(this);
+
+    this.loadGrid();
+  };
+});
+</script>

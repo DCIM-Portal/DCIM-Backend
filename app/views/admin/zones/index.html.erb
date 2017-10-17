@@ -5,7 +5,12 @@
 <div class="card ovf-hidden">
   <div class="card-content" id="outer-card">
     <div id="async_wrapper">
-      <%= render_async admin_check_foreman_locations_synced_path %>
+      <%= render_async admin_check_foreman_locations_synced_path do %>
+        <div class="sk-spinner sk-spinner-double-bounce">
+          <div class="sk-double-bounce1"></div>
+          <div class="sk-double-bounce2"></div>
+        </div>
+      <% end %>
     </div>
     <a class='btn btn-outline-default waves-effect activator' id="form_reveal">Add New Zone</a>
   </div>

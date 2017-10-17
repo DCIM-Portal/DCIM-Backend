@@ -69,6 +69,11 @@ GEM
       sass (>= 3.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    gridstack-rails (0.3.0)
+      jquery-rails (>= 3.0.5)
+      jquery-ui-rails (>= 5.0.0)
+      lodash-rails (>= 3.5.0)
+      underscore-rails (>= 1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.6)
@@ -93,6 +98,8 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     local_time (2.0.0)
+    lodash-rails (4.17.4)
+      railties (>= 3.1)
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -238,6 +245,7 @@ GEM
       tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    underscore-rails (1.8.3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
@@ -262,6 +270,7 @@ DEPENDENCIES
   coffee-rails (= 4.2.2)
   concurrent-ruby
   font-awesome-sass (= 4.7.0)
+  gridstack-rails
   i18n-js
   jbuilder (= 2.7.0)
   jquery-datatables
@@ -290,6 +299,7 @@ DEPENDENCIES
   turbolinks (= 5.0.1)
   tzinfo-data
   uglifier (>= 1.3.0)
+  underscore-rails
   web-console (>= 3.5.1)
 
 BUNDLED WITH

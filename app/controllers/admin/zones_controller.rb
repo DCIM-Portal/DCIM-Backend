@@ -136,6 +136,8 @@ class Admin::ZonesController < AdminController
 
   def set_zone
     @zone = Zone.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: { action: 'index' }
   end
 
   def locations(*args)

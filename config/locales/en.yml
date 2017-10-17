@@ -47,6 +47,8 @@ en:
     records:
       bmc_host: "BMC Host"
       zone: "Datacenter Zone"
+      bmc_scan_request: "BMC Scan Request"
+      onboard_request: "Onboard Request"
     attributes:
       bmc_host:
         power_status: "Power Status"
@@ -54,6 +56,11 @@ en:
         zone: "Datacenter Zone"
         onboard_status: "Onboard Status"
         onboard_step: "Onboard Step"
+      bmc_scan_request:
+        zone: "Zone"
+        status: "Scan Status"
+      onboard_request:
+        status: "Status"
     options:
       bmc_scan_request:
         status:

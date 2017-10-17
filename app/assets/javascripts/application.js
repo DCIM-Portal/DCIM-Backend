@@ -13,10 +13,17 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery-ui/core
+//= require jquery-ui/widget
 //= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/mouse
+//= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/resizable
 //= require jquery.serialize-object
+//= require underscore
 //= require datatables
 //= require dataTables.checkboxes
+//= require gridstack/gridstack
+//= require gridstack/gridstack.jQueryUI
 //= require turbolinks
 //= require materialize-sprockets
 //= require moment

@@ -1,0 +1,45 @@
+// Base grid style
+
+div.grid-stack {
+  background-color: white;
+  .grid-stack-item {
+    width: 60px !important;
+    min-width: 60px !important;
+    .grid-stack-item-content {
+      left: 5px;
+      right: 5px;
+      top: 5px;
+      bottom: 5px;
+    }
+    .placeholder-content {
+      left: 5px;
+      right: 5px;
+    }
+    .ui-resizable-se {
+      background-image: none;
+    }
+    .grid-stack-item-content {
+      border-radius: 5px;
+      color: white;
+      overflow-y: hidden;
+      text-align: center;
+      .card {
+         box-shadow: none;
+         -webkit-box-shadow: none;
+         margin: 0;
+         height: 100%;
+        .card-content {
+          padding: 0px;
+          font-size: 0.8rem;
+        }
+        .card-action {
+          padding: 0px;
+          font-size: 0.65rem;
+          a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

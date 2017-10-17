@@ -50,6 +50,12 @@ gem 'jquery-serialize-object-rails'
 # Render Async for our API calls
 gem 'render_async'
 
+# Underscore for Rails
+gem 'underscore-rails'
+
+# Gridstack for Rails
+gem 'gridstack-rails'
+
 # Concurrent Ruby
 gem 'concurrent-ruby', require: 'concurrent'
 
