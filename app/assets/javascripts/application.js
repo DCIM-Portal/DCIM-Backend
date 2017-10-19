@@ -15,6 +15,8 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery.serialize-object
+//= require three
+//= require OrbitControls
 //= require datatables
 //= require dataTables.checkboxes
 //= require turbolinks

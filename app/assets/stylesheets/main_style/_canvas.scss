@@ -1,0 +1,27 @@
+// Zone Canvas
+
+//#visual_dc {
+//  width: calc(100% + 10px);
+//  height: 100%;
+//  overflow-y: hidden;
+//  margin-left: -2%;
+////height: calc(100% - 62px);
+////  height: 85%;
+////  min-height: 85%;
+////  max-height: 85%;
+//  padding-top: 62px;
+//}
+
+#visual_dc {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: calc(100% - 62px);
+  width: calc(100% - 225px);
+}
+
+@media (max-width: 992px) {
+  #visual_dc {
+    width: 100%;
+  }
+}

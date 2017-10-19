@@ -4,15 +4,29 @@ html {
   background: $main-background;
   font-family: $main-font;
   font-size: $font-body-size;
+  height: 100%;
+}
+body {
+  height: 100%;
 }
 main {
   font-family: $main-font;
+  height: 100%;
+}
+header {
+  float: left;
 }
 
 @media (min-width: 1400px) {
   .fixed-sn main {
     margin-left: 3%;
     margin-right: 3%;
+  }
+}
+@media (max-widthL 992px) {
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -79,7 +93,8 @@ main {
 .container-fluid {
     // Need padding since there is no footer
     // Possibly will change this in future
-    padding-bottom: $container-bottom-padding;
+    //height: 100%;
+    //padding-bottom: $container-bottom-padding;
     position: relative;
     margin-left: auto;
     margin-right: auto;

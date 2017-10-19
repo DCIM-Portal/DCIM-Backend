@@ -74,6 +74,6 @@
 
 // When side-nav disappears, re-adjust margins and padding
 @media (max-width: 992px) {
-  .fixed-side-nav { padding-left: 0px; margin-left: 2%; }
+  .fixed-side-nav { padding-left: 0px; margin-left: 0; margin-right: 0;}
   .nav-wrapper div.bc_nav { padding-left: 0px; }
 }
