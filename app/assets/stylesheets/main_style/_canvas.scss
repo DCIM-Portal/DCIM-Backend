@@ -20,6 +20,11 @@
   width: calc(100% - 225px);
 }
 
+#visual_dc_canvas {
+  width: 100%;
+  height: 100%;
+}
+
 @media (max-width: 992px) {
   #visual_dc {
     width: 100%;

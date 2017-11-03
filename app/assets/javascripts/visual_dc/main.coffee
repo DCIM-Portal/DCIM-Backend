@@ -1,128 +1,71 @@
 camera = null
 controls = null
-viewport = null
-renderer = null
+canvas = null
+engine = null
 scene = null
 zone_grid = null
 enclosure_racks = []
+hud = null
 
 @resizeVisualDC = ->
-  return unless getViewport().length
-  hRatio = viewport.width() / viewport.height()
-  scale = 3.5
-  hRatioScale = hRatio * scale
-  # Perspective
-  if camera instanceof THREE.PerspectiveCamera
-    camera.aspect = hRatio
-    camera.fov = 90
-  # Orthographic
-  else if camera instanceof THREE.OrthographicCamera
-    camera.left = -hRatioScale
-    camera.right = hRatioScale
-    camera.top = scale
-    camera.bottom = -scale
-  # All
-  camera.near = 0.1
-  camera.far  = 1000
-  camera.updateProjectionMatrix()
-  renderer.setSize(viewport.width(), viewport.height())
+  return unless getCanvas().length
+  canvasDom = getCanvas().get(0)
+  engine.resize()
+  if camera instanceof Object
+    scale = 100
+    camera.orthoLeft = -canvasDom.width / scale
+    camera.orthoRight = canvasDom.width / scale
+    camera.orthoBottom = -canvasDom.height / scale
+    camera.orthoTop = canvasDom.height / scale
 
-@setCameraType = (type) ->
-  camera = new type()
-  controls = new THREE.OrbitControls(camera, renderer.domElement)
+document.resizeVisualDC = ->
   resizeVisualDC()
-  animate()
+
+@setCameraMode = (mode) ->
+  camera.mode = mode
+  if mode == BABYLON.Camera.ORTHOGRAPHIC_CAMERA
+    camera.inputs.removeByType("ArcRotateCameraMouseWheelInput")
+    camera.inputs.add(new ArcRotateCameraOrthographicMouseWheelInput())
+  else
+    camera.inputs.removeByType("ArcRotateCameraOrthographicMouseWheelInput")
+    camera.inputs.add(new BABYLON.ArcRotateCameraMouseWheelInput())
 
 window.addEventListener('resize', resizeVisualDC, false)
 
-@getViewport = ->
-  return $('#visual_dc')
+@getCanvas = ->
+  return $('#visual_dc_canvas')
 
 @initializeVisualDC = ->
-  viewport = getViewport()
-  return unless viewport.length
-  scene = new THREE.Scene()
-#  camera = new THREE.PerspectiveCamera(75, viewport.width() / viewport.height(), 0.1, 1000)
-#  camera = new THREE.OrthographicCamera(viewport.width()/-2, viewport.width()/2, viewport.height()/2, viewport.height()/-2, 0.1, 1000)
+  canvasDom = getCanvas().get(0)
+  return unless $(canvasDom).length
+  engine = new BABYLON.Engine(canvasDom, true)
+  scene = new BABYLON.Scene(engine)
+  scene.clearColor = new BABYLON.Color3(229/256, 230/256, 231/256)
+  BABYLON.Tools.GetClassName = BABYLON.Tools.getClassName
+  scene.debugLayer.show()
+
+  canvasDom.setAttribute("oncontextmenu", "return false")
   
-  renderer = new THREE.WebGLRenderer({ antialias: true })
-#  renderer.setClearColor(0xfcfcfc, 1)
-  renderer.setClearColor(0xE4E5E6, 1)
-  renderer.shadowMap.enabled = true
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap
-  renderer.setSize(viewport.width(), viewport.height())
-  renderer.domElement.id = "zone_canvas"
-  viewport.append(renderer.domElement)
-
   loadEnclosureRacks(true)
-  setCameraType(THREE.PerspectiveCamera)
-#  setCameraType(THREE.OrthographicCamera)
+  camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, 15 * Math.PI / 32, 25, BABYLON.Vector3.Zero(), scene)
+  camera.panningSensibility = 500
+  camera.attachControl(canvasDom, true, false)
   resizeVisualDC()
+  #setCameraMode(BABYLON.Camera.PERSPECTIVE_CAMERA)
+  setCameraMode(BABYLON.Camera.ORTHOGRAPHIC_CAMERA)
 
-#  for x in [0..2]
-#    for y in [0..2]
-#      geometry = new (THREE.BoxGeometry)(1 * 0.9, 1991/600 * 0.9, 1 * 0.9)
-#      material = new (THREE.MeshLambertMaterial)({ color: 0x455a64 })
-#      data = {"id":1,"name":"A01","height":42,"x":x,"y":y,"orientation":180,"created_at":"2017-10-16T14:53:11.000-05:00","updated_at":"2017-10-16T16:11:12.000-05:00","zone_id":1}
-#      rack = new EnclosureRack(data)
-#      scene.add(rack.object3d)
+#  ambientLight = new BABYLON.HemisphericLight('ambientLight', new BABYLON.Vector3.Zero(), scene)
+  frontDirectionalLight = new BABYLON.DirectionalLight('frontDirectionalLight', new BABYLON.Vector3(0.5, -0.75, 1), scene)
+  backDirectionalLight = new BABYLON.DirectionalLight('backDirectionalLight', new BABYLON.Vector3(-0.5, -0.75, -1), scene)
 
-  ambientLight = new (THREE.AmbientLight)(0x404040)
-  scene.add(ambientLight)
+  hud = new HUD(@, scene)
+  hud.showBlockingLoading("Retreiving racks…")
 
-  frontDirectionalLight = new THREE.DirectionalLight(0xffffff, 1)
-  frontDirectionalLight.position.x = 0.5
-  frontDirectionalLight.position.y = 0.75
-  frontDirectionalLight.position.z = 1
-  scene.add(frontDirectionalLight)
-
-  backDirectionalLight = new THREE.DirectionalLight(0xffffff, 1)
-  backDirectionalLight.position.x = -0.5
-  backDirectionalLight.position.y = 0.75
-  backDirectionalLight.position.z = -1
-  scene.add(backDirectionalLight)
-
-#  grid = new THREE.GridHelper(5, 5)
-#  scene.add(grid)
-
-#  planeGeometry = new (THREE.PlaneBufferGeometry)(5, 5, 5, 5)
-#  planeMaterial = new (THREE.MeshStandardMaterial)( { color: 0xffffff, wireframe: true } )
-#  plane = new (THREE.Mesh)(planeGeometry, planeMaterial)
-#  plane.rotation.x = 3 * Math.PI / 2
-#  plane.rotation.y = 0
-#  plane.rotation.z = 0
-#  plane.receiveShadow = true
-#  scene.add(plane)
-
-#  zone_grid = new ZoneGrid(-1, 3, -1, 5)
-#  scene.add(zone_grid.object3d)
-
-#  camera.position.x = 0
-#  camera.position.y = 7
-#  camera.position.z = 0
-#  camera.lookAt(new THREE.Vector3(0, 0, 0))
-
-  helper = new THREE.CameraHelper(camera)
-  scene.add(helper)
-
-#  renderer.render(scene, camera)
-
-#  controls.target = new THREE.Vector3(0, 0, 0)
-
-#  animate = ->
-#    requestAnimationFrame(animate)
-#    rack.rotation.x += 0.1
-#    rack.rotation.y += 0.1
-#    rack.rotation.z += 0.1
-#    renderer.render(scene, camera)
-
-animate = ->
-  renderer.render(scene, camera)
-  requestAnimationFrame(animate)
-  controls.update()
+  engine.runRenderLoop ->
+    scene.render()
 
 @destroyVisualDC = ->
-  getViewport().html('')
+  getCanvas().html('')
 
 $(document).on 'turbolinks:load', ->
   initializeVisualDC()
@@ -131,9 +74,9 @@ $(document).on 'turbolinks:before-cache', ->
   destroyVisualDC()
 
 @loadEnclosureRacks = (is_initial=false) ->
-  viewport = getViewport()
+  canvas = getCanvas()
   $.ajax
-    url: '/admin/datacenter_zones/' + viewport.data('zone-id') + '/racks.json'
+    url: '/admin/datacenter_zones/' + canvas.data('zone-id') + '/racks.json'
     method: 'get'
     success: (data) ->
       presentEnclosureRacks(data, is_initial)
@@ -142,36 +85,31 @@ $(document).on 'turbolinks:before-cache', ->
       console.log xhr
 
 @presentEnclosureRacks = (data, is_initial=false) ->
-  min_x = Number.MAX_SAFE_INTEGER
-  min_y = Number.MAX_SAFE_INTEGER
-  max_x = Number.MIN_SAFE_INTEGER
-  max_y = Number.MIN_SAFE_INTEGER
+  min_x = Infinity
+  min_y = Infinity
+  max_x = -Infinity 
+  max_y = -Infinity
   for rack in data
     min_x = rack.x if rack.x < min_x
     min_y = rack.y if rack.y < min_y
     max_x = rack.x if rack.x > max_x
     max_y = rack.y if rack.y > max_y
-    enclosure_rack = new EnclosureRack(rack)
+    enclosure_rack = new EnclosureRack(rack, scene)
     enclosure_racks.push(enclosure_rack)
-    scene.add(enclosure_rack.object3d)
-  if Number.MAX_SAFE_INTEGER in [min_x, min_y] || Number.MIN_SAFE_INTEGER in [max_x, max_y]
+  if Infinity in [min_x, min_y] || -Infinity in [max_x, max_y]
     console.log "Cannot render grid: Coordinate value error in EnclosureRacks list"
     return false
-  zone_grid = new ZoneGrid(min_x, max_x, min_y, max_y)
-  scene.add(zone_grid.object3d)
+  zone_grid = new ZoneGrid(min_x, max_x, min_y, max_y, scene)
   resetCamera() if is_initial
+  hud.hideBlockingLoading()
   return true
 
 @resetCamera = ->
   xy = enclosureRacksMidpoint()
   x = xy[0] + 0.5
   y = xy[1] + 0.5
-  camera.position.x = x
-  camera.position.y = 5
-  camera.position.z = y
-  midpoint = new THREE.Vector3(x, 0, y)
-  camera.lookAt(midpoint)
-  controls.target = midpoint
+  camera.setPosition(new BABYLON.Vector3(-x, 15, y))
+  camera.setTarget(new BABYLON.Vector3(-x, 0, y - 0.000000000000001))
 
 @enclosureRacksMidpoint = ->
   x_total = 0

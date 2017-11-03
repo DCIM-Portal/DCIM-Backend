@@ -6,6 +6,11 @@
   <%= render '/layouts/data_load' %>
 </div>
 -->
-<div id="visual_dc" data-zone-id="<%= @zone.id %>">
+<div id="visual_dc">
+  <canvas id="visual_dc_canvas" data-zone-id="<%= @zone.id %>" touch-action="none"></canvas>
+  <div id="canvas_panel_outer">
+    <i class="fa fa-video-camera" aria-hidden="true"></i>
+    <div id="canvas_panel_inner"></div>
+  </div>
 </div>
 <div>
