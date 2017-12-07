@@ -1,4 +1,3 @@
-
 # Rails DCIM Portal
 
 [![Latest release](https://img.shields.io/github/release/buddwm/Rails_DCIM_Portal/all.svg)](https://github.com/buddwm/Rails_DCIM_Portal/releases)
@@ -8,27 +7,47 @@
 
 ## Prerequisites
 
+This app is meant to integrate with other software.  The software may be run all on one machine/container, split into different machines/containers, or combined in any way among these categories:
+
+ - **App server** – Runs this app, which interfaces with Foreman for inventory and Foreman's Smart Proxies for inventory that has not yet been added to Foreman
+ - **Foreman server** – Runs Foreman, which is the single source of truth for inventory information and operations
+ - **Smart Proxy server(s)** – Runs Smart Proxy, which allows the app and Foreman to communicate with your infrastructure
+
+### Base Prerequisites
+
 Before installing, these prerequisites need to be satisfied:
+
+#### App server only
 
  - [**Git**](https://git-scm.com/) (>= 1.6.6) – Downloads the latest build of this app
    - _Suggested installation:_ Install the `git` package using your operating system's package manager or [download and install Git manually](https://git-scm.com/download/) if your operating system does not have a package manager.
+
+#### Foreman server only
+
  - [**Foreman**](https://theforeman.org/) (>= 1.12) – This app synchronizes data with Foreman, which is the source of truth.
    - _Suggested installation:_ Use the interactive Foreman installer, `foreman-installer -i` as documented in [the Foreman manual](https://theforeman.org/manuals/latest/).
+ - [**Foreman - Discovery**](https://github.com/theforeman/foreman_discovery) (>= 6.0.0) – Handles discovered hosts in Foreman when this app onboards them
+   - _Suggested installation:_ Use the interactive Foreman installer, `foreman-installer -i`, and enable `foreman_plugin_discovery`.
+
+#### Smart Proxy server only
+
  - [**Smart Proxy**](https://github.com/theforeman/smart-proxy) (>= 1.16) – This app uses Smart Proxy to control data center inventory that is accessible to the Smart Proxy.
    - _Suggested installation:_ Use the interactive Foreman installer, `foreman-installer -i`, and enable `foreman_proxy` with these options set to true: `ssl`, `templates`, `tftp`, `dhcp`, `bmc`
    - This app needs a client certificate authorized by all Smart Proxies intended to be used.
    - The certificate chains for the app and the Smart Proxies need to be signed by the same certificate authority.
    - The app's client certificate hostname needs to be added to `:trusted_hosts` in each Smart Proxy's `/etc/foreman-proxy/settings.yml`.
- - [**Foreman - Discovery**](https://github.com/theforeman/foreman_discovery) (>= 6.0.0) – Handles discovered hosts in Foreman when this app onboards them
-   - _Suggested installation:_ Use the interactive Foreman installer, `foreman-installer -i`, and enable `foreman_plugin_discovery`.
+ - [**IPMItool**](https://sourceforge.net/projects/ipmitool/) (>= 1.8) – For interacting with IPMI BMC hosts, this app needs IPMItool because IPMItool is more reliable at some operations, like manipulating chassis power, than FreeIPMI.
+   - _Suggested installation:_ Install the `ipmitool` package using your operating system's package manager or [download and install IPMItool manually](https://sourceforge.net/projects/ipmitool/) if your operating system does not have a package manager.
+ - [**FreeIPMI**](https://www.gnu.org/software/freeipmi/) (>= 1.4) – For interacting with IPMI BMC hosts, this app needs FreeIPMI because FreeIPMI is more reliable at some operations, like returning useful error messages and obtaining FRU lists, than IPMItool.
+   - _Suggested installation:_ Install the `freeipmi` package using your operating system's package manager or [download and install FreeIPMI manually](https://www.gnu.org/software/freeipmi/download.html) if your operating system does not have a package manager.
  - [**Smart Proxy - Discovery**](https://github.com/theforeman/smart_proxy_discovery) (>= 1.0.3) – Enables communication between Foreman and discovered hosts accessible to each Smart Proxy
    - _Suggested installation:_ Use the interactive Foreman installer, `foreman-installer -i`, and enable `foreman_proxy_plugin_discovery`.
  - [**Smart Proxy - Onboard**](https://github.com/Deltik/smart_proxy_onboard) (>= 0.2.0) – Extended functionality for Smart Proxy needed by this app
    - _Suggested installation:_ Follow the instructions [here](https://github.com/Deltik/smart_proxy_onboard#installation).
 
-In addition to those dependencies, these additional prerequisites need to be satisfied for whichever installation type you intend to deploy:
-
 ### Docker Installation Prerequisites
+
+In addition to the base prerequisites, these additional prerequisites need to be satisfied for Docker deployments on the app server:
 
  - [**Docker Engine**](https://docs.docker.com/engine/) (>= 1.10) – Runs the containerized version of this app
    - [_Suggested installation instructions_](https://docs.docker.com/engine/installation/)
@@ -37,19 +56,21 @@ In addition to those dependencies, these additional prerequisites need to be sat
 
 ### Manual Installation Prerequisites
 
+In addition to the base prerequisites, these additional prerequisites need to be satisfied for manual deployments on the app server:
+
  - [**Ruby**](https://www.ruby-lang.org/) (>= 2.2.5) – This app is written in Ruby.
    - _Suggested installation:_ Latest stable version of Ruby with [rbenv](https://github.com/rbenv/rbenv#readme) and [ruby-build](https://github.com/rbenv/ruby-build#readme):
 
          rbenv install "$(rbenv install -l | grep -v - | tail -1 | xargs)"
-  - [**Bundler**](https://bundler.io/) (>= 1.6.0) – Easily installs and updates the dependencies for this app
-    - _Suggested installation:_ `gem install bundler`
-  - [**MariaDB Server**](https://mariadb.org/) (>= 5.6.4) or any MySQL-compatible server
-    - _Suggested installation:_ You may use the same MySQL backend as Foreman.  If you don't want to do this, install the `mariadb-server` package using your operating system's package manager, or [download and install MariaDB Server](https://mariadb.org/download/) manually if your operating system does not have a package manager.  Alternatively, you may use MySQL server clustering software like [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster).
-  - **MySQL development headers** (>= 5.6.4) – For the `mysql2` gem
-    - _Suggested installation for Ubuntu/Debian_: `apt install -y libmysqlclient-dev`
-    - _Suggested installation for RHEL/CentOS_: `yum install -y mysql-devel`
-  - [**Redis**](https://redis.io/) (>= 2.8) – Sidekiq job queuing and Action Cable WebSockets updates
-    - _Suggested installation:_ Follow the [Redis Quick Start](https://redis.io/topics/quickstart) to install an up-to-date version of Redis or install `redis-server` and `redis-tools` on Debian/Ubuntu or install `redis` on Fedora/EPEL.
+ - [**Bundler**](https://bundler.io/) (>= 1.6.0) – Easily installs and updates the dependencies for this app
+   - _Suggested installation:_ `gem install bundler`
+ - [**MariaDB Server**](https://mariadb.org/) (>= 5.6.4) or any MySQL-compatible server
+   - _Suggested installation:_ You may use the same MySQL backend as Foreman.  If you don't want to do this, install the `mariadb-server` package using your operating system's package manager, or [download and install MariaDB Server](https://mariadb.org/download/) manually if your operating system does not have a package manager.  Alternatively, you may use MySQL server clustering software like [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster).
+ - **MySQL development headers** (>= 5.6.4) – For the `mysql2` gem
+   - _Suggested installation for Ubuntu/Debian_: `apt install -y libmysqlclient-dev`
+   - _Suggested installation for RHEL/CentOS_: `yum install -y mysql-devel`
+ - [**Redis**](https://redis.io/) (>= 2.8) – Sidekiq job queuing and Action Cable WebSockets updates
+   - _Suggested installation:_ Follow the [Redis Quick Start](https://redis.io/topics/quickstart) to install an up-to-date version of Redis or install `redis-server` and `redis-tools` on Debian/Ubuntu or install `redis` on Fedora/EPEL.
 
 ## Installation
 
@@ -76,7 +97,7 @@ Note that Foreman and the other [prerequisites](#prerequisites) are not provided
  6. Ensure that Foreman is running at `ENV['FOREMAN_URL']` and can authenticate the admin user `ENV['FOREMAN_USERNAME']` with password `ENV['FOREMAN_PASSWORD']`.
  7. If you have not already done so, generate a PEM certificate located at `ENV['SP_CERT']` with private key at `ENV['SP_PRIVKEY']` for the app, which will be used to validate the client to each Smart Proxy.  The CA certificate should be copied to `ENV['SP_CA_CERT']`.
     - _Suggested installation:_
-      1. Run `puppet agent --test --waitforcert 60 --server FOREMAN_HOSTNAME` where `FOREMAN_HOSTNAME` is the hostname of your Foreman/Smart Proxy Puppet CA.
+      1. Run `puppet agent --test --waitforcert 60 --server FOREMAN_HOSTNAME`, where `FOREMAN_HOSTNAME` is the hostname of your Foreman/Smart Proxy Puppet CA.
       2. On the Puppet CA, sign the new request with `puppet cert sign` followed by the app's hostname.
       3. In the app's host, the environment variables can then be set as follows: `SP_CA_CERT` to `/var/lib/puppet/ssl/certs/ca.pem`, `SP_CERT` to `/var/lib/puppet/ssl/certs/APP_HOSTNAME.pem`, where `APP_HOSTNAME` is the hostname of the app.  `SP_PRIVKEY` can be set to `/var/lib/puppet/ssl/private_keys/APP_HOSTNAME.pem` if the app's user belongs to the group `puppet`.
  8. If you have not already done so, add the app's hostname to `:trusted_hosts` in the file `/etc/foreman-proxy/settings.yml` of every Smart Proxy with which the app is expected to interact.

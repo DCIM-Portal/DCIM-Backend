@@ -47,7 +47,7 @@ class BmcHost < ApplicationRecord
 
   before_save { self.onboard_updated_at = Time.now unless changes.select { |key| key.starts_with?('onboard_') }.empty? }
 
-  def refresh!(secret = nil)
+  def refresh!(secret = nil, pass_exceptions: false)
     secret = secret.as_json if secret.is_a? ApplicationRecord
     if secret.is_a? Hash
       logger.debug 'Secret passed in; using passed in credentials...'
@@ -70,16 +70,22 @@ class BmcHost < ApplicationRecord
     logger.debug 'Updating record with obtained information...'
     self.sync_status  = :success
   rescue RuntimeError => e
+    raise if pass_exceptions
+    commit_exception(e)
+    false
+  ensure
+    save!
+    logger.debug 'Record updated!'
+  end
+
+  def commit_exception(e)
     self.error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
     begin
       self.sync_status = e.class.name.demodulize.underscore
     rescue ArgumentError
       self.sync_status = :stack_trace
     end
-    false
-  ensure
     save!
-    logger.debug 'Record updated!'
   end
 
   def smart_proxy
