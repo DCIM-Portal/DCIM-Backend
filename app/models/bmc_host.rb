@@ -191,6 +191,8 @@ class BmcHost < ApplicationRecord
       # freeipmi: {"/path/to/binary":"string"}
       raise Dcim::InvalidCredentialsError if result.value? 'invalid'
       raise Dcim::ConnectionTimeoutError if result.value? 'timeout'
+      # freeipmi: [{...]{..., "error":"string"}[}]
+      raise Dcim::UnknownError, result if deep_find('error', result)
       # freeipmi: {"":{"/path/to/binary":"string"}}
       freeipmi_error = result[''] if result.keys.length == 1
       unless freeipmi_error.nil?
@@ -233,8 +235,10 @@ class BmcHost < ApplicationRecord
   def brand_from_fru_list(fru)
     output =
       deep_find('board_manufacturer', fru) ||
-      deep_find('board_mfg', fru)
-    raise Dcim::UnsupportedFruError, fru unless output
+      deep_find('board_mfg', fru) ||
+      # HPE ProLiant Gen6
+      deep_find('product_manufacturer', fru)
+    raise Dcim::UnsupportedFruError, "Couldn't extract brand: " + fru.to_s unless output
     output
   end
 
@@ -250,7 +254,7 @@ class BmcHost < ApplicationRecord
                  deep_find('product_name', fru) ||
                  deep_find('product_part/model_number', fru)
              end
-    raise Dcim::UnsupportedFruError, fru unless output
+    raise Dcim::UnsupportedFruError, "Couldn't extract product: " + fru.to_s unless output
     output
   end
 
@@ -262,7 +266,7 @@ class BmcHost < ApplicationRecord
       deep_find('chassis_serial', fru) ||
       deep_find('board_serial_number', fru) ||
       deep_find('board_serial', fru)
-    raise Dcim::UnsupportedFruError, fru unless output
+    raise Dcim::UnsupportedFruError, "Couldn't extract serial: " + fru.to_s unless output
     raise Dcim::BmcHostIncompleteError, 'Serial number is blank' if output.empty?
     output
   end
