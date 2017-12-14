@@ -104,7 +104,14 @@ class BmcHost < ApplicationRecord
 
   def fru_list
     tries_remaining ||= 3
-    freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).fru.list, timeout: 180)
+    result = freeipmi_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).fru.list, timeout: 180)
+    # Check for known FRU list edge cases
+    system_fru0 = deep_find('system_fru0', result)
+    # FreeIPMI cannot FRU list HPE ProLiant Gen6 servers
+    if system_fru0.is_a?(Hash) && system_fru0.has_value?('common header checksum invalid')
+      result = ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).fru.list, timeout: 180)
+    end
+    result
   rescue Dcim::SdrCacheError
     retry if ((tries_remaining -= 1) > 0) && http_smart_proxy_bmc_request(smart_proxy.onboard.bmc.sdr_cache, method: :delete)
     raise
@@ -191,8 +198,6 @@ class BmcHost < ApplicationRecord
       # freeipmi: {"/path/to/binary":"string"}
       raise Dcim::InvalidCredentialsError if result.value? 'invalid'
       raise Dcim::ConnectionTimeoutError if result.value? 'timeout'
-      # freeipmi: [{...]{..., "error":"string"}[}]
-      raise Dcim::UnknownError, result if deep_find('error', result)
       # freeipmi: {"":{"/path/to/binary":"string"}}
       freeipmi_error = result[''] if result.keys.length == 1
       unless freeipmi_error.nil?
