@@ -1,0 +1,26 @@
+// Toast customization
+
+div#toast-container {
+  top: auto;
+  right: 2%;
+  bottom: 5%;
+  left: auto;
+  div.toast {
+    background-color: transparent;
+    box-shadow: $level-1-and-half-shadow;
+    max-width: 255px;
+    word-break: inherit;
+    font-size: $font-standard-size;
+    border: solid 1px;
+    padding: 0px;
+    min-height: 0px;
+    div.notice {
+      background-color: #81C784;
+      padding: 0.3rem 1rem;
+    }
+    div.alert {
+      background-color: #E57373;
+      padding: 0.3rem 1rem;
+    }
+  }
+}

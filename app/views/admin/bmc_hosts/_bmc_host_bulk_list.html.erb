@@ -1,0 +1,53 @@
+<li>
+  <div class="collapsible-header z-depth-1">
+    <blockquote class="primary_line">
+      BMC Hosts
+    </blockquote>
+    <div class="clearfix">
+      <span class="small pull-left list_banner">Click to expand list.</span>
+      <span class="small pull-right">
+        <span class="num_selected"><%= hosts.count %></span> of <%= hosts.count %> BMC
+        <% if hosts.count == 1 %>
+          host
+        <% else %>
+          hosts
+        <% end %>
+        selected
+      </span>
+    </div>
+  </div>
+  <div class="z-depth-1 collapsible-body">
+    <p>BMC hosts that are checked will have the chosen action submitted to them.</p>
+    <div class="table-responsive table-modal z-depth-1">
+      <table class="table-sm striped centered responsive-table">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" class="select_all" id="select_all_green" checked>
+              <label for="select_all_green"></label>
+            </th>
+            <th>BMC Address</th>
+            <th>Brand</th>
+            <th>Product</th>
+            <th>Serial</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% hosts.each do |x|; host = x %>
+          <tr>
+            <td>
+              <%= f.check_box :bmc_host_ids, {multiple: true, checked: true, id: "bmc_host_#{host.id}", class: "filled-in check_green"}, "#{host.id}", nil %>
+              <label for="bmc_host_<%= host.id %>"></label>
+            </td>
+            <td><%= host.ip_address %></td>
+            <td><%= host.brand %></td>
+            <td><%= host.product %></td>
+            <td><%= host.serial %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</li>
+<hr class="invisible">

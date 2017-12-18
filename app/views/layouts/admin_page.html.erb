@@ -5,7 +5,7 @@
   <body>
     <%= render '/layouts/admin_menu' %>
     <%= content_for :render_async %>
-    <div id="modal_error" class="modal bottom-sheet"></div>
+    <div id="admin_modal" class="modal"></div>
     <script>
       $('.button-collapse').sideNav({
         menuWidth: 225,
@@ -21,10 +21,10 @@
           }
         });
         $('ul.tabs').tabs();
-        $('#modal_error').modal();
-        $('#onboard_modal').modal({
+        $('#admin_modal').modal({
           startingTop: '0',
-          endingTop: '0'
+          endingTop: '0',
+          complete: function() { $('#admin_modal').removeClass("bootstrap-sheet bottom-sheet"); }
         });
       });
       $('.dropdown-button').dropdown({

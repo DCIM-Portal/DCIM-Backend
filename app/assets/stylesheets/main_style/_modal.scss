@@ -15,6 +15,11 @@ div.modal {
       -ms-flex: 1 1 auto;
       flex: 1 1 auto;
       padding: 15px;
+      .form-control {
+        font-size: 0.95rem;
+        max-width: 100%;
+        width: auto;
+      }
       .modal-footer {
         display: block;
         padding: 0.85rem 0;
@@ -136,6 +141,11 @@ div.modal.bottom-sheet {
   max-height: 65%;
   font-size: 0.8rem;
   font-weight: 600;
+  transition: transform cubic-bezier(0.22, 0.61, 0.36, 1) .2s;
+  will-change: transform;
+  top: auto !important;
+  bottom: 0% !important;
+  transform: translate(0, 100%) scale(1) !important;
   .modal-content {
     padding: 1rem 1rem 0 1rem;
     background: #ebebeb;
@@ -160,9 +170,9 @@ div.modal.bottom-sheet {
   }
 }
 
-// Onboard modal
+// Bootstrap modal
 
-div#onboard_modal {
+div.modal.bootstrap-sheet {
   max-height: 100%;
   height: 100%;
   width: 100%;
@@ -181,14 +191,18 @@ div#onboard_modal {
 
 // Override default materialize modal animation
 
-div#onboard_modal.open:not([style*="display: none"]):not([style*="opacity: 0;"]) {
+div#admin_modal.open:not([style*="display: none"]):not([style*="opacity: 0;"]) {
   transform: translate(0, 0%) !important;
+}
+
+div.modal.bottom-sheet.open {
+  transition: transform cubic-bezier(0.22, 0.61, 0.36, 1) .35s .25s;
 }
 
 // Onboard modal widen for mobile view
 
 @media only screen and (max-width: 992px) {
-  div#onboard_modal {
+  div.modal.bootstrap-sheet {
     .modal-dialog {
       width: 85%;
       .modal-body {

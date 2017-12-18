@@ -90,6 +90,13 @@ class Admin::OnboardRequestsController < ApplicationController
     bmc_hosts.each do |host|
       begin
         host.validate_onboardable
+        # Onboard attempted before
+        if host.onboard_status
+          list_onboard_attempted << { bmc_host: host }
+        # New onboard
+        else
+          list_no_onboard_attempted << { bmc_host: host }
+        end
       rescue RuntimeError => unonboardable_reason
         # BmcHost fails validation
         list_bmc_host_unonboardable << {
@@ -98,13 +105,6 @@ class Admin::OnboardRequestsController < ApplicationController
           exception_name: unonboardable_reason.class.name,
           exception_message: unonboardable_reason.message
         }
-      end
-      # Onboard attempted before
-      if host.onboard_status
-        list_onboard_attempted << { bmc_host: host }
-      # New onboard
-      else
-        list_no_onboard_attempted << { bmc_host: host }
       end
     end
     [list_no_onboard_attempted, list_onboard_attempted, list_bmc_host_unonboardable]

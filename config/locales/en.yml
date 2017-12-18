@@ -21,6 +21,13 @@
 
 en:
   time_dock: "*TIMES ARE LOCAL TO YOUR AREA"
+  refresh!: "Refresh BMC Facts"
+  power_on?: "Check System Power Status"
+  power_on: "Power On System"
+  "power_on_pxe(persistent: true)": "Power On to PXE Mode"
+  shutdown: "Graceful System Shutdown"
+  power_off: "Hard System Shutdown"
+  bmc_reset: "Reset BMC"
   activerecord:
     models:
       brute_list_secret: "Credentials list"
@@ -54,6 +61,7 @@ en:
         zone: "Datacenter Zone"
         onboard_status: "Onboard Status"
         onboard_step: "Onboard Step"
+        refresh!: "Refresh BMC Facts"
     options:
       bmc_scan_request:
         status:

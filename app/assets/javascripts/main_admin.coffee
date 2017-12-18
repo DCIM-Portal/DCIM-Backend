@@ -41,12 +41,14 @@ $(document).on 'turbolinks:load', ->
       }
       {
         text: '<i class="fa fa-sign-in"></i> <span class="dt-btn-text">Onboard</span>'
-        className: 'btn grey lighten-2 waves-effect onboard_submit'
+        className: 'btn grey lighten-2 waves-effect'
         action: () ->
           # Show indicator that modal is loading
           $("#load-indicator").fadeIn()
           # Empty out any existing content to avoid old content visibility
-          $("#onboard_modal").empty()
+          $("#admin_modal").empty()
+          $("#admin_modal").addClass('bootstrap-sheet')
+          $("#admin_modal").css("bottom", "inherit")
           # Make an array to store our IDs
           id_array = []
           # Get table rows that have a check
@@ -62,7 +64,7 @@ $(document).on 'turbolinks:load', ->
             # If successful, load modal and conditions
             success: (data) ->
               # Populate modal with data
-              $('#onboard_modal').html data
+              $('#admin_modal').html data
               # Hide the load indicator
               $('#load-indicator').hide()
               # Set collapsible content
@@ -99,10 +101,10 @@ $(document).on 'turbolinks:load', ->
                 dom = $(dom)
                 dom.html(moment(dom.attr('datetime')).format('MMMM D YYYY, h:mma'))
               # Open the modal
-              $('#onboard_modal').modal('open')
+              $('#admin_modal').modal('open')
               # Custom modal close action
-              $('div#onboard_modal.open, .modal-close').click ->
-                $('#onboard_modal').modal('close')
+              $('div#admin_modal.open, .modal-close').click ->
+                $('#admin_modal').modal('close')
               # Ensure that clicking inside the modal won't close it
               $('div.modal-dialog').click (e) ->
                 e.stopPropagation()
@@ -122,22 +124,76 @@ $(document).on 'turbolinks:load', ->
               '<div class="modal-footer">' +
               '<a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>' +
               '</div></div></div>'
-              $('#onboard_modal').html data
+              $('#admin_modal').html data
               $('#load-indicator').hide()
-              $('#onboard_modal').modal('open')
+              $('#admin_modal').modal('open')
       }
       {
-        text: '<i class="fa fa-refresh"></i> <span class="dt-btn-text">Refresh BMC Facts</span>'
-        className: 'btn grey lighten-2 waves-effect bmc_refresh_submit'
+        text: '<i class="fa fa-files-o"></i> <span class="dt-btn-text">BMC Bulk Actions</span>'
+        className: 'btn grey lighten-2 waves-effect'
         action: () ->
+          $("#load-indicator").fadeIn()
+          $("#admin_modal").empty()
+          $("#admin_modal").addClass('bootstrap-sheet')
+          $("#admin_modal").css("bottom", "inherit")
           id_array = []
           rows_selected = document.detail_table.api().column(0).checkboxes.selected();
           $.each rows_selected, (index, rowId) ->
             id_array.push rowId
           $.ajax
-            url: '/admin/bmc_hosts/multi_refresh'
+            url: '/admin/bmc_hosts/new_modal'
             type: 'post'
             data: selected_ids: id_array
+            # If successful, load modal and conditions
+            success: (data) ->
+              # Populate modal with data
+              $('#admin_modal').html data
+              # Hide the load indicator
+              $('#load-indicator').hide()
+              $('.modal-content-collapsible').collapsible
+                onOpen: (e) ->
+                  $(e).find('span.list_banner').html 'Click to hide list'
+                onClose: (e) ->
+                  $(e).find('span.list_banner').html 'Click to expand list'
+              # Select all checkbox function
+              $('.select_all').click ->
+                $(this).closest('div.table-modal table').find('td input').prop 'checked', @checked
+              # Checkbox click function
+              $('.table-modal table input[type="checkbox"]').click ->
+                table = $(this).closest('div.table-modal table')
+                total = table.find('td input[type="checkbox"]').length
+                count = table.find('td input[type="checkbox"]:checked').length
+                select_all = table.find('th input[type="checkbox"]')
+                # Update selected number of rows
+                $(this).closest('li').find('span.num_selected').html count
+                # Make select_all checkbox indeterminate, checked,
+                # or unchecked depending on conditions
+                if count > 0 and count < total
+                  select_all.prop 'checked', true
+                  select_all.prop 'indeterminate', true
+                else if total == count
+                  select_all.prop 'indeterminate', false
+                  select_all.prop 'checked', true
+                else if count == 0
+                  select_all.prop 'checked', false
+                  select_all.prop 'indeterminate', false
+              # Parse times
+              # XXX: Make this universal
+              $('time').each (i, dom) ->
+                dom = $(dom)
+                dom.html(moment(dom.attr('datetime')).format('MMMM D YYYY, h:mma'))
+              $('#admin_modal').modal('open')
+              # Custom modal close action
+              $('div#admin_modal.open, .modal-close').click ->
+                $('#admin_modal').modal('close')
+              # Ensure that clicking inside the modal won't close it
+              $('div.modal-dialog').click (e) ->
+                e.stopPropagation()
+              # Make the onboard submit button disabled
+              $('.bulk_action').prop 'disabled', true
+              # Make onboard submit button enabled on correct input value
+              $('#confirm').keyup ->
+                $('.bulk_action').prop 'disabled', if @value != 'Commit Action' then true else false
       }
     ]
     columnDefs: [
@@ -382,7 +438,9 @@ $(document).on 'click', '.modal_error_button', ->
   # Show indicator that modal is loading
   $("#load-indicator").fadeIn()
   # Empty out any existing content to avoid old content visibility
-  $("#modal_error").empty()
+  $("#admin_modal").empty()
+  $("#admin_modal").addClass('bottom-sheet')
+  $('div#admin_modal').off('click')
   source = $(this).closest('[data-source]').data('source')
   error_type = $(this).closest('[data-errorfield]').data('errorfield')
   $.ajax
@@ -392,7 +450,7 @@ $(document).on 'click', '.modal_error_button', ->
       # XXX: Make locale translation into a function
       # BMC Sync Status Error
       if error_type == "bmc_host_error_message"
-        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
+        $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Host ' +
         data.ip_address + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.bmc_host.sync_status', defaultValue: data.sync_status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
@@ -401,7 +459,7 @@ $(document).on 'click', '.modal_error_button', ->
           simpleFormat(data.error_message) + '</div>'
       # BMC Onboard Error
       else if error_type == "onboard_error_message"
-        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Host ' +
+        $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Host ' +
         data.ip_address + ' Onboard Status - ' + I18n.t(data.onboard_status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: data.onboard_status) + ': ' + I18n.t(data.onboard_step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: data.onboard_step) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.onboard_error_message
@@ -410,7 +468,7 @@ $(document).on 'click', '.modal_error_button', ->
           simpleFormat(data.onboard_error_message) + '</div>'
       # System Sync Status Error
       else if error_type == "system_error_message"
-        $('#modal_error').html '<div class="modal-content"><blockquote>Foreman System ' +
+        $('#admin_modal').html '<div class="modal-content"><blockquote>Foreman System ' +
         data.foreman_host_id + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.system.sync_status', defaultValue: data.sync_status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
@@ -419,7 +477,7 @@ $(document).on 'click', '.modal_error_button', ->
           simpleFormat(data.error_message) + '</div>'
       # BmcScanRequest status error
       else if error_type == "bmc_scan_request_error_message"
-        $('#modal_error').html '<div class="modal-content"><blockquote>BMC Scan Request ' +
+        $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Scan Request ' +
         data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.bmc_scan_request.status', defaultValue: data.status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
@@ -428,7 +486,7 @@ $(document).on 'click', '.modal_error_button', ->
           simpleFormat(data.error_message) + '</div>'
       # OnboardRequest status error
       else if error_type == "onboard_request_error_message"
-        $('#modal_error').html '<div class="modal-content"><blockquote>Onboard Request ' +
+        $('#admin_modal').html '<div class="modal-content"><blockquote>Onboard Request ' +
         data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.onboard_request.status', defaultValue: data.status) +
         ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
         if !data.error_message
@@ -436,11 +494,15 @@ $(document).on 'click', '.modal_error_button', ->
         else
           simpleFormat(data.error_message) + '</div>'
       $('#load-indicator').hide()
-      $('#modal_error').modal('open')
+      $('#admin_modal').modal('open')
 
 $(document).on 'turbolinks:before-cache', ->
   # Load overlay
   $('.overlay').show()
+
+  # Close any open modal and overlay
+  $('#admin_modal').modal('close')
+  $('.modal-overlay').remove()
 
   # Hide message divs on load
   $("#waiting_explanation").hide()
@@ -503,7 +565,7 @@ $(document).on 'turbolinks:before-cache', ->
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
     content = I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) + append
     return '<div class="'+color+' white-text z-depth-1 sync">' + prefix + ' ' + content + '</div>' unless /red/.test(color)
-    return '<div class="'+color+' white-text z-depth-1 sync modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</div>' if /red/.test(color)
+    return '<div class="'+color+' white-text z-depth-1 sync modal_error_button" data-target="admin_modal">' + prefix + ' ' + content + '</div>' if /red/.test(color)
 
 @render_onboard_status = ->
   $('.onboard_status').each (i, dom) ->
@@ -534,7 +596,7 @@ $(document).on 'turbolinks:before-cache', ->
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if /request/.test(type)
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.sync_status', defaultValue: text) if (type == "bmc_host" || type == "system")
   return '<span class="white-text z-depth-1 sync '+color+'">' + prefix + ' ' + content + '</span>' unless /red/.test(color)
-  return '<span class="white-text z-depth-1 sync '+color+' modal-trigger modal_error_button" data-target="modal_error">' + prefix + ' ' + content + '</span>' if /red/.test(color)
+  return '<span class="white-text z-depth-1 sync '+color+' modal_error_button" data-target="admin_modal">' + prefix + ' ' + content + '</span>' if /red/.test(color)
 
 #XXX: Change naming
 @render_standard_request_status = ->

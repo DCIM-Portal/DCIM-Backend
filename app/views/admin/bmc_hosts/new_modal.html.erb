@@ -1,0 +1,42 @@
+<div class="modal-dialog z-depth-3" role="document">
+  <div class="modal-header blue-grey z-depth-1">
+    <h4 class="modal-title white-text">BMC Bulk Action Request</h4>
+    <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a>
+  </div>
+  <div class="modal-body">
+  <% if hosts.empty? %>
+    <p>
+      No BMC hosts were selected.  Please close this dialog and select the BMC hosts to submit an action to.
+    </p>
+    <div class="modal-footer">
+      <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
+    </div>
+  <% else %>
+    <div class="alert red lighten-2 z-depth-1">
+      <p>
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        This request will submit a chosen action to the selected BMC hosts.
+      </p>
+    </div>
+
+    <hr class="invisible">
+    <%= form_for(:bmc_bulk_action, url: {action: "multi_action"}, remote: true, html: {id: "bmc_action_bulk_job"}) do |f| %>
+      <ul class="modal-content-collapsible" data-collapsible="expandable">
+        <%= render 'bmc_host_bulk_list', hosts: hosts, f: f %>
+      </ul>
+
+      <p>Select a BMC action, type <strong>Commit Action</strong>
+      in the text box below, and click the Submit button to continue.</p>
+      <%= f.label :bmc_action, "BMC Action" %>
+      <%= f.select(:bmc_action, @whitelist.map {|action| [t(action), action]}, { include_blank: true }, { class: 'form-control' }) %>
+      <hr class="invisible">
+      <div class="modal-footer">
+        <%= f.submit "Submit", "data-dismiss": "modal", class: "modal-action modal-close btn btn-sm green lighten-2 pull-left bulk_action" %>
+        <%= text_field_tag :confirm, "", class: 'pull-left form-control' %>
+        <a class="btn blue-grey lighten-2 white-text modal-action modal-close pull-right">Close</a>
+      </div>
+    <% end %>
+
+  <% end %>
+  </div>
+</div>

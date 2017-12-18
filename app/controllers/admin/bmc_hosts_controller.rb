@@ -6,6 +6,16 @@ class Admin::BmcHostsController < AdminController
   add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'BMC Hosts', :admin_bmc_hosts_path
 
+  BMC_ACTION_WHITELIST = [
+    "refresh!",
+    "power_on?",
+    "power_on",
+    "power_on_pxe(persistent: true)",
+    "shutdown",
+    "power_off",
+    "bmc_reset"
+  ].freeze
+
   def index
     @bmc_hosts = BmcHost.all
 
@@ -26,22 +36,49 @@ class Admin::BmcHostsController < AdminController
   end
 
   def update
-    BmcHostsRefreshJob.perform_later([@bmc_host.id])
+    BmcHostsMultiActionJob.perform_later("refresh!", [@bmc_host.id])
   end
 
-  def multi_refresh
-    BmcHostsRefreshJob.perform_later(params[:selected_ids])
+  def multi_action
+    respond_to do |format|
+      if validate_bmc_host_params
+        format.json {
+          render json: {
+            message: "BMC Action #{ params[:bmc_bulk_action][:bmc_action] } successfully submitted to #{ params[:bmc_bulk_action][:bmc_host_ids].count } BMC host(s).",
+            status:  :ok
+          }
+        }
+        format.js {
+          flash.now[:bmc_action_notice] =
+            "<div class='notice'>BMC Action <strong>#{ t(params[:bmc_bulk_action][:bmc_action]) }</strong> successfully submitted to #{ params[:bmc_bulk_action][:bmc_host_ids].count } BMC host(s).</div>" 
+        }
+          BmcHostsMultiActionJob.perform_later(params[:bmc_bulk_action][:bmc_action], params[:bmc_bulk_action][:bmc_host_ids])
+      else
+        format.json { render json: {message: "Unpermitted BMC Action", allowed: BMC_ACTION_WHITELIST}, status: :unprocessable_entity }
+        format.js {
+          if params[:bmc_bulk_action][:bmc_action] == ""
+            flash.now[:bmc_action_alert] =
+              "<div class='alert'>No BMC Action Selected!  Nothing done.</div>"
+          elsif params[:bmc_bulk_action][:bmc_host_ids].nil?
+            flash.now[:bmc_action_alert] = "<div class='alert'>No BMC Hosts Selected.  No action taken.</div>"
+          else
+            flash.now[:bmc_action_alert] =
+              "<div class='alert'>Unpermitted BMC Action <strong>#{ params[:bmc_bulk_action][:bmc_action] }</strong>."
+          end
+          }
+      end
+    end
+  end
+
+  def new_modal
+    @whitelist = BMC_ACTION_WHITELIST
+    selected_hosts = ids_to_bmc_hosts(params[:selected_ids])
+    respond_to do |format|
+      format.html { render layout: false, locals: { hosts: selected_hosts } }
+    end
   end
 
   def destroy; end
-
-  def onboard_modal
-    selected_hosts = ids_to_bmc_hosts(params[:selected_ids])
-    green, yellow, red = validate_bmc_hosts_for_onboard(selected_hosts)
-    respond_to do |format|
-      format.html { render layout: false, locals: { hosts: selected_hosts, red: red, yellow: yellow, green: green } }
-    end
-  end
 
   private
 
@@ -50,4 +87,17 @@ class Admin::BmcHostsController < AdminController
   rescue ActiveRecord::RecordNotFound
     redirect_back fallback_location: { action: 'index' }
   end
+
+  def validate_bmc_host_params
+    params[:bmc_bulk_action].permit({bmc_host_ids: []}, :bmc_action)
+    unless (BMC_ACTION_WHITELIST.include? params[:bmc_bulk_action][:bmc_action]) && (!params[:bmc_bulk_action][:bmc_host_ids].nil?)
+      return false
+    end
+    return true
+  end
+
+  def ids_to_bmc_hosts(ids)
+    BmcHost.where(id: ids)
+  end
+
 end

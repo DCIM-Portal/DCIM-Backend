@@ -1,7 +1,7 @@
-class BmcHostsRefreshJob < ApplicationJob
+class BmcHostsMultiActionJob < ApplicationJob
   queue_as :default
 
-  def perform(host_ids)
+  def perform(bmc_action, host_ids)
     hosts = BmcHost.where(id: host_ids)
 
     pool = Concurrent::FixedThreadPool.new(100)
@@ -10,7 +10,7 @@ class BmcHostsRefreshJob < ApplicationJob
 
     hosts.each do |host|
       promises[host] = Concurrent::Promise.new(executor: pool) do
-        host.refresh!
+        host.send(bmc_action)
       end
     end
 
@@ -21,4 +21,5 @@ class BmcHostsRefreshJob < ApplicationJob
       pool.wait_for_termination(180)
     end
   end
+
 end

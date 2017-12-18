@@ -2,6 +2,7 @@
   <h3 class="section_title">BMC Scan <span class="category_bmc_scan_request_name"><%= @bmc_scan_request.name %></span> Details</h3>
   <%= render '/layouts/data_load' %>
 </div>
+<div class="red lighten-2" id="bmc_action_error"></div>
 <div class="card ovf-hidden">
   <div class="card-content" id="outer-card">
     <div class="clearfix">
@@ -122,8 +123,6 @@
     </div>
   </div>
 </div>
-
-<div id="onboard_modal" class="modal"></div>
 
 <script type="text/javascript">
   document.category_name = 'bmc_scan_request'

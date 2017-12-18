@@ -34,7 +34,8 @@ Rails.application.routes.draw do
     get :check_foreman_locations_synced, controller: :zones
     resources :bmc_hosts, path: 'bmc_hosts' do
       collection do
-        post :multi_refresh
+        post :multi_action
+        post :new_modal
         get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
       end
     end

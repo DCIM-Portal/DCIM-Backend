@@ -1,0 +1,12 @@
+<% flash.each do |type, message| %>
+  <% if type == "bmc_action_notice" %>
+    $(function() {
+      Materialize.toast("<%= message.html_safe %>", 5000);
+    });
+  <% elsif type == "bmc_action_alert" %>
+    $(function() {
+      Materialize.toast("<%= message.html_safe %>", 5000);
+    });
+  <% end %>
+<% end %>
+
