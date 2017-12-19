@@ -1,7 +1,10 @@
 module Dcim
   class ApiQuery
+    include Dcim::Logger
+
     def initialize(**kwargs)
       @resource = kwargs[:resource]
+      @retries = kwargs[:retries] || 0
       append_chain(kwargs[:method], kwargs[:args])
     end
 
@@ -16,6 +19,25 @@ module Dcim
       end
       append_chain(method, args)
       self
+    end
+
+    def retries(number)
+      @retries = number
+      self
+    end
+
+    def execute_request(options)
+      tries_remaining = @retries
+      begin
+        RestClient::Request.execute(options)
+      rescue RestClient::Exceptions::OpenTimeout
+        if tries_remaining > 0
+          logger.debug "Timeout while accessing API #{@resource.instance_variable_get(:@url)}. Tries remaining: #{tries_remaining}"
+          tries_remaining -= 1
+          retry
+        end
+        raise
+      end
     end
 
     %i[get post delete put].each do |method|
@@ -33,15 +55,15 @@ module Dcim
           end
         end
 
-        options.merge!(kwargs)
-
-        result = RestClient::Request.execute(
-          options.merge(
-            method: method,
-            url: @resource.send(:concat_urls, url, @query.join('/')),
-            payload: payload
-          )
+        options.merge!(
+          **kwargs,
+          method: method,
+          url: @resource.send(:concat_urls, url, @query.join('/')),
+          payload: payload
         )
+
+        result = execute_request(options)
+
         ::Dcim::ApiResult.new(result)
       end
     end

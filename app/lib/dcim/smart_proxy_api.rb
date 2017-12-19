@@ -11,8 +11,8 @@ module Dcim
       @resource = RestClient::Resource.new(
         kwargs[:url],
         proxy: '',
-        timeout: kwargs[:timeout] || 30,
-        open_timeout: 5,
+        read_timeout: kwargs[:read_timeout] || kwargs[:timeout] || 30,
+        open_timeout: kwargs[:open_timeout] || kwargs[:timeout] || 5,
         ssl_ca_file: ca_cert,
         ssl_client_cert: OpenSSL::X509::Certificate.new(File.read(cert)),
         ssl_client_key: OpenSSL::PKey::RSA.new(File.read(privkey)),

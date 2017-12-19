@@ -7,13 +7,13 @@ class Admin::BmcHostsController < AdminController
   add_breadcrumb 'BMC Hosts', :admin_bmc_hosts_path
 
   BMC_ACTION_WHITELIST = [
-    "refresh!",
-    "power_on?",
-    "power_on",
-    "power_on_pxe(persistent: true)",
-    "shutdown",
-    "power_off",
-    "bmc_reset"
+    'refresh!',
+    'power_on?',
+    'power_on',
+    'power_on_pxe(persistent: true)',
+    'shutdown',
+    'power_off',
+    'bmc_reset'
   ].freeze
 
   def index
@@ -36,36 +36,36 @@ class Admin::BmcHostsController < AdminController
   end
 
   def update
-    BmcHostsMultiActionJob.perform_later("refresh!", [@bmc_host.id])
+    BmcHostsMultiActionJob.perform_later('refresh!', [@bmc_host.id])
   end
 
   def multi_action
     respond_to do |format|
       if validate_bmc_host_params
-        format.json {
+        format.json do
           render json: {
-            message: "BMC Action #{ params[:bmc_bulk_action][:bmc_action] } successfully submitted to #{ params[:bmc_bulk_action][:bmc_host_ids].count } BMC host(s).",
+            message: "BMC Action #{params[:bmc_bulk_action][:bmc_action]} successfully" \
+            "submitted to #{params[:bmc_bulk_action][:bmc_host_ids].count} BMC host(s).",
             status:  :ok
           }
-        }
-        format.js {
+        end
+        format.js do
           flash.now[:bmc_action_notice] =
-            "<div class='notice'>BMC Action <strong>#{ t(params[:bmc_bulk_action][:bmc_action]) }</strong> successfully submitted to #{ params[:bmc_bulk_action][:bmc_host_ids].count } BMC host(s).</div>" 
-        }
-          BmcHostsMultiActionJob.perform_later(params[:bmc_bulk_action][:bmc_action], params[:bmc_bulk_action][:bmc_host_ids])
+            "<div class='notice'>BMC Action <strong>#{t(params[:bmc_bulk_action][:bmc_action])}</strong>" \
+            "successfully submitted to #{params[:bmc_bulk_action][:bmc_host_ids].count} BMC host(s).</div>"
+        end
+        BmcHostsMultiActionJob.perform_later(params[:bmc_bulk_action][:bmc_action], params[:bmc_bulk_action][:bmc_host_ids])
       else
-        format.json { render json: {message: "Unpermitted BMC Action", allowed: BMC_ACTION_WHITELIST}, status: :unprocessable_entity }
-        format.js {
-          if params[:bmc_bulk_action][:bmc_action] == ""
-            flash.now[:bmc_action_alert] =
-              "<div class='alert'>No BMC Action Selected!  Nothing done.</div>"
-          elsif params[:bmc_bulk_action][:bmc_host_ids].nil?
-            flash.now[:bmc_action_alert] = "<div class='alert'>No BMC Hosts Selected.  No action taken.</div>"
-          else
-            flash.now[:bmc_action_alert] =
-              "<div class='alert'>Unpermitted BMC Action <strong>#{ params[:bmc_bulk_action][:bmc_action] }</strong>."
-          end
-          }
+        format.json { render json: { message: 'Unpermitted BMC Action', allowed: BMC_ACTION_WHITELIST }, status: :unprocessable_entity }
+        format.js do
+          flash.now[:bmc_action_alert] = if params[:bmc_bulk_action][:bmc_action] == ''
+                                           "<div class='alert'>No BMC Action Selected!  Nothing done.</div>"
+                                         elsif params[:bmc_bulk_action][:bmc_host_ids].nil?
+                                           "<div class='alert'>No BMC Hosts Selected.  No action taken.</div>"
+                                         else
+                                           "<div class='alert'>Unpermitted BMC Action <strong>#{params[:bmc_bulk_action][:bmc_action]}</strong>."
+                                         end
+        end
       end
     end
   end
@@ -89,15 +89,14 @@ class Admin::BmcHostsController < AdminController
   end
 
   def validate_bmc_host_params
-    params[:bmc_bulk_action].permit({bmc_host_ids: []}, :bmc_action)
-    unless (BMC_ACTION_WHITELIST.include? params[:bmc_bulk_action][:bmc_action]) && (!params[:bmc_bulk_action][:bmc_host_ids].nil?)
+    params[:bmc_bulk_action].permit({ bmc_host_ids: [] }, :bmc_action)
+    unless (BMC_ACTION_WHITELIST.include? params[:bmc_bulk_action][:bmc_action]) && !params[:bmc_bulk_action][:bmc_host_ids].nil?
       return false
     end
-    return true
+    true
   end
 
   def ids_to_bmc_hosts(ids)
     BmcHost.where(id: ids)
   end
-
 end

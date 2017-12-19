@@ -44,7 +44,7 @@ class BmcScanJob < ApplicationJob
                                zone: @request.zone)
       bmc_host.bmc_scan_requests << @request
       bmc_host.save!
-      bmc_host.smart_proxy = smart_proxy
+      bmc_host.smart_proxy = smart_proxy.retries(20)
       promises[bmc_host_ip] = Concurrent::Promise.new(executor: pool) do
         brute_force_set_credentials(bmc_host, @request.brute_list)
       end
@@ -89,7 +89,6 @@ class BmcScanJob < ApplicationJob
     success = nil
 
     secrets.each_with_index do |secret, i|
-      tries_remaining = 20
       begin
         success = false
         ::ActiveRecord::Base.connection_pool.with_connection do
@@ -101,12 +100,6 @@ class BmcScanJob < ApplicationJob
       rescue Dcim::InvalidCredentialsError => e
         logger.debug bmc_host.ip_address + ": Authentication failed with BruteListSecret #{i} of #{secrets.size} in BruteList #{brute_list.name}"
         next
-      # Workaround for overloaded Smart Proxy
-      rescue RestClient::Exceptions::Timeout
-        tries_remaining -= 1
-        logger.debug bmc_host.ip_address + ": Timeout while refreshing. Tries remaining: #{tries_remaining}"
-        retry if tries_remaining > 0
-        raise
       # Die
       rescue RuntimeError => e
         break
@@ -117,7 +110,7 @@ class BmcScanJob < ApplicationJob
 
   private
 
-  def logger(provided_logger=nil)
+  def logger(provided_logger = nil)
     @logger ||= provided_logger || Sidekiq::Logging.logger || Rails.logger
   end
 

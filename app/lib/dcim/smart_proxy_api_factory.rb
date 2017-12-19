@@ -41,7 +41,10 @@ module Dcim
         begin
           if smart_proxy_resource.features.get.to_hash.include? 'onboard'
             logger.debug 'Suitable Smart Proxy found: ' + smart_proxy['url']
-            return smart_proxy_resource
+
+            # Send back a Smart Proxy resource with longer timeouts
+            # XXX: Fine-grained timeouts?
+            return Dcim::SmartProxyApi.new(url: smart_proxy['url'], open_timeout: 30, read_timeout: 60)
           end
         rescue RuntimeError => e
           logger.warn 'Smart Proxy ' + smart_proxy['url'] + ' error: ' + e.message
