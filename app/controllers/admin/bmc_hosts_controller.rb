@@ -10,6 +10,7 @@ class Admin::BmcHostsController < AdminController
     'refresh!',
     'power_on?',
     'power_on',
+    'power_on_bios',
     'power_on_pxe(persistent: true)',
     'shutdown',
     'power_off',
@@ -51,7 +52,7 @@ class Admin::BmcHostsController < AdminController
         end
         format.js do
           flash.now[:bmc_action_notice] =
-            "<div class='notice'>BMC Action <strong>#{t(params[:bmc_bulk_action][:bmc_action])}</strong>" \
+            "<div class='notice'>BMC Action <strong>#{t(params[:bmc_bulk_action][:bmc_action])}</strong> " \
             "successfully submitted to #{params[:bmc_bulk_action][:bmc_host_ids].count} BMC host(s).</div>"
         end
         BmcHostsMultiActionJob.perform_later(params[:bmc_bulk_action][:bmc_action], params[:bmc_bulk_action][:bmc_host_ids])

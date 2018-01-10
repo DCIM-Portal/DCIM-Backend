@@ -129,6 +129,10 @@ class BmcHost < ApplicationRecord
     ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).chassis.config.bootdevice.pxe, payload: { reboot: true, persistent: persistent }, method: :put)
   end
 
+  def power_on_bios
+    ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).chassis.config.bootdevice.bios, payload: { reboot: true }, method: :put)
+  end
+
   def power_on
     ipmitool_smart_proxy_bmc_request(smart_proxy.bmc(ip_address).chassis.power.on, method: :put)
   end
