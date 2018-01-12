@@ -4,7 +4,7 @@ canvas = null
 engine = null
 scene = null
 zone_grid = null
-enclosure_racks = []
+enclosure_racks = {}
 hud = null
 
 @resizeVisualDC = ->
@@ -61,6 +61,33 @@ window.addEventListener('resize', resizeVisualDC, false)
   hud = new HUD(@, scene)
   hud.showBlockingLoading("Retreiving racks…")
 
+  # Ghost EnclosureRack under cursor
+  ghost_data = {}
+  ghost_data.x = -Infinity
+  ghost_data.y = -Infinity
+  ghost_data.height = 42
+  ghost_data.name = "GHOST"
+  ghost_data.orientation = 0
+  ghost_cursor_enclosure_rack = new EnclosureRack(ghost_data, scene)
+  ghost_cursor_enclosure_rack.setOpacity(0.0)
+  # Clicky stuff
+  _ = @
+  clickObserver = scene.onPointerObservable.add (eventData, eventState) ->
+    #return if eventData.type != 1 && eventData.type != 2
+    return unless zone_grid
+    if (pickedPoint = eventData.pickInfo.pickedPoint) != null
+      x = Math.floor(-pickedPoint.x)
+      y = Math.floor(pickedPoint.z)
+      ghost_cursor_enclosure_rack.setGridPosition(x, y)
+      ghost_cursor_enclosure_rack.setOpacity(0.5)
+      enclosure_racks["ghost"] = ghost_cursor_enclosure_rack
+    else
+      ghost_cursor_enclosure_rack.setOpacity(0.0)
+      delete enclosure_racks["ghost"]
+    [min_x, max_x, min_y, max_y] = _.calculateGrid()
+    zone_grid.setBounds(min_x, max_x, min_y, max_y)
+    zone_grid.redraw()
+
   engine.runRenderLoop ->
     scene.render()
 
@@ -85,36 +112,49 @@ $(document).on 'turbolinks:before-cache', ->
       console.log xhr
 
 @presentEnclosureRacks = (data, is_initial=false) ->
-  min_x = Infinity
-  min_y = Infinity
-  max_x = -Infinity 
-  max_y = -Infinity
   for rack in data
-    min_x = rack.x if rack.x < min_x
-    min_y = rack.y if rack.y < min_y
-    max_x = rack.x if rack.x > max_x
-    max_y = rack.y if rack.y > max_y
     enclosure_rack = new EnclosureRack(rack, scene)
-    enclosure_racks.push(enclosure_rack)
-  if Infinity in [min_x, min_y] || -Infinity in [max_x, max_y]
-    console.log "Cannot render grid: Coordinate value error in EnclosureRacks list"
-    return false
+    enclosure_racks[enclosure_rack.id] = enclosure_rack
+  [min_x, max_x, min_y, max_y] = @calculateGrid()
   zone_grid = new ZoneGrid(min_x, max_x, min_y, max_y, scene)
   resetCamera() if is_initial
   hud.hideBlockingLoading()
   return true
 
+@calculateGrid = ->
+  min_x = Infinity
+  min_y = Infinity
+  max_x = -Infinity 
+  max_y = -Infinity
+  unless Object.keys(enclosure_racks).length
+    [min_x, min_y, max_x, max_y] = [0, 0, 0, 0]
+  Object.keys(enclosure_racks).forEach (id) ->
+    rack = enclosure_racks[id]
+    min_x = rack.x if rack.x < min_x
+    min_y = rack.y if rack.y < min_y
+    max_x = rack.x if rack.x > max_x
+    max_y = rack.y if rack.y > max_y
+  if Infinity in [min_x, min_y] || -Infinity in [max_x, max_y]
+    console.log "Cannot render grid: Coordinate value error in EnclosureRacks list"
+    return false
+  return [min_x, max_x, min_y, max_y]
+
+
 @resetCamera = ->
   xy = enclosureRacksMidpoint()
   x = xy[0] + 0.5
   y = xy[1] + 0.5
+  if isNaN(x) || isNaN(y)
+    [x, y] = [0, 0]
   camera.setPosition(new BABYLON.Vector3(-x, 15, y))
   camera.setTarget(new BABYLON.Vector3(-x, 0, y - 0.000000000000001))
 
 @enclosureRacksMidpoint = ->
   x_total = 0
   y_total = 0
-  for enclosure_rack in enclosure_racks
+  num_of_enclosure_racks = Object.keys(enclosure_racks).length
+  Object.keys(enclosure_racks).forEach (enclosure_rack_id) ->
+    enclosure_rack = enclosure_racks[enclosure_rack_id]
     x_total += enclosure_rack.x
     y_total += enclosure_rack.y
-  return [x_total / enclosure_racks.length, y_total / enclosure_racks.length]
+  return [x_total / num_of_enclosure_racks, y_total / num_of_enclosure_racks]

@@ -10,6 +10,7 @@ class @EnclosureRack
     #for i in [0..5]
     #  faceColors.push(color)
     rack = new BABYLON.MeshBuilder.CreateBox("EnclosureRack: " + @name, { width: 1 * @scale, height: @relativeHeight(), depth: 1 * @scale}, @scene)
+    @object3d = rack
 
     material = new BABYLON.StandardMaterial("EnclosureRack " + @name + " material", @scene)
     material.diffuseColor = color
@@ -17,7 +18,7 @@ class @EnclosureRack
     material.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1)
     material.emissiveColor = new BABYLON.Color3(0, 0, 0)
     rack.material = material
-    rack.position = new BABYLON.Vector3(-(@x + 0.5), @relativeHeight() / 2, @y + 0.5)
+    @setGridPosition(@x, @y)
     rack.rotation.y = Math.PI / 180 * @orientation
 
     indices = rack.getIndices()
@@ -34,22 +35,26 @@ class @EnclosureRack
     @roof.material.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1)
     @updateRoof()
 
-
     rack.actionManager = new BABYLON.ActionManager(scene)
     _this = @
     rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, (ev) ->
       rack.material.diffuseColor = new BABYLON.Color3(140/256, 164/256, 176/256)
       _this.updateRoof(true)
+      _this.showHover(ev)
     ))
     rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, (ev) ->
       rack.material.diffuseColor = color
       _this.updateRoof()
+      _this.hideHover(ev)
     ))
-
-    @object3d = rack
 
   relativeHeight: ->
     return 1991/600/42*@height*@scale
+
+  setGridPosition: (x, y) ->
+    @x = x
+    @y = y
+    @object3d.setAbsolutePosition(new BABYLON.Vector3(-(@x + 0.5), @relativeHeight() / 2, @y + 0.5))
 
   updateRoof: (highlight=false) ->
     texture = new BABYLON.DynamicTexture("EnclosureRack Roof Texture: " + @name, 512, @scene, true)
@@ -60,3 +65,25 @@ class @EnclosureRack
     highlightColor = if highlight then yesHighlightColor else noHighlightColor
     texture.drawText(displayName, null, null, "160px 'Roboto Condensed'", "white", highlightColor)
     @roof.material.diffuseTexture = texture
+
+  setOpacity: (alpha) ->
+    @object3d.material.alpha = alpha
+    @roof.material.alpha = alpha
+
+  showHover: (ev) ->
+    console.log "HOVERED EnclosureRack"
+    text = document.createElement("span")
+    text.setAttribute("id", "enclosure_rack-hover")
+    style = text.style
+    style.position = "absolute"
+    window.onmousemove = (e) ->
+      x = e.clientX + 20
+      y = e.clientY + 20
+      style.top = y + 'px'
+      style.left = x  + 'px'
+    text.textContent = "Wes Miser"
+    document.body.appendChild(text)
+
+  hideHover: (ev) ->
+    console.log "UNHOVERED EnclosureRack"
+    document.getElementById("enclosure_rack-hover").parentNode.removeChild(document.getElementById("enclosure_rack-hover"))
