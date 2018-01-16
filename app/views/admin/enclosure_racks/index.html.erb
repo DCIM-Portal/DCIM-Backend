@@ -8,6 +8,15 @@
 -->
 <div id="visual_dc">
   <canvas id="visual_dc_canvas" data-zone-id="<%= @zone.id %>" touch-action="none"></canvas>
+  <div id="hud_racklist" style="position: fixed; top: 60px;">
+    <ul>
+    <% @enclosure_racks.each do |rack| %>
+      <% if rack.x.nil? || rack.y.nil? %>
+        <li data-enclosure-rack-id="<%= rack.id %>" class="enclosure-rack-drawer-item"><%= rack.name %></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>  
   <div id="canvas_panel_outer">
     <i class="fa fa-video-camera" aria-hidden="true"></i>
     <div id="canvas_panel_inner"></div>

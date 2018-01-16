@@ -35,17 +35,16 @@ class @EnclosureRack
     @roof.material.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1)
     @updateRoof()
 
-    rack.actionManager = new BABYLON.ActionManager(scene)
-    _this = @
-    rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, (ev) ->
+    rack.actionManager = new BABYLON.ActionManager(@scene)
+    rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, (ev) =>
       rack.material.diffuseColor = new BABYLON.Color3(140/256, 164/256, 176/256)
-      _this.updateRoof(true)
-      _this.showHover(ev)
+      @updateRoof(true)
+      @showHover(ev)
     ))
-    rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, (ev) ->
+    rack.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, (ev) =>
       rack.material.diffuseColor = color
-      _this.updateRoof()
-      _this.hideHover(ev)
+      @updateRoof()
+      @hideHover(ev)
     ))
 
   relativeHeight: ->
@@ -56,10 +55,14 @@ class @EnclosureRack
     @y = y
     @object3d.setAbsolutePosition(new BABYLON.Vector3(-(@x + 0.5), @relativeHeight() / 2, @y + 0.5))
 
+  hide: ->
+    @object3d.setAbsolutePosition(new BABYLON.Vector3(-Infinity, @relativeHeight() / 2, -Infinity))
+
   updateRoof: (highlight=false) ->
     texture = new BABYLON.DynamicTexture("EnclosureRack Roof Texture: " + @name, 512, @scene, true)
-    displayName = @name
-    displayName = displayName.substring(0, 4) + "…" if displayName.length > 4
+    if @name
+      displayName = @name
+      displayName = displayName.substring(0, 4) + "…" if displayName.length > 4
     noHighlightColor = "#78909C"
     yesHighlightColor = "#8ba3af"
     highlightColor = if highlight then yesHighlightColor else noHighlightColor
@@ -71,7 +74,6 @@ class @EnclosureRack
     @roof.material.alpha = alpha
 
   showHover: (ev) ->
-    console.log "HOVERED EnclosureRack"
     text = document.createElement("span")
     text.setAttribute("id", "enclosure_rack-hover")
     style = text.style
@@ -85,5 +87,4 @@ class @EnclosureRack
     document.body.appendChild(text)
 
   hideHover: (ev) ->
-    console.log "UNHOVERED EnclosureRack"
     document.getElementById("enclosure_rack-hover").parentNode.removeChild(document.getElementById("enclosure_rack-hover"))
