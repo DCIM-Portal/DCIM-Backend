@@ -17,9 +17,7 @@ class BmcHostSplitSystemModelIntoBrandAndProduct < ActiveRecord::Migration[5.1]
     add_column :bmc_hosts, :system_model, :string
 
     BmcHost.all.each do |bmc_host|
-      if bmc_host.brand.is_a?(String) && bmc_host.product.is_a?(String)
-        bmc_host.update(system_model: [bmc_host.brand, bmc_host.product].join(' '))
-      end
+      bmc_host.update(system_model: [bmc_host.brand, bmc_host.product].join(' ')) if bmc_host.brand.is_a?(String) && bmc_host.product.is_a?(String)
     end
 
     remove_column :bmc_hosts, :brand

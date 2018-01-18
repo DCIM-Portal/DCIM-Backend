@@ -4,8 +4,12 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
+# Ignore Bundler config.
 /.bundle
+
+# Ignore Yarn output
+yarn-error.log
+yarn.lock
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -27,3 +31,6 @@ core.*
 
 # Ignore SimpleCov output
 coverage/
+/public/packs
+/public/packs-test
+/node_modules

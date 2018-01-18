@@ -14,9 +14,7 @@ module Dcim
     end
 
     def method_missing(method, *args)
-      if %i[get post delete put].include?(method)
-        return request.send(method, args)
-      end
+      return request.send(method, args) if %i[get post delete put].include?(method)
       append_chain(method, args)
       self
     end

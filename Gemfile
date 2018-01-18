@@ -18,7 +18,7 @@ gem 'rest-client'
 gem 'redis-rails'
 
 # Sidekiq for Background Jobs
-gem 'sidekiq', '5.0.4'
+gem 'sidekiq', '~> 5.0'
 
 # ActiveJob status tracking
 gem 'active_job_status', '>= 1.2.1'
@@ -38,6 +38,9 @@ gem 'i18n-js'
 # Breadcrumbs
 gem 'breadcrumbs_on_rails'
 
+# Webpack
+gem 'webpacker'
+
 # Jquery DataTables
 gem 'jquery-datatables'
 
@@ -54,11 +57,11 @@ gem 'render_async'
 gem 'concurrent-ruby', require: 'concurrent'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.4'
+gem 'rails', '5.2.0.beta2'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
-gem 'puma', '3.9.1'
+gem 'puma', '~> 3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.6'
 # Use Uglifier as compressor for JavaScript assets

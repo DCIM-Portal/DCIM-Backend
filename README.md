@@ -71,6 +71,10 @@ In addition to the base prerequisites, these additional prerequisites need to be
    - _Suggested installation for RHEL/CentOS_: `yum install -y mysql-devel`
  - [**Redis**](https://redis.io/) (>= 2.8) – Sidekiq job queuing and Action Cable WebSockets updates
    - _Suggested installation:_ Follow the [Redis Quick Start](https://redis.io/topics/quickstart) to install an up-to-date version of Redis or install `redis-server` and `redis-tools` on Debian/Ubuntu or install `redis` on Fedora/EPEL.
+ - [**Node.js**](https://nodejs.org/) (>= 6.0.0) – Dependency of Webpack
+   - _Suggested installation:_ Choose an appropriate download option for your operating system on the [Node.js download page](https://nodejs.org/en/download/).
+ - [**Yarn**](https://yarnpkg.com/) (>= 0.25.2) – Dependency of Webpack
+   - _Suggested installation:_ Choose an appropriate download option for your operating system from the [Yarn installation documentation](https://yarnpkg.com/lang/en/docs/install/).
 
 ## Installation
 

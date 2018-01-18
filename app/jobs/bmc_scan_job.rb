@@ -51,7 +51,7 @@ class BmcScanJob < ApplicationJob
     end
 
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-      promises.each do |bmc_host_ip, promise|
+      promises.each_value do |promise|
         promise.execute
       end
 

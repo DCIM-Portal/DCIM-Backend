@@ -24,9 +24,7 @@ class OnboardJob < ApplicationJob
     pool.wait_for_termination(1200)
 
     promises.each_value do |promise|
-      if promise.rejected?
-        raise promise.reason, "Error handling failed in an individual onboard (promise): #{promise.reason}", promise.reason.backtrace
-      end
+      raise promise.reason, "Error handling failed in an individual onboard (promise): #{promise.reason}", promise.reason.backtrace if promise.rejected?
     end
 
     finish!

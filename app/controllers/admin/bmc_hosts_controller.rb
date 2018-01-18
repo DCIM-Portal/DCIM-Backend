@@ -91,9 +91,7 @@ class Admin::BmcHostsController < AdminController
 
   def validate_bmc_host_params
     params[:bmc_bulk_action].permit({ bmc_host_ids: [] }, :bmc_action)
-    unless (BMC_ACTION_WHITELIST.include? params[:bmc_bulk_action][:bmc_action]) && !params[:bmc_bulk_action][:bmc_host_ids].nil?
-      return false
-    end
+    return false unless (BMC_ACTION_WHITELIST.include? params[:bmc_bulk_action][:bmc_action]) && !params[:bmc_bulk_action][:bmc_host_ids].nil?
     true
   end
 
