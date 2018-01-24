@@ -7,7 +7,7 @@ class @VisualDC
     @enclosure_racks_manager = null
     @hud = null
 
-    window.addEventListener('resize', @resizeVisualDC, false)
+    new ResizeObserver(@resizeVisualDC).observe($('#visual_dc')[0])
 
   resizeVisualDC: =>
     return unless @getCanvas().length
