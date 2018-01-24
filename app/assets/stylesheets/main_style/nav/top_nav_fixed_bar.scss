@@ -1,23 +1,17 @@
 // Top fixed nav
 
 .navbar-fixed {
-  height: 62px;
+  height: $nav-height;
   z-index: 801;
   .nav-wrapper .bc_nav {
     color: $navbar-orange-breadcrumb;
-    padding-left: $side-nav-padding;
-    margin-top: 3px;
-    font-size: 0.9rem;
-  }
-  .float-xs-left {
-    margin-top: -4px;
+    font-size: 0.8rem;
+    line-height: $nav-height;
+    padding-left: 10px;
   }
   nav {
-    height: $nav-height;
-    top: 0;
-    left: 0;
     a {
-      color: $black;
+      color: $white;
     }
     // Side-nav hamburger
     a.button-collapse {
@@ -29,22 +23,45 @@
       }
     }
     // Nav top-right menu
-    ul {
+    ul.right {
+      margin-top: 8.5px;
       margin-right: 10px;
       li {
-        height: 40px;
-        margin-top: 15px;
+        margin: 0 2px;
         a.nav-menu {
-          font-size: 0.9rem;
-          line-height: 40px;
+          font-size: 0.8rem;
           display: block;
           font-weight: $font-weight-light;
+          height: 28px;
+          line-height: 28px;
+          padding: 0 10px;
           i.fa {
-            line-height: 40px;
-            height: 40px;
+            line-height: 28px;
+            height: 28px;
           }
+        }
+        ul.dropdown-content {
+          overflow-x: hidden;
+          li a {
+            color: $black;
+            font-size: 0.8rem;
+          }
+        }
+      }
+      li:hover {
+        background-color: transparent;
+      }
+      li.active {
+        a {
+          color: $navbar-orange-breadcrumb;
         }
       }
     }
   }
+}
+
+div nav {
+  background-color: $deep-blue-grey;
+  height: $nav-height;
+  line-height: $nav-height;
 }

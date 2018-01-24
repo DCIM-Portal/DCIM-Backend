@@ -345,6 +345,27 @@ $(document).on 'turbolinks:load', ->
     $('li#unfold > a.collapsible-header').addClass 'active'
   ), 150
 
+  # Menu Aim for Sidenav
+  $menu = $('ul.sidenav-menu')
+
+  activateSubmenu = (row) ->
+    $row = $(row)
+    $submenu = $row.children('ul.sidenav-menu')
+    $row.children('li ul.sidenav-popout-menu').addClass 'menu-is-active'
+    return
+  
+  deactivateSubmenu = (row) ->
+    $row = $(row)
+    $submenu = $row.children('ul.sidenav-menu')
+    $row.children('li ul.sidenav-popout-menu').removeClass 'menu-is-active'
+    return
+  
+  $menu.menuAim
+    activate: activateSubmenu
+    deactivate: deactivateSubmenu
+    exitMenu: ->
+      true
+
   # Hide message divs on load
   $("#success_explanation").hide()
   $('.form_card_error').hide()
@@ -496,6 +517,20 @@ $(document).on 'click', '.modal_error_button', ->
       $('#load-indicator').hide()
       $('#admin_modal').modal('open')
 
+$(document).on 'click', '.toggle-extended-menu', ->
+  $('nav.sidenav-menu-wrapper').addClass('extended-sidenav')
+  $('ul.sidenav-menu').addClass('extended-menu')
+  $('ul.extended-menu li.active ul.sidenav-popout-menu').removeClass('sidenav-popout-menu')
+  $('main.fixed-side-nav').addClass('side-nav-extended')
+  $('.toggle-extended-menu').addClass('toggle-icon-menu').removeClass('toggle-extended-menu')
+
+$(document).on 'click', '.toggle-icon-menu', ->
+  $('.toggle-icon-menu').addClass('toggle-extended-menu').removeClass('toggle-icon-menu')
+  $('main.fixed-side-nav').removeClass('side-nav-extended')
+  $('ul.sidenav-menu li.active ul.dropdown-content').addClass('sidenav-popout-menu')
+  $('ul.sidenav-menu').removeClass('extended-menu')
+  $('nav.sidenav-menu-wrapper').removeClass('extended-sidenav')
+
 $(document).on 'turbolinks:before-cache', ->
   # Load overlay
   $('.overlay').show()
@@ -514,6 +549,9 @@ $(document).on 'turbolinks:before-cache', ->
 
   # Prevent duplicate selects
   $('.m_select').material_select 'destroy'
+
+  # Hide Submenus
+  $('ul.sidenav-popout-menu').removeClass 'menu-is-active'
 
 @formatBytes = (a, b) ->
   if 0 == a || !a

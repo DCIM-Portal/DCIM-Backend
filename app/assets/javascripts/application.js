@@ -15,6 +15,7 @@
 //= require jquery-ui/core
 //= require jquery-ui/widgets/sortable
 //= require jquery.serialize-object
+//= require jquery.menu-aim
 //= require pep
 //= require babylon
 //= require babylon.inspector.bundle

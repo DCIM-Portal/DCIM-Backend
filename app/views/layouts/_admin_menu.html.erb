@@ -1,50 +1,72 @@
 <header>
 
-  <!-- Sidebar navigation -->
-  <ul id="slide-out" class="side-nav fixed text-uppercase blue-grey darken-2 z-depth-0">
-
-    <!-- Logo -->
-    <li>
-      <div class="logo-wrapper waves-light">
-        <p class="lead">Rails DCIM Portal</p>
-        <p class="black-text">Admin Page</p>
-      </div>
-    </li>
-
-        <!-- Side navigation links -->
-    <li>
-      <ul class="collapsible collapsible-accordion">
-        <li id="<%= parent_menu('admin/bmc_scan_requests') || parent_menu('admin/brute_lists') || parent_menu('admin/onboard_requests') %>">
-          <a class="collapsible-header waves-effect arrow-r <%= active?('admin/bmc_scan_requests') || active?('admin/brute_lists') || active?('admin/onboard_requests') %>">
-            <i class="fa fa-sign-in"></i>System Onboarding<i class="fa fa-angle-down rotate-icon"></i>
-          </a>
-          <div class="collapsible-body">
-            <ul>
-              <li><%= link_to '<i class="fa fa-list-ol"></i>BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: active?('admin/bmc_scan_requests') %></li>
-              <li><%= link_to '<i class="fa fa-id-card-o"></i>Credentials List'.html_safe, admin_brute_lists_path, class: active?('admin/brute_lists') %></li>
-              <li><%= link_to '<i class="fa fa-upload"></i>Onboard Requests'.html_safe, admin_onboard_requests_path, class: active?('admin/onboard_requests') %></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </li>
-    <li class="direct_link">
-      <%= link_to '<i class="fa fa-server"></i>Scanned BMC Hosts'.html_safe, admin_bmc_hosts_path, class: active?('admin/bmc_hosts') %>
-    </li>
-    <li class="direct_link">
-      <%= link_to '<i class="fa fa-building-o"></i>Datacenter Zones'.html_safe, admin_zones_path, class: active?('admin/zones') %>
-    </li>
-
-  </ul>
-
   <!--Navbar-->
 
   <div class="navbar-fixed navbar">
-    <nav class="black-text grey lighten-2 text-uppercase z-depth-2">
-      <div class="float-xs-left">
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
-      </div>
+    <nav class="text-uppercase z-depth-2">
       <div class="nav-wrapper">
+
+        <!-- Sidenav Menu -->
+        <ul class="left">
+          <li>
+            <nav class="sidenav-menu-wrapper z-depth-3">
+              <div class="sidenav-menu-scroller">
+                <ul class="sidenav-menu">
+
+                  <!-- Main Menu #1 -->
+                  <li id="<%= parent_menu('admin/bmc_scan_requests') || parent_menu('admin/brute_lists') || parent_menu('admin/onboard_requests') %>" class="activate-menu">
+                    <%= link_to 'BMC Scans / Onboarding', admin_bmc_scan_requests_path, { class: "#{ active?('admin/bmc_scan_requests') || active?('admin/brute_lists') || active?('admin/onboard_requests') } sidenav-icon sidenav-icon-onboard" } %>
+
+                    <!-- Pop Out Menu #1 -->
+                    <ul class="sidenav-popout-menu dropdown-content">
+                      <li id="<%= parent_menu('admin/bmc_scan_requests') || parent_menu('admin/brute_lists') || parent_menu('admin/onboard_requests') %>" class="top-item">
+                        <%= link_to 'BMC Scans / Onboarding', admin_bmc_scan_requests_path, class: "header" %>
+                      </li>
+                      <li class="divider top-item"></li>
+                      <li><%= link_to 'BMC Scan List', admin_bmc_scan_requests_path, class: "#{ active?('admin/bmc_scan_requests') } sidenav-icon sidenav-icon-list" %></li>
+                      <li><%= link_to 'Credentials List', admin_brute_lists_path, class: "#{ active?('admin/brute_lists') } sidenav-icon sidenav-icon-card" %></li>
+                      <li><%= link_to 'Onboard Requests', admin_onboard_requests_path, class: "#{ active?('admin/onboard_requests') } sidenav-icon sidenav-icon-upload" %></li>
+                    </ul>
+
+                    <!-- Main Sub Menu #1 -->
+                    <ul class="sidenav-submenu">
+                      <li><%= link_to 'BMC Scan List'.html_safe, admin_bmc_scan_requests_path, class: "#{ active?('admin/bmc_scan_requests') } sidenav-icon sidenav-icon-list" %></li>
+                      <li><%= link_to 'Credentials List'.html_safe, admin_brute_lists_path, class: "#{ active?('admin/brute_lists') } sidenav-icon sidenav-icon-card" %></li>
+                      <li><%= link_to 'Onboard Requests'.html_safe, admin_onboard_requests_path, class: "#{ active?('admin/onboard_requests') } sidenav-icon sidenav-icon-upload" %></li>
+                    </ul>
+                  </li>
+
+                  <!-- Main Menu #2 -->
+                  <li class="direct_link activate-menu <%= active?('admin/bmc_hosts') %>">
+                    <%= link_to 'Scanned BMC Hosts', admin_bmc_hosts_path, { class: "#{ active?('admin/bmc_hosts') } sidenav-icon sidenav-icon-server" } %>
+
+                    <!-- Pop Out Menu #2 -->
+                    <ul class="sidenav-popout-menu dropdown-content">
+                      <li class="top-item">
+                        <%= link_to 'Scanned BMC Hosts', admin_bmc_hosts_path, class: "#{ active?('admin/bmc_hosts') } header" %>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Main Menu #3 -->
+                  <li class="direct_link activate-menu <%= active?('admin/zones') %>">
+                    <%= link_to 'Datacenter Zones', admin_zones_path, { class: "#{ active?('admin/zones') } sidenav-icon sidenav-icon-zone" } %>
+
+                    <!-- Pop Out Menu #3 -->
+                    <ul class="sidenav-popout-menu dropdown-content">
+                      <li class="top-item">
+                        <%= link_to 'Datacenter Zones', admin_zones_path, class: "#{ active?('admin/zones') } header" %>
+                      </li>
+                    </ul>
+                  </li>
+                <a class="toggle-extended-menu"><span>Collapse Sidebar</span></a>
+
+                </ul>
+              </div>
+            </nav>
+          </li>
+        </ul>
+
         <div class="left bc_nav hide-on-med-and-down">
           <%= render_breadcrumbs separator: " / " %>
         </div>

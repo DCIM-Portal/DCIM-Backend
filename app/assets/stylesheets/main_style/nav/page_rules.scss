@@ -1,6 +1,14 @@
 // General rules for pages with a fixed side nav
 
+.fixed-side-nav.side-nav-extended {
+  padding-left: 200px;
+}
+
 .fixed-side-nav {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   padding-left: $side-nav-padding;
   margin-left: $standard-margin-left;
   margin-right: $standard-margin-right;
@@ -72,8 +80,8 @@
   }
 }
 
-// When side-nav disappears, re-adjust margins and padding
-@media (max-width: 992px) {
-  .fixed-side-nav { padding-left: 0px; margin-left: 0; margin-right: 0;}
-  .nav-wrapper div.bc_nav { padding-left: 0px; }
-}
+// More padding for menu expansion
+  .fixed-side-nav.menu-expand {
+  padding-left: $side-nav-width;
+} 
+

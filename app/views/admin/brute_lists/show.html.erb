@@ -1,5 +1,9 @@
 <%= form_for([:admin, @cred], remote: true, html: {"data-type" => :json, id: "ajax_card_cred_update"}) do |f| %>
-  <h3>Credentials List <%= @cred.name %> Details</h3>
+  <div class="clearfix">
+    <h3 class="section_title">Credentials List <%= @cred.name %> Details</h3>
+    <%= render '/layouts/data_load' %>
+  </div>
+
   <div class="card">
     <div class="card-content">
       <div class="clearfix">
