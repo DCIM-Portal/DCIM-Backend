@@ -31,7 +31,7 @@ class @EnclosureRacksManager
         console.log xhr
 
   _callbackGotEnclosureRacks: (data) =>
-    is_initial = !@racks.solid
+    is_initial = $.isEmptyObject(@racks.solid)
     for rack in data
       enclosure_rack = new EnclosureRack(rack, @context.scene)
       if (enclosure_rack.x != null && enclosure_rack.y != null)
@@ -41,7 +41,7 @@ class @EnclosureRacksManager
         @racks.drawer[enclosure_rack.id] = enclosure_rack
     @context.zone_grid = new ZoneGrid(0, 0, 0, 0, @context.scene)
     @redrawGrid()
-    resetCamera() if is_initial
+    @resetCamera() if is_initial
     @context.hud.hideBlockingLoading()
 
   calculateGrid: (objects) ->
@@ -68,7 +68,7 @@ class @EnclosureRacksManager
     @context.zone_grid.redraw()
 
   resetCamera: ->
-    xy = enclosureRacksMidpoint()
+    xy = @enclosureRacksMidpoint()
     x = xy[0] + 0.5
     y = xy[1] + 0.5
     if isNaN(x) || isNaN(y)
