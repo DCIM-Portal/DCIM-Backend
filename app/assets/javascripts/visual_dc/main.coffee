@@ -7,7 +7,7 @@ class @VisualDC
     @enclosure_racks_manager = null
     @hud = null
 
-    new ResizeObserver(@resizeVisualDC).observe($('#visual_dc')[0])
+    new ResizeObserver(@resizeVisualDC).observe($('#visual_dc_canvas')[0])
 
   resizeVisualDC: =>
     return unless @getCanvas().length
@@ -57,6 +57,8 @@ class @VisualDC
     @hud = new HUD(@)
     @enclosure_racks_manager = new EnclosureRacksManager(@)
     @enclosure_racks_manager.populate()
+
+    BABYLON.SceneOptimizer.OptimizeAsync(@scene, BABYLON.SceneOptimizerOptions.ModerateDegradationAllowed())
   
     @engine.runRenderLoop =>
       @scene.render()
