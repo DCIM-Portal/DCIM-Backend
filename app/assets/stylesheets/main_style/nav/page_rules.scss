@@ -10,8 +10,7 @@
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   padding-left: $side-nav-padding;
-  margin-left: $standard-margin-left;
-  margin-right: $standard-margin-right;
+  padding-top: $side-nav-padding;
   h3 {
     font-size: $h3-standard;
     margin-bottom: 7.5px;

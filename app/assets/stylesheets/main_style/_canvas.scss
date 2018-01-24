@@ -13,11 +13,8 @@
 //}
 
 #visual_dc {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  height: calc(100% - 62px);
-  width: calc(100% - 225px);
+  height: 100%;
+  width: 100%;
 }
 
 #visual_dc_canvas {
