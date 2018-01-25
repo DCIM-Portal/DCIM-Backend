@@ -12,11 +12,8 @@
 .table-refresh-alert {
   display: none;
   position: fixed;
-  top: 4.7em;
-  left: 50%;
-  height: 30px;
-  width: 258px;
-  margin-left: -18px;
+  top: 3.5em;
+  right: 0;
   z-index: 800;
   font-weight: $font-weight-light;
   font-size: 0.8rem;

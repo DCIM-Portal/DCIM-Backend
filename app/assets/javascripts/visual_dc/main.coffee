@@ -38,7 +38,6 @@ class @VisualDC
     @engine = new BABYLON.Engine(canvasDom, true)
     @scene = new BABYLON.Scene(@engine)
     @scene.clearColor = new BABYLON.Color3(229/256, 230/256, 231/256)
-    BABYLON.Tools.GetClassName = BABYLON.Tools.getClassName
     @scene.debugLayer.show()
 
     canvasDom.setAttribute("oncontextmenu", "return false")
@@ -58,7 +57,7 @@ class @VisualDC
     @enclosure_racks_manager = new EnclosureRacksManager(@)
     @enclosure_racks_manager.populate()
 
-    BABYLON.SceneOptimizer.OptimizeAsync(@scene, BABYLON.SceneOptimizerOptions.ModerateDegradationAllowed())
+    #BABYLON.SceneOptimizer.OptimizeAsync(@scene, BABYLON.SceneOptimizerOptions.ModerateDegradationAllowed())
   
     @engine.runRenderLoop =>
       @scene.render()

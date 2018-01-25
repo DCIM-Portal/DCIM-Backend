@@ -3,28 +3,10 @@ class @ZoneGrid
     @setBounds(min_x, max_x, min_y, max_y)
     @scene = scene
 
-    @redraw()
+    @ground_material = new BABYLON.StandardMaterial("zone_ground-material", @scene)
+    @ground_material.alpha = 0.0
 
-#    subdivisions = {
-#      w: @max_x - @min_x,
-#      h: @max_y - @min_y
-#    }
-#    grid = BABYLON.MeshBuilder.CreateTiledGround("zone_grid", {xmin: @min_x, xmax: @max_x, zmin: @min_y, zmax: @max_y, subdivisions: subdivisions }, @scene)
-#    grid.enableEdgesRendering()
-#    grid.edgesWidth = 4.0
-#    grid.edgesColor = new BABYLON.Color4(0, 0, 0, 1)
-#    material = new BABYLON.StandardMaterial("zone_grid_material", @scene)
-#    material.alpha = 0.0
-#    grid.material = material
-#
-#    verticesCount = grid.getTotalVertices()
-#    tileIndicesLength = grid.getIndices().length / (subdivisions.w * subdivisions.h)
-#    grid.subMeshes = []
-#    base = 0
-#    for row in [0..subdivisions.h-1]
-#      for col in [0..subdivisions.w-1]
-#        grid.subMeshes.push(new BABYLON.SubMesh(row%2 ^ col%2, 0, verticesCount, base , tileIndicesLength, grid))
-#        base += tileIndicesLength
+    @redraw()
 
     line = []
     line.push(new BABYLON.Vector3(0, 0, 1))
@@ -67,6 +49,5 @@ class @ZoneGrid
     @grid.color = new BABYLON.Color3(0, 0, 0)
 
     @ground = BABYLON.MeshBuilder.CreateTiledGround("zone_ground", {xmax: @min_x+4, xmin: @max_x-4, zmin: @min_y-4, zmax: @max_y+4}, @scene)
-    @ground.material = new BABYLON.StandardMaterial("zone_ground-material", @scene)
-    @ground.material.alpha = 0.0
+    @ground.material = @ground_material
     @ground.actionManager = new BABYLON.ActionManager(@scene)

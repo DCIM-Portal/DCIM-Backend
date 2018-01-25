@@ -43,16 +43,16 @@ class @EnclosureRack
     @object3d.setAbsolutePosition(new BABYLON.Vector3(-Infinity, @relativeHeight() / 2, -Infinity))
 
   updateTexture: (highlight=false) ->
-    texture = new BABYLON.DynamicTexture("EnclosureRack Roof Texture: " + @name, 512, @scene, true)
+    @texture ||= new BABYLON.DynamicTexture("EnclosureRack Roof Texture: " + @name, 512, @scene, true)
     if @name
       displayName = @name
       displayName = displayName.substring(0, 4) + "…" if displayName.length > 4
     noHighlightColor = "#78909C"
     yesHighlightColor = "#8ba3af"
     highlightColor = if highlight then yesHighlightColor else noHighlightColor
-    texture.drawText(displayName, null, null, "160px 'Roboto Condensed'", "white", highlightColor)
-    texture.wAng = Math.PI / 180 * 90
-    @object3d.material.diffuseTexture = texture
+    @texture.drawText(displayName, null, null, "160px 'Roboto Condensed'", "white", highlightColor)
+    @texture.wAng = Math.PI / 180 * 90
+    @object3d.material.diffuseTexture = @texture
 
   setOpacity: (alpha) ->
     @object3d.material.alpha = alpha
@@ -62,9 +62,11 @@ class @EnclosureRack
     text.setAttribute("id", "enclosure_rack-hover")
     style = text.style
     style.position = "absolute"
+    style.display = 'none'
     window.onmousemove = (e) ->
       x = e.clientX + 20
       y = e.clientY + 20
+      style.display = 'inherit'
       style.top = y + 'px'
       style.left = x  + 'px'
     text.textContent = "Wes Miser"

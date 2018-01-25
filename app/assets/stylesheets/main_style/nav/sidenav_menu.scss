@@ -116,7 +116,7 @@ div.navbar-fixed nav {
           li a.header:hover, li a:hover, li a.sidenav-icon:hover,
           li a.active-item:hover, li.active a:hover,
           li.active-item a:hover {
-            color: $sidenav-active-blue;
+            color: #396073;
             background-color: $navbar-hover-item;
           }
         }
@@ -163,7 +163,13 @@ div.navbar-fixed nav {
       }
       a:hover {
         background-color: transparent;
-      } 
+      }
+      .sidenav-icon:hover:before {
+        color: #004d73;
+      }
+      .active-item.sidenav-icon:hover::before {
+        color: #c18100;
+      }
     }
     ul.sidenav-menu.extended-menu {
       .menu-is-active {
@@ -187,7 +193,7 @@ div.navbar-fixed nav {
           display: block;
         }
       }
-      li.active, li.active-item {
+      li.active {
         box-shadow: inset 4px 0 0 $sidenav-active-blue, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
         ul.sidenav-submenu {
           li {
@@ -195,21 +201,34 @@ div.navbar-fixed nav {
           }
         }
       }
-      li.activate-menu.active:hover, li.activate-menu.active-item:hover {
-        box-shadow: inset 4px 0 0 $sidenav-active-blue;
+      li.active-item {
+        background: $navbar-active-item;
+        a {
+          font-weight: $font-weight-bold;
+          color: #467186;
+        }
+        a.sidenav-icon::before {
+          color: #f1a100;
+        }
+      }
+      li.active-item:hover {
+        background: $navbar-hover-item;
+      }
+      li.activate-menu.active-item {
+        box-shadow: inset 4px 0 0 $sidenav-active-blue, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
       }
       li.active:hover {
         background-color: $navbar-active-item;
       }
       li.active a.sidenav-icon-onboard:hover {
-        color: $sidenav-active-blue;
+        color: #396073;
         background-color: $navbar-hover-item;
         box-shadow: inset 4px 0 0 $sidenav-active-blue;
       }
       li a.header:hover, li a:hover, li a.sidenav-icon:hover,
       li a.active-item:hover,
       li.active-item a:hover {
-        color: $sidenav-active-blue;
+        color: #396073;
       }
       ul.dropdown-content a.sidenav-icon::before {
         width: 25px;
@@ -220,7 +239,16 @@ div.navbar-fixed nav {
           margin-left: 4px;
           a {
             margin-left: 25px;
+            height: 40px;
+            line-height: 40px;
           }
+          a.sidenav-icon::before {
+            width: 35px;
+            font-size: 0.93rem;
+          }
+        }
+        li.active-item {
+          background: $navbar-hover-item;
         }
       }
     }
@@ -247,10 +275,6 @@ div.navbar-fixed nav {
 
 a.active-item.sidenav-icon::before {
   color: #f1a100;
-}
-
-li.activate-menu:hover > .sidenav-icon::before, li:hover > .sidenav-icon::before {
-  filter: brightness(95%);
 }
 
 .sidenav-icon::before, .toggle-extended-menu::before, .toggle-icon-menu::before {
