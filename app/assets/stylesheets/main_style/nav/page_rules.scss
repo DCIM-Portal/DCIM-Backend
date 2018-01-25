@@ -1,7 +1,7 @@
 // General rules for pages with a fixed side nav
 
 .fixed-side-nav.side-nav-extended {
-  padding-left: 200px;
+  padding-left: $side-nav-extended-width
 }
 
 .fixed-side-nav {
@@ -9,15 +9,15 @@
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  padding-left: $side-nav-padding;
-  padding-top: $side-nav-padding;
+  padding-left: $nav-thickness;
+  padding-top: $nav-thickness;
   h3 {
     font-size: $h3-standard;
     margin-bottom: 7.5px;
   }
   h2 {
     font-size: $h2-standard;
-    font-weight: 300;
+    font-weight: $font-weight-light;
   }
   // Apply default shadow values for fixed-side-nav pages
   // Level 1 shadow
@@ -78,9 +78,3 @@
     -webkit-box-shadow: $level-5-shadow;
   }
 }
-
-// More padding for menu expansion
-  .fixed-side-nav.menu-expand {
-  padding-left: $side-nav-width;
-} 
-

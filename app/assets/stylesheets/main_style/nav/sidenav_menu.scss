@@ -9,7 +9,7 @@ li.sidenav-menu-trigger:hover {
 
 // Toggle Menu Button
 
-.navbar-fixed nav { 
+div.navbar-fixed nav { 
   .toggle-extended-menu, .toggle-icon-menu {
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -20,8 +20,8 @@ li.sidenav-menu-trigger:hover {
     position: fixed;
     overflow: hidden;
     bottom: 0;
-    border-top: 1px solid #afafaf;
-    color: #749caf;
+    border-top: 2px solid #e4e4e4;
+    color: $sidenav-active-blue;
     padding: 0;
     font-size: 0.9rem;
     text-transform: none;
@@ -31,27 +31,31 @@ li.sidenav-menu-trigger:hover {
       display: inline-block;
     }
   }
+  .toggle-extended-menu:hover, .toggle-icon-menu:hover {
+    color: $darker-grey;
+    background-color: $navbar-hover-item !important;
+  }
   .toggle-extended-menu {
-    width: 45.5px;
+    width: $nav-thickness;
   }
   .toggle-icon-menu {
-    width: 200px;
+    width: $side-nav-extended-width;
   }
 }
 // Extended Sidenav Wrapper
 
 .sidenav-menu-wrapper.extended-sidenav {
-  width: 200px;
+  width: $side-nav-extended-width;
 }
 
 // Sidenav Menu
 
 .sidenav-menu-wrapper {
   position: fixed;
-  top: $nav-height;
+  top: $nav-thickness;
   bottom: 0;
   left: 0;
-  width: $nav-height;
+  width: $nav-thickness;
   height: 100%;
   background-color: $off-white;
   -webkit-transition: all 0.3s ease-in-out;
@@ -69,9 +73,9 @@ li.sidenav-menu-trigger:hover {
       li {
         ul.sidenav-popout-menu {
           background: $off-white;
-          font-size: 90%;
+          font-size: $font-smaller-size;
           overflow: visible;
-          width: 180px !important;
+          width: 180px;
           li {
             width: 180px;
             height: 47px;
@@ -83,17 +87,17 @@ li.sidenav-menu-trigger:hover {
             min-height: 0;
           }
           li.active {
-            font-weight: 600;
+            font-weight: $font-weight-bold;
           }
           li a, li a.sidenav-icon {
-            font-size: 90%;
+            font-size: $font-smaller-size;
             padding: 14px 18px;
             color: #505050;
           }
           li a.sidenav-icon:before {
             font-size: 100%;
             text-align: left;
-            width: 28.5px;
+            width: 29px;
           }
           li a.active-item, li.active a, li.active-item a,
           li.active a.header, li.active-item a.header,
@@ -101,18 +105,18 @@ li.sidenav-menu-trigger:hover {
             background: $off-white;
             border: none;
             box-shadow: none;
-            font-weight: 600;
+            font-weight: $font-weight-bold;
             color: #467186;
           }
           li a.header {
             font-size: 100%;
             color: #505050;
-            font-weight: 600;
+            font-weight: $font-weight-bold;
           }
           li a.header:hover, li a:hover, li a.sidenav-icon:hover,
           li a.active-item:hover, li.active a:hover,
           li.active-item a:hover {
-            color: #749CAF;
+            color: $sidenav-active-blue;
             background-color: $navbar-hover-item;
           }
         }
@@ -130,24 +134,23 @@ li.sidenav-menu-trigger:hover {
           padding: 0;
           color: $lighter-grey;
           font-size: 95%;
-          height: $side-nav-height;
+          height: $side-nav-menu-height;
           text-transform: none;
         }
         a.active-item {
-          box-shadow: inset 4px 0 0 #749caf, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
+          box-shadow: inset 4px 0 0 $sidenav-active-blue, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
         }
         .sidenav-submenu {
           display: none;
           li {
             overflow: hidden;
             height: 0;
-            transition: height 0.3s;
             a {
               color: $off-white;
             }
           }
         }
-        width: $nav-height;
+        width: $nav-thickness;
         line-height: 47px;
         overflow: hidden;
         clear: both;
@@ -164,17 +167,17 @@ li.sidenav-menu-trigger:hover {
     }
     ul.sidenav-menu.extended-menu {
       .menu-is-active {
-        left: 200px;
+        left: $side-nav-extended-width;
       }
       li {
-        width: 200px;
+        width: $side-nav-extended-width;
         a.sidenav-icon {
           color: #505050;
           box-shadow: none;
-          font-size: 90%;
+          font-size: $font-smaller-size;
         }
         a.active-item {
-          font-weight: 600;
+          font-weight: $font-weight-bold;
           color: #467186;
         }
         ul.sidenav-popout-menu li.top-item {
@@ -185,7 +188,7 @@ li.sidenav-menu-trigger:hover {
         }
       }
       li.active, li.active-item {
-        box-shadow: inset 4px 0 0 #749caf, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
+        box-shadow: inset 4px 0 0 $sidenav-active-blue, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
         ul.sidenav-submenu {
           li {
             height: 100%;
@@ -193,23 +196,23 @@ li.sidenav-menu-trigger:hover {
         }
       }
       li.activate-menu.active:hover, li.activate-menu.active-item:hover {
-        box-shadow: inset 4px 0 0 #749caf;
+        box-shadow: inset 4px 0 0 $sidenav-active-blue;
       }
       li.active:hover {
-        background-color: #eee;
+        background-color: $navbar-active-item;
       }
       li.active a.sidenav-icon-onboard:hover {
-        color: #749CAF;
-        background-color: #dadada;
-        box-shadow: inset 4px 0 0 #749caf;
+        color: $sidenav-active-blue;
+        background-color: $navbar-hover-item;
+        box-shadow: inset 4px 0 0 $sidenav-active-blue;
       }
       li a.header:hover, li a:hover, li a.sidenav-icon:hover,
       li a.active-item:hover,
       li.active-item a:hover {
-        color: #749CAF;
+        color: $sidenav-active-blue;
       }
       ul.dropdown-content a.sidenav-icon::before {
-        width: 25.5px;
+        width: 25px;
       }
       ul.sidenav-submenu {
         li {
@@ -224,26 +227,14 @@ li.sidenav-menu-trigger:hover {
   }
 }
 
-.sidenav-menu-wrapper.sidenav-open-all {
-  width: $side-nav-width;
-  .sidenav-submenu li {
-    height: $side-nav-height;
-    line-height: $side-nav-height;
-    a {
-      padding-left: 31px;
-      font-size: $font-smaller-size;
-    }
-  }
-}
-
 // Use This if we go back to CSS pure version
 //li.activate-menu:hover > .sidenav-popout-menu {
 
 .menu-is-active {
   display: block;
   opacity: 1;
-  left: $side-nav-padding;
-  margin-top: -$side-nav-height;
+  left: $nav-thickness;
+  margin-top: -$side-nav-menu-height;
 }
 
 .sidenav-menu-wrapper > li :after {
@@ -264,7 +255,7 @@ li.activate-menu:hover > .sidenav-icon::before, li:hover > .sidenav-icon::before
 
 .sidenav-icon::before, .toggle-extended-menu::before, .toggle-icon-menu::before {
   display: inline-block;
-  width: 45.5px;
+  width: $nav-thickness;
   text-align: center;
   text-transform: none;
   font-weight: normal;

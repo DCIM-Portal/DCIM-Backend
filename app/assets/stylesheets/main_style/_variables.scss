@@ -20,6 +20,7 @@ $muted-light: #98aab3 !default;
 
 $deep-blue-grey: #455A64 !default;
 $normal-blue-grey: #90A4AE !default;
+$sidenav-active-blue: #749caf !default;
 
 $main-background: #E4E5E6 !default;
 
@@ -82,17 +83,14 @@ $level-5-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0
 
 // Padding, Margins, Width, Height
 
-$side-nav-padding: 45px !default;
-$side-nav-width: 220px !default;
-$side-nav-height: 48px !default;
+$side-nav-extended-width: 200px !default;
+$side-nav-menu-height: 48px !default;
 
-$nav-height: 45px !default;
+$nav-thickness: 45px !default;
 
 $standard-margin-left: 1% !default;
 $standard-margin-right: 2% !default;
-$standard-padding: 15px !default;
-
-$container-bottom-padding: 50px !default;
+$standard-padding: 25px !default;
 
 // Transistions
 

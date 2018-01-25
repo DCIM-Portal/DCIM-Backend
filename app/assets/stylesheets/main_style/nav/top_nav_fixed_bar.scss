@@ -1,12 +1,12 @@
 // Top fixed nav
 
 .navbar-fixed {
-  height: $nav-height;
+  height: $nav-thickness;
   z-index: 801;
   .nav-wrapper .bc_nav {
     color: $navbar-orange-breadcrumb;
     font-size: 0.8rem;
-    line-height: $nav-height;
+    line-height: $nav-thickness;
     padding-left: 10px;
   }
   nav {
@@ -62,6 +62,6 @@
 
 div nav {
   background-color: $deep-blue-grey;
-  height: $nav-height;
-  line-height: $nav-height;
+  height: $nav-thickness;
+  line-height: $nav-thickness;
 }

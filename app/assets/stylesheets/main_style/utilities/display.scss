@@ -17,16 +17,9 @@ header {
   float: left;
 }
 
-@media (min-width: 1400px) {
-  .fixed-sn main {
-    margin-left: 3%;
-    margin-right: 3%;
-  }
-}
 @media (max-widthL 992px) {
   .container-fluid {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
   }
 }
 
@@ -66,21 +59,11 @@ header {
 }
 
 .login-card {
-  /* max-width: 30rem; */
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 2rem;
   display: inline-block;
   text-align: left;
-}
-
-// Footer
-//XXX: Make footer its own SASS file
-.floating-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  margin: 0.5rem;
 }
 
 .version {
@@ -91,15 +74,8 @@ header {
 // Container
 
 .container-fluid {
-    // Need padding since there is no footer
-    // Possibly will change this in future
-    //height: 100%;
-    //padding-bottom: $container-bottom-padding;
     position: relative;
-    margin-left: $standard-margin-left;
-    margin-right: $standard-margin-right;
-    padding-right: $standard-padding;
-    padding-left: $standard-padding;
+    padding: 0 $standard-padding;
 }
 
 // Invisible
