@@ -1,4 +1,4 @@
-class @ZoneGrid
+export default class ZoneGrid
   constructor: (min_x, max_x, min_y, max_y, scene) ->
     @setBounds(min_x, max_x, min_y, max_y)
     @scene = scene

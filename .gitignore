@@ -28,6 +28,7 @@ core.*
 
 # Ignore Vim swap files
 *.swp
+*.swo
 
 # Ignore SimpleCov output
 coverage/

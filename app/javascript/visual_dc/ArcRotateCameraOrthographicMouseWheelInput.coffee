@@ -1,4 +1,4 @@
-class @ArcRotateCameraOrthographicMouseWheelInput
+export default class ArcRotateCameraOrthographicMouseWheelInput
   wheel = null
   observer = null
   wheelPrecision = 0.2

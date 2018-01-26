@@ -1,4 +1,4 @@
-class @EnclosureRack
+export default class EnclosureRack
   constructor: (data, scene) ->
     @scale = 0.8
     @scene = scene

@@ -1,4 +1,12 @@
-class @VisualDC
+import 'ResizeObserver'
+import 'babylonjs'
+import 'babylonjs-gui'
+import 'babylonjs-inspector'
+import ArcRotateCameraOrthographicMouseWheelInput from './ArcRotateCameraOrthographicMouseWheelInput'
+import HUD from './hud'
+import EnclosureRacksManager from './enclosure_racks_manager'
+
+export default class VisualDC
   constructor: ->
     @camera = null
     @engine = null
@@ -7,7 +15,10 @@ class @VisualDC
     @enclosure_racks_manager = null
     @hud = null
 
-    new ResizeObserver(@resizeVisualDC).observe($('#visual_dc_canvas')[0])
+    $(document).on 'turbolinks:load', =>
+      @initializeVisualDC()
+    $(document).on 'turbolinks:before-cache', =>
+      @destroyVisualDC()
 
   resizeVisualDC: =>
     return unless @getCanvas().length
@@ -35,6 +46,8 @@ class @VisualDC
   initializeVisualDC: ->
     canvasDom = @getCanvas().get(0)
     return unless $(canvasDom).length
+    @resize_observer = new ResizeObserver(@resizeVisualDC)
+    @resize_observer.observe(canvasDom)
     @engine = new BABYLON.Engine(canvasDom, true)
     @scene = new BABYLON.Scene(@engine)
     @scene.clearColor = new BABYLON.Color3(229/256, 230/256, 231/256)
@@ -62,13 +75,7 @@ class @VisualDC
     @engine.runRenderLoop =>
       @scene.render()
 
-  destroyVisualDC = ->
-    getCanvas().html('')
-
-
-$(document).on 'turbolinks:load', ->
-  document.visual_dc = new VisualDC()
-  document.visual_dc.initializeVisualDC()
-
-$(document).on 'turbolinks:before-cache', ->
-  document.visual_dc.destroyVisualDC()
+  destroyVisualDC: ->
+    return unless @getCanvas().length
+    @resize_observer.disconnect()
+    @scene.dispose()

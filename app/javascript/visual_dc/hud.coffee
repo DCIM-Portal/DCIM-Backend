@@ -1,4 +1,4 @@
-class @HUD
+export default class HUD
   constructor: (context) ->
     @context = context
     @scene = @context.scene

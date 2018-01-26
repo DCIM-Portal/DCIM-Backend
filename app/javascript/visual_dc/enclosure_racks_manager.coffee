@@ -1,4 +1,7 @@
-class @EnclosureRacksManager
+import EnclosureRack from './enclosure_rack'
+import ZoneGrid from './zone_grid'
+
+export default class EnclosureRacksManager
   constructor: (context) ->
     @context = context
 

@@ -17,8 +17,6 @@
 //= require jquery.serialize-object
 //= require jquery.menu-aim
 //= require pep
-//= require babylon
-//= require babylon.inspector.bundle
 //= require datatables
 //= require dataTables.checkboxes
 //= require turbolinks
