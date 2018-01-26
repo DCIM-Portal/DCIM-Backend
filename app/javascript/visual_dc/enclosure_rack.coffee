@@ -1,4 +1,10 @@
 export default class EnclosureRack
+  STATE_SOLID: 1.0
+  STATE_PENDING: 0.8
+  STATE_UNCERTAIN: 0.6
+  STATE_GHOST: 0.5
+  STATE_DRAWER: 0.0
+
   constructor: (data, scene) ->
     @scale = 0.8
     @scene = scene
@@ -41,6 +47,10 @@ export default class EnclosureRack
 
   hide: ->
     @object3d.setAbsolutePosition(new BABYLON.Vector3(-Infinity, @relativeHeight() / 2, -Infinity))
+
+  show: (alpha) ->
+    @setGridPosition(@x, @y)
+    @setOpacity(alpha)
 
   updateTexture: (highlight=false) ->
     @texture ||= new BABYLON.DynamicTexture("EnclosureRack Roof Texture: " + @name, 512, @scene, true)

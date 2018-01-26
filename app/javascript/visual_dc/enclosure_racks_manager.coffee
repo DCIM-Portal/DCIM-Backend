@@ -6,9 +6,15 @@ export default class EnclosureRacksManager
     @context = context
 
     @racks = {
+      # Committed to server
       solid: {},
+      # To be sent to server
       pending: {},
+      # Mouse down, not sure if dragging camera
+      uncertain: {},
+      # Awaiting placement under cursor
       ghost: {},
+      # Not on ZoneGrid
       drawer: {}
     }
 
@@ -65,7 +71,7 @@ export default class EnclosureRacksManager
       return false
     return [min_x, max_x, min_y, max_y]
 
-  redrawGrid: (objects=@racks.solid) ->
+  redrawGrid: (objects=$.extend({}, @racks.solid, @racks.pending)) ->
     [min_x, max_x, min_y, max_y] = @calculateGrid(objects)
     @context.zone_grid.setBounds(min_x, max_x, min_y, max_y)
     @context.zone_grid.redraw()
@@ -96,12 +102,34 @@ export default class EnclosureRacksManager
 
     clickObserver = @context.scene.onPointerObservable.add (eventData, eventState) =>
       return unless @context.zone_grid
+      # Point identifiable
       if (pickedPoint = eventData.pickInfo.pickedPoint) != null
-        x = Math.floor(-pickedPoint.x)
-        y = Math.floor(pickedPoint.z)
-        ghost_cursor_enclosure_rack.setGridPosition(x, y)
-        ghost_cursor_enclosure_rack.setOpacity(0.5)
-        @redrawGrid($.extend({}, @racks.solid, @racks.ghost))
+        # Mouse down (placement uncertain)
+        if (eventData.type == BABYLON.PointerEventTypes.POINTERDOWN)
+          @racks.uncertain[enclosure_rack_id] = ghost_cursor_enclosure_rack
+        # Mouse up (flush uncertain to pending or cancel)
+        else if (eventData.type == BABYLON.PointerEventTypes.POINTERUP)
+          # Left-mouse click (flush uncertain to pending)
+          if (eventData.event.button == 0)
+            Object.keys(@racks.uncertain).forEach (enclosure_rack) =>
+              @racks.pending[enclosure_rack_id] = @racks.uncertain[enclosure_rack_id]
+              # Remove from drawer when promoting to pending
+              delete @racks.drawer[enclosure_rack_id]
+              @stopGhostEnclosureRack(enclosure_rack_id)
+              @racks.pending[enclosure_rack_id].show(EnclosureRack::STATE_PENDING)
+            @racks.uncertain = {}
+          # Right-mouse click (cancel)
+          else if (eventData.event.button == 2)
+            delete @racks.uncertain[enclosure_rack_id]
+            @stopGhostEnclosureRack(enclosure_rack_id)
+        # Mouse move (flush uncertain to black hole)
+        else if (eventData.type == BABYLON.PointerEventTypes.POINTERMOVE)
+          @racks.uncertain = {}
+          x = Math.floor(-pickedPoint.x)
+          y = Math.floor(pickedPoint.z)
+          ghost_cursor_enclosure_rack.show(EnclosureRack::STATE_GHOST)
+          ghost_cursor_enclosure_rack.setGridPosition(x, y)
+          @redrawGrid($.extend({}, @racks.solid, @racks.pending, @racks.ghost))
       else
         ghost_cursor_enclosure_rack.hide()
         @redrawGrid()
