@@ -523,8 +523,10 @@ $(document).on 'click', '.toggle-extended-menu', ->
   $('ul.extended-menu li.active ul.sidenav-popout-menu').removeClass('sidenav-popout-menu')
   $('main.fixed-side-nav').addClass('side-nav-extended')
   $('.toggle-extended-menu').addClass('toggle-icon-menu').removeClass('toggle-extended-menu')
+  $('ul.sidenav-menu li.activate-menu').removeClass('icon-view')
 
 $(document).on 'click', '.toggle-icon-menu', ->
+  $('ul.sidenav-menu li.activate-menu').addClass('icon-view')
   $('.toggle-icon-menu').addClass('toggle-extended-menu').removeClass('toggle-icon-menu')
   $('main.fixed-side-nav').removeClass('side-nav-extended')
   $('ul.sidenav-menu li.active ul.dropdown-content').addClass('sidenav-popout-menu')

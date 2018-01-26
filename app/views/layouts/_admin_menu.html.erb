@@ -32,7 +32,7 @@
           </li>
 
           <!-- Main Menu #2 -->
-          <li class="direct_link activate-menu <%= active?('admin/bmc_hosts') %>">
+          <li class="direct_link activate-menu icon-view <%= active?('admin/bmc_hosts') %>">
             <%= link_to 'Scanned BMC Hosts', admin_bmc_hosts_path, { class: "#{ active?('admin/bmc_hosts') } sidenav-icon sidenav-icon-server" } %>
 
             <!-- Pop Out Menu #2 -->
@@ -44,7 +44,7 @@
           </li>
 
           <!-- Main Menu #3 -->
-          <li class="direct_link activate-menu <%= active?('admin/zones') %>">
+          <li class="direct_link activate-menu icon-view <%= active?('admin/zones') %>">
             <%= link_to 'Datacenter Zones', admin_zones_path, { class: "#{ active?('admin/zones') } sidenav-icon sidenav-icon-zone" } %>
 
             <!-- Pop Out Menu #3 -->

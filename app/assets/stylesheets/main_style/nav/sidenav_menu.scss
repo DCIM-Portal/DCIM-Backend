@@ -21,10 +21,11 @@ div.navbar-fixed nav {
     overflow: hidden;
     bottom: 0;
     border-top: 2px solid #e4e4e4;
-    color: $sidenav-active-blue;
+    color: #505050;
     padding: 0;
     font-size: 0.9rem;
     text-transform: none;
+    background: $off-white;
     span {
       position: absolute;
       top: 8%;
@@ -32,14 +33,21 @@ div.navbar-fixed nav {
     }
   }
   .toggle-extended-menu:hover, .toggle-icon-menu:hover {
-    color: $darker-grey;
+    color: #29576d;
     background-color: $navbar-hover-item !important;
   }
   .toggle-extended-menu {
     width: $nav-thickness;
+    span {
+      display: none;
+    }
   }
   .toggle-icon-menu {
     width: $side-nav-extended-width;
+    padding-left: 22px;
+    span {
+      display: inline-block;
+    }
   }
 }
 // Extended Sidenav Wrapper
@@ -58,12 +66,14 @@ div.navbar-fixed nav {
   width: $nav-thickness;
   height: 100%;
   background-color: $off-white;
+  padding-bottom: 76px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   .sidenav-menu-scroller {
-    position: relative;
+    height: 100%;
+    overflow-y: auto;
     ul.sidenav-menu {
       overflow: hidden;
       li:hover {
@@ -116,7 +126,7 @@ div.navbar-fixed nav {
           li a.header:hover, li a:hover, li a.sidenav-icon:hover,
           li a.active-item:hover, li.active a:hover,
           li.active-item a:hover {
-            color: #396073;
+            color: #29576d;
             background-color: $navbar-hover-item;
           }
         }
@@ -164,10 +174,10 @@ div.navbar-fixed nav {
       a:hover {
         background-color: transparent;
       }
-      .sidenav-icon:hover:before {
+      li.icon-view:hover > .sidenav-icon::before {
         color: #004d73;
       }
-      .active-item.sidenav-icon:hover::before {
+      li.icon-view:hover > .active-item.sidenav-icon::before {
         color: #c18100;
       }
     }
@@ -181,6 +191,7 @@ div.navbar-fixed nav {
           color: #505050;
           box-shadow: none;
           font-size: $font-smaller-size;
+          transition: background-color 0s;
         }
         a.active-item {
           font-weight: $font-weight-bold;
@@ -212,23 +223,28 @@ div.navbar-fixed nav {
         }
       }
       li.active-item:hover {
-        background: $navbar-hover-item;
+        background-color: $navbar-hover-item;
       }
       li.activate-menu.active-item {
         box-shadow: inset 4px 0 0 $sidenav-active-blue, inset 1px 1px 1px 0px #ccd0d2, inset 1px 0px 1px 0px #ccd0d2;
       }
-      li.active:hover {
-        background-color: $navbar-active-item;
-      }
-      li.active a.sidenav-icon-onboard:hover {
-        color: #396073;
+      li.activate-menu.active a.active-item:hover {
         background-color: $navbar-hover-item;
         box-shadow: inset 4px 0 0 $sidenav-active-blue;
+      }
+      li.activate-menu:hover > a.sidenav-icon::before {
+        color: #004d73;
+      }
+      li.activate-menu.active:hover > a.sidenav-icon::before {
+        color: #f1a100;
+      }
+      li.active:hover {
+        background-color: $navbar-active-item;
       }
       li a.header:hover, li a:hover, li a.sidenav-icon:hover,
       li a.active-item:hover,
       li.active-item a:hover {
-        color: #396073;
+        color: #29576d;
       }
       ul.dropdown-content a.sidenav-icon::before {
         width: 25px;
@@ -294,9 +310,21 @@ a.active-item.sidenav-icon::before {
   font-size: 1.5rem;
 }
 
+.toggle-icon-menu::before {
+  width: 32px;
+}
+
 .sidenav-icon::before {
   font-size: 1.1rem;
   color: #467186;
+}
+
+a.sidenav-icon:hover::before {
+  color: #004d73 !important;
+}
+
+a.active-item.sidenav-icon:hover::before, li.active-item a.sidenav-icon:hover::before {
+  color: #c18100 !important;
 }
 
 .sidenav-icon-onboard::before {
