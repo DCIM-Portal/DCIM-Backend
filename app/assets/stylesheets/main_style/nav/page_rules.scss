@@ -78,3 +78,32 @@
     -webkit-box-shadow: $level-5-shadow;
   }
 }
+
+// Mobile View Rules
+
+@media (max-width: 992px) {
+  .fixed-side-nav { padding-left: 0px !important; }
+  nav.sidenav-menu-wrapper {
+    transform: translateX(-100%);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+}
+
+@media (min-width: 993px) {
+  nav.sidenav-menu-wrapper {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 350px) {
+  div.nav-wrapper ul#nav-mobile {
+    li { display: none; }
+    li:last-child {
+      display: block;
+      ul li { display: block; }
+    }
+  }
+}

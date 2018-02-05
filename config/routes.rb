@@ -18,8 +18,13 @@ Rails.application.routes.draw do
         get :bmc_hosts_datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDetailsDatatable
       end
     end
+    resources :enclosure_racks, path: 'datacenter_zones/enclosure_racks', except: %i[edit new] do
+      collection do
+        get :datatable, to: 'enclosure_racks#datatable', klass: Admin::EnclosureRackDatatable
+      end
+    end
     resources :zones, path: 'datacenter_zones', except: %i[edit new] do
-      resources :enclosure_racks, shallow: true, path: 'racks'
+      #resources :enclosure_racks, shallow: true, path: 'racks'
       collection do
         post :foreman_remove
         post :foreman_add

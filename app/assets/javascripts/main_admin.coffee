@@ -440,8 +440,11 @@ $(document).on 'ajax:error', ajax_forms, (event, xhr, status, error) ->
   $("#success_explanation").hide()
   $('.form_card_error').empty()
   $('.form_card_error').append('<ul>')
-  for e in errors
-    $('.form_card_error ul').append('<li>' + e + '</li>')
+  if errors.error
+    $('.form_card_error ul').append('<li>' + errors.error + '</li>')
+  else
+    for e in errors
+      $('.form_card_error ul').append('<li>' + e + '</li>')
   $('.form_card_error').show()
   if $('.card-reveal').css('display') == 'block'
     $('.card-reveal').css 'height', 'auto'
@@ -516,6 +519,8 @@ $(document).on 'click', '.modal_error_button', ->
           simpleFormat(data.error_message) + '</div>'
       $('#load-indicator').hide()
       $('#admin_modal').modal('open')
+
+# Nav Menu Controls
 
 $(document).on 'click', '.toggle-extended-menu', ->
   $('nav.sidenav-menu-wrapper').addClass('extended-sidenav')

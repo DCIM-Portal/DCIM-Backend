@@ -11,7 +11,7 @@ class Admin::BmcHostsController < AdminController
     'power_on?',
     'power_on',
     'power_on_bios',
-    'power_on_pxe(persistent: true)',
+    'power_on_pxe',
     'shutdown',
     'power_off',
     'bmc_reset'

@@ -1,20 +1,137 @@
-<!--<div class="visual_dc_wrapper">-->
-</div>
-<%= javascript_pack_tag 'visual_dc' %>
-<!--
 <div class="clearfix">
-  <h3 class="section_title">Zone Layout</h3>
+  <h3 class="section_title">Enclosure Racks</h3>
   <%= render '/layouts/data_load' %>
 </div>
--->
-<div id="visual_dc">
-  <canvas id="visual_dc_canvas" data-zone-id="<%= @zone.id %>" touch-action="none"></canvas>
-  <div id="hud_racklist" style="position: fixed; top: 60px;">
-    <ul>
-    <% @enclosure_racks.each do |rack| %>
-      <% if rack.x.nil? || rack.y.nil? %>
-        <li data-enclosure-rack-id="<%= rack.id %>" class="enclosure-rack-drawer-item"><%= rack.name %></li>
+
+<div class="card ovf-hidden">
+  <div class="card-content" id="outer-card">
+    <div id="async_wrapper">
+    <div class="card">
+      <div id="height_check" class="card-content grey lighten-5">
+      <% if @count == 0 %>
+        <div class="alert orange lighten-2">
+          <p>
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            No enclosure racks have been created.
+          </p>
+        </div>
+      <% elsif @count == 1 %>
+        <div class="alert green lighten-2">
+          <p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            There is currently 1 enclosure rack.
+          </p>
+        </div>
+      <% else %>
+        <div class="alert green lighten-2">
+          <p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            There are currently <%= @racks.count %> enclosure racks.
+          </p>
+        </div>
       <% end %>
-    <% end %>
-    </ul>
-  </div>  
+      </div>
+      </div>
+    </div>
+    <a class='btn btn-outline-default waves-effect activator' id="form_reveal">Add Enclosure Rack</a>
+  </div>
+
+  <div class="card-reveal">
+    <h4 class="card-title blue-grey darken-3">
+      <i class="fa fa-object-group relative" aria-hidden="true"></i>
+      Add New Enclosure Racks<i id="inv_card_close" class="fa fa-close"></i>
+    </h4>
+    <p>Create enclosure racks.</p>
+    <hr>
+    <%= form_for([:admin, @rack], remote: true, html: {"data-type" => :json, id: "ajax_card_form_new"}) do |f| %>
+      <div class="row form special-top">
+        <div class="form-group">
+          <%= f.label :name, "Enclosure Rack Name", for: "enclosure_rack_name" %>
+          <%= f.text_field :name, class: "form-control browser-default dynamic-text", type: "text", id: "enclosure_rack_name" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :zone_id, "Database Zone" %>
+          <%= f.select :zone_id, @zones.collect { |zone| [zone.name, zone.id] }, {}, { class: "form-control" } %>
+        </div>
+      </div>
+
+      <div class="row form special-top">
+        <div class="form-group">
+          <%= f.label :amount, "Quantity of racks", for: "enclosure_rack_quantity" %>
+          <%= f.number_field :amount, min: 1, value: 1, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_quantity" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :start_at, "Start Count At...", for: "enclosure_rack_start_at" %>
+          <%= f.number_field :start_at, min: 1, value: 1, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_start_at" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :zero_pad_to, "Zero-pad digits", for: "enclosure_rack_zero_pad_to" %>
+          <%= f.number_field :zero_pad_to, min: 1, value: 2, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_zero_pad_to" %>
+        </div>
+      </div>
+      <div class="dynamic-text">
+        <small class="form-text text-muted small">
+          Will create rack(s)&nbsp;
+          <span id="first_rack_name"></span>
+          <span id="first_rack_number"></span>
+          <span class="many_racks">&nbsp;through&nbsp;</span>
+          <span id="last_rack_name"></span>
+          <span id="last_rack_number"></span>
+        </small>
+      </div>
+
+      <hr class="invisible">
+      <div class="clearfix">
+        <%= f.button 'Create New Enclosure Rack(s)', class: 'btn btn-sm green lighten-2 pull-right', id: 'ajax_submit_button' %>
+      </div>
+      
+      <hr>
+      <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to create enclosure rack(s) - please wait <div class="throbber-loader"> </div></span></div>
+      <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
+      <div class="green lighten-2" id="success_explanation">Enclosure Rack(s) Created!</div>
+    <%end %>
+  </div>
+  
+</div>
+<hr class="invisible">
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, id: "flash_#{key}" %>
+  <hr class="invisible">
+<% end %>
+
+<div class="card">
+  <div class="card-content">
+    <div class="clearfix">
+      <h5 class="table-title">Enclosure Rack List</h5>
+      <div class="pull-right">
+        <p class="time_dock"><%= t :time_dock %></p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="z-depth-1">
+      <table id="rack_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= datatable_admin_enclosure_racks_path(format: :json) %>">
+        <thead>
+          <tr>
+            <th class="th_id">Enclosure Rack ID</th>
+            <th>Enclosure Rack Name</th>
+            <th class="th_zone">Datacenter Zone</th>
+            <th class="th_time">Date Created</th>
+            <th class="th_url"></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.detail_name = 'enclosure_rack'
+
+  $("form#ajax_card_cred").on("ajax:success", function(event, data, status, xhr) {
+    $("form#ajax_card_cred")[0].reset();
+  });
+</script>

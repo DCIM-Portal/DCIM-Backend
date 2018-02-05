@@ -3,8 +3,7 @@
   <!--Navbar-->
 
   <div class="navbar-fixed navbar">
-
-    <nav class="sidenav-menu-wrapper z-depth-3">
+    <nav class="sidenav-menu-wrapper z-depth-3" id="slide-out">
       <div class="sidenav-menu-scroller">
         <ul class="sidenav-menu">
 
@@ -62,6 +61,9 @@
 
     <nav class="text-uppercase z-depth-2">
       <div class="nav-wrapper">
+        <div class="float-xs-left">
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+        </div>
         <div class="left bc_nav hide-on-med-and-down">
           <%= render_breadcrumbs separator: " / " %>
         </div>

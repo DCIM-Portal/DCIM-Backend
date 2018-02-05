@@ -9,44 +9,47 @@ li.sidenav-menu-trigger:hover {
 
 // Toggle Menu Button
 
-div.navbar-fixed nav { 
-  .toggle-extended-menu, .toggle-icon-menu {
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    white-space: nowrap;
-    line-height: 25px;
-    position: fixed;
-    overflow: hidden;
-    bottom: 0;
-    border-top: 2px solid #e4e4e4;
-    color: #505050;
-    padding: 0;
-    font-size: 0.9rem;
-    text-transform: none;
-    background: $off-white;
-    span {
-      position: absolute;
-      top: 8%;
-      display: inline-block;
+div.navbar-fixed {
+  z-index: 999;
+  nav { 
+    .toggle-extended-menu, .toggle-icon-menu {
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+      white-space: nowrap;
+      line-height: 25px;
+      position: fixed;
+      overflow: hidden;
+      bottom: 0;
+      border-top: 2px solid #e4e4e4;
+      color: #505050;
+      padding: 0;
+      font-size: 0.9rem;
+      text-transform: none;
+      background: $off-white;
+      span {
+        position: absolute;
+        top: 8%;
+        display: inline-block;
+      }
     }
-  }
-  .toggle-extended-menu:hover, .toggle-icon-menu:hover {
-    color: #29576d;
-    background-color: $navbar-hover-item !important;
-  }
-  .toggle-extended-menu {
-    width: $nav-thickness;
-    span {
-      display: none;
+    .toggle-extended-menu:hover, .toggle-icon-menu:hover {
+      color: #29576d;
+      background-color: $navbar-hover-item !important;
     }
-  }
-  .toggle-icon-menu {
-    width: $side-nav-extended-width;
-    padding-left: 22px;
-    span {
-      display: inline-block;
+    .toggle-extended-menu {
+      width: $nav-thickness;
+      span {
+        display: none;
+      }
+    }
+    .toggle-icon-menu {
+      width: $side-nav-extended-width;
+      padding-left: 22px;
+      span {
+        display: inline-block;
+      }
     }
   }
 }

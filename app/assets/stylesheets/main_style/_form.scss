@@ -129,3 +129,14 @@ form#filters {
   }
 }
 
+// Dynamic Text under Input
+
+div.dynamic-text {
+  position: absolute;
+  display: none;
+  small {
+    font-style: italic;
+    display: flex;
+   }
+}
+
