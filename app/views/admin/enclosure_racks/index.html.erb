@@ -11,21 +11,21 @@
       <% if @count == 0 %>
         <div class="alert orange lighten-2">
           <p>
-            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
             No enclosure racks have been created.
           </p>
         </div>
       <% elsif @count == 1 %>
         <div class="alert green lighten-2">
           <p>
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
             There is currently 1 enclosure rack.
           </p>
         </div>
       <% else %>
         <div class="alert green lighten-2">
           <p>
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
             There are currently <%= @racks.count %> enclosure racks.
           </p>
         </div>
@@ -38,8 +38,8 @@
 
   <div class="card-reveal">
     <h4 class="card-title blue-grey darken-3">
-      <i class="fa fa-object-group relative" aria-hidden="true"></i>
-      Add New Enclosure Racks<i id="inv_card_close" class="fa fa-close"></i>
+      <i class="fas fa-th-list relative" aria-hidden="true"></i>
+      Add New Enclosure Racks<i id="inv_card_close" class="fas fa-times"></i>
     </h4>
     <p>Create enclosure racks.</p>
     <hr>
@@ -58,15 +58,19 @@
       <div class="row form special-top">
         <div class="form-group">
           <%= f.label :amount, "Quantity of racks", for: "enclosure_rack_quantity" %>
-          <%= f.number_field :amount, min: 1, value: 1, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_quantity" %>
+          <%= f.number_field :amount, min: 1, value: 1, class: "form-control browser-default dynamic-text num", id: "enclosure_rack_quantity" %>
         </div>
         <div class="form-group">
           <%= f.label :start_at, "Start Count At...", for: "enclosure_rack_start_at" %>
-          <%= f.number_field :start_at, min: 1, value: 1, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_start_at" %>
+          <%= f.number_field :start_at, min: 0, value: 1, class: "form-control browser-default dynamic-text num", id: "enclosure_rack_start_at" %>
         </div>
         <div class="form-group">
           <%= f.label :zero_pad_to, "Zero-pad digits", for: "enclosure_rack_zero_pad_to" %>
-          <%= f.number_field :zero_pad_to, min: 1, value: 2, class: "form-control browser-default dynamic-text", type: "number", id: "enclosure_rack_zero_pad_to" %>
+          <%= f.number_field :zero_pad_to, min: 0, value: 1, class: "form-control browser-default dynamic-text num", id: "enclosure_rack_zero_pad_to" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :height, "Unit Height", for: "enclosure_rack_height" %>
+          <%= f.number_field :height, min: 1, value: 42, class: "form-control browser-default dynamic-text num", id: "enclosure_rack_height" %>
         </div>
       </div>
       <div class="dynamic-text">
@@ -89,7 +93,7 @@
       <div class="blue-grey lighten-3" id ="waiting_explanation"><span>Attempting to create enclosure rack(s) - please wait <div class="throbber-loader"> </div></span></div>
       <div class="red lighten-2 form_card_error" id="error_explanation" class="form_card_error"><ul></ul></div>
       <div class="green lighten-2" id="success_explanation">Enclosure Rack(s) Created!</div>
-    <%end %>
+    <% end %>
   </div>
   
 </div>

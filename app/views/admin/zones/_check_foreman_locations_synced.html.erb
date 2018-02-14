@@ -4,7 +4,7 @@
       <% @logger.all.each do |x| %>
       <div class="alert <%= x[:type] %>">
         <p>
-          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
           <%= x[:exception].to_s %>
         </p>
       </div>
@@ -22,7 +22,7 @@
       <% if @foreman_extras.empty? && @dcim_extras.empty? %>
         <div class="alert green lighten-2" role="alert">
           <p>
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            <i class="fas fa-check-circle" aria-hidden="true"></i>
             Foreman locations are in sync.
           </p>
         </div>

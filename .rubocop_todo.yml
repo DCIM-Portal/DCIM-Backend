@@ -19,11 +19,11 @@ Metrics/BlockLength:
 
 # Offense count: 5
 Metrics/CyclomaticComplexity:
-  Max: 25
+  Max: 26
 
 # Offense count: 3
 Metrics/PerceivedComplexity:
-  Max: 25
+  Max: 26
 
 # Offense count: 4
 Style/MethodMissing:
@@ -32,3 +32,7 @@ Style/MethodMissing:
     - 'app/lib/dcim/api_query.rb'
     - 'app/lib/dcim/api_result.rb'
     - 'app/lib/dcim/version.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/**/*'

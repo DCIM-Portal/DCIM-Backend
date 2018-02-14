@@ -30,8 +30,8 @@
             <td id="category_zone_foreman_location_id" data-title="Foreman Zone ID:"><%= @zone.foreman_location_id %></td>
             <td id="category_zone_update_at" data-title="Last Updated:"><%= local_time(@zone.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Actions:">
-              <a class="blue-grey-text activator"><i class="fa fa-pencil"></i></a>
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @zone], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@zone.id}" %>
+              <a class="blue-grey-text activator"><i class="fas fa-pencil-alt"></i></a>
+              <%= link_to '<i class="fas fa-times"></i>'.html_safe, [:admin, @zone], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text', id: "delete_disable_#{@zone.id}" %>
             </td>
           </tr>
         </tbody>
@@ -41,8 +41,8 @@
 
   <div class="card-reveal">
     <h4 class="card-title blue-grey darken-3 ">
-      <i class="fa fa-building-o relative" aria-hidden="true"></i>
-      Edit Zone <i class="fa fa-close"></i>
+      <i class="fas fa-building relative" aria-hidden="true"></i>
+      Edit Zone <i class="fas fa-times"></i>
     </h4>
     <p>Edit a datacenter zone name.</p>
     <hr>

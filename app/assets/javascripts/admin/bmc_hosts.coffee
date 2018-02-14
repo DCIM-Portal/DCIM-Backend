@@ -58,8 +58,8 @@ $(document).on 'turbolinks:load', ->
         when "product", "brand"
           value = "N/A" if !value
         when "power_status"
-          value = '<div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>' if value == "on"
-          value = '<div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>' if value == "off"
+          value = '<div class="power_status green lighten-2 z-depth-1"><i class="fas fa-power-off"></i> On</div>' if value == "on"
+          value = '<div class="power_status red lighten-2 z-depth-1"><i class="fas fa-power-off"></i> Off</div>' if value == "off"
           value = "N/A" if !value
       $("#category_" + document.category_name + "_" + key).html(value) if value != $("#category_" + document.category_name + "_" + key).html()
       $(".category_" + document.category_name + "_" + key).html(value) if value != $(".category_" + document.category_name + "_" + key).html()

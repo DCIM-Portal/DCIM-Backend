@@ -13,8 +13,8 @@
 
   <div class="card-reveal">
     <h4 class="card-title blue-grey darken-3">
-      <i class="fa fa-search relative" aria-hidden="true"></i>
-      Perform New Bmc Scan <i class="fa fa-close"></i>
+      <i class="fas fa-search relative" aria-hidden="true"></i>
+      Perform New Bmc Scan <i class="fas fa-times"></i>
     </h4>
     <p>This request will perform a scan of system BMCs within specified IP range.</p>
     <hr>
@@ -29,7 +29,7 @@
           <%= f.label :start_address, "Start Address", for: "bmc_scan_request_start_address" %>
           <%= f.text_field :start_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_start_address", "aria-describedby": "address_help" %>
         </div>
-       <div class="form-group">
+        <div class="form-group">
           <%= f.label :end_address, "End Address", for: "bmc_scan_request_end_address" %>
           <%= f.text_field :end_address, class: "form-control browser-default", type: "text", id: "bmc_scan_request_end_address", "aria-describedby": "address_help" %>
         </div>

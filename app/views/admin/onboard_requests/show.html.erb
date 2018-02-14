@@ -27,7 +27,7 @@
             <td id="category_onboard_request_status" data-errorfield="onboard_request_error_message" class="standard_request_status" data-title="Request Status:"><%= @onboard_request.status %></td>
             <td id="category_onboard_request_updated_at" data-title="Request Time:"><%= local_time(@onboard_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Delete Request:">
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @onboard_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
+              <%= link_to '<i class="fas fa-times"></i>'.html_safe, [:admin, @onboard_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
             </td>
           </tr>
         </tbody>
@@ -72,7 +72,7 @@
                 <td><%= x["bmc_host"]["product"].presence || "N/A" %></td>
                 <td><div class="serial"><%= x["bmc_host"]["serial"].presence || "N/A" %></div></td>
                 <td>
-                  <div class="red lighten-2 white-text z-depth-1 sync"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                  <div class="red lighten-2 white-text z-depth-1 sync"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
                     <% key = x["exception_name"].underscore %>
                     <% message = t(x["exception_message"], scope: 'exceptions.messages', default: x["exception_message"]) %>
                     <% message = t(:unknown, scope: 'exceptions.messages', default: 'unknown') if message == x["exception_name"] %>

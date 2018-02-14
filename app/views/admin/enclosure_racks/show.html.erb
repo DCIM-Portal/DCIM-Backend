@@ -1,0 +1,9 @@
+<h3>Rack Show View</h3>
+
+<div class="rack_housing">
+  <ul>
+  <% [*1..@rack.height].reverse.each do |u| %>
+    <li><%= u %> </li>
+  <% end %>
+  </ul>
+</div>

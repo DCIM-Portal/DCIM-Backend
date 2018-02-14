@@ -1,7 +1,7 @@
 <div class="modal-dialog z-depth-3" role="document">
   <div class="modal-header blue-grey z-depth-1">
     <h4 class="modal-title white-text">Onboard Request</h4>
-    <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a>
+    <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a>
   </div>
   <div class="modal-body">
   <% if hosts.empty? %>
@@ -16,7 +16,7 @@
     <% unless !red.empty? && (green.empty? && yellow.empty?) %>
     <div class="alert red lighten-2 z-depth-1">
       <p>
-        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i> 
         This action will onboard the selected BMC hosts into the Foreman backend.  Doing
         so will cause the systems to <strong>reboot and become unavaialble</strong> during the onboarding process.
       </p>

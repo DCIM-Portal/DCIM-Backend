@@ -1,0 +1,15 @@
+div.rack_housing {
+  border: 8px solid #8e8e8e;
+  background-color: #333333;
+  width: 280px;
+  ul {
+    margin: 0;
+    li {
+      height: 1.2rem;
+      font-size: 0.85rem;
+      color: $white;
+      border: 1px #797979 dotted;
+      text-align: center;
+    }
+  }
+}

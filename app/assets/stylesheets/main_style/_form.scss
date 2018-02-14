@@ -140,3 +140,8 @@ div.dynamic-text {
    }
 }
 
+// Num inputs smaller width
+
+div.form-group .num {
+  max-width: 75px;
+}

@@ -23,7 +23,7 @@ $(document).on 'click', '#del_credrow', (e) ->
 $(document).on 'click', '#add_credrow', (e) ->
     e.preventDefault()
     counter = $('#cred_details').find("tbody > .credential_row").length + 1
-    $('#cred_details > tbody:last-child').append '<tr class="credential_row"><td><span class="row_order">' + counter + '</span><input class="number_order" type="hidden" value="' + counter + '" name="brute_list[brute_list_secrets_attributes][' + counter + '][order]"></td><td><input type="text" name="brute_list[brute_list_secrets_attributes][' + counter + '][username]" class="form-control input-sm browser-default"></td><td><input type="text" name="brute_list[brute_list_secrets_attributes][' + counter + '][password]" class="form-control input-sm browser-default"></td><td><a id="del_credrow" class="btn red lighten-2 btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>'
+    $('#cred_details > tbody:last-child').append '<tr class="credential_row"><td><span class="row_order">' + counter + '</span><input class="number_order" type="hidden" value="' + counter + '" name="brute_list[brute_list_secrets_attributes][' + counter + '][order]"></td><td><input type="text" name="brute_list[brute_list_secrets_attributes][' + counter + '][username]" class="form-control input-sm browser-default"></td><td><input type="text" name="brute_list[brute_list_secrets_attributes][' + counter + '][password]" class="form-control input-sm browser-default"></td><td><a id="del_credrow" class="btn red lighten-2 btn-sm"><i class="far fa-trash-alt" aria-hidden="true"></i></a></td>'
     $('.ovf-hidden').animate { height: '+=78' }, 150
 
 $(document).on 'turbolinks:load', ->

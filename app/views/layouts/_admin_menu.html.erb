@@ -43,15 +43,24 @@
           </li>
 
           <!-- Main Menu #3 -->
-          <li class="direct_link activate-menu icon-view <%= active?('admin/zones') %>">
-            <%= link_to 'Datacenter Zones', admin_zones_path, { class: "#{ active?('admin/zones') } sidenav-icon sidenav-icon-zone" } %>
+          <li id="<%= parent_menu('admin/enclosure_racks') || parent_menu('admin/zones') %>" class="activate-menu icon-view">
+            <%= link_to 'Datacenter Zones', admin_zones_path, { class: "#{ active?('admin/enclosure_racks') || active?('admin/zones') } sidenav-icon sidenav-icon-zone" } %>
 
             <!-- Pop Out Menu #3 -->
             <ul class="sidenav-popout-menu dropdown-content">
-              <li class="top-item">
-                <%= link_to 'Datacenter Zones', admin_zones_path, class: "#{ active?('admin/zones') } header" %>
+              <li id="<%= parent_menu('admin/enclosure_racks') || parent_menu('admin/zones') %>" class="top-item">
+                <%= link_to 'Datacenter Zones', admin_zones_path, class: "header" %>
               </li>
+              <li class="divider top-item"></li>
+              <li><%= link_to 'Zones List', admin_zones_path, class: "#{ active?('admin/zones') } sidenav-icon sidenav-icon-zone-list" %></li>
+              <li><%= link_to 'Racks List', admin_enclosure_racks_path, class: "#{ active?('admin/enclosure_racks') } sidenav-icon sidenav-icon-racks" %></li>
             </ul>
+
+            <!-- Main Sub Menu #3 -->
+            <ul class="sidenav-submenu">
+              <li class="<%= active?('admin/zones') %>"><%= link_to 'Zones List'.html_safe, admin_zones_path, class: "sidenav-icon sidenav-icon-zone-list" %></li>
+              <li class="<%= active?('admin/enclosure_racks') %>"><%= link_to 'Racks List'.html_safe, admin_enclosure_racks_path, class: "sidenav-icon sidenav-icon-racks" %></li>
+            </ul> 
           </li>
         <a class="toggle-extended-menu"><span>Collapse Sidebar</span></a>
 
@@ -69,18 +78,18 @@
         </div>
         <ul id="nav-mobile" class="right">
           <li class="active">
-            <a class="nav-menu"><i class="fa fa-desktop" aria-hidden="true"></i> <span class="hidden-sm-down">Admin <span class="sr-only">(current)</span></span></a>
+            <a class="nav-menu"><i class="fas fa-desktop" aria-hidden="true"></i> <span class="hidden-sm-down">Admin <span class="sr-only">(current)</span></span></a>
           </li>
           <li>
-            <a class="nav-menu"><i class="fa fa-cloud" aria-hidden="true"></i> <span class="hidden-sm-down">Catalog</span></a>
+            <a class="nav-menu"><i class="fas fa-cloud" aria-hidden="true"></i> <span class="hidden-sm-down">Catalog</span></a>
           </li>
           <li>
-            <a class="nav-menu"><i class="fa fa-question-circle-o" aria-hidden="true"></i> <span class="hidden-sm-down">Support</span></a>
+            <a class="nav-menu"><i class="far fa-question-circle" aria-hidden="true"></i> <span class="hidden-sm-down">Support</span></a>
           </li>
           <li>
             <a class="nav-menu dropdown-button waves-effect" data-activates="dropdown1">
-              <i class="fa fa-user-circle-o" aria-hidden="true"></i> 
-              <span class="hidden-md-down"> Profile</span><i class="fa fa-angle-down rotate-icon" style="margin-left: 10px;"></i>
+              <i class="fas fa-user-circle" aria-hidden="true"></i> 
+              <span class="hidden-md-down"> Profile</span><i class="fas fa-angle-down rotate-icon" style="margin-left: 10px;"></i>
             </a>
           </li>
         </ul>

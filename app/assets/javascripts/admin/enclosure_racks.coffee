@@ -33,20 +33,19 @@ $(document).on 'turbolinks:load', ->
   # Enclosure Rack Form Dynamic Text Logic
 
   $('form.new_enclosure_rack').on 'keyup mouseup', '.dynamic-text', ->
-    console.log "IT WORKS"
     start_at = $('#enclosure_rack_start_at').val()
     quantity = $('#enclosure_rack_quantity').val()
     zero_pad_digits = $('#enclosure_rack_zero_pad_to').val()
     rack_name = $('#enclosure_rack_name').val()
     end_number = countLast(start_at, quantity)
-    if rack_name != '' and Number(start_at) >= 1 and Number(quantity) == 1
+    if rack_name != '' and Number(start_at) >= 0 and Number(quantity) == 1
       $('#last_rack_number').empty()
       $('#last_rack_name').empty()
       $('span.many_racks').hide()
       $('#first_rack_name').html rack_name
       $('#first_rack_number').html pad(start_at, zero_pad_digits)
       $('div.dynamic-text').show()
-    else if rack_name != '' and Number(start_at) >= 1 and Number(quantity) > 1
+    else if rack_name != '' and Number(start_at) >= 0 and Number(quantity) > 1
       $('#first_rack_name').html rack_name
       $('#first_rack_number').html pad(start_at, zero_pad_digits)
       $('#last_rack_number').html pad(end_number, zero_pad_digits)
@@ -68,4 +67,4 @@ $(document).on 'turbolinks:load', ->
   
   pad = (str, max) ->
     str = str.toString()
-    return if str.length < max then pad("0" + str, max) else str
+    return if str.length <= max then pad("0" + str, max) else str

@@ -38,9 +38,10 @@
           height: 28px;
           line-height: 28px;
           padding: 0 10px;
-          i.fa {
+          i.fa, i.fas, i.far {
             line-height: 28px;
             height: 28px;
+            font-size: 0.9rem;
           }
         }
         ul.dropdown-content {

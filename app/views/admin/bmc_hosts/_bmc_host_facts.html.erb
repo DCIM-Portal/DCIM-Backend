@@ -1,6 +1,6 @@
 <div id="bmc_facts" data-source="<%= request.env['PATH_INFO'] %>">
   <%= form_for([:admin, bmc_host], remote: true) do |f| %>
-    <%= f.button '<i class="fa fa-refresh"></i> Refresh BMC Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
+    <%= f.button '<i class="fas fa-sync"></i> Refresh BMC Facts'.html_safe, class: 'btn btn-refresh grey lighten-2 waves-effect' %>
   <% end %>
   <ul class="collection with-header z-depth-1">
     <li class="collection-item">
@@ -33,9 +33,9 @@
     <li class="collection-item">
       <span class="span_heading">Power:</span><span class="category_bmc_host_power_status">
       <% if bmc_host.power_status == "on" %>
-        <div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>
+        <div class="power_status green lighten-2 z-depth-1"><i class="fas fa-power-off"></i> On</div>
       <% elsif bmc_host.power_status == "off" %>
-        <div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>
+        <div class="power_status red lighten-2 z-depth-1"><i class="fas fa-power-off"></i> Off</div>
       <% else %>
         N/A
       <% end %>

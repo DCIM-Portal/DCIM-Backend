@@ -8,29 +8,26 @@ class CreateRacks
   end
 
   def call
-    begin
-      if @rack.name.empty? || @rack.amount.empty? || @rack.start_at.empty?
-        return false
-      else
-        ActiveRecord::Base.transaction do
-          @rack.amount.to_i.times do |i|
-            create_object(i)
-          end
-        end
+    return false unless !@rack.name.empty? && !@rack.amount.empty? && @rack.amount.to_i > 0 && !@rack.start_at.empty? && @rack.start_at.to_i >= 0 && @rack.zero_pad_to.to_i >= 0
+    ActiveRecord::Base.transaction do
+      @rack.amount.to_i.times do |i|
+        create_object(i)
       end
-    rescue ActiveRecord::RecordInvalid
-      return false
     end
+  rescue ActiveRecord::RecordInvalid
+    return false
   end
 
   def create_object(i)
-    rack = EnclosureRack.new do |rack|
+    rack = EnclosureRack.new do |model|
       number = (@rack.start_at.to_i + i)
-      rack.name = @rack.name.strip + "%.2d" % + number
-      rack.orientation = 180
-      rack.zone_id = @rack.zone_id
+      padding = 1 + @rack.zero_pad_to.to_i
+      padded_number = "%0#{padding}i" % number
+      model.name = @rack.name.strip + padded_number.to_s
+      model.orientation = 180
+      model.height = @rack.height.to_i
+      model.zone_id = @rack.zone_id
     end
     rack.save!
   end
-
 end

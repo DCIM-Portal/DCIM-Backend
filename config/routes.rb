@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       end
     end
     resources :zones, path: 'datacenter_zones', except: %i[edit new] do
-      #resources :enclosure_racks, shallow: true, path: 'racks'
+      # resources :enclosure_racks, shallow: true, path: 'racks'
       collection do
         post :foreman_remove
         post :foreman_add

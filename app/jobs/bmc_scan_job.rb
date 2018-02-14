@@ -51,9 +51,7 @@ class BmcScanJob < ApplicationJob
     end
 
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-      promises.each_value do |promise|
-        promise.execute
-      end
+      promises.each_value(&:execute)
 
       pool.shutdown
       pool.wait_for_termination(300)
@@ -80,6 +78,7 @@ class BmcScanJob < ApplicationJob
 
   def brute_force_set_credentials(bmc_host, brute_list)
     logger.debug bmc_host.ip_address + ': BMC host record established'
+    bmc_host.logger = logger
     secrets = [nil]
     synchronize do
       secrets.push(*brute_list.brute_list_secrets)

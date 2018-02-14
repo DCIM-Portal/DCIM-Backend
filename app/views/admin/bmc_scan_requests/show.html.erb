@@ -38,8 +38,8 @@
             <td id="category_bmc_scan_request_zone_name" data-title="Datacenter Zone:"><%= @bmc_scan_request.zone.name %></td>
             <td id="category_bmc_scan_request_updated_at" data-title="Scan Initiated:"><%= local_time(@bmc_scan_request.updated_at, '%B %e %Y, %l:%M%P') %></td>
             <td data-title="Actions:">
-              <a class="blue-grey-text activator" role="button"><i class="fa fa-pencil"></i></a>
-              <%= link_to '<i class="fa fa-times"></i>'.html_safe, [:admin, @bmc_scan_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
+              <a class="blue-grey-text activator" role="button"><i class="fas fa-pencil-alt"></i></a>
+              <%= link_to '<i class="fas fa-times"></i>'.html_safe, [:admin, @bmc_scan_request], method: :delete, data: { confirm: 'Are you sure?' }, class: 'red-text action_button', "role": "button" %>
             </td>
           </tr>
         </tbody>
@@ -49,8 +49,8 @@
 
   <div class="card-reveal">
     <h4 class="card-title blue-grey darken-3">
-      <i class="fa fa-search relative" aria-hidden="true"></i>
-      Preform BMC Rescan <i class="fa fa-close"></i>
+      <i class="fas fa-search relative" aria-hidden="true"></i>
+      Preform BMC Rescan <i class="fas fa-times"></i>
     </h4>
     <p>Update this request and rescan for system BMCs within the specified IP range.</p>
     <hr>

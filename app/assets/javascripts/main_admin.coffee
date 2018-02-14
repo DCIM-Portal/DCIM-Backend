@@ -23,24 +23,24 @@ $(document).on 'turbolinks:load', ->
     buttons: [
       {
         extend: 'copyHtml5'
-        text:  '<i class="fa fa-clipboard"></i> <span class="dt-btn-text">Copy to Clipboard</span>'
+        text:  '<i class="far fa-clipboard"></i> <span class="dt-btn-text">Copy to Clipboard</span>'
         exportOptions: rows: '.selected'
         className: 'btn grey lighten-2 waves-effect'
       }
       {
         extend: 'csvHtml5'
-        text: '<i class="fa fa-file-text"></i> <span class="dt-btn-text">Save to Excel</span>'
+        text: '<i class="far fa-file-excel"></i> <span class="dt-btn-text">Save to Excel</span>'
         exportOptions: rows: '.selected'
         className: 'btn grey lighten-2 waves-effect'
       }
       {
-        text: '<i class="fa fa-minus-square-o"></i> <span class="dt-btn-text">De-select All</span>'
+        text: '<i class="far fa-minus-square"></i> <span class="dt-btn-text">De-select All</span>'
         className: 'btn grey lighten-2 waves-effect'
         action: () ->
           document.detail_table.api().column(0).checkboxes.deselectAll()
       }
       {
-        text: '<i class="fa fa-sign-in"></i> <span class="dt-btn-text">Onboard</span>'
+        text: '<i class="fas fa-sign-in-alt"></i> <span class="dt-btn-text">Onboard</span>'
         className: 'btn grey lighten-2 waves-effect'
         action: () ->
           # Show indicator that modal is loading
@@ -117,7 +117,7 @@ $(document).on 'turbolinks:load', ->
               data = '<div class="modal-dialog z-depth-3" role="document">' +
               '<div class="modal-header red lighten-2 z-depth-1">' +
               '<h4 class="modal-title white-text">Error</h4>' +
-              '<a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a>' +
+              '<a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a>' +
               '</div>' +
               '<div class="modal-body">' +
               '<p>Unable to process due to <strong><em>' + exception + ': ' + status + '</em></strong>.</p>' +
@@ -129,7 +129,7 @@ $(document).on 'turbolinks:load', ->
               $('#admin_modal').modal('open')
       }
       {
-        text: '<i class="fa fa-files-o"></i> <span class="dt-btn-text">BMC Bulk Actions</span>'
+        text: '<i class="far fa-copy"></i> <span class="dt-btn-text">BMC Bulk Actions</span>'
         className: 'btn grey lighten-2 waves-effect'
         action: () ->
           $("#load-indicator").fadeIn()
@@ -256,9 +256,9 @@ $(document).on 'turbolinks:load', ->
       { targets: 'th_power'
       render: (data, type, full, meta) ->
         if data == "on"
-          '<div class="power_status green lighten-2 z-depth-1"><i class="fa fa-power-off"></i> On</div>'
+          '<div class="power_status green lighten-2 z-depth-1"><i class="fas fa-power-off"></i> On</div>'
         else if data == "off"
-          '<div class="power_status red lighten-2 z-depth-1"><i class="fa fa-power-off"></i> Off</div>'
+          '<div class="power_status red lighten-2 z-depth-1"><i class="fas fa-power-off"></i> Off</div>'
         else
           '<div class="black-text">N/A</div>'
       width: 50
@@ -476,7 +476,7 @@ $(document).on 'click', '.modal_error_button', ->
       if error_type == "bmc_host_error_message"
         $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Host ' +
         data.ip_address + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.bmc_host.sync_status', defaultValue: data.sync_status) +
-        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        ' <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
         else
@@ -485,7 +485,7 @@ $(document).on 'click', '.modal_error_button', ->
       else if error_type == "onboard_error_message"
         $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Host ' +
         data.ip_address + ' Onboard Status - ' + I18n.t(data.onboard_status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: data.onboard_status) + ': ' + I18n.t(data.onboard_step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: data.onboard_step) +
-        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        ' <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a></blockquote>' +
         if !data.onboard_error_message
           '<p>No additional details were captured for this error.</p></div>'
         else
@@ -494,7 +494,7 @@ $(document).on 'click', '.modal_error_button', ->
       else if error_type == "system_error_message"
         $('#admin_modal').html '<div class="modal-content"><blockquote>Foreman System ' +
         data.foreman_host_id + ' Sync Status - ' + I18n.t(data.sync_status, scope: 'filters.options.system.sync_status', defaultValue: data.sync_status) +
-        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        ' <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
         else
@@ -503,7 +503,7 @@ $(document).on 'click', '.modal_error_button', ->
       else if error_type == "bmc_scan_request_error_message"
         $('#admin_modal').html '<div class="modal-content"><blockquote>BMC Scan Request ' +
         data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.bmc_scan_request.status', defaultValue: data.status) +
-        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        ' <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
         else
@@ -512,7 +512,7 @@ $(document).on 'click', '.modal_error_button', ->
       else if error_type == "onboard_request_error_message"
         $('#admin_modal').html '<div class="modal-content"><blockquote>Onboard Request ' +
         data.id + ' Status - ' + I18n.t(data.status, scope: 'filters.options.onboard_request.status', defaultValue: data.status) +
-        ' <a class="modal-action modal-close pull-right"><i class="fa fa-close"></i></a></blockquote>' +
+        ' <a class="modal-action modal-close pull-right"><i class="fas fa-times"></i></a></blockquote>' +
         if !data.error_message
           '<p>No additional details were captured for this error.</p></div>'
         else
@@ -596,17 +596,17 @@ $(document).on 'turbolinks:before-cache', ->
     switch status
       when "success" 
         color = 'green lighten-2'
-        prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
+        prefix = '<i class="far fa-check-circle" aria-hidden="true"></i>'
       when "in_progress"
         color = 'blue lighten-2'
         prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
       when "null"
         color = 'blue-grey lighten-1'
-        prefix = '<i class="fa fa-minus-circle" aria-hidden="true"></i>'
+        prefix = '<i class="fas fa-minus-circle" aria-hidden="true"></i>'
       else
         color = 'red lighten-2'
-        prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+        prefix = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>'
         append = ': ' + I18n.t(step, scope: 'filters.options.bmc_host.onboard_step', defaultValue: step)
     content = I18n.t(status, scope: 'filters.options.bmc_host.onboard_status', defaultValue: status) + append
     return '<div class="'+color+' white-text z-depth-1 sync">' + prefix + ' ' + content + '</div>' unless /red/.test(color)
@@ -624,20 +624,20 @@ $(document).on 'turbolinks:before-cache', ->
   switch text
     when "complete", "scan_complete", "success"
       color = 'green lighten-2'
-      prefix = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>'
+      prefix = '<i class="far fa-check-circle" aria-hidden="true"></i>'
     when "in_progress"
       color = 'blue lighten-2'
       prefix = '<svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>'
     when ""
       color = 'blue-grey darken-2'
-      prefix = '<i class="fa fa-hourglass-start" aria-hidden="true"></i>'
+      prefix = '<i class="fas fa-hourglass-start" aria-hidden="true"></i>'
       content = 'Queued'
     when "invalid_credentials_error", "invalid_username_error", "invalid_password_error"
       color = 'orange lighten-2'
-      prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+      prefix = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>'
     else
       color = 'red lighten-2'
-      prefix = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+      prefix = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i>'
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.status', defaultValue: text) if /request/.test(type)
   content ||= I18n.t(text, scope: 'filters.options.'+type+'.sync_status', defaultValue: text) if (type == "bmc_host" || type == "system")
   return '<span class="white-text z-depth-1 sync '+color+'">' + prefix + ' ' + content + '</span>' unless /red/.test(color)

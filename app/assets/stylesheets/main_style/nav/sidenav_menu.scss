@@ -30,7 +30,6 @@ div.navbar-fixed {
       background: $off-white;
       span {
         position: absolute;
-        top: 8%;
         display: inline-block;
       }
     }
@@ -301,16 +300,16 @@ a.active-item.sidenav-icon::before {
   width: $nav-thickness;
   text-align: center;
   text-transform: none;
-  font-weight: normal;
+  font-weight: 900;
   font-style: normal;
   font-variant: normal;
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
 
 .toggle-extended-menu::before, .toggle-icon-menu::before {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .toggle-icon-menu::before {
@@ -339,7 +338,15 @@ a.active-item.sidenav-icon:hover::before, li.active-item a.sidenav-icon:hover::b
 }
 
 .sidenav-icon-zone::before {
-  content: "\f0f7";
+  content: "\f1ad";
+}
+
+.sidenav-icon-zone-list::before {
+  content: "\f0e8";
+}
+
+.sidenav-icon-racks::before {
+  content: "\f00b";
 }
 
 .sidenav-icon-list::before {
@@ -347,7 +354,7 @@ a.active-item.sidenav-icon:hover::before, li.active-item a.sidenav-icon:hover::b
 }
 
 .sidenav-icon-card::before {
-  content: "\f2c3";
+  content: "\f2c2";
 }
 
 .sidenav-icon-upload::before {
