@@ -3,8 +3,7 @@ class Admin::VisualDcController < AdminController
 
   add_breadcrumb 'Visual DC', :admin_visual_dc_path
 
-  def index
-  end
+  def index; end
 
   def show
     model_class_name = @model_name.camelize

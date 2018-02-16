@@ -1,13 +1,14 @@
 {
   "dependencies": {
-    "@rails/webpacker": "^3.2.1",
+    "@rails/webpacker": "^3.2.2",
     "babylonjs": "^3.2.0-alpha4",
     "babylonjs-gui": "^3.2.0-alpha4",
     "babylonjs-inspector": "^3.2.0-alpha4",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
+    "css-loader": "^0.28.9",
     "vue": "^2.5.13",
-    "vue-loader": "^13.7.0",
+    "vue-loader": "^14.1.0",
     "vue-template-compiler": "^2.5.13",
     "vue-turbolinks": "^2.0.1"
   },

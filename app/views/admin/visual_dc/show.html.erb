@@ -1,5 +1,6 @@
 <!--<div class="visual_dc_wrapper">-->
 </div>
+<%= stylesheet_pack_tag 'visual_dc' %>
 <%= javascript_pack_tag 'visual_dc' %>
 <!--
 <div class="clearfix">
@@ -9,5 +10,4 @@
 -->
 <div id="visual_dc">
   <canvas id="visual_dc_canvas" data-zone-id="<%= @model_id %>" touch-action="none"></canvas>
-  <div id="hud_racklist" style="position: fixed; top: 60px;">
-  </div>  
+  <div id="visual_dc_vuejs"></div>  
