@@ -1,9 +1,5 @@
 class Admin::EnclosureRacksController < AdminController
-  include Admin::Filters
   before_action :set_enclosure_rack, only: %i[show update destroy]
-  layout 'admin_page'
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'Datacenter Zones', :admin_zones_path
   add_breadcrumb 'Racks', :admin_enclosure_racks_path
 
@@ -28,7 +24,7 @@ class Admin::EnclosureRacksController < AdminController
     end
   end
 
-  def show;
+  def show
     add_breadcrumb @rack.name, admin_enclosure_rack_path
   end
 

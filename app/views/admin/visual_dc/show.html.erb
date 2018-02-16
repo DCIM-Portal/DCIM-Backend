@@ -1,0 +1,13 @@
+<!--<div class="visual_dc_wrapper">-->
+</div>
+<%= javascript_pack_tag 'visual_dc' %>
+<!--
+<div class="clearfix">
+  <h3 class="section_title">Zone Layout</h3>
+  <%= render '/layouts/data_load' %>
+</div>
+-->
+<div id="visual_dc">
+  <canvas id="visual_dc_canvas" data-zone-id="<%= @model_id %>" touch-action="none"></canvas>
+  <div id="hud_racklist" style="position: fixed; top: 60px;">
+  </div>  

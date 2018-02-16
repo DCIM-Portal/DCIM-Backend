@@ -2,6 +2,8 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
+  namespace :admin do
+  end
   get 'admin', to: 'admin#index'
   # /admin
   namespace :admin do
@@ -67,9 +69,11 @@ Rails.application.routes.draw do
     end
     # ./systems
     # ./system/{id}
-    # ./visualdc/zone/{id}
-    # ./visualdc/rack/{id}
-    # ./visualdc/enclosure/{id}
+    # ./visual_dc/zone/{id}
+    get '/visual_dc', to: 'visual_dc#index'
+    get '/visual_dc/zone/:zone_id', as: 'visual_dc_zone', to: 'visual_dc#show'
+    # ./visual_dc/rack/{id}
+    # ./visual_dc/enclosure/{id}
 
     get :check_foreman_locations_synced, controller: :zones
     get :check_foreman_reachable, controller: :bmc_scan_requests

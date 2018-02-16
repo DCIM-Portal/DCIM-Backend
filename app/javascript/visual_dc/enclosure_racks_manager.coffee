@@ -31,7 +31,7 @@ export default class EnclosureRacksManager
   loadEnclosureRacks: ->
     canvas = @context.getCanvas()
     $.ajax
-      url: '/admin/datacenter_zones/' + canvas.data('zone-id') + '/racks.json'
+      url: '/admin/visual_dc/zone/' + canvas.data('zone-id') + '.json'
       method: 'get'
       success: (data) =>
         @_callbackGotEnclosureRacks(data)
