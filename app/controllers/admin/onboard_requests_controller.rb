@@ -1,10 +1,6 @@
-class Admin::OnboardRequestsController < ApplicationController
+class Admin::OnboardRequestsController < AdminController
   before_action :set_onboard_request, only: %i[show destroy]
   include Admin::Filters
-  layout 'admin_page'
-
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'Onboard Requests', :admin_onboard_requests_path
 
   def index

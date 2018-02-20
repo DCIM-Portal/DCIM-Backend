@@ -3,17 +3,6 @@ class Admin::EnclosureRacksController < AdminController
   add_breadcrumb 'Datacenter Zones', :admin_zones_path
   add_breadcrumb 'Racks', :admin_enclosure_racks_path
 
-  # def index
-  #  @zone = Zone.find(params[:zone_id])
-  #  add_breadcrumb @zone.name, admin_zone_path(@zone.id)
-  #  add_breadcrumb 'Racks', admin_zone_enclosure_racks_path
-  #  @enclosure_racks = @zone.enclosure_racks
-  #  respond_to do |format|
-  #    format.html
-  #    format.json { render json: @enclosure_racks }
-  #  end
-  # end
-
   def index
     @racks = EnclosureRack.all
     @zones = Zone.all
@@ -25,6 +14,7 @@ class Admin::EnclosureRacksController < AdminController
   end
 
   def show
+    add_breadcrumb @rack.zone.name, admin_zone_path(id: @rack.zone_id)
     add_breadcrumb @rack.name, admin_enclosure_rack_path
   end
 

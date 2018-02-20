@@ -2,9 +2,6 @@ class Admin::ZonesController < AdminController
   before_action :set_zone, only: %i[show update destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: %i[check_foreman_locations_synced create destroy update]
   include Admin::Filters
-  layout 'admin_page'
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'Datacenter Zones', :admin_zones_path
 
   def index

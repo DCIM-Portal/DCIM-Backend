@@ -1,8 +1,5 @@
 class Admin::BruteListsController < AdminController
-  layout 'admin_page'
   before_action :set_cred, only: %i[show update destroy]
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'BMC Scans', :admin_bmc_scan_requests_path
 
   def index

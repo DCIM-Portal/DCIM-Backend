@@ -2,9 +2,6 @@ class Admin::BmcScanRequestsController < AdminController
   before_action :set_bmc_scan_request, only: %i[show update destroy]
   before_action :dashboard_hosts, only: [:check_foreman_reachable]
   include Admin::Filters
-  layout 'admin_page'
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'BMC Scans', :admin_bmc_scan_requests_path
 
   def index

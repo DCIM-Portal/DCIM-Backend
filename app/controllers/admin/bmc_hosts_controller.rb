@@ -1,9 +1,6 @@
 class Admin::BmcHostsController < AdminController
   before_action :set_bmc_host, only: %i[show update destroy]
   include Admin::Filters
-  layout 'admin_page'
-  add_breadcrumb 'Home', '/'
-  add_breadcrumb 'Admin', :admin_path
   add_breadcrumb 'BMC Hosts', :admin_bmc_hosts_path
 
   BMC_ACTION_WHITELIST = [

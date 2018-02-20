@@ -1,4 +1,7 @@
-<h3>Rack Show View</h3>
+<div class="clearfix">
+  <h3 class="section_title">Rack <span class="category_bmc_host_ip_address"><%= @rack.name %></span> Details</h3>
+  <%= render '/layouts/data_load' %>
+</div>
 
 <div class="rack_housing">
   <ul>
@@ -7,3 +10,28 @@
   <% end %>
   </ul>
 </div>
+
+    <div class="z-depth-1">
+      <table id="zone_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="/admin/zones/<%= @rack.zone_id %>/bmc_hosts_datatable.json" >
+        <thead>
+          <tr>
+            <th class="th_checkbox"></th>
+            <th class="th_bmc_address">BMC Address</th>
+            <th class="th_brand">Brand</th>
+            <th class="th_product">Product</th>
+            <th class="th_serial">Serial</th>
+            <th class="th_power">Power Status</th>
+            <th class="th_bmc_sync">Sync Status</th>
+            <th class="th_onboard_status">Onboard Status</th>
+            <th class="th_onboard_step">Onboard Step</th>
+            <th class="th_time">Synchronize Time</th>
+            <th class="th_url"></th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+<script>
+  document.category_name = 'zone'
+  document.detail_name   = 'bmc_host'
+</script>
+
