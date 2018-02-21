@@ -75,10 +75,15 @@ Rails.application.routes.draw do
     # ./visual_dc/rack/{id}
     # ./visual_dc/enclosure/{id}
 
+    # ./datatable
+    get '/datatable/*route', to: 'datatables#show', as: 'datatable'
+
     get :check_foreman_locations_synced, controller: :zones
     get :check_foreman_reachable, controller: :bmc_scan_requests
   end
+
   resources :systems
+
   mount Sidekiq::Web => '/sidekiq'
   mount ActionCable.server, at: '/cable'
 end

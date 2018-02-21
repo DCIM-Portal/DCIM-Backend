@@ -72,7 +72,8 @@
     </div>
     <%= render partial: "layouts/filter" %>
     <div class="z-depth-1">
-      <table id="zone_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= bmc_hosts_datatable_admin_zone_path(format: :json) %>" >
+      <%= datatable(model_name: 'bmc_hosts', category: @zone) %>
+      <table id="zone_details_table" class="table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="/admin/datatable/bmc_hosts/zone/1" >
         <thead>
           <tr>
             <th class="th_checkbox"></th>

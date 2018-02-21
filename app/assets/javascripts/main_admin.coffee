@@ -1,5 +1,4 @@
 #Main Admin coffee scripts
-
 $(document).on 'turbolinks:load', ->
 
   # Datatable Defaults
@@ -10,6 +9,7 @@ $(document).on 'turbolinks:load', ->
     deferLoading: 0
     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
     deferRender: true
+    rowId: 'id'
     ajax: {
       data: (d) ->
         if $('#filters').length
@@ -137,7 +137,7 @@ $(document).on 'turbolinks:load', ->
           $("#admin_modal").addClass('bootstrap-sheet')
           $("#admin_modal").css("bottom", "inherit")
           id_array = []
-          rows_selected = document.detail_table.api().column(0).checkboxes.selected();
+          rows_selected = document.detail_table.api().column(0).checkboxes.selected()
           $.each rows_selected, (index, rowId) ->
             id_array.push rowId
           $.ajax
@@ -594,7 +594,7 @@ $(document).on 'turbolinks:before-cache', ->
     step = status_and_step.join(': ') || "null"
     append = ''
     switch status
-      when "success" 
+      when "success"
         color = 'green lighten-2'
         prefix = '<i class="far fa-check-circle" aria-hidden="true"></i>'
       when "in_progress"
@@ -726,7 +726,7 @@ $(document).on 'turbolinks:load', ->
         'Accept': 'application/json'
       success: (new_dt) ->
         new_row_ids = new_dt.data.map (row) ->
-          row.DT_RowId
+          row.id
         cur_row_ids = document.detail_table.api().rows().ids().toArray()
         ids_matched = cur_row_ids.length == new_row_ids.length && cur_row_ids.every (v, i) ->
           v == new_row_ids[i]
@@ -739,7 +739,7 @@ $(document).on 'turbolinks:load', ->
         document.detail_table.api().rows().data().each (v, i) ->
           # XXX: Find faster way to compare these objects
           if JSON.stringify(v) != JSON.stringify(new_dt.data[i])
-            document.detail_table.api().row('#'+v.DT_RowId).data(new_dt.data[i])
+            document.detail_table.api().row('#'+v.id).data(new_dt.data[i])
     
         # TODO: Update recordsTotal
         # TODO: Update recordsFiltered 

@@ -1,0 +1,8 @@
+<div>
+  <form></form>
+  <table class="datatable table striped nowrap" cellspacing="0" width="100%" data-livetype="datatable" data-source="<%= factory.to_path %>">
+    <thead>
+      <%= factory.instance.fields.to_s.html_safe %>
+    </thead>
+  </table>
+</div>

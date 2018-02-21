@@ -1,0 +1,2 @@
+module Admin::DatatablesHelper
+end
