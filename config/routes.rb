@@ -2,8 +2,7 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
-  namespace :admin do
-  end
+  get '/', to: 'home#index'
   get 'admin', to: 'admin#index'
   # /admin
   namespace :admin do
