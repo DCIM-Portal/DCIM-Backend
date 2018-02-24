@@ -1,5 +1,10 @@
 inherit_from: .rubocop_todo.yml
 
+# Rails routing dynamic segment interpolation
+Style/FormatStringToken:
+  Exclude:
+    - 'config/routes.rb'
+
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 256

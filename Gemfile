@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# API Documentation Tool
+gem 'apipie-rails'
+
 # Materialize
 gem 'materialize-sass'
 
@@ -106,4 +109,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.1'
+  # Test on SQLite3 database
+  gem 'sqlite3'
 end

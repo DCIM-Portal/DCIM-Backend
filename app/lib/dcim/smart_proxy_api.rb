@@ -1,5 +1,5 @@
 module Dcim
-  class SmartProxyApi < Api
+  class SmartProxyApi < BaseApi
     def initialize(**kwargs)
       create_resource(kwargs)
     end

@@ -28,7 +28,7 @@ Metrics/PerceivedComplexity:
 # Offense count: 4
 Style/MethodMissing:
   Exclude:
-    - 'app/lib/dcim/api.rb'
+    - 'app/lib/dcim/base_api.rb'
     - 'app/lib/dcim/api_query.rb'
     - 'app/lib/dcim/api_result.rb'
     - 'app/lib/dcim/version.rb'

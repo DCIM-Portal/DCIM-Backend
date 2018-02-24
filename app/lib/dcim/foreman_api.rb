@@ -1,5 +1,5 @@
 module Dcim
-  class ForemanApi < Api
+  class ForemanApi < BaseApi
     def initialize(**kwargs)
       create_resource(kwargs)
     end

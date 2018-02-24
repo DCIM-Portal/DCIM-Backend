@@ -6,6 +6,7 @@ class OnboardJobTest < ActiveJob::TestCase
     @mock_request = OnboardRequest.new
     @mock_request.bmc_hosts << bmc_hosts(:one)
     @mock_request.bmc_hosts << bmc_hosts(:two)
+    @mock_request.id = 1 # XXX: Use fixture; this line is needed to make tests pass with SQLite3 database backend
     @onboard_job = OnboardJob.new
     @onboard_job.store_dependencies(
       foreman_resource: @mock_foreman_resource,

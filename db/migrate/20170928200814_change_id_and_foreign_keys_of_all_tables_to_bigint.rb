@@ -1,8 +1,12 @@
 class ChangeIdAndForeignKeysOfAllTablesToBigint < ActiveRecord::Migration[5.1]
   def change
-    ActiveRecord::Base.connection.execute <<-SQL
-      SET FOREIGN_KEY_CHECKS=0;
-    SQL
+    begin
+      ActiveRecord::Base.connection.execute <<-SQL
+        SET FOREIGN_KEY_CHECKS=0;
+      SQL
+    rescue ActiveRecord::StatementInvalid
+      Rails.logger.warn('Could not set foreign key checks to false in database backend')
+    end
 
     change_column :bmc_hosts, :id, :bigint, auto_increment: true
     change_column :bmc_scan_requests, :id, :bigint, auto_increment: true
@@ -35,8 +39,12 @@ class ChangeIdAndForeignKeysOfAllTablesToBigint < ActiveRecord::Migration[5.1]
     add_foreign_key :bmc_scan_requests, :zones
     add_foreign_key :onboard_request_bmc_hosts, :bmc_hosts
     add_foreign_key :onboard_request_bmc_hosts, :onboard_requests
-    ActiveRecord::Base.connection.execute <<-SQL
-      SET FOREIGN_KEY_CHECKS=1;
-    SQL
+    begin
+      ActiveRecord::Base.connection.execute <<-SQL
+        SET FOREIGN_KEY_CHECKS=1;
+      SQL
+    rescue ActiveRecord::StatementInvalid
+      Rails.logger.warn('Could not set foreign key checks to true in database backend')
+    end
   end
 end

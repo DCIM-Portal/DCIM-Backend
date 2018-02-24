@@ -1,5 +1,5 @@
 module Dcim
-  class Api
+  class BaseApi
     def retries(number)
       @retries = number
       self

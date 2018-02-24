@@ -2,7 +2,28 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :zones
+    end
+  end
+  apipie
   get '/', to: 'home#index'
+
+  concern :api_base do
+    resources :zones
+  end
+
+  namespace :api do
+    namespace :v1 do
+      concerns :api_base
+    end
+
+    match 'v1/*path', via: %i[all], to: proc { [404, {}, ['']] }
+    match 'v:api_version/*path', via: %i[all], to: redirect('/api/v1/%{path}')
+    match '*path', via: %i[all], to: redirect('/api/v1/%{path}')
+  end
+
   get 'admin', to: 'admin#index'
   # /admin
   namespace :admin do
