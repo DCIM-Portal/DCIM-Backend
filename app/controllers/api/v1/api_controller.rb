@@ -4,7 +4,18 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def create
-    # todo
+    column_names = model.column_names
+    new_model = model.new
+
+    params.each do |key, param|
+      if column_names.include?(key) &&
+          !forbidden_write_columns.include?(key)
+        new_model.send key, param
+      end
+    end
+
+    new_model.save!
+    render json: new_model.as_json
   end
 
   def update
@@ -19,5 +30,17 @@ class Api::V1::ApiController < ApplicationController
 
   def model
     @model ||= self.class.name.demodulize.sub(/Controller$/, '').singularize.constantize
+  end
+
+  def forbidden_access_columns
+    return @forbidden_access_columns ||= %w()
+  end
+
+  def forbidden_write_columns
+    return forbidden_access_columns + (@forbidden_write_columns ||= %w(id created_at updated_at))
+  end
+
+  def forbidden_read_columns
+    return forbidden_access_columns + (@forbidden_read_columns ||= %w())
   end
 end
