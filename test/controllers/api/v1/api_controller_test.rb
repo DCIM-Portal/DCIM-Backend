@@ -17,7 +17,7 @@ class Api::V1::ApiControllerTest < ActionDispatch::IntegrationTest
 
   test 'create saves new model' do
     post api_v1_zones_url, params: {
-        name: 'TestZone'
+      name: 'TestZone'
     }
     assert_response :success
     assert Zone.find_by(name: 'TestZone')

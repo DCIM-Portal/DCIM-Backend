@@ -2,15 +2,11 @@ require 'sidekiq/web'
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
 Rails.application.routes.draw do
-  namespace :api do
-    namespace :v1 do
-      resources :zones
-    end
-  end
   apipie
   get '/', to: 'home#index'
 
   concern :api_base do
+    post '/auth/user_token' => 'user_token#create'
     resources :zones
   end
 

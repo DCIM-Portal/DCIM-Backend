@@ -38,6 +38,7 @@ coverage/
 
 # SQLite3 databases
 db/*.sqlite3
+db/*.sqlite3-journal
 
 # Webpacker and related
 /vendor/cache

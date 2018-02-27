@@ -6,7 +6,13 @@ git_source(:github) do |repo_name|
 end
 
 # API Documentation Tool
-gem 'apipie-rails'
+#
+# v0.5.3 through v0.5.6 are broken.
+# See: https://github.com/Apipie/apipie-rails/issues/559
+gem 'apipie-rails', '0.5.2'
+
+# JWT authentication
+gem 'knock'
 
 # Materialize
 gem 'materialize-sass'

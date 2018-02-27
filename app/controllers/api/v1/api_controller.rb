@@ -1,4 +1,10 @@
 class Api::V1::ApiController < ApplicationController
+  before_action :authenticate_user
+
+  resource_description do
+    api_version '1'
+  end
+
   def index
     render json: model.all.as_json
   end
@@ -9,7 +15,7 @@ class Api::V1::ApiController < ApplicationController
 
     params.each do |key, param|
       if column_names.include?(key) &&
-          !forbidden_write_columns.include?(key)
+         !forbidden_write_columns.include?(key)
         new_model.send key, param
       end
     end
@@ -33,14 +39,14 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def forbidden_access_columns
-    return @forbidden_access_columns ||= %w()
+    @forbidden_access_columns ||= %w[]
   end
 
   def forbidden_write_columns
-    return forbidden_access_columns + (@forbidden_write_columns ||= %w(id created_at updated_at))
+    forbidden_access_columns + (@forbidden_write_columns ||= %w[id created_at updated_at])
   end
 
   def forbidden_read_columns
-    return forbidden_access_columns + (@forbidden_read_columns ||= %w())
+    forbidden_access_columns + (@forbidden_read_columns ||= %w[])
   end
 end
