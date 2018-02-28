@@ -12,7 +12,7 @@ class EnclosureRackTest < ActiveSupport::TestCase
 
   test 'rack orientation is between 0 and 359' do
     rack = enclosure_racks(:minimum)
-    (0..359).each do |x|
+    (0..359).step(30).each do |x|
       assert rack.update(orientation: x), "Rack should have accepted orientation #{x}"
     end
     assert_not rack.update(orientation: -1), 'Rack should not have accepted invalid orientation'

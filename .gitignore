@@ -41,6 +41,9 @@ coverage/
 db/*.sqlite3
 db/*.sqlite3-journal
 
+# Ignore framework-generated files
+/public/javascripts/translations.js
+
 # Webpacker and related
 /vendor/cache
 /public/packs
