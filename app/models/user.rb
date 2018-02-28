@@ -10,7 +10,8 @@ class User
     end
 
     def from_token_payload(payload)
-      new(payload)
+      payload = payload.symbolize_keys
+      new(**payload)
     end
 
     def from_foreman_login(username)
