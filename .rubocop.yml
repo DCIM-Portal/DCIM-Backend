@@ -1,5 +1,11 @@
 inherit_from: .rubocop_todo.yml
 
+# Ignore framework-generated files
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+
 # Rails routing dynamic segment interpolation
 Style/FormatStringToken:
   Exclude:

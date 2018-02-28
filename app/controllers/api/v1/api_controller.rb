@@ -6,36 +6,48 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def index
-    render json: model.all.as_json
+    render json: model_class.all.as_json
+  end
+
+  def show
+    model = model_class.find(params[:id])
+    render json: model.as_json
   end
 
   def create
-    column_names = model.column_names
-    new_model = model.new
-
-    params.each do |key, param|
-      if column_names.include?(key) &&
-         !forbidden_write_columns.include?(key)
-        new_model.send key, param
-      end
-    end
-
+    new_model = model_class.new
+    apply_params_to_model(params, new_model)
     new_model.save!
     render json: new_model.as_json
   end
 
   def update
-    # todo
+    model = model_class.find(params[:id])
+    apply_params_to_model(params, model)
+    model.save!
+    render json: model.as_json
   end
 
   def destroy
-    # todo
+    model = model_class.find(params[:id])
+    model.destroy!
+    render json: model.as_json
   end
 
   protected
 
-  def model
-    @model ||= self.class.name.demodulize.sub(/Controller$/, '').singularize.constantize
+  def apply_params_to_model(params, model)
+    column_names = model.class.column_names
+    params.each do |key, param|
+      if column_names.include?(key) &&
+         !forbidden_write_columns.include?(key)
+        model.send "#{key}=", param
+      end
+    end
+  end
+
+  def model_class
+    @model_class ||= self.class.name.demodulize.sub(/Controller$/, '').singularize.constantize
   end
 
   def forbidden_access_columns
