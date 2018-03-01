@@ -37,6 +37,13 @@ class Api::V1::ApiControllerTest < ActionDispatch::IntegrationTest
     assert self.class.json?(@response.body)
   end
 
+  test 'show encounters error' do
+    get api_v1_zone_url(id: -1),
+        headers: authenticated_header
+    assert_response :not_found
+    assert self.class.json?(@response.body)
+  end
+
   test 'create saves new model' do
     post api_v1_zones_url,
          headers: authenticated_header,

@@ -1,6 +1,7 @@
 class Api::V1::ApiController < ApplicationController
+  include Api::V1::ApiResponse
+
   before_action :authenticate_user
-  around_action :api_response
 
   resource_description do
     api_version '1'
@@ -34,44 +35,7 @@ class Api::V1::ApiController < ApplicationController
     @data = model
   end
 
-  def default_render(*args); end
-
   protected
-
-  def api_response
-    @metadata ||= {}
-    data = yield
-    @data ||= data
-  rescue StandardError => e
-    Rails.logger.warn e
-    @metadata[:error] ||= {}
-    @metadata[:error][:class] = e.class.name
-    @metadata[:error][:message] = e.message
-    @metadata[:error][:backtrace] = e.backtrace
-  ensure
-    render json: build_api_response(@data, **@metadata) unless performed?
-  end
-
-  def build_api_response(data, **metadata)
-    hash = {}
-    hash[:data] = build_api_response_data(data, **metadata)
-    hash[:class] = data.class.name
-    hash[:iterable] = data.respond_to?(:each)
-    hash.merge!(@metadata)
-    hash
-  end
-
-  def build_api_response_data(data, **metadata)
-    if data.respond_to?(:each)
-      data.map do |datum|
-        build_api_response_data(datum, **metadata)
-      end
-    elsif data.is_a?(ApplicationRecord)
-      data.serializable_hash.symbolize_keys.except(*forbidden_read_columns)
-    else
-      data
-    end
-  end
 
   def apply_params_to_model(params, model)
     column_names = model.class.column_names
