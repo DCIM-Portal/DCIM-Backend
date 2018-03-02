@@ -89,4 +89,16 @@ class User
       foreman_session_id: @foreman_session_id
     }
   end
+
+  def foreman_api
+    @foreman_api ||= Dcim::ForemanApi.new(
+      url: Dcim::ForemanApiFactory
+               .unauthenticated_instance
+               .instance_variable_get(:@resource)
+               .instance_variable_get(:@url),
+      cookies: {
+        '_session_id' => @foreman_session_id
+      }
+    )
+  end
 end

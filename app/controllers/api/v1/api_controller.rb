@@ -2,9 +2,14 @@ class Api::V1::ApiController < ApplicationController
   include Api::V1::ApiResponse
 
   before_action :authenticate_user
+  before_action :initialize_foreman_resource
 
   resource_description do
     api_version '1'
+  end
+
+  def initialize_foreman_resource
+    @foreman_resource = current_user.foreman_api
   end
 
   def index

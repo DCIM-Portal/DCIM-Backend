@@ -12,6 +12,7 @@ module Dcim
         open_timeout: 5,
         user: kwargs[:username],
         password: kwargs[:password],
+        cookies: kwargs[:cookies],
         verify_ssl: false
       )
     end

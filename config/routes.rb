@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   concern :api_base do
     post '/auth/user_token' => 'user_token#create'
-    resources :zones
+    resources :zones do
+      collection do
+        get 'diff', to: 'zones#diff'
+        post 'diff/resolve', to: 'zones#diff_resolve'
+      end
+    end
   end
 
   namespace :api do

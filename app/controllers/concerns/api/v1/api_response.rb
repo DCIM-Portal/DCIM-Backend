@@ -8,10 +8,12 @@ module Api::V1::ApiResponse
   class_methods do
     def status_symbol_from_exception(exception)
       case exception
-        when ActiveRecord::RecordNotFound
-          :not_found
-        else
-          :bad_request
+      when ActiveRecord::RecordNotFound
+        :not_found
+      when RestClient::InternalServerError
+        :internal_server_error
+      else
+        :bad_request
       end
     end
   end
@@ -31,9 +33,10 @@ module Api::V1::ApiResponse
     @metadata[:error][:message] = e.message
     @metadata[:error][:backtrace] = e.backtrace
   ensure
-    return false if performed?
-    render status: @metadata.delete(:status) || :ok,
-           json: build_api_response(@data, **@metadata)
+    unless performed?
+      render status: @metadata.delete(:status) || :ok,
+             json: build_api_response(@data, **@metadata)
+    end
   end
 
   def build_api_response(data, **metadata)
@@ -46,12 +49,12 @@ module Api::V1::ApiResponse
   end
 
   def build_api_response_data(data, **metadata)
-    if data.respond_to?(:each)
+    if data.is_a?(ApplicationRecord)
+      data.serializable_hash.symbolize_keys.except(*forbidden_read_columns)
+    elsif data.respond_to?(:to_ary)
       data.map do |datum|
         build_api_response_data(datum, **metadata)
       end
-    elsif data.is_a?(ApplicationRecord)
-      data.serializable_hash.symbolize_keys.except(*forbidden_read_columns)
     else
       data
     end
