@@ -14,7 +14,7 @@ module Api::V1::ZonesControllerDiff
 
   The data returned by this endpoint contains an Object with the key +differences+.
 
-  If all zones match all Foreman locations, the value of +differences+ will be an empty Object. 
+  If all zones match all Foreman locations, the value of +differences+ will be an empty Object.
 
   Otherwise value of +differences+ is also an Object that contain one or more of the following keys:
   - +only_foreman+ -- Each Object in this Array is a representation of a Foreman location that does not have a matching zone.
@@ -252,12 +252,7 @@ module Api::V1::ZonesControllerDiff
   def diff_resolve_foreman_add
     only_local = @data[:differences].delete(:only_local) || []
     only_local.each do |representation|
-      @foreman_resource.api.locations.post(
-        {
-          name: representation[:name],
-          parent_id: representation[:parent_id]
-        }.to_json
-      )
+      create_foreman_location(representation)
       @data[:changes][:foreman] << {
         before: nil,
         after: representation

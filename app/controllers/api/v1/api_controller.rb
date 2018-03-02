@@ -8,6 +8,23 @@ class Api::V1::ApiController < ApplicationController
     api_version '1'
   end
 
+  def self.params!
+    mock_controller = new
+    model_class = mock_controller.send(:model_class)
+    columns = model_class.column_names -
+              mock_controller.send(:forbidden_write_columns).map(&:to_s)
+    Rails.logger.warn mock_controller.send(:model_class).column_names
+    columns.each do |column|
+      validator = case model_class.columns_hash[column].type
+                    when :integer, :bigint
+                      Integer
+                    else
+                      String
+                  end
+      param column, validator
+    end
+  end
+
   def initialize_foreman_resource
     # XXX: No CSRF token support when Foreman is authenticating in session mode
     #      Using default admin-authenticated resource until we find a better solution
