@@ -133,12 +133,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
     zones = Zone.all
 
     diffable_zones = zones.map do |zone|
-      {
-        id: zone.id,
-        foreman_location_id: zone.foreman_location_id,
-        name: zone.name,
-        parent_id: zone.parent.try(:foreman_location_id)
-      }
+      generate_local_representation(zone)
     end
 
     diffable_foreman_locations = foreman_locations.map do |foreman_location|
@@ -150,7 +145,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
       }
     end
 
-    @data = {}
+    @data ||= {}
     zone_ids = diffable_zones.map { |h| h[:foreman_location_id] }
     foreman_location_ids = diffable_foreman_locations.map { |h| h[:foreman_location_id] }
     ids_only_in_zones = zone_ids - foreman_location_ids
@@ -197,10 +192,182 @@ class Api::V1::ZonesController < Api::V1::ApiController
   - +use_local_name+ -- Change the Foreman location name to match its zone name if the names differ
   [Mismatched +parent_id+]
   - +use_foreman_parent+ -- Change the zone parent to match its Foreman location parent if the parents differ
-  - +user_local_parent+ -- Change the Foreman location parent to match its zone parent if the parents differ
-  The strategies will be executed in the order provided.
+  - +use_local_parent+ -- Change the Foreman location parent to match its zone parent if the parents differ
+  The strategies will be executed in the order provided and use a one-time generated difference set.
   DOC
+  DIFF_RESOLVE_STRATEGIES = %w[
+    foreman_add
+    foreman_remove
+    local_add
+    local_remove
+    use_foreman_name
+    use_local_name
+    use_foreman_parent
+    use_local_parent
+  ].freeze
   def diff_resolve
-    # TODO
+    requested_strategies = params[:strategies]
+    unpermitted_strategies = requested_strategies - DIFF_RESOLVE_STRATEGIES
+    raise ActionController::UnpermittedParameters.new(unpermitted_strategies) unless unpermitted_strategies.empty?
+
+    diff
+    @data[:changes] = {}
+    requested_strategies.each do |strategy|
+      more_changes = send("diff_resolve_#{strategy}")
+      @data[:changes].merge!(more_changes) if more_changes.is_a?(Hash)
+    end
+  end
+
+  def diff_resolve_foreman_add
+    changes = []
+    only_local = @data[:differences].delete(:only_local)
+    only_local.each do |representation|
+      @foreman_resource.api.locations.post(
+          {
+              name: representation[:name],
+              parent_id: representation[:parent_id]
+          }.to_json
+      )
+      changes += {
+          before: nil,
+          after: representation
+      }
+    end
+    {foreman: changes}
+  end
+
+  def diff_resolve_foreman_remove
+    changes = []
+    only_foreman = @data[:differences].delete(:only_foreman)
+    only_foreman.each do |representation|
+      @foreman_resource.api.locations(representation[:foreman_location_id]).delete
+      changes += {
+          before: representation,
+          after: nil
+      }
+    end
+    {foreman: changes}
+  end
+
+  def diff_resolve_local_add
+    changes = []
+    only_foreman = @data[:differences].delete(:only_foreman)
+    only_foreman.each do |representation|
+      zone = Zone.new(
+          name: representation[:name],
+          foreman_location_id: representation[:foreman_location_id]
+      )
+      zone.save!
+      changes += {
+          before: nil,
+          after: representation
+      }
+    end
+    # Figure out parents after all Zones saved
+    only_foreman.each do |representation|
+      next unless representation[:parent_id]
+      zone = Zone.find_by(foreman_location_id: representation[:foreman_location_id])
+      zone.parent = Zone.find_by(foreman_location_id: representation[:parent_id])
+      zone.save!
+    end
+    {local: changes}
+  end
+
+  def diff_resolve_local_remove
+    changes = []
+    only_local = @data[:differences].delete(:only_local)
+    only_local.each do |representation|
+      zone = Zone.find(representation.id)
+      zone.destroy!
+      changes += {
+          before: representation,
+          after: nil
+      }
+    end
+    {local: changes}
+  end
+
+  def diff_resolve_use_foreman_name
+    changes = []
+    wrong_names = @data[:differences].delete(:name)
+    wrong_names.each do |pair|
+      local_representation = pair[:local]
+      foreman_representation = pair[:foreman]
+      zone = Zone.find(local_representation[:id])
+      zone.update(name: foreman_representation[:name])
+      changes += {
+          before: local_representation,
+          after: generate_local_representation(zone)
+      }
+    end
+    {local: changes}
+  end
+
+  def diff_resolve_use_local_name
+    changes = []
+    wrong_names = @data[:differences].delete(:name)
+    wrong_names.each do |pair|
+      local_representation = pair[:local]
+      foreman_representation = pair[:foreman]
+      @foreman_resource.api.locations(foreman_representation[:foreman_location_id]).put(
+          {
+              name: local_representation[:name]
+          }.to_json
+      )
+      new_foreman_representation = foreman_representation
+      new_foreman_representation[:name] = local_representation[:name]
+      changes += {
+          before: foreman_representation,
+          after: new_foreman_representation
+      }
+    end
+    {foreman: changes}
+  end
+
+  def diff_resolve_use_foreman_parent
+    changes = []
+    wrong_names = @data[:differences].delete(:name)
+    wrong_names.each do |pair|
+      local_representation = pair[:local]
+      foreman_representation = pair[:foreman]
+      zone = Zone.find(local_representation[:id])
+      zone.parent = Zone.find_by(foreman_location_id: foreman_representation[:parent_id])
+      zone.save!
+      changes += {
+          before: local_representation,
+          after: generate_local_representation(zone)
+      }
+    end
+    {local: changes}
+  end
+
+  def diff_resolve_use_local_parent
+    changes = []
+    wrong_names = @data[:differences].delete(:name)
+    wrong_names.each do |pair|
+      local_representation = pair[:local]
+      foreman_representation = pair[:foreman]
+      @foreman_resource.api.locations(foreman_representation[:foreman_location_id]).put(
+          {
+              parent_id: local_representation[:parent_id]
+          }.to_json
+      )
+      new_foreman_representation = foreman_representation
+      new_foreman_representation[:parent_id] = local_representation[:parent_id]
+      changes += {
+          before: foreman_representation,
+          after: new_foreman_representation
+      }
+    end
+    {foreman: changes}
+  end
+
+  def generate_local_representation(zone)
+    {
+        id: zone.id,
+        foreman_location_id: zone.foreman_location_id,
+        name: zone.name,
+        parent_id: zone.parent.try(:foreman_location_id)
+    }
   end
 end

@@ -10,6 +10,8 @@ class Api::V1::ApiController < ApplicationController
 
   def initialize_foreman_resource
     @foreman_resource = current_user.foreman_api
+    @data ||= {}
+    @metadata ||= {}
   end
 
   def index
