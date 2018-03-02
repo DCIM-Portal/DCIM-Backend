@@ -228,7 +228,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
               parent_id: representation[:parent_id]
           }.to_json
       )
-      changes += {
+      changes << {
           before: nil,
           after: representation
       }
@@ -241,7 +241,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
     only_foreman = @data[:differences].delete(:only_foreman)
     only_foreman.each do |representation|
       @foreman_resource.api.locations(representation[:foreman_location_id]).delete
-      changes += {
+    changes << {
           before: representation,
           after: nil
       }
@@ -258,7 +258,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
           foreman_location_id: representation[:foreman_location_id]
       )
       zone.save!
-      changes += {
+      changes << {
           before: nil,
           after: representation
       }
@@ -279,7 +279,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
     only_local.each do |representation|
       zone = Zone.find(representation.id)
       zone.destroy!
-      changes += {
+      changes << {
           before: representation,
           after: nil
       }
@@ -295,7 +295,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
       foreman_representation = pair[:foreman]
       zone = Zone.find(local_representation[:id])
       zone.update(name: foreman_representation[:name])
-      changes += {
+      changes << {
           before: local_representation,
           after: generate_local_representation(zone)
       }
@@ -316,7 +316,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
       )
       new_foreman_representation = foreman_representation
       new_foreman_representation[:name] = local_representation[:name]
-      changes += {
+      changes << {
           before: foreman_representation,
           after: new_foreman_representation
       }
@@ -333,7 +333,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
       zone = Zone.find(local_representation[:id])
       zone.parent = Zone.find_by(foreman_location_id: foreman_representation[:parent_id])
       zone.save!
-      changes += {
+      changes << {
           before: local_representation,
           after: generate_local_representation(zone)
       }
@@ -354,7 +354,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
       )
       new_foreman_representation = foreman_representation
       new_foreman_representation[:parent_id] = local_representation[:parent_id]
-      changes += {
+      changes << {
           before: foreman_representation,
           after: new_foreman_representation
       }
