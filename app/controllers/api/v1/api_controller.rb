@@ -16,10 +16,10 @@ class Api::V1::ApiController < ApplicationController
     Rails.logger.warn mock_controller.send(:model_class).column_names
     columns.each do |column|
       validator = case model_class.columns_hash[column].type
-                    when :integer, :bigint
-                      Integer
-                    else
-                      String
+                  when :integer, :bigint
+                    Integer
+                  else
+                    String
                   end
       param column, validator
     end
