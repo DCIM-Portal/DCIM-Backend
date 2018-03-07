@@ -25,7 +25,7 @@ module Api::V1::ApiResponse
   def api_response
     @metadata ||= {}
     data = yield
-    @data ||= data
+    @data = data if @data.is_a?(Hash) && @data.empty?
   rescue StandardError => e
     @metadata[:status] = self.class.status_symbol_from_exception(e)
     @metadata[:error] ||= {}

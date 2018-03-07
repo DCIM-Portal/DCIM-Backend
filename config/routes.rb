@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get '/', to: 'home#index'
 
   concern :api_base do
-    post '/auth/user_token' => 'user_token#create'
+    get '/', to: 'home#index'
+    get '/status', to: 'home#status'
+    post '/auth/user_token', to: 'user_token#create'
     resources :zones do
       collection do
         get 'diff', to: 'zones#diff'
