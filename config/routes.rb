@@ -15,6 +15,13 @@ Rails.application.routes.draw do
         post 'diff/resolve', to: 'zones#diff_resolve'
       end
     end
+    resources :bmc_hosts
+    resources :bmc_scan_requests
+    resources :brute_lists
+    resources :enclosure_racks
+    resources :enclosures
+    resources :onboard_requests
+    resources :systems
   end
 
   namespace :api do
