@@ -1,7 +1,6 @@
 class Admin::VisualDcController < AdminController
   before_action :determine_scene, only: %i[show]
 
-  add_breadcrumb 'Visual DC', :admin_visual_dc_path
 
   def index; end
 
@@ -9,7 +8,6 @@ class Admin::VisualDcController < AdminController
     model_class_name = @model_name.camelize
     model_class = model_class_name.constantize
     model = model_class.find(@model_id)
-    add_breadcrumb model.name, "admin_visual_dc_#{@model_name}_path".to_sym
 
     @racks = model.enclosure_racks
 

@@ -1,7 +1,5 @@
 class Admin::EnclosureRacksController < AdminController
   before_action :set_enclosure_rack, only: %i[show update destroy]
-  add_breadcrumb 'Datacenter Zones', :admin_zones_path
-  add_breadcrumb 'Racks', :admin_enclosure_racks_path
 
   def index
     @racks = EnclosureRack.all
@@ -14,8 +12,6 @@ class Admin::EnclosureRacksController < AdminController
   end
 
   def show
-    add_breadcrumb @rack.zone.name, admin_zone_path(id: @rack.zone_id)
-    add_breadcrumb @rack.name, admin_enclosure_rack_path
   end
 
   def create

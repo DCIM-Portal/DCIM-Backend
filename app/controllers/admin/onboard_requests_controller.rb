@@ -1,7 +1,6 @@
 class Admin::OnboardRequestsController < AdminController
   before_action :set_onboard_request, only: %i[show destroy]
   include Admin::Filters
-  add_breadcrumb 'Onboard Requests', :admin_onboard_requests_path
 
   def index
     @onboard_requests = OnboardRequest.all
@@ -16,7 +15,6 @@ class Admin::OnboardRequestsController < AdminController
 
   def show
     pick_filters(:bmc_host, bmc_host_filters)
-    add_breadcrumb @onboard_request.id, admin_onboard_request_path
     respond_to do |format|
       format.html
       format.json { render json: @onboard_request.as_json }

@@ -1,9 +1,7 @@
 class Admin::BruteListsController < AdminController
   before_action :set_cred, only: %i[show update destroy]
-  add_breadcrumb 'BMC Scans', :admin_bmc_scan_requests_path
 
   def index
-    add_breadcrumb 'BMC Credentials List', admin_brute_lists_path
     @creds = BruteList.all
     @cred = BruteList.new
     @cred.brute_list_secrets.build
@@ -41,8 +39,6 @@ class Admin::BruteListsController < AdminController
   end
 
   def show
-    add_breadcrumb 'BMC Credentials List', admin_brute_lists_path
-    add_breadcrumb @cred.name, admin_brute_list_path
   end
 
   def destroy

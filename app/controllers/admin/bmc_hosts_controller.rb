@@ -1,7 +1,6 @@
 class Admin::BmcHostsController < AdminController
   before_action :set_bmc_host, only: %i[show update destroy]
   include Admin::Filters
-  add_breadcrumb 'BMC Hosts', :admin_bmc_hosts_path
 
   BMC_ACTION_WHITELIST = [
     'refresh!',
@@ -26,7 +25,6 @@ class Admin::BmcHostsController < AdminController
   end
 
   def show
-    add_breadcrumb @bmc_host.ip_address, admin_bmc_host_path
     respond_to do |format|
       format.html
       format.json { render json: @bmc_host.as_json(include: ['system']) }

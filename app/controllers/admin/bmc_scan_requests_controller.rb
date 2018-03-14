@@ -2,7 +2,6 @@ class Admin::BmcScanRequestsController < AdminController
   before_action :set_bmc_scan_request, only: %i[show update destroy]
   before_action :dashboard_hosts, only: [:check_foreman_reachable]
   include Admin::Filters
-  add_breadcrumb 'BMC Scans', :admin_bmc_scan_requests_path
 
   def index
     @bmc_scan_requests = BmcScanRequest.all
@@ -17,7 +16,6 @@ class Admin::BmcScanRequestsController < AdminController
   end
 
   def show
-    add_breadcrumb @bmc_scan_request.name, admin_bmc_scan_request_path
     @zones = Zone.all
     @creds = BruteList.all
     pick_filters(:bmc_host, bmc_host_filters)

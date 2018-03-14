@@ -2,7 +2,6 @@ class Admin::ZonesController < AdminController
   before_action :set_zone, only: %i[show update destroy]
   before_action :foreman_locations, :dcim_locations, :foreman_extras, :dcim_extras, only: %i[check_foreman_locations_synced create destroy update]
   include Admin::Filters
-  add_breadcrumb 'Datacenter Zones', :admin_zones_path
 
   def index
     @zones = Zone.all
@@ -79,7 +78,6 @@ class Admin::ZonesController < AdminController
   end
 
   def show
-    add_breadcrumb @zone.name, admin_zone_path
 
     pick_filters(:bmc_host, bmc_host_filters)
 
