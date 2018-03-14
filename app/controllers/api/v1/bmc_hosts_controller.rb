@@ -37,6 +37,13 @@ module Api
         # TODO
         super
       end
+
+      protected
+
+      def forbidden_read_columns
+        @forbidden_read_columns = %i[username password]
+        super
+      end
     end
   end
 end
