@@ -15,6 +15,13 @@ module DcimPortal
     config.time_zone = 'Central Time (US & Canada)'
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.eager_load_paths += ["#{config.root}/app/lib/dcim"]
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end
 

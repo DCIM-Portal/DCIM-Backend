@@ -17,6 +17,9 @@ gem 'knock'
 # Rest-Client
 gem 'rest-client'
 
+# Cross-Origin Resource Sharing
+gem 'rack-cors'
+
 # Sunspot for Rails
 gem 'sunspot_rails'
 gem 'sunspot_solr'
