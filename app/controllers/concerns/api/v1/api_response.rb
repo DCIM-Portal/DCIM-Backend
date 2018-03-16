@@ -42,8 +42,12 @@ module Api::V1::ApiResponse
   def build_api_response(data, **metadata)
     hash = {}
     hash[:data] = build_api_response_data(data, **metadata)
-    hash[:class] = data.class.name
-    hash[:iterable] = data.respond_to?(:to_ary)
+    debug_meta = {
+        params: params,
+        class: data.class.name,
+        iterable: data.respond_to?(:to_ary)
+    }
+    hash[:debug] = debug_meta
     hash.merge!(@metadata)
     hash
   end

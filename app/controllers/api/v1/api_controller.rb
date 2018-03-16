@@ -13,7 +13,6 @@ class Api::V1::ApiController < ApplicationController
     model_class = mock_controller.send(:model_class)
     columns = model_class.column_names -
               mock_controller.send(:forbidden_write_columns).map(&:to_s)
-    Rails.logger.warn mock_controller.send(:model_class).column_names
     columns.each do |column|
       validator = case model_class.columns_hash[column].type
                   when :integer, :bigint
@@ -34,7 +33,13 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def index
-    @data = model_class.all
+    #@data = model_class.all
+    search = Dcim::Search::ApplicationSearch.search(model_class, params, forbidden_read_columns)
+    pagination_info = search.pagination_info
+    @metadata[:pagination] = pagination_info if pagination_info
+    filters_info = search.filters_info
+    @metadata[:filters] = filters_info
+    @data = search.results
   end
 
   def show

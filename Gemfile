@@ -20,9 +20,8 @@ gem 'rest-client'
 # Cross-Origin Resource Sharing
 gem 'rack-cors'
 
-# Sunspot for Rails
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+# Pagination for ActiveRecord
+gem 'will_paginate'
 
 # Redis store for Rails
 gem 'redis-rails'

@@ -3,7 +3,6 @@ require 'resolv'
 class BmcHost < ApplicationRecord
   include DeviceTarget
   include BmcDrivers::Ipmi
-  include Searchable
 
   has_many :bmc_scan_request_hosts
   has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts

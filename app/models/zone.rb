@@ -1,6 +1,4 @@
 class Zone < ApplicationRecord
-  include Searchable
-
   has_many :bmc_hosts, autosave: true, dependent: :restrict_with_exception
   has_many :bmc_scan_requests, autosave: true, dependent: :restrict_with_exception
   has_many :enclosure_racks, autosave: true, dependent: :restrict_with_exception
