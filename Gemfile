@@ -70,4 +70,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.1'
   # Test on SQLite3 database
   gem 'sqlite3'
+  # Sunspot progress bar
+  gem 'progress_bar'
 end

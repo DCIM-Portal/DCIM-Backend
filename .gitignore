@@ -8,10 +8,6 @@
 /.bundle
 /Gemfile.lock
 
-# Ignore Yarn output
-yarn-error.log
-yarn.lock
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -41,16 +37,5 @@ coverage/
 db/*.sqlite3
 db/*.sqlite3-journal
 
-# Ignore framework-generated files
-/public/javascripts/translations.js
-
-# Webpacker and related
-/vendor/cache
-/public/packs
-/public/packs-test
-/node_modules
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
+# Solr development instance
+/solr
