@@ -9,10 +9,12 @@ class Api::V1::UserTokenController < Knock::AuthTokenController
   Credentials provided are sent to Foreman and Foreman returns a session ID used to build the access token
 
   The access token is a {JSON Web Token}[https://jwt.io/] and stored as the value to key +jwt+.
-  This token expires after 1 hour.
+  This token expires after #{Knock.token_lifetime.inspect}.
+  The actual expiry time is provided in ISO8601 format in the key +jwt_expiry+.
 
   A refresh token, stored as the value to key +refresh_token+, is also provided only if authenticating with a username and password.
   This token expires after 1 month or after the Foreman session expires, whichever is earlier.
+  Since there is currently no reliable way to get the refresh token expiry time, there is no +refresh_token_expiry+ key.
 
   The client should store both the access token and the refresh token.
 
@@ -39,13 +41,15 @@ class Api::V1::UserTokenController < Knock::AuthTokenController
   example <<-DOC
   {
     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MTk3NzA2MjcsInN1YiI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImZvcmVtYW5fc2Vzc2lvbl9pZCI6IjQ2Nzc1NjJkZTQ5NDk1Y2RlNmFkN2RjN2I3MjkzODRkIn0.LBAc0GXj_rjfqidc2JhX8Yguhgca-oQbGCBHVXrdHWU",
+    "jwt_expiry": "1969-12-31T18:00:00-06:00",
     "refresh_token": "4458c707-c74c-4787-a354-c4679a3e4bc9"
   }
   DOC
   formats ['JSON']
   def create
     hash = {
-      jwt: auth_token.token
+      jwt: auth_token.token,
+      jwt_expiry: Time.at(auth_token.payload[:exp]).iso8601
     }
     hash[:refresh_token] = entity.refresh_token.token if entity.refresh_token
     render json: hash, status: :created
