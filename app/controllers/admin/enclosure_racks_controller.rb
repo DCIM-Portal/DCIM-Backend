@@ -11,8 +11,7 @@ class Admin::EnclosureRacksController < AdminController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @rack = EnclosureRack.new(enclosure_rack_params)

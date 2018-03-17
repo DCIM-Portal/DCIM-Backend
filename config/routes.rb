@@ -46,16 +46,16 @@ Rails.application.routes.draw do
         post :foreman_add
         delete :multi_delete
         post :multi_create
-        #get :datatable, to: 'datatable', klass: Admin::ZoneDatatable
+        # get :datatable, to: 'datatable', klass: Admin::ZoneDatatable
       end
       member do
-        #get :bmc_hosts_datatable, to: 'zones#datatable', klass: Admin::ZoneDetailsDatatable
+        # get :bmc_hosts_datatable, to: 'zones#datatable', klass: Admin::ZoneDetailsDatatable
       end
     end
     # ./racks/{id}
     resources :enclosure_racks, path: 'racks', except: %i[edit new] do
       collection do
-        #get :datatable, to: 'enclosure_racks#datatable', klass: Admin::EnclosureRackDatatable
+        # get :datatable, to: 'enclosure_racks#datatable', klass: Admin::EnclosureRackDatatable
       end
     end
     # ./enclosure/{id}
@@ -64,28 +64,28 @@ Rails.application.routes.draw do
     # ./bmc_hosts/credential/{id}
     resources :brute_lists, path: 'bmc_hosts/credentials', except: %i[edit new] do
       collection do
-        #get :datatable, to: 'brute_lists#datatable', klass: Admin::BruteListDatatable
+        # get :datatable, to: 'brute_lists#datatable', klass: Admin::BruteListDatatable
       end
     end
     # ./bmc_hosts/scans
     # ./bmc_hosts/scan/{id}
     resources :bmc_scan_requests, path: 'bmc_hosts/scans', except: %i[edit new] do
       collection do
-        #get :datatable, to: 'bmc_scan_requests#datatable', klass: Admin::BmcScanRequestDatatable
+        # get :datatable, to: 'bmc_scan_requests#datatable', klass: Admin::BmcScanRequestDatatable
       end
       member do
-        #get :bmc_hosts_datatable, to: 'bmc_scan_requests#datatable', klass: Admin::BmcScanRequestDetailsDatatable
+        # get :bmc_hosts_datatable, to: 'bmc_scan_requests#datatable', klass: Admin::BmcScanRequestDetailsDatatable
       end
     end
     # ./bmc_hosts/onboards
     # ./bmc_hosts/onboard/{id}
     resources :onboard_requests, path: 'bmc_hosts/onboards', except: %i[edit new] do
       collection do
-        #get :datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDatatable
+        # get :datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDatatable
         post :new_modal
       end
       member do
-        #get :bmc_hosts_datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDetailsDatatable
+        # get :bmc_hosts_datatable, to: 'onboard_requests#datatable', klass: Admin::OnboardRequestDetailsDatatable
       end
     end
     # ./bmc_hosts
@@ -94,7 +94,7 @@ Rails.application.routes.draw do
       collection do
         post :multi_action
         post :new_modal
-        #get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
+        # get :datatable, to: 'bmc_hosts#datatable', klass: Admin::BmcHostDatatable
       end
     end
     # ./systems

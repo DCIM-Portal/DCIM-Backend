@@ -78,7 +78,6 @@ class Admin::ZonesController < AdminController
   end
 
   def show
-
     pick_filters(:bmc_host, bmc_host_filters)
 
     respond_to do |format|

@@ -1,7 +1,6 @@
 class Admin::VisualDcController < AdminController
   before_action :determine_scene, only: %i[show]
 
-
   def index; end
 
   def show

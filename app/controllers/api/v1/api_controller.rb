@@ -33,12 +33,17 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def index
-    #@data = model_class.all
     search = Dcim::Search::ApplicationSearch.search(model_class, params, forbidden_read_columns)
+
     pagination_info = search.pagination_info
-    @metadata[:pagination] = pagination_info if pagination_info
+    @metadata[:pagination] = pagination_info unless pagination_info.empty?
+
     filters_info = search.filters_info
-    @metadata[:filters] = filters_info
+    @metadata[:filters] = filters_info unless filters_info.empty?
+
+    order_info = search.order_info
+    @metadata[:order] = order_info unless order_info.empty?
+
     @data = search.results
   end
 

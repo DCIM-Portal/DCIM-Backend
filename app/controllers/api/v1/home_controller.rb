@@ -9,7 +9,7 @@ class Api::V1::HomeController < Api::V1::ApiController
   api! 'Show information about this app instance'
   def status
     {
-        version: Dcim::Version.to_s
+      version: Dcim::Version.to_s
     }
   end
 end

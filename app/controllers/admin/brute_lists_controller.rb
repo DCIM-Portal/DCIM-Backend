@@ -38,8 +38,7 @@ class Admin::BruteListsController < AdminController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     name = @cred.name

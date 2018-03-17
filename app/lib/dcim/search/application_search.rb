@@ -1,12 +1,10 @@
 class Dcim::Search::ApplicationSearch
   def self.search(model, params, forbidden_fields = [])
-    return self.new(model, params, forbidden_fields)
+    new(model, params, forbidden_fields)
   end
 
   def self.parse_raw_filter(filter_name, term)
-    if term.respond_to?(:each)
-      return parse_hash_filter(filter_name, term)
-    end
+    return parse_hash_filter(filter_name, term) if term.respond_to?(:each)
     [[filter_name, '=', term]]
   end
 
@@ -15,12 +13,12 @@ class Dcim::Search::ApplicationSearch
     hash.each do |op, term|
       op = op.downcase.to_sym
       op_map = {
-          eq: '=',
-          ne: '<>',
-          gt: '>',
-          gte: '>=',
-          lt: '<',
-          lte: '<='
+        eq: '=',
+        ne: '<>',
+        gt: '>',
+        gte: '>=',
+        lt: '<',
+        lte: '<='
       }.freeze
       op = op_map[op]
       output << [filter_name, op, term]
@@ -51,13 +49,11 @@ class Dcim::Search::ApplicationSearch
       unsanitized_fields = @magic_search['fields'].split(',')
       sanitized_fields = searchable_fields & unsanitized_fields
       if sanitized_fields.sort != unsanitized_fields.sort
-        raise ActionController::BadRequest.new(
-            "Invalid or forbidden fields provided in magic_search[fields]: " \
-            "#{unsanitized_fields - sanitized_fields}"
-        )
+        raise ActionController::BadRequest, 'Invalid or forbidden fields provided in magic_search[fields]: ' \
+          "#{unsanitized_fields - sanitized_fields}"
       end
-      statement = sanitized_fields.map { |field| "LOWER(#{field}) LIKE ?"}.join(" OR ")
-      parameter = '%'+@magic_search['query'].downcase+'%'
+      statement = sanitized_fields.map { |field| "LOWER(#{field}) LIKE ?" }.join(' OR ')
+      parameter = '%' + @magic_search['query'].downcase + '%'
       parameters = Array.new(sanitized_fields.count, parameter)
       collection = collection.where(statement, *parameters)
     end
@@ -78,22 +74,26 @@ class Dcim::Search::ApplicationSearch
   def pagination_info
     return nil unless @results
     {
-        total_count: @results.total_entries,
-        pages_count: @results.total_pages,
-        first_page?: @results.current_page == 1,
-        last_page?: @results.current_page == @results.total_pages,
-        previous_page_number: @results.previous_page,
-        next_page_number: @results.next_page,
-        out_of_bounds?: @results.out_of_bounds?,
-        offset: @results.offset
+      total_count: @results.total_entries,
+      pages_count: @results.total_pages,
+      first_page?: @results.current_page == 1,
+      last_page?: @results.current_page == @results.total_pages,
+      previous_page_number: @results.previous_page,
+      next_page_number: @results.next_page,
+      out_of_bounds?: @results.out_of_bounds?,
+      offset: @results.offset
     }
   end
 
   def filters_info
     output = {}
-    all = and_filters.map { |a, b, c| {key: a, operation: b, value: c} }
-    output[:all] = all if all
+    all = and_filters.map { |a, b, c| { key: a, operation: b, value: c } }
+    output[:all] = all unless all.empty?
     output
+  end
+
+  def order_info
+    order_fields.map { |a, b| { field: a, direction: b } } if order_fields
   end
 
   def searchable_fields
@@ -113,33 +113,27 @@ class Dcim::Search::ApplicationSearch
     return @order_fields if @order_fields
     fields = []
     order = @params['order']
-    if order.respond_to?(:each)
-      order.each do |order_item|
-        fields << order_field(order_item)
-      end
-      fields
-    else
-      order_field(order)
+    return [] unless order
+    raise ActionController::BadRequest, 'Order parameter must be an array' unless order.respond_to?(:each)
+    order.each do |order_item|
+      fields << order_field(order_item)
     end
+    @order_fields = fields
   end
 
   def order_field(raw_order)
     field = raw_order[0].to_s
-    if searchable_fields.include?(field)
-      direction = raw_order[1].to_s
-      if ['asc', 'desc'].include?(direction.downcase)
-        return [field, direction.downcase]
-      else
-        raise ActionController::BadRequest.new(
-            "Order for field \"#{field}\" must be \"asc\" or \"desc\" but this was provided: " +
-                direction
-        )
-      end
-    else
-      raise ActionController::BadRequest.new(
-          "Cannot order by this field: " +
-              field
-      )
+    unless searchable_fields.include?(field)
+      raise ActionController::BadRequest, 'Cannot order by this field: ' +
+                                          field
     end
+
+    direction = raw_order[1].to_s
+    unless %w[asc desc].include?(direction.downcase)
+      raise ActionController::BadRequest, "Order for field \"#{field}\" must be \"asc\" or \"desc\" but this was provided: " +
+                                          direction
+    end
+
+    [field, direction.downcase]
   end
 end
