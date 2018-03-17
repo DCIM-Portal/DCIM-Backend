@@ -62,6 +62,11 @@ class Dcim::Search::ApplicationSearch
       collection = collection.where(statement, *parameters)
     end
 
+    # Sort
+    order_fields.each do |field, direction|
+      collection = collection.order(field => direction)
+    end
+
     # Pagination
     page = @params.delete('page') || 1
     per_page = @params.delete('per_page') || 10
@@ -92,7 +97,7 @@ class Dcim::Search::ApplicationSearch
   end
 
   def searchable_fields
-    @model.column_names - @forbidden_fields.map(&:to_s)
+    @searchable_fields ||= @model.column_names - @forbidden_fields.map(&:to_s)
   end
 
   def and_filters
@@ -102,5 +107,39 @@ class Dcim::Search::ApplicationSearch
       filters += self.class.parse_raw_filter(key, value)
     end
     @and_filters = filters
+  end
+
+  def order_fields
+    return @order_fields if @order_fields
+    fields = []
+    order = @params['order']
+    if order.respond_to?(:each)
+      order.each do |order_item|
+        fields << order_field(order_item)
+      end
+      fields
+    else
+      order_field(order)
+    end
+  end
+
+  def order_field(raw_order)
+    field = raw_order[0].to_s
+    if searchable_fields.include?(field)
+      direction = raw_order[1].to_s
+      if ['asc', 'desc'].include?(direction.downcase)
+        return [field, direction.downcase]
+      else
+        raise ActionController::BadRequest.new(
+            "Order for field \"#{field}\" must be \"asc\" or \"desc\" but this was provided: " +
+                direction
+        )
+      end
+    else
+      raise ActionController::BadRequest.new(
+          "Cannot order by this field: " +
+              field
+      )
+    end
   end
 end
