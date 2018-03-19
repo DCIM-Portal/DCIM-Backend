@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
     t.integer "system_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "zone_id"
+    t.integer "zone_id"
     t.text "error_message"
     t.string "brand"
     t.string "product"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
 
   create_table "bmc_scan_request_hosts", id: false, force: :cascade do |t|
     t.integer "bmc_scan_request_id"
-    t.bigint "bmc_host_id"
+    t.integer "bmc_host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bmc_host_id"], name: "index_bmc_scan_request_hosts_on_bmc_host_id"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "brute_list_id"
-    t.bigint "zone_id"
+    t.integer "zone_id"
     t.index ["brute_list_id"], name: "index_bmc_scan_requests_on_brute_list_id"
     t.index ["name"], name: "index_bmc_scan_requests_on_name", unique: true
     t.index ["zone_id"], name: "index_bmc_scan_requests_on_zone_id"
@@ -65,15 +65,14 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
     t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "brute_list_id"
+    t.integer "brute_list_id"
     t.index ["brute_list_id"], name: "index_brute_list_secrets_on_brute_list_id"
   end
 
-  create_table "brute_lists", id: :bigint, default: nil, force: :cascade do |t|
+  create_table "brute_lists", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id"], name: "sqlite_autoindex_brute_lists_1", unique: true
     t.index ["name"], name: "index_brute_lists_on_name", unique: true
   end
 
@@ -120,19 +119,18 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
 
   create_table "onboard_request_bmc_hosts", force: :cascade do |t|
     t.integer "bmc_host_id"
-    t.bigint "onboard_request_id"
+    t.integer "onboard_request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bmc_host_id"], name: "index_onboard_request_bmc_hosts_on_bmc_host_id"
     t.index ["onboard_request_id"], name: "index_onboard_request_bmc_hosts_on_onboard_request_id"
   end
 
-  create_table "onboard_requests", id: :bigint, default: nil, force: :cascade do |t|
+  create_table "onboard_requests", force: :cascade do |t|
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "error_message"
-    t.index ["id"], name: "sqlite_autoindex_onboard_requests_1", unique: true
   end
 
   create_table "refresh_tokens", force: :cascade do |t|
@@ -147,7 +145,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
 
   create_table "systems", force: :cascade do |t|
     t.string "name"
-    t.bigint "foreman_host_id"
+    t.integer "foreman_host_id"
     t.string "cpu_model"
     t.integer "cpu_cores"
     t.integer "cpu_threads"
@@ -169,9 +167,8 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.bigint "foreman_location_id"
+    t.integer "foreman_location_id"
     t.bigint "parent_id"
-    t.index ["foreman_location_id"], name: "index_zones_on_foreman_location_id", unique: true
     t.index ["name"], name: "index_zones_on_name", unique: true
     t.index ["parent_id"], name: "index_zones_on_parent_id"
   end

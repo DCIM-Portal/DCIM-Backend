@@ -1,5 +1,6 @@
 class ChangeIdAndForeignKeysOfAllTablesToBigint < ActiveRecord::Migration[5.1]
   def change
+    return unless ActiveRecord::Base.connection.adapter_name.downcase.starts_with? 'mysql'
     begin
       ActiveRecord::Base.connection.execute <<-SQL
         SET FOREIGN_KEY_CHECKS=0;
