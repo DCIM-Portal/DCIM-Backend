@@ -74,11 +74,13 @@ class Dcim::Search::ApplicationSearch
   def pagination_info
     return nil unless @results
     {
-      total_count: @results.total_entries,
+      records_count: @results.total_entries,
       pages_count: @results.total_pages,
+      records_per_page: @results.per_page,
       first_page?: @results.current_page == 1,
       last_page?: @results.current_page == @results.total_pages,
       previous_page_number: @results.previous_page,
+      current_page_number: @results.current_page,
       next_page_number: @results.next_page,
       out_of_bounds?: @results.out_of_bounds?,
       offset: @results.offset
