@@ -9,10 +9,10 @@ module Dcim
       raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.is_a? Dcim::SmartProxyApi
       raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.features.get.to_hash.include? 'onboard'
       logger.debug "Returning cached Smart Proxy for Foreman location ID #{location_id} because it is still suitable"
-      return @smart_proxies[location_id]
+      @smart_proxies[location_id]
     rescue RuntimeError
       logger.debug "No Smart Proxy currently cached for Foreman location ID #{location_id}"
-      return @smart_proxies[location_id] = find_onboard_smart_proxy(location_id)
+      @smart_proxies[location_id] = find_onboard_smart_proxy(location_id)
     end
 
     def unset(location_id)

@@ -137,9 +137,9 @@ class OnboardJob < ApplicationJob
     @request.save!
   end
 
-  def fail_with_error(e)
+  def fail_with_error(error)
     @request.status = :stack_trace
-    @request.error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
+    @request.error_message = error.class.name + ': ' + error.message + "\n" + error.backtrace.join("\n")
     @logger.debug 'Job failed with stack trace:'
     @logger.debug @request.error_message
     @request.save!

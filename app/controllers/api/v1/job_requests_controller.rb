@@ -7,11 +7,11 @@ module Api
         raise "Cannot execute job because job class \"#{job_class_name}\" cannot be found" unless self.class.class_exists?(job_class_name)
         job_class = job_class_name.constantize
         job = job_class.perform_later(
-            foreman_resource: YAML.dump(@foreman_resource),
-            request: model
+          foreman_resource: YAML.dump(@foreman_resource),
+          request: model
         )
         @data = {
-            job_id: job.job_id
+          job_id: job.job_id
         }
       end
 
@@ -19,7 +19,7 @@ module Api
         raise NotImplementedError
       end
 
-      private
+      private_class_method
 
       def self.class_exists?(class_name)
         Module.const_get(class_name).is_a?(Class)

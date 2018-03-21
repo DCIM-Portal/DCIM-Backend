@@ -5,6 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Rails, what this project is written in
+gem 'rails', '~> 5.2.0.rc2'
+# Use MySQL as the database backend for ActiveRecord
+gem 'mysql2', '>= 0.3.18', '< 0.5'
+# Use Puma as the app server
+gem 'puma', '~> 3'
+
 # API Documentation Tool
 #
 # v0.5.3 through v0.5.6 are broken.
@@ -35,21 +42,6 @@ gem 'active_job_status', '>= 1.2.1'
 # Concurrent Ruby
 gem 'concurrent-ruby', require: 'concurrent'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.0.rc1'
-# Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.3.18', '< 0.5'
-# Use Puma as the app server
-gem 'puma', '~> 3'
-
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Timezone data for ActiveSupport
 gem 'tzinfo-data'
 
@@ -72,6 +64,4 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.1'
   # Test on SQLite3 database
   gem 'sqlite3'
-  # Sunspot progress bar
-  gem 'progress_bar'
 end

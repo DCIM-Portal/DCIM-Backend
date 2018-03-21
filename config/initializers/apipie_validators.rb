@@ -9,12 +9,10 @@ class IntegerValidator < Apipie::Validator::BaseValidator
   end
 
   def self.build(param_description, argument, options, block)
-    if argument == Integer
-      self.new(param_description, argument)
-    end
+    new(param_description, argument) if argument == Integer
   end
 
   def description
-    "Must be an Integer"
+    'Must be an Integer'
   end
 end

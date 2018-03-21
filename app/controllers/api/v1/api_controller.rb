@@ -28,8 +28,6 @@ class Api::V1::ApiController < ApplicationController
     # XXX: No CSRF token support when Foreman is authenticating in session mode
     #      Using default admin-authenticated resource until we find a better solution
     # @foreman_resource = current_user.foreman_api
-    @data ||= {}
-    @metadata ||= {}
   end
 
   def index

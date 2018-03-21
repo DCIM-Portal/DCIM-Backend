@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'mocha/mini_test'
 
@@ -12,23 +12,23 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def json?(string)
     JSON.parse(string)
-    return true
+    true
   rescue JSON::ParserError
-    return false
+    false
   end
 
   def authenticated_header
     token = Knock::AuthToken.new(
-        payload:
-            {
-                sub: 'admin',
-                username: 'admin',
-                foreman_session_id: 'dummy'
-            }
+      payload:
+          {
+            sub: 'admin',
+            username: 'admin',
+            foreman_session_id: 'dummy'
+          }
     ).token
 
     {
-        'Authorization' => "Bearer #{token}"
+      'Authorization' => "Bearer #{token}"
     }
   end
 end

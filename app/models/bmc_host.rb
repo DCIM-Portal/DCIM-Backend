@@ -79,10 +79,10 @@ class BmcHost < ApplicationRecord
     logger.debug 'Record updated!'
   end
 
-  def commit_exception(e)
-    self.error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
+  def commit_exception(error)
+    self.error_message = error.class.name + ': ' + error.message + "\n" + error.backtrace.join("\n")
     begin
-      self.sync_status = e.class.name.demodulize.underscore
+      self.sync_status = error.class.name.demodulize.underscore
     rescue ArgumentError
       self.sync_status = :stack_trace
     end
