@@ -14,4 +14,8 @@ class BmcScanRequest < ApplicationRecord
   validates :name, :brute_list_id, :zone_id, presence: true
   validates :start_address, :end_address, presence: true, format: { with: Resolv::IPv4::Regex, message: 'not a valid IPv4 address' }
   validates_uniqueness_of :name
+
+  before_destroy do
+    self.bmc_hosts = []
+  end
 end

@@ -10,4 +10,25 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def json?(string)
+    JSON.parse(string)
+    return true
+  rescue JSON::ParserError
+    return false
+  end
+
+  def authenticated_header
+    token = Knock::AuthToken.new(
+        payload:
+            {
+                sub: 'admin',
+                username: 'admin',
+                foreman_session_id: 'dummy'
+            }
+    ).token
+
+    {
+        'Authorization' => "Bearer #{token}"
+    }
+  end
 end

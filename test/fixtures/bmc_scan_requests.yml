@@ -2,9 +2,9 @@
 
 one:
   name: MyString1
-  start_address: MyString
-  end_address: MyString
-  status: 1
+  start_address: 10.246.0.64
+  end_address: 10.246.0.72
+  status: null
 
 two:
   name: MyString2

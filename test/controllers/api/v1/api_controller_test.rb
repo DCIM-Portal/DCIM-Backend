@@ -1,47 +1,25 @@
 require 'test_helper'
 
 class Api::V1::ApiControllerTest < ActionDispatch::IntegrationTest
-  def self.json?(string)
-    JSON.parse(string)
-    return true
-  rescue JSON::ParserError
-    return false
-  end
-
-  def authenticated_header
-    token = Knock::AuthToken.new(
-      payload:
-            {
-              sub: 'admin',
-              username: 'admin',
-              foreman_session_id: 'dummy'
-            }
-    ).token
-
-    {
-      'Authorization' => "Bearer #{token}"
-    }
-  end
-
   test 'index returns all models' do
     get api_v1_brute_lists_url,
         headers: authenticated_header
     assert_response :success
-    assert self.class.json?(@response.body)
+    assert json?(@response.body)
   end
 
   test 'show shows model' do
     get api_v1_brute_list_url(id: brute_lists(:one).id),
         headers: authenticated_header
     assert_response :success
-    assert self.class.json?(@response.body)
+    assert json?(@response.body)
   end
 
   test 'show encounters error' do
     get api_v1_brute_list_url(id: -1),
         headers: authenticated_header
     assert_response :not_found
-    assert self.class.json?(@response.body)
+    assert json?(@response.body)
   end
 
   test 'create saves new model' do

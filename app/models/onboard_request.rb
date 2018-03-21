@@ -6,4 +6,8 @@ class OnboardRequest < ApplicationRecord
     in_progress: 1,
     stack_trace: 2
   }
+
+  before_destroy do
+    self.bmc_hosts = []
+  end
 end

@@ -6,6 +6,14 @@ module Api
         short 'Power control devices'
       end
 
+      protected
+
+      def forbidden_read_columns
+        super + %i[username password]
+      end
+
+      public
+
       api! 'List BMC hosts'
       def index
         # TODO
@@ -35,13 +43,6 @@ module Api
       api! 'Delete a BMC host'
       def destroy
         # TODO
-        super
-      end
-
-      protected
-
-      def forbidden_read_columns
-        @forbidden_read_columns = %i[username password]
         super
       end
     end

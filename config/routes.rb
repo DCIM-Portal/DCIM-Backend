@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   apipie
   get '/', to: 'home#index'
 
+  concern :job_request do
+    member do
+      post 'execute'
+      post 'reset'
+    end
+  end
+
   concern :api_base do
     get '/', to: 'home#index'
     get '/status', to: 'home#status'
@@ -16,11 +23,11 @@ Rails.application.routes.draw do
       end
     end
     resources :bmc_hosts
-    resources :bmc_scan_requests
+    resources :bmc_scan_requests, concerns: :job_request
     resources :brute_lists
     resources :enclosure_racks
     resources :enclosures
-    resources :onboard_requests
+    resources :onboard_requests, concerns: :job_request
     resources :systems
   end
 
@@ -33,6 +40,8 @@ Rails.application.routes.draw do
     match 'v:api_version/*path', via: %i[all], to: redirect('/api/v1/%{path}')
     match '*path', via: %i[all], to: redirect('/api/v1/%{path}')
   end
+
+  # TODO: Remove all the routes below
 
   get 'admin', to: 'admin#index'
   # /admin

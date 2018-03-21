@@ -10,7 +10,7 @@ module Api::V1::ApiResponse
       case exception
       when ActiveRecord::RecordNotFound
         :not_found
-      when RestClient::InternalServerError
+      when RuntimeError
         :internal_server_error
       else
         :bad_request

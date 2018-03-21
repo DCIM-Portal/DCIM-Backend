@@ -1,6 +1,6 @@
 module Api
   module V1
-    class OnboardRequestsController < ApiController
+    class OnboardRequestsController < JobRequestsController
       resource_description do
         name 'Onboard Requests'
         short 'Requests that turn into jobs to register BMC hosts into Foreman by creating systems'
