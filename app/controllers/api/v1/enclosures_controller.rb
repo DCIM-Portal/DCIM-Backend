@@ -7,6 +7,7 @@ module Api
       end
 
       api! 'List enclosures'
+      collection!
       def index
         # TODO
         super

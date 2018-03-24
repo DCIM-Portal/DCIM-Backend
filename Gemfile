@@ -8,7 +8,7 @@ end
 # Rails, what this project is written in
 gem 'rails', '~> 5.2.0.rc2'
 # Use MySQL as the database backend for ActiveRecord
-gem 'mysql2', '>= 0.3.18', '< 0.5'
+gem 'mysql2', '>= 0.4', '< 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3'
 
@@ -34,7 +34,7 @@ gem 'will_paginate'
 gem 'redis-rails'
 
 # Sidekiq for Background Jobs
-gem 'sidekiq', '~> 5.1'
+gem 'sidekiq', '~> 5'
 
 # ActiveJob status tracking
 gem 'active_job_status', '>= 1.2.1'
@@ -57,11 +57,11 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.1.5'
-  gem 'web-console', '>= 3.5.1'
+  gem 'listen'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.1'
+  gem 'spring-watcher-listen'
   # Test on SQLite3 database
   gem 'sqlite3'
 end

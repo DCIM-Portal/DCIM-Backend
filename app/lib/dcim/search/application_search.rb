@@ -44,16 +44,16 @@ class Dcim::Search::ApplicationSearch
     end
 
     # Magic search: Where, any case-insensitive match wildcard left and right
-    @magic_search = @params.delete('magic_search') || {}
-    if @magic_search['fields'].is_a?(String) && @magic_search['query'].is_a?(String)
-      unsanitized_fields = @magic_search['fields'].split(',')
+    @search = @params.delete('search') || {}
+    if @search['fields'].is_a?(String) && @search['query'].is_a?(String)
+      unsanitized_fields = @search['fields'].split(',')
       sanitized_fields = searchable_fields & unsanitized_fields
       if sanitized_fields.sort != unsanitized_fields.sort
-        raise ActionController::BadRequest, 'Invalid or forbidden fields provided in magic_search[fields]: ' \
+        raise ActionController::BadRequest, 'Invalid or forbidden fields provided in search[fields]: ' \
           "#{unsanitized_fields - sanitized_fields}"
       end
       statement = sanitized_fields.map { |field| "LOWER(#{field}) LIKE ?" }.join(' OR ')
-      parameter = '%' + @magic_search['query'].downcase + '%'
+      parameter = '%' + @search['query'].downcase + '%'
       parameters = Array.new(sanitized_fields.count, parameter)
       collection = collection.where(statement, *parameters)
     end
@@ -84,6 +84,15 @@ class Dcim::Search::ApplicationSearch
       next_page_number: @results.next_page,
       out_of_bounds?: @results.out_of_bounds?,
       offset: @results.offset
+    }
+  end
+
+  def search_info
+    Rails.logger.warn @search
+    return {} unless @search['fields'].is_a?(String) && @search['query'].is_a?(String)
+    {
+        fields: @search['fields'].split(','),
+        query: @search['query']
     }
   end
 

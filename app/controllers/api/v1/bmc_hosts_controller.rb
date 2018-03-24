@@ -15,6 +15,7 @@ module Api
       public
 
       api! 'List BMC hosts'
+      collection!
       def index
         # TODO
         super

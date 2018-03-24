@@ -7,6 +7,7 @@ module Api
       end
 
       api! 'List credentials lists'
+      collection!
       def index
         # TODO
         super

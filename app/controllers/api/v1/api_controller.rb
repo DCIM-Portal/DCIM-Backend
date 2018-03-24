@@ -1,27 +1,12 @@
 class Api::V1::ApiController < ApplicationController
-  include Api::V1::ApiResponse
+  include ApiResponse
+  include AutoApiDocs
 
   before_action :authenticate_user
   before_action :initialize_foreman_resource
 
   resource_description do
     api_version '1'
-  end
-
-  def self.params!
-    mock_controller = new
-    model_class = mock_controller.send(:model_class)
-    columns = model_class.column_names -
-              mock_controller.send(:forbidden_write_columns).map(&:to_s)
-    columns.each do |column|
-      validator = case model_class.columns_hash[column].type
-                  when :integer, :bigint
-                    Integer
-                  else
-                    String
-                  end
-      param column, validator
-    end
   end
 
   def initialize_foreman_resource
@@ -35,6 +20,9 @@ class Api::V1::ApiController < ApplicationController
 
     pagination_info = search.pagination_info
     @metadata[:pagination] = pagination_info unless pagination_info.empty?
+
+    search_info = search.search_info
+    @metadata[:search] = search_info unless search_info.empty?
 
     filters_info = search.filters_info
     @metadata[:filters] = filters_info unless filters_info.empty?

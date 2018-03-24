@@ -15,6 +15,7 @@ module Api
       public
 
       api! 'List BMC scan requests'
+      collection!
       def index
         # TODO
         super

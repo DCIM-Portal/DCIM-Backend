@@ -4,6 +4,7 @@ class Api::V1::ZonesController < Api::V1::ApiController
   end
 
   api! 'List zones'
+  collection!
   def index
     super
   end

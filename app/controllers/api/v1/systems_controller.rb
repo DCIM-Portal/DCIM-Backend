@@ -7,6 +7,7 @@ module Api
       end
 
       api! 'List systems'
+      collection!
       def index
         # TODO
         super

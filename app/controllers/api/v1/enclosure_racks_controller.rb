@@ -7,6 +7,7 @@ module Api
       end
 
       api! 'List enclosure racks'
+      collection!
       def index
         # TODO
         super
