@@ -7,18 +7,17 @@ module Api::V1::AutoApiDocs
     end
 
     def model_class
-      model_class = mock_controller.send(:model_class)
+      mock_controller.send(:model_class)
     end
 
     def params!
-      columns = model_class.column_names -
-          mock_controller.send(:forbidden_write_columns).map(&:to_s)
+      columns = model_class.column_names - mock_controller.send(:forbidden_write_columns).map(&:to_s)
       columns.each do |column|
         validator = case model_class.columns_hash[column].type
-                      when :integer, :bigint
-                        Integer
-                      else
-                        String
+                    when :integer, :bigint
+                      Integer
+                    else
+                      String
                     end
         param column, validator
       end
@@ -54,19 +53,21 @@ module Api::V1::AutoApiDocs
         - +next_page_number+ – The page number after the current page or +null+ if there is no next page
         - +out_of_bounds?+ – +true+ if the requested page number is between 1 and +pages_count+. +false+ otherwise
         - +offset+ – The number of records skipped before the first record in the +data+ Array
-      
+
       === Order
       Sort the resultant records.
       ==== Input Params
       Zero or more of the following, applied in the order they are defined in the request:
-      #{columns.map{|column| "- <code>order[#{column}]</code> – \"asc\" to sort column +#{column}+ in ascending order" \
-      " or \"desc\" to sort +#{column}+ in descending order"}.join("\n      ")}
+      #{columns.map do |column|
+          "- <code>order[#{column}]</code> – \"asc\" to sort column +#{column}+ in ascending order" \
+              " or \"desc\" to sort +#{column}+ in descending order"
+        end .join("\n      ")}
       ==== Output Metadata
       - +order+ – Array of sort fields and directions in the order they were received.
         Each Array item contains a Object of:
         - +field+ – The sorted field name
         - +direction+ – Either "asc" or "desc" to mean sorted ascending or sorted descending, respectively
-      
+
       === Search
       Search multiple fields for a partial string and return all results with any matches.
       ==== Input Params
@@ -83,7 +84,7 @@ module Api::V1::AutoApiDocs
       "Where" filters constrain the results to match all of the specified conditions.
       ==== Input Params
       Zero or more of the following fields as a Hash with operator +OPERATOR+ and value +OPERAND+:
-      #{columns.map{|column| "- <code>#{column}[OPERATOR]</code> – Value is +OPERAND+"}.join("\n      ")}
+      #{columns.map { |column| "- <code>#{column}[OPERATOR]</code> – Value is +OPERAND+" }.join("\n      ")}
       Any of the above params can be repeated with different <code>OPERATOR</code>s,
       and all provided params are combined to select records that match all of the filter conditions.
 
@@ -222,13 +223,11 @@ module Api::V1::AutoApiDocs
       end
 
       # Where
-      columns = model_class.column_names -
-          mock_controller.send(:forbidden_read_columns).map(&:to_s)
       columns.each do |column|
         param column, Hash, desc: <<-DOC
         "Where" filter.
         Key must be +eq+, +ne+, +gt+, +gte+, +lt+, or +lte+.
-        Value is the exact operand for the condition. 
+        Value is the exact operand for the condition.
         Multiple key-value pairs are allowed and are combined with all other "where" filters.
         DOC
       end

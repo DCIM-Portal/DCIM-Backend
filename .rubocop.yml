@@ -40,6 +40,9 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - 'test/**/*'

@@ -91,8 +91,8 @@ class Dcim::Search::ApplicationSearch
     Rails.logger.warn @search
     return {} unless @search['fields'].is_a?(String) && @search['query'].is_a?(String)
     {
-        fields: @search['fields'].split(','),
-        query: @search['query']
+      fields: @search['fields'].split(','),
+      query: @search['query']
     }
   end
 
