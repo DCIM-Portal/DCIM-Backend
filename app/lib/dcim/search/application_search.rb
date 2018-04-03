@@ -40,7 +40,12 @@ class Dcim::Search::ApplicationSearch
 
     # Where, all match exactly
     and_filters.each do |field, op, term|
-      collection = collection.where("#{field} #{op} ?", term)
+      collection = if op == '='
+                     # This condition is used to match enums
+                     collection.where(field => term)
+                   else
+                     collection.where("#{field} #{op} ?", term)
+                   end
     end
 
     # Magic search: Where, any case-insensitive match wildcard left and right
