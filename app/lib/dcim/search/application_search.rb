@@ -3,29 +3,6 @@ class Dcim::Search::ApplicationSearch
     new(model, params, forbidden_fields)
   end
 
-  def self.parse_raw_filter(filter_name, term)
-    return parse_hash_filter(filter_name, term) if term.respond_to?(:each)
-    [[filter_name, '=', term]]
-  end
-
-  def self.parse_hash_filter(filter_name, hash)
-    output = []
-    hash.each do |op, term|
-      op = op.downcase.to_sym
-      op_map = {
-        eq: '=',
-        ne: '<>',
-        gt: '>',
-        gte: '>=',
-        lt: '<',
-        lte: '<='
-      }.freeze
-      op = op_map[op]
-      output << [filter_name, op, term]
-    end
-    output
-  end
-
   attr_reader :results
 
   def initialize(model, params, forbidden_fields)
@@ -38,14 +15,26 @@ class Dcim::Search::ApplicationSearch
   def search
     collection = @model.all
 
-    # Where, all match exactly
-    and_filters.each do |field, op, term|
-      collection = if op == '='
-                     # This condition is used to match enums
-                     collection.where(field => term)
-                   else
-                     collection.where("#{field} #{op} ?", term)
-                   end
+    # Filters
+    filters_info.each do |filter_group|
+      first = true
+      filter_group.each do |filter|
+        field = filter[:key]
+        op = filter[:operation]
+        term = filter[:value]
+        # (op == '=') is used to match enums
+        if op == '=' && first
+          collection = collection.where(field => term)
+          first = false
+        elsif op == '='
+          collection = collection.or(@model.where(field => term))
+        elsif first
+          collection = collection.where("#{field} #{op} ?", term)
+          first = false
+        else
+          collection = collection.or(@model.where("#{field} #{op} ?", term))
+        end
+      end
     end
 
     # Magic search: Where, any case-insensitive match wildcard left and right
@@ -101,10 +90,36 @@ class Dcim::Search::ApplicationSearch
   end
 
   def filters_info
-    output = {}
-    all = and_filters.map { |a, b, c| { key: a, operation: b, value: c } }
-    output[:all] = all unless all.empty?
-    output
+    return @filters if @filters
+    @filters = []
+    raw_filters = @params.delete('filters')
+    return @filters unless raw_filters.respond_to?(:keys)
+    raw_filters.each do |filter_group_name, raw_filter_group|
+      filter_group = []
+      raw_filter_group.each do |raw_filter|
+        key, operation, value = validated_filter(raw_filter, "\"#{filter_group_name}\"")
+        filter_group << {
+          key: key,
+          operation: operation,
+          value: value
+        }
+      end
+      @filters << filter_group
+    end
+    @filters
+  end
+
+  def validated_filter(raw_filter, filter_group_name = 'of unknown name')
+    permitted_operations = %w[= <> > >= < <=]
+    match = raw_filter.match(/([^<=>]+)([<=>]+)(.*)/)
+    raise ActionController::BadRequest, "Filter group #{filter_group_name} contains an invalid filter item" unless match.is_a?(MatchData)
+    key, operation, value = match.captures
+    raise ActionController::BadRequest, "Invalid or forbidden field name \"#{key}\" in filter group #{filter_group_name}" unless searchable_fields.include?(key)
+    unless permitted_operations.include?(operation)
+      raise ActionController::BadRequest, "Invalid operation \"#{operation}\" for field name \"#{key}\" in filter group #{filter_group_name}"
+    end
+    raise ActionController::BadRequest, "Value required but not provided for field name \"#{key}\" in filter group #{filter_group_name}" if value.empty?
+    [key, operation, value]
   end
 
   def order_info
@@ -115,21 +130,12 @@ class Dcim::Search::ApplicationSearch
     @searchable_fields ||= @model.column_names - @forbidden_fields.map(&:to_s)
   end
 
-  def and_filters
-    return @and_filters if @and_filters
-    filters = []
-    @params.extract!(*searchable_fields).each do |key, value|
-      filters += self.class.parse_raw_filter(key, value)
-    end
-    @and_filters = filters
-  end
-
   def order_fields
     return @order_fields if @order_fields
     fields = []
     order = @params['order']
     return [] unless order
-    raise ActionController::BadRequest, 'Order parameter must be an array' unless order.respond_to?(:each)
+    raise ActionController::BadRequest, 'Order parameter must be iterable' unless order.respond_to?(:each)
     order.each do |order_item|
       fields << order_field(order_item)
     end

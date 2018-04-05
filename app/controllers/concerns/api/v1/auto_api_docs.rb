@@ -29,7 +29,7 @@ module Api::V1::AutoApiDocs
       description <<-DOC
       This API method provides a list (collection) of records, which can be *paginated*, *sorted*, *searched*, and *filtered* according to the provided params, all of which are optional.
 
-      Default results if no params are specified:
+      Default settings if no params are specified:
       - *Pagination:* Page 1 with a server-configured number of results per page
       - <b>Sort order:</b> Unspecified, probably in ascending order of each record's internal ID
       - *Search:* None
@@ -38,6 +38,7 @@ module Api::V1::AutoApiDocs
       === Pagination
       Navigate to different pages and/or change how many records are in a page.
       ==== Input Params
+      The following input params are optional. The server default value will be used for each param not provided.
       - +page+ – Page number, starting from 1
       - +per_page+ – Records per page
       ==== Output Metadata
@@ -71,6 +72,7 @@ module Api::V1::AutoApiDocs
       === Search
       Search multiple fields for a partial string and return all results with any matches.
       ==== Input Params
+      Both of the following input params must be provided to apply a search:
       - <code>search[fields]</code> – A comma-delimited list of fields on which a partial match search will run.
         Possible fields: +#{columns.join('+, +')}+
       - <code>search[query]</code> – A case-insensitive string to match in any part of the fields specified.
@@ -81,26 +83,35 @@ module Api::V1::AutoApiDocs
         - +query+ – Case-insensitive string used to find partial matches in the specified fields
 
       === Filters
-      "Where" filters constrain the results to match all of the specified conditions.
+      "Where" clause filters constrain the query to return results matching the specified conditions.
+
+      For each record, _any_ *filter* that matches makes its <b>filter group</b> evaluate to true.
+      _All_ <b>filter groups</b> must evaluate to true in order to select the record.
       ==== Input Params
-      Zero or more of the following fields as a Hash with operator +OPERATOR+ and value +OPERAND+:
-      #{columns.map { |column| "- <code>#{column}[OPERATOR]</code> – Value is +OPERAND+" }.join("\n      ")}
-      Any of the above params can be repeated with different <code>OPERATOR</code>s,
-      and all provided params are combined to select records that match all of the filter conditions.
+      Not providing the +filters+ param means that filters will not be applied.
+      - +filters+ – Object. Each item in this Object is called a <b>filter group</b>.
+        It doesn't matter what +FILTER_GROUP_NAME+ is, but each unique +FILTER_GROUP_NAME+ represents a filter group.
+        Filter groups are combined with +AND+ in the query generation process. Each filter group is:
+        - <code>filters[FILTER_GROUP_NAME]</code> – Array. Each item in this Array is called a *filter*.
+          Filters are combined with +OR+ in the query generation process. Each filter is structured like so:
+          - <code>filters[FILTER_GROUP_NAME][]</code> – Value in the format of <code>{FIELD}{OPERATOR}{OPERAND}</code>
 
-      +OPERATOR+ can be one of the following:
-      - +eq+ – equals
-      - +ne+ – not equals
-      - +gt+ – greater than
-      - +gte+ – greater than or equals
-      - +lt+ – less than
-      - +lte+ – less than or equals
+      <code>{FIELD}</code> is the name of the field to be filtered. Possible fields: +#{columns.join('+, +')}+
 
-      The +OPERATOR+ applies to the +OPERAND+.
+      <code>{OPERATOR}</code> is one of the following:
+      - <code>=</code> – equals
+      - <code><></code> – not equals
+      - <code>></code> – greater than
+      - <code>>=</code> – greater than or equals
+      - <code><</code> – less than
+      - <code><=</code> – less than or equals
+
+      The <code>{OPERATOR}</code> applies to the <code>{OPERAND}</code>.
+      If the <code>{OPERATOR}</code> is "=", the filter will look for an exact match of <code>{OPERAND}</code>.
+      In this case, <code>{FIELD}</code> can be an enum internally and <code>{OPERAND}</code> will match the string/symbol representation of the enum.
       ==== Output Metadata
-      - +filters+ – Object of filters and the way they were applied to modify the collection selection:
-        - +all+ – Array of filters, all of which were applied to the collection selection.
-          Each Array item contains an Object of:
+      - +filters+ – Array of filters and the way they were applied to modify the collection selection. Each item is:
+        - Filter group – Array of filters. Each item is an Object consisting of these keys:
           - +key+ – The field to which this filter applied
           - +operation+ – The operator used in the filter:
             "=" (equals),
@@ -115,7 +126,16 @@ module Api::V1::AutoApiDocs
       formats ['JSON']
 
       example <<-DOC
-      # /api/v1/bmc_hosts?page=1&per_page=2&zone_id[gte]=1&zone_id[lte]=3&search[fields]=brand,product&search[query]=R410&order[serial]=asc
+      # /api/v1/bmc_hosts?page=1&per_page=2&filters[0][]=zone_id>=1&filters[1][]=zone_id<=3&search[fields]=brand,product&search[query]=R410&order[serial]=asc
+      #                   └┬───┘ └┬───────┘ └┬────────────────────┘ └┬────────────────────┘ └┬─────────────────────────┘ └┬───────────────┘ └┬──────────────┘
+      #                    │      │          │                       │                       │                            │┌─────────────────┘
+      #                    │      │          │                       │                       │ ┌──────────────────────────┘└ Sort by "serial" field ascending
+      #                    │      │          │                       │                       │ └ Partial or full match for the string "R410"
+      #                    │      │          │                       │                       └ Partial or full string search on fields "brand" and "product"
+      #                    │      │          │                       └ The "zone_id" field of all returned results must be less than or equal to 3
+      #                    │      │          └ The "zone_id" field of all returned results must be greater than or equal to 1
+      #                    │      └ Show 2 records per page
+      #                    └ Show page 1
       {
           "data": [
               {
@@ -174,25 +194,101 @@ module Api::V1::AutoApiDocs
               ],
               "query": "R410"
           },
-          "filters": {
-              "all": [
+          "filters": [
+              [
                   {
                       "key": "zone_id",
                       "operation": ">=",
                       "value": "1"
                   },
+              ],
+              [
                   {
                       "key": "zone_id",
                       "operation": "<=",
                       "value": "3"
                   }
               ]
-          },
+          ],
           "order": [
               {
                   "field": "serial",
                   "direction": "asc"
               }
+          ]
+      }
+      DOC
+
+      example <<-DOC
+      # /api/v1/bmc_hosts?filters[group1][]=updated_at>=2023-03-23T14:46:00%2B00:00&filters[group1][]=zone_id=999999
+      #                   └┬──────────────────────────────────────────────────────┘ └┬─────────────────────────────┘
+      #                    │ ┌───────────────────────────────────────────────────────┘
+      #                    │ └ The "zone_id" field of all returned results must be 999999 or…
+      #                    └── the "updated_at" field of all returned results must be at or after 23 March 2023 at 14:46:00 UTC
+      {
+          "data": [
+              {
+                  "id": 1,
+                  "serial": "CZ3402Y24T",
+                  "ip_address": "192.168.1.65",
+                  "power_status": "on",
+                  "sync_status": "success",
+                  "system_id": 6,
+                  "created_at": "2014-04-13T14:29:12.000-05:00",
+                  "updated_at": "2023-03-23T09:46:03.000-05:00",
+                  "zone_id": 1,
+                  "error_message": null,
+                  "brand": "HP",
+                  "product": "ProLiant DL160 Gen8",
+                  "onboard_status": "success",
+                  "onboard_step": "complete",
+                  "onboard_error_message": null,
+                  "onboard_updated_at": "2017-10-04T15:11:36.000-05:00"
+              },
+              {
+                  "id": 2,
+                  "serial": "CZ3341R2HJ",
+                  "ip_address": "192.168.1.66",
+                  "power_status": "on",
+                  "sync_status": "success",
+                  "system_id": 3,
+                  "created_at": "2014-04-13T14:29:12.000-05:00",
+                  "updated_at": "2023-03-23T09:46:07.000-05:00",
+                  "zone_id": 1,
+                  "error_message": null,
+                  "brand": "HP",
+                  "product": "ProLiant DL160 Gen8",
+                  "onboard_status": "success",
+                  "onboard_step": "complete",
+                  "onboard_error_message": null,
+                  "onboard_updated_at": "2017-10-04T15:11:36.000-05:00"
+              }
+          ],
+          "pagination": {
+              "records_count": 2,
+              "pages_count": 1,
+              "records_per_page": 10,
+              "first_page?": true,
+              "last_page?": true,
+              "previous_page_number": null,
+              "current_page_number": 1,
+              "next_page_number": null,
+              "out_of_bounds?": false,
+              "offset": 0
+          },
+          "filters": [
+              [
+                  {
+                      "key": "updated_at",
+                      "operation": ">=",
+                      "value": "2023-03-23T14:46:00+00:00"
+                  },
+                  {
+                      "key": "zone_id",
+                      "operation": "=",
+                      "value": "999999"
+                  }
+              ]
           ]
       }
       DOC
@@ -222,15 +318,8 @@ module Api::V1::AutoApiDocs
         param :query, String, desc: 'A case-insensitive string to match partially in any of the specified +fields+'
       end
 
-      # Where
-      columns.each do |column|
-        param column, Hash, desc: <<-DOC
-        "Where" filter.
-        Key must be +eq+, +ne+, +gt+, +gte+, +lt+, or +lte+.
-        Value is the exact operand for the condition.
-        Multiple key-value pairs are allowed and are combined with all other "where" filters.
-        DOC
-      end
+      # Filters
+      param :filters, Hash, desc: 'Filter groups (explained in the "Search" section above)'
     end
   end
 end

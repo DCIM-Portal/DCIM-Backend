@@ -48,6 +48,7 @@ module Api::V1::ApiResponse
       iterable: data.respond_to?(:to_ary)
     }
     hash[:debug] = debug_meta
+    hash[:debug][:sql] = data.to_sql if data.respond_to?(:to_sql)
     hash.merge!(@metadata)
     hash
   end
