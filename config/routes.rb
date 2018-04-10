@@ -20,15 +20,25 @@ Rails.application.routes.draw do
       collection do
         get 'diff', to: 'zones#diff'
         post 'diff/resolve', to: 'zones#diff_resolve'
+        get 'structure'
       end
     end
-    resources :bmc_hosts
-    resources :bmc_scan_requests, concerns: :job_request
-    resources :brute_lists
-    resources :enclosure_racks
-    resources :enclosures
-    resources :onboard_requests, concerns: :job_request
-    resources :systems
+    %i[
+      bmc_hosts
+      bmc_scan_requests
+      brute_lists
+      enclosure_racks
+      enclosures
+      onboard_requests
+      systems
+    ].each do |resource|
+      resources resource do
+        collection do
+          get 'structure'
+        end
+        concerns :job_request if resource.to_s.ends_with?('_requests')
+      end
+    end
   end
 
   namespace :api do

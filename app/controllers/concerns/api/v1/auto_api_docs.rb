@@ -23,6 +23,46 @@ module Api::V1::AutoApiDocs
       end
     end
 
+    def structure!
+      description <<-DOC
+      This API method describes the structure of #{model_class.name.pluralize}.
+      The output +data+ is an Array, and each item of the Array is an Object describing each column/field.
+      This Object contains the following keys:
+
+      - +name+ – Name of the column/field
+      - +type+ – Type of the column/field. Known types:
+        - +integer+ – Real number without a decimal
+        - +string+ – Value shows up as a string, but internally may be a varchar or a text.
+        - +primary_key+ – Like an +integer+, but is the one column/field that uniquely identifies the record
+          The +name+ is very likely to be "id".
+        - +datetime+ – Value shows up as the ISO 8601 string representation of an internally stored datetime
+        - +enum+ – Value shows up as a +string+, but internally, it's mapped to an integer
+        - +foreign_key+ – Value shows up as an +integer+, but it's the "id" (primary key) of a different kind of record to which this record belongs
+      - +limit+ – The maximum length of the internal field type. +null+ if this is not applicable (like to the +datetime+ type).
+        For fields that are integers internally, this is the display width or maximum number of digits that the integer can be.
+        For fields that are strings internally, this is the character limit.
+      - +readable?+ – +true+ if the value of this column/field can be read with a GET request in the standard CRUD operations. +false+ otherwise
+      - +writable?+ – +true+ if the value of this column/field can be set with a POST/PATCH/PUT request in the standard CRUD operations. +false+ otherwise
+      - +accessible?+ – +false+ if the value of this column/field is neither readable nor writable using any of the standard CRUD operations.
+        +true+ if the value of column/field is readable, writable, or both, using any of the standard CRUD operations
+
+      In addition to the keys above, the following keys may appear under certain conditions:
+      - +enum+ – Only appears if +type+ is "enum".
+        The value is an Object where the keys are the string representations of the integer values stored internally
+      - +foreign_key+ – Only appears if +type+ is "foreign_key". The value is an Object with the following keys:
+        - +name+ – The singular internal name of the foreign record
+        - +plural_name+ – The plural internal name of the foreign record
+      DOC
+
+      formats ['JSON']
+
+      route = Apipie.routes_for_action(self, :structure, desc: nil, options: nil).first
+      mock = mock_controller
+      mock.structure
+      example("# #{route[:verb]} #{route[:path]}\n" +
+                  JSON.pretty_generate(data: mock.instance_variable_get(:@data)))
+    end
+
     def collection!
       columns = model_class.column_names - mock_controller.send(:forbidden_read_columns).map(&:to_s)
 

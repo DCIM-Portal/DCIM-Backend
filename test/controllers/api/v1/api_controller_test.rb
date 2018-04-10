@@ -54,4 +54,16 @@ class Api::V1::ApiControllerTest < ActionDispatch::IntegrationTest
       test_brute_list.reload
     end
   end
+
+  test 'structure describes model' do
+    test_brute_list = BruteList.new(name: 'TestBruteList')
+    test_brute_list.save!
+    get structure_api_v1_brute_lists_url,
+        headers: authenticated_header
+    assert_response :success
+    assert json?(@response.body)
+    data = JSON.parse(@response.body)['data']
+    assert data.is_a?(Array)
+    assert_equal 1, data.select { |column| column['name'] == 'id' }.count
+  end
 end

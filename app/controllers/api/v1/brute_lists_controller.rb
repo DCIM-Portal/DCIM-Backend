@@ -38,6 +38,12 @@ module Api
         # TODO
         super
       end
+
+      api! 'Show the data structure of credentials lists'
+      structure!
+      def structure
+        super
+      end
     end
   end
 end

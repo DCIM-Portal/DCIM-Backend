@@ -39,6 +39,12 @@ class Api::V1::ZonesController < Api::V1::ApiController
     delete_foreman_location(representation)
   end
 
+  api! 'Show the data structure of zones'
+  structure!
+  def structure
+    super
+  end
+
   include Api::V1::ZonesControllerDiff
 
   private

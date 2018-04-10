@@ -58,6 +58,12 @@ module Api
         # TODO
         super
       end
+
+      api! 'Show the data structure of BMC scan requests'
+      structure!
+      def structure
+        super
+      end
     end
   end
 end

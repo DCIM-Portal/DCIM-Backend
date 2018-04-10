@@ -57,6 +57,44 @@ class Api::V1::ApiController < ApplicationController
     @data = model
   end
 
+  def structure
+    @data = []
+    foreign_keys_info = model_class
+                        .reflect_on_all_associations(:belongs_to)
+                        .map { |association| [association.foreign_key, association] }
+                        .to_h
+    columns_hash = model_class.columns_hash
+    columns_hash.each do |column_name, adapter|
+      column_info = {}
+      column_info[:name] = column_name
+      column_info[:type] = adapter.type
+      column_info[:limit] = adapter.limit
+
+      # Handle primary key
+      if model_class.primary_key == column_name
+        column_info[:type] = :primary_key
+      # Handle enums
+      elsif model_class.defined_enums.key?(column_name)
+        column_info[:type] = :enum
+        column_info[:enum] = model_class.defined_enums[column_name]
+      # Handle foreign keys
+      elsif foreign_keys_info.key?(column_name)
+        column_info[:type] = :foreign_key
+        foreign_key = foreign_keys_info[column_name]
+        column_info[:foreign_key] = {
+          name: foreign_key.name,
+          plural_name: foreign_key.plural_name
+        }
+      end
+
+      column_info[:readable?] = !forbidden_read_columns.include?(column_name.to_sym)
+      column_info[:writable?] = !forbidden_write_columns.include?(column_name.to_sym)
+      column_info[:accessible?] = !forbidden_access_columns.include?(column_name.to_sym)
+
+      @data << column_info
+    end
+  end
+
   protected
 
   def apply_params_to_model(params, model)
