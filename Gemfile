@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Rails, what this project is written in
-gem 'rails', '~> 5.2.0.rc2'
+gem 'rails', '~> 5.2'
 # Use MySQL as the database backend for ActiveRecord
 gem 'mysql2', '>= 0.4', '< 0.5'
 # Use Puma as the app server
