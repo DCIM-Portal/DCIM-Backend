@@ -4,6 +4,8 @@ class BmcHost < ApplicationRecord
   include DeviceTarget
   include BmcDrivers::Ipmi
 
+  attribute :ip_address, IpAddress::Type.new
+
   has_many :bmc_scan_request_hosts
   has_many :bmc_scan_requests, -> { distinct }, through: :bmc_scan_request_hosts
   has_many :onboard_request_bmc_hosts
@@ -44,7 +46,10 @@ class BmcHost < ApplicationRecord
   belongs_to :zone
   belongs_to :system, optional: true
   validate :validate_changed_credentials
-  validates :ip_address, presence: true, uniqueness: true, format: { with: Resolv::IPv4::Regex }
+  validates :ip_address,
+            presence: true,
+            uniqueness: { scope: :zone_id, message: 'cannot be duplicated within a zone' },
+            format: { with: Regexp.union(Resolv::IPv4::Regex, Resolv::IPv6::Regex) }
 
   before_save { self.onboard_updated_at = Time.now unless changes.select { |key| key.starts_with?('onboard_') }.empty? }
 

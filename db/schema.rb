@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_01_184433) do
+ActiveRecord::Schema.define(version: 2018_04_11_164224) do
 
   create_table "bmc_hosts", force: :cascade do |t|
     t.string "serial"
-    t.string "ip_address"
     t.string "username"
     t.string "password"
     t.integer "power_status"
@@ -30,7 +29,8 @@ ActiveRecord::Schema.define(version: 2018_03_01_184433) do
     t.integer "onboard_step"
     t.text "onboard_error_message"
     t.datetime "onboard_updated_at"
-    t.index ["ip_address"], name: "index_bmc_hosts_on_ip_address", unique: true
+    t.binary "ip_address", limit: 16
+    t.index ["ip_address", "zone_id"], name: "index_bmc_hosts_on_ip_address_and_zone_id", unique: true
     t.index ["serial"], name: "index_bmc_hosts_on_serial", unique: true
     t.index ["zone_id"], name: "index_bmc_hosts_on_zone_id"
   end
