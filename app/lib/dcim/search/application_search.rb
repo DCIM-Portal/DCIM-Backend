@@ -96,6 +96,10 @@ class Dcim::Search::ApplicationSearch
     return @filters unless raw_filters.respond_to?(:keys)
     raw_filters.each do |filter_group_name, raw_filter_group|
       filter_group = []
+
+      # Cast Hash to Array
+      raw_filter_group = raw_filter_group.values if raw_filter_group.respond_to?(:values)
+
       raw_filter_group.each do |raw_filter|
         key, operation, value = validated_filter(raw_filter, "\"#{filter_group_name}\"")
         filter_group << {
