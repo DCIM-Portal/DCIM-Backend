@@ -38,6 +38,18 @@ module Api
         super
       end
 
+      api! 'Reset an onboard request'
+      def reset
+        # TODO
+        super
+      end
+
+      api! 'Execute an onboard request'
+      def execute
+        # TODO
+        super
+      end
+
       api! 'Show the data structure of onboard requests'
       structure!
       def structure

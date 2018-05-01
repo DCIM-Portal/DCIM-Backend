@@ -5,24 +5,25 @@ Rails.application.routes.draw do
   apipie
   get '/', to: 'home#index'
 
-  concern :job_request do
-    member do
-      post 'execute'
-      post 'reset'
-    end
-  end
-
   concern :api_base do
     get '/', to: 'home#index'
     get '/status', to: 'home#status'
     post '/auth/user_token', to: 'user_token#create'
-    resources :zones do
+
+    concern :job_request do
+      member do
+        post 'execute'
+        post 'reset'
+      end
+    end
+
+    concern :zones do
       collection do
         get 'diff', to: 'zones#diff'
         post 'diff/resolve', to: 'zones#diff_resolve'
-        get 'structure'
       end
     end
+
     %i[
       bmc_hosts
       bmc_scan_requests
@@ -31,12 +32,18 @@ Rails.application.routes.draw do
       enclosures
       onboard_requests
       systems
+      zones
     ].each do |resource|
       resources resource do
         collection do
           get 'structure'
         end
         concerns :job_request if resource.to_s.ends_with?('_requests')
+        begin
+          concerns resource
+        rescue ArgumentError
+          nil
+        end
       end
     end
   end

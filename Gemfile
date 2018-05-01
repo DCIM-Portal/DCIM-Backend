@@ -8,13 +8,13 @@ end
 # Rails, what this project is written in
 gem 'rails', '~> 5.2'
 # Use MySQL as the database backend for ActiveRecord
-gem 'mysql2', '>= 0.4', '< 0.5'
+gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3'
 
 # API Documentation Tool
 #
-# v0.5.3 through v0.5.6 are broken.
+# v0.5.3 through v0.5.8 are broken.
 # See: https://github.com/Apipie/apipie-rails/issues/559
 gem 'apipie-rails', '0.5.2'
 
