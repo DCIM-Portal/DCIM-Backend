@@ -17,6 +17,13 @@ Rails.application.routes.draw do
       end
     end
 
+    concern :bmc_hosts do
+      member do
+        get 'power', to: 'bmc_hosts#power_get'
+        post 'power', to: 'bmc_hosts#power_set'
+      end
+    end
+
     concern :zones do
       collection do
         get 'diff', to: 'zones#diff'

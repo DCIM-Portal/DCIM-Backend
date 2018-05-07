@@ -52,6 +52,8 @@ module Api
       def structure
         super
       end
+
+      include Api::V1::BmcHostsControllerPower
     end
   end
 end
