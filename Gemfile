@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Rails, what this project is written in
-gem 'rails', '~> 5.2'
+gem 'rails', '>= 6.0.0.beta1', '< 7'
 # Use MySQL as the database backend for ActiveRecord
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
@@ -16,7 +16,7 @@ gem 'puma', '~> 3'
 #
 # v0.5.3 through v0.5.8 are broken.
 # See: https://github.com/Apipie/apipie-rails/issues/559
-gem 'apipie-rails', '0.5.2'
+gem 'apipie-rails', '~> 0.5.15'
 
 # JWT authentication
 gem 'knock'
@@ -37,7 +37,7 @@ gem 'redis-rails'
 gem 'sidekiq', '~> 5'
 
 # ActiveJob status tracking
-gem 'active_job_status', '>= 1.2.1'
+gem 'active_job_status', '~> 1.2'
 
 # Concurrent Ruby
 gem 'concurrent-ruby', require: 'concurrent'
@@ -53,6 +53,8 @@ group :development, :test do
   gem 'simplecov', require: false
   # Static code analysis
   gem 'rubocop', require: false
+  # Test on SQLite3 database
+  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :development do
@@ -62,6 +64,4 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'
-  # Test on SQLite3 database
-  gem 'sqlite3'
 end
