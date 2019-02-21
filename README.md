@@ -58,7 +58,7 @@ In addition to the base prerequisites, these additional prerequisites need to be
 
 In addition to the base prerequisites, these additional prerequisites need to be satisfied for manual deployments on the app server:
 
- - [**Ruby**](https://www.ruby-lang.org/) (>= 2.2.5) – This app is written in Ruby.
+ - [**Ruby**](https://www.ruby-lang.org/) (>= 2.5) – This app is written in Ruby.
    - _Suggested installation:_ Latest stable version of Ruby with [rbenv](https://github.com/rbenv/rbenv#readme) and [ruby-build](https://github.com/rbenv/ruby-build#readme):
 
          rbenv install "$(rbenv install -l | grep -v - | tail -1 | xargs)"
