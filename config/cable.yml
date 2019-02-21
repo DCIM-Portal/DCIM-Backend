@@ -1,10 +1,10 @@
 development:
   adapter: redis
-  url: redis://<%= ENV['DCIM_PORTAL_REDIS_HOST'] || "localhost" %>:<%= ENV['DCIM_PORTAL_REDIS_PORT'] || '6379' %>/<%= ENV['DCIM_PORTAL_REDIS_DB_FOR_CABLE'] || '2' %>
+  url: redis://<%=ENV['DCIM_PORTAL_CABLE_REDIS_HOST'] || "localhost" %>:<%= ENV['DCIM_PORTAL_CABLE_REDIS_PORT'] || '6379' %>/<%= ENV['DCIM_PORTAL_CABLE_REDIS_DB'] || '1' %>
 
 test:
   adapter: async
 
 production:
   adapter: redis
-  url: redis://<%= ENV['DCIM_PORTAL_REDIS_HOST'] || "localhost" %>:<%= ENV['DCIM_PORTAL_REDIS_PORT'] || '6379' %>/<%= ENV['DCIM_PORTAL_REDIS_DB_FOR_CABLE'] || '2' %>
+  url: redis://<%=ENV['DCIM_PORTAL_CABLE_REDIS_HOST'] || "localhost" %>:<%= ENV['DCIM_PORTAL_CABLE_REDIS_PORT'] || '6379' %>/<%= ENV['DCIM_PORTAL_CABLE_REDIS_DB'] || '1' %>

@@ -64,9 +64,9 @@ In addition to the base prerequisites, these additional prerequisites need to be
          rbenv install "$(rbenv install -l | grep -v - | tail -1 | xargs)"
  - [**Bundler**](https://bundler.io/) (>= 1.6.0) – Easily installs and updates the dependencies for this app
    - _Suggested installation:_ `gem install bundler`
- - [**MariaDB Server**](https://mariadb.org/) (>= 5.6.4) or any MySQL-compatible server
+ - [**MariaDB Server**](https://mariadb.org/) (>= 10.3) or any MySQL-compatible server
    - _Suggested installation:_ You may use the same MySQL backend as Foreman.  If you don't want to do this, install the `mariadb-server` package using your operating system's package manager, or [download and install MariaDB Server](https://mariadb.org/download/) manually if your operating system does not have a package manager.  Alternatively, you may use MySQL server clustering software like [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster).
- - **MySQL development headers** (>= 5.6.4) – For the `mysql2` gem
+ - **MySQL development headers** (>= 10.3) – For the `mysql2` gem
    - _Suggested installation for Ubuntu/Debian_: `apt install -y libmysqlclient-dev`
    - _Suggested installation for RHEL/CentOS_: `yum install -y mysql-devel`
  - [**Redis**](https://redis.io/) (>= 2.8) – Sidekiq job queuing and Action Cable WebSockets updates
@@ -106,19 +106,19 @@ Before starting the app, take note of the currently customizable environment var
 
 | Variable | Purpose
 | --- | ---
+| `DCIM_PORTAL_DB_ADAPTER` | The database adapter for the environment.  Defaults to `mysql2`
 | `DCIM_PORTAL_DB_HOST` | The MariaDB hostname to use.  Specify `localhost` if you want to connect to the socket `/var/run/mysqld/mysqld.sock`.  Defaults to `127.0.0.1`
 | `DCIM_PORTAL_DB_USERNAME` | The MariaDB username to use.  Defaults to `root`
 | `DCIM_PORTAL_DB_PASSWORD` | The MariaDB password to use.  Defaults to `sharepoint`
 | `DCIM_PORTAL_DB_PORT` | The MariaDB port to use.  Defaults to `3306`
 | `DCIM_PORTAL_DB` | The catch-all MariaDB database name.  Undefined by default
-| `DCIM_PORTAL_DB_DEV` | The development database name.  Defaults to `dcim_portal_development` but the default is overridden by `ENV['DCIM_PORTAL_DB']`
-| `DCIM_PORTAL_DB_TEST` | The test database name.  Defaults to `dcim_portal_test` but the default is overridden by `ENV['DCIM_PORTAL_DB']`
-| `DCIM_PORTAL_DB_PROD` | The production database name.  Defaults to `dcim_portal_production` but the default is overridden by `ENV['DCIM_PORTAL_DB']`
 | `DCIM_PORTAL_DB_POOL_SIZE` | The size of the database connection pool.  Defaults to `ENV['RAILS_MAX_THREADS']` or `5`, whichever is defined first
-| `DCIM_PORTAL_REDIS_HOST` | The Redis hostname to use for Sidekiq and Action Cable.  Redis Sentinels are not supported at this time.  Defaults to `localhost`
-| `DCIM_PORTAL_REDIS_PORT` | The Redis port to use for Sidekiq and Action Cable.  Defaults to `6379`
-| `DCIM_PORTAL_REDIS_DATABASE_FOR_SIDEKIQ` | The Redis database name for Sidekiq.  Defaults to `1`
-| `DCIM_PORTAL_REDIS_DATABASE_FOR_CABLE` | The Redis database name for Action Cable.  Defaults to `2`
+| `DCIM_PORTAL_JOB_REDIS_HOST` | The Redis hostname to use for Sidekiq.  Redis Sentinels are not supported at this time.  Defaults to `localhost`
+| `DCIM_PORTAL_JOB_REDIS_PORT` | The Redis port to use for Sidekiq.  Defaults to `6379`
+| `DCIM_PORTAL_JOB_REDIS_DB` | The Redis database name for Sidekiq.  Defaults to `1`
+| `DCIM_PORTAL_CABLE_REDIS_HOST` | The Redis hostname to use for Action Cable.  Redis Sentinels are not supported at this time.  Defaults to `localhost`
+| `DCIM_PORTAL_CABLE_REDIS_PORT` | The Redis port to use for Action Cable.  Defaults to `6379`
+| `DCIM_PORTAL_CABLE_REDIS_DB` | The Redis database name for Action Cable.  Defaults to `2`
 | `FOREMAN_URL` | The Foreman URL to which the app will connect for Foreman API service
 | `FOREMAN_USERNAME` | The Foreman admin username.  Defaults to `admin`
 | `FOREMAN_PASSWORD` | The Foreman admin password

@@ -1,7 +1,7 @@
 redis_config = {
-  url: 'redis://' + (ENV['DCIM_PORTAL_REDIS_HOST'] || 'localhost') +
-       ':' + (ENV['DCIM_PORTAL_REDIS_PORT'] || '6379') +
-       '/' + (ENV['DCIM_PORTAL_REDIS_DB_FOR_SIDEKIQ'] || '1')
+  url: 'redis://' + (ENV['DCIM_PORTAL_JOB_REDIS_HOST'] || 'localhost') +
+       ':' + (ENV['DCIM_PORTAL_JOB_REDIS_PORT'] || '6379') +
+       '/' + (ENV['DCIM_PORTAL_JOB_REDIS_DB'] || '2')
 }
 
 Sidekiq.configure_server do |config|

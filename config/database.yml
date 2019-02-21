@@ -10,7 +10,8 @@
 #   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
 #
 default: &default
-  adapter: mysql2
+  adapter: <%= ENV['DCIM_PORTAL_DB_ADAPTER'] || 'mysql2' %>
+  database: <%= ENV['DCIM_PORTAL_DB'] || 'dcim_portal' %>
   encoding: utf8
   pool: <%= ENV['DCIM_PORTAL_DB_POOL_SIZE'] || ENV['RAILS_MAX_THREADS'] || 5 %>
   username: <%= ENV['DCIM_PORTAL_DB_USERNAME'] || 'root' %>
@@ -21,16 +22,12 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DCIM_PORTAL_DB_DEV'] || ENV['DCIM_PORTAL_DB'] || 'dcim_portal_development' %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: sqlite3
-  database: db/test.sqlite3
-  #database: <%= ENV['DCIM_PORTAL_DB_TEST'] || ENV['DCIM_PORTAL_DB'] || 'dcim_portal_test' %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -53,4 +50,3 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['DCIM_PORTAL_DB_PROD'] || ENV['DCIM_PORTAL_DB'] || 'dcim_portal_production' %>
