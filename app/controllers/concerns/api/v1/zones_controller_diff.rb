@@ -143,6 +143,7 @@ module Api::V1::ZonesControllerDiff
         }
       end
       next unless zone[:parent_id] != foreman_location[:parent_id]
+
       @data[:differences][:parent_id] ||= []
       @data[:differences][:parent_id] << {
         local: zone,
@@ -287,6 +288,7 @@ module Api::V1::ZonesControllerDiff
     # Figure out parents after all Zones saved
     only_foreman.each do |representation|
       next unless representation[:parent_id]
+
       zone = Zone.find_by(foreman_location_id: representation[:foreman_location_id])
       zone.parent = Zone.find_by(foreman_location_id: representation[:parent_id])
       zone.save!

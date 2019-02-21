@@ -84,6 +84,7 @@ module BmcDrivers
         # freeipmi: {"/path/to/binary":"string"}
         raise Dcim::InvalidCredentialsError if result.value? 'invalid'
         raise Dcim::ConnectionTimeoutError if result.value? 'timeout'
+
         # freeipmi: {"":{"/path/to/binary":"string"}}
         freeipmi_error = result[''] if result.keys.length == 1
         unless freeipmi_error.nil?
@@ -95,6 +96,7 @@ module BmcDrivers
           raise Dcim::BmcBusyError if freeipmi_error.value? 'BMC busy'
           raise Dcim::SdrCacheError if freeipmi_error.value? 'Please flush the cache and regenerate it'
           raise Dcim::UnsupportedApiResponseError if freeipmi_error.value? 'missing argument'
+
           # ¯\_(ツ)_/¯
           raise Dcim::UnknownError, result
         end
@@ -111,6 +113,7 @@ module BmcDrivers
       end
       # All other failures, including ipmitool, which provides no error messages
       raise Dcim::UnknownError unless result
+
       result
     end
 

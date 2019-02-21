@@ -65,6 +65,7 @@ class Admin::BruteListsController < AdminController
   def param_check(args)
     args = args.to_unsafe_h if args.is_a? ActionController::Parameters
     return true unless args.respond_to? :each_value
+
     args.each_value do |arg|
       return true if arg.values.any?(&:blank?)
     end
@@ -75,7 +76,8 @@ class Admin::BruteListsController < AdminController
   # XXX: Bad name for this method
   def name_check(args)
     name = args
-    return false if name == @cred.name || (BruteList.where(name: name).empty? && !name.blank?)
+    return false if name == @cred.name || (BruteList.where(name: name).empty? && name.present?)
+
     true
   end
 

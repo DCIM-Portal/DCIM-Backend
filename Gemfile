@@ -7,10 +7,13 @@ end
 
 # Rails, what this project is written in
 gem 'rails', '>= 6.0.0.beta1', '< 7'
-# Use MySQL as the database backend for ActiveRecord
-gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3'
+
+gem 'dotenv-rails', groups: %i[development test]
+
+# Use MySQL as the database backend for ActiveRecord
+gem 'mysql2', '~> 0.5'
 
 # API Documentation Tool
 #

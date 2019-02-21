@@ -77,6 +77,7 @@ class BmcHost < ApplicationRecord
     self.sync_status  = :success
   rescue RuntimeError => e
     raise if pass_exceptions
+
     commit_exception(e)
     false
   ensure
@@ -105,6 +106,7 @@ class BmcHost < ApplicationRecord
 
   def smart_proxy=(smart_proxy_resource)
     raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.is_a? Dcim::SmartProxyApi
+
     @smart_proxy_resource = smart_proxy_resource
   end
 
@@ -112,6 +114,7 @@ class BmcHost < ApplicationRecord
     raise Dcim::BmcHostIncompleteError, 'serial' unless serial
     raise Dcim::InvalidUsernameError unless username
     raise Dcim::InvalidPasswordError unless password
+
     if onboard_updated_at
       max = 600
       elapsed = Time.now - onboard_updated_at
@@ -146,6 +149,7 @@ class BmcHost < ApplicationRecord
       # HPE ProLiant Gen6
       deep_find('product_manufacturer', fru)
     raise Dcim::UnsupportedFruError, "Couldn't extract brand: " + fru.to_s unless output
+
     output
   end
 
@@ -162,6 +166,7 @@ class BmcHost < ApplicationRecord
                  deep_find('product_part/model_number', fru)
              end
     raise Dcim::UnsupportedFruError, "Couldn't extract product: " + fru.to_s unless output
+
     output
   end
 
@@ -175,6 +180,7 @@ class BmcHost < ApplicationRecord
       deep_find('board_serial', fru)
     raise Dcim::UnsupportedFruError, "Couldn't extract serial: " + fru.to_s unless output
     raise Dcim::BmcHostIncompleteError, 'Serial number is blank' if output.empty?
+
     output
   end
 

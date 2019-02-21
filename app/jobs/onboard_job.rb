@@ -156,6 +156,7 @@ class OnboardJob < ApplicationJob
     @request.bmc_hosts.each do |bmc_host|
       begin
         raise Dcim::UnknownError, 'BmcHost#validate_onboardable did not return true' unless bmc_host.validate_onboardable
+
         bmc_host.onboard_status        = :in_progress
         bmc_host.onboard_step          = nil
         bmc_host.onboard_error_message = nil
@@ -174,6 +175,7 @@ class OnboardJob < ApplicationJob
     results = @foreman_resource.api.fact_values.get(payload: { search: 'facts.serialnumber=' + serial }).to_hash['results']
     raise Dcim::UnsupportedApiResponseError if results.nil? || !results.is_a?(Hash)
     raise Dcim::DuplicateSerialError if results.size > 1
+
     results
   end
 
@@ -183,14 +185,17 @@ class OnboardJob < ApplicationJob
 
   def serial_to_system_name(serial)
     result = look_up_serial(serial).keys[0]
-    return false if !result || result.empty?
+    return false if result.blank?
+
     result
   end
 
   def system_name_to_system_id(system_name)
-    return false if !system_name || system_name.empty?
+    return false if system_name.blank?
+
     result = @foreman_resource.api.hosts(system_name).get.as_json['id']
     return result.to_i if result
+
     result
   end
 
@@ -207,12 +212,14 @@ class OnboardJob < ApplicationJob
   def add_bmc_host_credentials_to_foreman_host(bmc_host, foreman_host_id)
     interfaces = @foreman_resource.api.hosts(foreman_host_id).interfaces.get.to_hash['results']
     raise Dcim::UnsupportedApiResponseError if interfaces.nil? || !interfaces.is_a?(Array)
+
     interface = interfaces.detect { |h| h['type'] == 'bmc' }
     raise Dcim::MissingRecordError, 'No BMC interface' unless interface
+
     interface_id = interface['id']
     payload = { 'username' => bmc_host.username,
                 'password' => bmc_host.password,
-                'type' =>     'bmc' }
+                'type' => 'bmc' }
     interface = @foreman_resource.api.hosts(foreman_host_id).interfaces(interface_id).put(payload.to_json).to_h
     interface == interface.merge(payload)
   end

@@ -7,5 +7,5 @@ class Zone < ApplicationRecord
   belongs_to :parent, class_name: 'Zone', foreign_key: :parent_id, optional: true
 
   validates :name, presence: true
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
 end

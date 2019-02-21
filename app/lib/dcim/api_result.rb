@@ -20,8 +20,6 @@ module Dcim
       to_h
     end
 
-    def [](key)
-      to_h[key]
-    end
+    delegate :[], to: :to_h
   end
 end

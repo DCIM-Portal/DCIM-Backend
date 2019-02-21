@@ -8,6 +8,7 @@ module Dcim
       smart_proxy_resource = @smart_proxies[location_id]
       raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.is_a? Dcim::SmartProxyApi
       raise Dcim::InvalidSmartProxyError unless smart_proxy_resource.features.get.to_hash.include? 'onboard'
+
       logger.debug "Returning cached Smart Proxy for Foreman location ID #{location_id} because it is still suitable"
       @smart_proxies[location_id]
     rescue RuntimeError
@@ -31,6 +32,7 @@ module Dcim
       logger.debug "Getting Smart Proxies list from Foreman location ID #{location_id}..."
       location = Dcim::ForemanApiFactory.instance.api.locations(location_id).get.to_hash
       raise Dcim::InvalidSmartProxyError unless location['smart_proxies'].is_a?(Array)
+
       location['smart_proxies'].each do |smart_proxy|
         begin
           smart_proxy_resource = Dcim::SmartProxyApi.new(url: smart_proxy['url'])

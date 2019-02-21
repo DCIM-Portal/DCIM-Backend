@@ -7,11 +7,7 @@ module Dcim
     attr_reader :version, :major, :minor, :patch
 
     def initialize(override_version = nil)
-      @version = if override_version
-                   override_version
-                 else
-                   File.read("#{Rails.root}/VERSION").chomp
-                 end
+      @version = override_version || File.read("#{Rails.root}/VERSION").chomp
       @major, @minor, @patch = @version.scan(/\d+/)
     rescue Errno::ENOENT
       @version = 'unknown'

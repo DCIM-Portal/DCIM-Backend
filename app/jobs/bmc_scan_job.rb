@@ -59,6 +59,7 @@ class BmcScanJob < ApplicationJob
 
     promises.each do |bmc_host_ip, promise|
       next unless promise.rejected?
+
       error = promise.reason
       @logger.warn bmc_host_ip + ': Promise rejected with reason: ' + error.to_s
       bmc_host = BmcHost.find_by(ip_address: bmc_host_ip)
@@ -116,6 +117,7 @@ class BmcScanJob < ApplicationJob
   def list_bmc_hosts(smart_proxy_resource)
     response = smart_proxy_resource.onboard.bmc.scan.range(@request.start_address, @request.end_address).get(timeout: 600).to_hash
     raise Dcim::BmcScanError, response['error'] if response.key?('error')
+
     response['result']
   end
 end

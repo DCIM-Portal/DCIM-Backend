@@ -67,6 +67,7 @@ class Dcim::Search::ApplicationSearch
 
   def pagination_info
     return nil unless @results
+
     {
       records_count: @results.total_entries,
       pages_count: @results.total_pages,
@@ -83,6 +84,7 @@ class Dcim::Search::ApplicationSearch
 
   def search_info
     return {} unless @search['fields'].is_a?(String) && @search['query'].is_a?(String)
+
     {
       fields: @search['fields'].split(','),
       query: @search['query']
@@ -91,9 +93,11 @@ class Dcim::Search::ApplicationSearch
 
   def filters_info
     return @filters if @filters
+
     @filters = []
     raw_filters = @params.delete('filters')
     return @filters unless raw_filters.respond_to?(:keys)
+
     raw_filters.each do |filter_group_name, raw_filter_group|
       filter_group = []
 
@@ -117,12 +121,14 @@ class Dcim::Search::ApplicationSearch
     permitted_operations = %w[= <> > >= < <=]
     match = raw_filter.match(/([^<=>]+)([<=>]+)(.*)/)
     raise ActionController::BadRequest, "Filter group #{filter_group_name} contains an invalid filter item" unless match.is_a?(MatchData)
+
     key, operation, value = match.captures
     raise ActionController::BadRequest, "Invalid or forbidden field name \"#{key}\" in filter group #{filter_group_name}" unless searchable_fields.include?(key)
     unless permitted_operations.include?(operation)
       raise ActionController::BadRequest, "Invalid operation \"#{operation}\" for field name \"#{key}\" in filter group #{filter_group_name}"
     end
     raise ActionController::BadRequest, "Value required but not provided for field name \"#{key}\" in filter group #{filter_group_name}" if value.empty?
+
     [key, operation, value]
   end
 
@@ -136,10 +142,12 @@ class Dcim::Search::ApplicationSearch
 
   def order_fields
     return @order_fields if @order_fields
+
     fields = []
     order = @params['order']
     return [] unless order
     raise ActionController::BadRequest, 'Order parameter must be iterable' unless order.respond_to?(:each)
+
     order.each do |order_item|
       fields << order_field(order_item)
     end

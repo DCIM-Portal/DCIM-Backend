@@ -14,6 +14,7 @@ class CreateRacks
                         !@rack.start_at.empty? &&
                         @rack.start_at.to_i >= 0 &&
                         @rack.zero_pad_to.to_i >= 0
+
     ActiveRecord::Base.transaction do
       @rack.amount.to_i.times do |i|
         create_object(i)

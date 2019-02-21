@@ -54,6 +54,7 @@ module Dcim
 
     def parse_params_route(route)
       return route unless route.is_a?(String)
+
       route_split = route.split('/')
       route = {}
       current_modifier = nil

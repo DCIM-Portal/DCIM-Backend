@@ -158,7 +158,8 @@ class Admin::ZonesController < AdminController
   # Ensure name is valid
   def name_check(args)
     name = args
-    return false if name == @zone.name || (Zone.where(name: name).empty? && !name.blank?)
+    return false if name == @zone.name || (Zone.where(name: name).empty? && name.present?)
+
     true
   end
 

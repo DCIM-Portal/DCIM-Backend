@@ -5,6 +5,7 @@ class IntegerValidator < Apipie::Validator::BaseValidator
 
   def validate(value)
     return false if value.nil?
+
     value.to_s =~ /^[-+]?[0-9]+$/
   end
 

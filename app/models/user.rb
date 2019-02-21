@@ -6,6 +6,7 @@ class User
       return false unless auth
       return from_foreman_login(auth['username']) if auth['username'] && auth['password']
       return from_refresh_token(auth['refresh_token']) if auth['refresh_token']
+
       false
     end
 
@@ -21,6 +22,7 @@ class User
     def from_refresh_token(refresh_token_string)
       refresh_token = RefreshToken.find_by(token: refresh_token_string)
       return false unless refresh_token
+
       refresh_token.user
     end
   end

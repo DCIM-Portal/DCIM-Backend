@@ -28,6 +28,7 @@ class MergeOnboardRequestIntoBmcHost < ActiveRecord::Migration[5.1]
 
     BmcHost.all.each do |bmc_host|
       next unless bmc_host.onboard_status
+
       onboard_request = OnboardRequest.new
       onboard_request.bmc_host = bmc_host
       onboard_request.status = bmc_host.onboard_status

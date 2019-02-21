@@ -28,6 +28,7 @@ class System < ApplicationRecord
 
     @@sync_attribute_names.each do |attribute_name|
       next unless attribute_to_fact_map[attribute_name.to_sym].is_a? Array
+
       define_method :"#{attribute_name}_from_facts" do |facts|
         attribute_to_fact_map[attribute_name.to_sym].each do |fact_name|
           return facts[fact_name] if facts[fact_name]
@@ -63,6 +64,7 @@ class System < ApplicationRecord
     keys = reply['results'].try :keys
     raise Dcim::DuplicateRecordError, "1 expected, #{keys.length} returned" if keys.length > 1
     raise Dcim::MissingRecordError, "1 expected, #{keys.length} returned" if keys.length <= 0
+
     _name, facts = reply['results'].first
     facts
   end
@@ -71,6 +73,7 @@ class System < ApplicationRecord
     output = self.class.send("#{attribute_name}_from_facts", facts) if self.class.respond_to? "#{attribute_name}_from_facts"
     return output if output
     return send("determine_#{attribute_name}", facts) if respond_to? "determine_#{attribute_name}"
+
     nil
   end
 
@@ -80,6 +83,7 @@ class System < ApplicationRecord
       ram_total_mb ||= facts[fact_name]
     end
     return nil unless ram_total_mb
+
     ram_total_mb.to_f * 1000 * 1000
   end
 end
