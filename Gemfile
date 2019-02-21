@@ -14,9 +14,9 @@ gem 'puma', '~> 3'
 
 # API Documentation Tool
 #
-# v0.5.3 through v0.5.8 are broken.
+# v0.5.3 through v0.5.15 are broken.
 # See: https://github.com/Apipie/apipie-rails/issues/559
-gem 'apipie-rails', '~> 0.5.15'
+gem 'apipie-rails', '0.5.2'
 
 # JWT authentication
 gem 'knock'
