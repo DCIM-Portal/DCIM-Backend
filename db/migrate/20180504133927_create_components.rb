@@ -3,8 +3,7 @@ class CreateComponents < ActiveRecord::Migration[5.2]
     create_table :components do |t|
       t.string :type
       t.string :identifier
-      t.string :brand
-      t.string :product
+      t.boolean :active
       t.string :driver
       t.references :parent, foreign_key: { to_table: :components }
 
@@ -31,7 +30,7 @@ class CreateComponents < ActiveRecord::Migration[5.2]
       t.references :component, foreign_key: { to_table: :components }
       t.references :linked_component, foreign_key: { to_table: :components }
 
-      t.bigint :slot
+      t.integer :status
 
       t.timestamps
     end

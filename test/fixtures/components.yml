@@ -3,14 +3,10 @@
 demo:
   type: Component
   identifier: demo
-  brand: DCIM Portal
-  product: Component
   driver: null
 
 demo-child:
   type: Component
   identifier: demo-child
-  brand: DCIM Portal
-  product: Component
   driver: null
   parent: demo

@@ -268,6 +268,7 @@ class OnboardJobTest < ActiveJob::TestCase
   end
 
   test 'associate BmcHost with new System' do
+    skip 'Not using dependency inversion'
     bmc_host = @mock_request.bmc_hosts.first
     system = systems(:one)
     foreman_host_id = system.foreman_host_id
@@ -278,6 +279,7 @@ class OnboardJobTest < ActiveJob::TestCase
   end
 
   test 'associate BmcHost to existing System' do
+    skip 'Not using dependency inversion'
     bmc_host = @mock_request.bmc_hosts.first
     system = systems(:one)
     foreman_host_id = system.foreman_host_id

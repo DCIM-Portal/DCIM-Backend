@@ -77,17 +77,17 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.index ["name"], name: "index_brute_lists_on_name", unique: true
   end
 
-  create_table "component_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "component_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "component_id"
     t.bigint "linked_component_id"
-    t.bigint "slot"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["component_id"], name: "index_component_links_on_component_id"
     t.index ["linked_component_id"], name: "index_component_links_on_linked_component_id"
   end
 
-  create_table "component_properties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "component_properties", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "component_id"
     t.string "property_key"
     t.string "property_value"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.index ["component_id"], name: "index_component_properties_on_component_id"
   end
 
-  create_table "component_secrets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "component_secrets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "username"
     t.string "password"
     t.bigint "component_id"
@@ -105,11 +105,10 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.index ["component_id"], name: "index_component_secrets_on_component_id"
   end
 
-  create_table "components", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "components", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "type"
     t.string "identifier"
-    t.string "brand"
-    t.string "product"
+    t.boolean "active"
     t.string "driver"
     t.bigint "parent_id"
     t.datetime "created_at", null: false
