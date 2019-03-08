@@ -1,12 +1,15 @@
 class Component < ApplicationRecord
   has_many :children, class_name: Component.name, foreign_key: :parent_id
   belongs_to :parent, class_name: Component.name, optional: true
+  has_many :properties, class_name: ComponentProperty.name
   has_many :component_links
   has_many :linked_components, through: :component_links
 
   before_destroy :give_children_to_parents
 
-  def driver; end
+  def driver_instance
+    self.driver.constantize
+  end
 
   private
 

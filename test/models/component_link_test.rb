@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ComponentLinkTest < ActiveSupport::TestCase
   setup do
-    @component1 = Component.create!(identifier: 'nic_port_one')
-    @component2 = Component.create!(identifier: 'nic_port_two')
+    @component1 = Component.create!(label: 'nic_port_one')
+    @component2 = Component.create!(label: 'nic_port_two')
   end
 
   test 'components are unlinked' do

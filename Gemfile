@@ -21,6 +21,10 @@ gem 'mysql2', '~> 0.5'
 # See: https://github.com/Apipie/apipie-rails/issues/559
 gem 'apipie-rails', '0.5.2'
 
+# GraphQL API
+gem 'graphql'
+gem 'graphiql-rails', group: :development
+
 # JWT authentication
 gem 'knock'
 

@@ -2,26 +2,26 @@ class CreateComponents < ActiveRecord::Migration[5.2]
   def change
     create_table :components do |t|
       t.string :type
-      t.string :identifier
-      t.boolean :active
-      t.string :driver
+      t.string :label
+      t.boolean :managed, null: false, default: true
       t.references :parent, foreign_key: { to_table: :components }
 
       t.timestamps
     end
 
-    create_table :component_secrets do |t|
-      t.string :username
-      t.string :password
+    create_table :component_drivers do |t|
       t.references :component, foreign_key: true
+      t.string :name
+      t.string :secret
+      t.boolean :active
 
       t.timestamps
     end
 
     create_table :component_properties do |t|
       t.references :component, foreign_key: true
-      t.string :property_key
-      t.string :property_value
+      t.string :key
+      t.string :value
 
       t.timestamps
     end

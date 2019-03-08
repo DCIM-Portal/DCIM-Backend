@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Knock::Authenticable
+  protect_from_forgery with: :null_session
 
   def initialize
     @foreman_resource = Dcim::ForemanApiFactory.instance
