@@ -2,11 +2,11 @@
 
 demo:
   type: Component
-  identifier: demo
-  driver: null
+  label: demo
+  managed: true
 
 demo-child:
   type: Component
-  identifier: demo-child
-  driver: null
+  label: demo-child
+  managed: true
   parent: demo

@@ -20,8 +20,8 @@ class ComponentTest < ActiveSupport::TestCase
     nic             = Component.create!(label: 'my-server-nic', parent: board)
     nic_port        = Component.create!(label: 'my-server-network-eth0', parent: nic)
 
-    assert_equal('US-West', nic_port.parent.parent.parent.parent.parent.parent.identifier)
-    assert_equal('US-West', disk.parent.parent.parent.parent.parent.parent.identifier)
+    assert_equal('US-West', nic_port.parent.parent.parent.parent.parent.parent.label)
+    assert_equal('US-West', disk.parent.parent.parent.parent.parent.parent.label)
     assert(bmc.parent.children.include? disk_controller)
 
     # zone = Component.create(identifier: 'US-West')

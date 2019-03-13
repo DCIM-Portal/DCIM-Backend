@@ -10,7 +10,7 @@
 #   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
 #
 default: &default
-  adapter: <%= ENV['DCIM_PORTAL_DB_ADAPTER'] || 'mysql2' %>
+  adapter: <%= ENV['DCIM_PORTAL_DB_ADAPTER'] || 'postgresql' %>
   database: <%= ENV['DCIM_PORTAL_DB'] || 'dcim_portal' %>
   encoding: utf8
   pool: <%= ENV['DCIM_PORTAL_DB_POOL_SIZE'] || ENV['RAILS_MAX_THREADS'] || 5 %>

@@ -12,8 +12,8 @@ gem 'puma', '~> 3'
 
 gem 'dotenv-rails', groups: %i[development test]
 
-# Use MySQL as the database backend for ActiveRecord
-gem 'mysql2', '~> 0.5'
+# Use PostgreSQL as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
 
 # API Documentation Tool
 #
