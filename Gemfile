@@ -22,8 +22,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'apipie-rails', '0.5.2'
 
 # GraphQL API
-gem 'graphql'
 gem 'graphiql-rails', group: :development
+gem 'graphql'
 
 # JWT authentication
 gem 'knock'

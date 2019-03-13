@@ -8,7 +8,7 @@ class Component < ApplicationRecord
   before_destroy :give_children_to_parents
 
   def driver_instance
-    self.driver.constantize
+    driver.constantize
   end
 
   private

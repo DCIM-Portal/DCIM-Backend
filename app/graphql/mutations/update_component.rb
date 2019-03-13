@@ -11,13 +11,13 @@ module Mutations
       component = Component.find(kwargs[:id])
       if component.update(**kwargs)
         {
-            component: component,
-            errors: []
+          component: component,
+          errors: []
         }
       else
         {
-            component: nil,
-            errors: component.errors.full_messages
+          component: nil,
+          errors: component.errors.full_messages
         }
       end
     end

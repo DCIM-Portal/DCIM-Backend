@@ -4,17 +4,17 @@ module Types
     # They will be entry points for queries on your schema.
 
     field :components, [Types::ComponentType], null: false do
-      description "Get Components collection"
+      description 'Get Components collection'
       argument :label, String, required: false
     end
 
     field :component, Types::ComponentType, null: true do
-      description "Get one Component"
+      description 'Get one Component'
       argument :id, ID, required: true
     end
 
     field :component_property, Types::ComponentPropertyType, null: true do
-      description "Get one ComponentProperty"
+      description 'Get one ComponentProperty'
       argument :id, ID, required: true
     end
 

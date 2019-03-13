@@ -22,7 +22,7 @@ class ComponentTest < ActiveSupport::TestCase
 
     assert_equal('US-West', nic_port.parent.parent.parent.parent.parent.parent.label)
     assert_equal('US-West', disk.parent.parent.parent.parent.parent.parent.label)
-    assert(bmc.parent.children.include? disk_controller)
+    assert(bmc.parent.children.include?(disk_controller))
 
     # zone = Component.create(identifier: 'US-West')
     vlan       = Component.create!(label: '1', parent: zone)
@@ -31,8 +31,8 @@ class ComponentTest < ActiveSupport::TestCase
     ip_address = Component.create!(label: '192.168.0.2/32', parent: subnet)
 
     assert_equal(dhcp_scope, zone.children.find_by(label: '1').children[0].children[0])
-    assert(subnet.children.include? ip_address)
-    assert(ip_address.parent.children.include? dhcp_scope)
+    assert(subnet.children.include?(ip_address))
+    assert(ip_address.parent.children.include?(dhcp_scope))
   end
 
   test 'identifier can be duplicate with siblings' do

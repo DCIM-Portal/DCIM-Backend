@@ -64,11 +64,11 @@ In addition to the base prerequisites, these additional prerequisites need to be
          rbenv install "$(rbenv install -l | grep -v - | tail -1 | xargs)"
  - [**Bundler**](https://bundler.io/) (>= 1.6.0) – Easily installs and updates the dependencies for this app
    - _Suggested installation:_ `gem install bundler`
- - [**MariaDB Server**](https://mariadb.org/) (>= 10.3) or any MySQL-compatible server
-   - _Suggested installation:_ You may use the same MySQL backend as Foreman.  If you don't want to do this, install the `mariadb-server` package using your operating system's package manager, or [download and install MariaDB Server](https://mariadb.org/download/) manually if your operating system does not have a package manager.  Alternatively, you may use MySQL server clustering software like [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster).
- - **MySQL development headers** (>= 10.3) – For the `mysql2` gem
-   - _Suggested installation for Ubuntu/Debian_: `apt install -y libmysqlclient-dev`
-   - _Suggested installation for RHEL/CentOS_: `yum install -y mysql-devel`
+ - [**PostgreSQL Server**](https://www.postgresql.org/) (>= 9.4) – Relational database backend for this app
+   - _Suggested installation:_ Install the `postgresql`/`postgresql-server` package using your operating system's package manager, or [download and install PostgreSQL](https://www.postgresql.org/download/) manually if your operating system does not have a package manager.
+ - **PostgreSQL development headers** (>= 9.4) – For the `pg` gem
+   - _Suggested installation for Ubuntu/Debian_: `apt install -y libpq-dev`
+   - _Suggested installation for RHEL/CentOS_: `yum install -y postgresql-devel`
  - [**Redis**](https://redis.io/) (>= 2.8) – Sidekiq job queuing and Action Cable WebSockets updates
    - _Suggested installation:_ Follow the [Redis Quick Start](https://redis.io/topics/quickstart) to install an up-to-date version of Redis or install `redis-server` and `redis-tools` on Debian/Ubuntu or install `redis` on Fedora/EPEL.
 
@@ -76,7 +76,7 @@ In addition to the base prerequisites, these additional prerequisites need to be
 
 ### Docker
 
-Rails DCIM Portal can be deployed fairly easily with Docker.  The Docker Compose file includes the MySQL database, Redis, Sidekiq, and the app.
+Rails DCIM Portal can be deployed fairly easily with Docker.  The Docker Compose file includes the relational database server, Redis, Sidekiq, and the app.
 
  1. Change your working directory (using `cd`) to where you want to deploy the app.
  2. `git clone https://github.com/buddwm/Rails_DCIM_Portal.git`
@@ -93,7 +93,7 @@ Note that Foreman and the other [prerequisites](#prerequisites) are not provided
  2. `git clone https://github.com/buddwm/Rails_DCIM_Portal.git`
  3. `cd Rails_DCIM_Portal`
  4. Install the gem dependencies with `bundle install`.
- 5. Ensure that MariaDB is running at `ENV['DCIM_PORTAL_DB_HOST']` on port `ENV['DCIM_PORTAL_DB_PORT']` with username `ENV['DCIM_PORTAL_DB_USERNAME']` identified by password `ENV['DCIM_PORTAL_DB_PASSWORD']` granted all privileges on database `ENV['DCIM_PORTAL_DB_DEV']`.
+ 5. Ensure that PostgreSQL is running at `ENV['DCIM_PORTAL_DB_HOST']` on port `ENV['DCIM_PORTAL_DB_PORT']` with username `ENV['DCIM_PORTAL_DB_USERNAME']` identified by password `ENV['DCIM_PORTAL_DB_PASSWORD']` granted all privileges on database `ENV['DCIM_PORTAL_DB_DEV']`.
  6. Ensure that Foreman is running at `ENV['FOREMAN_URL']` and can authenticate the admin user `ENV['FOREMAN_USERNAME']` with password `ENV['FOREMAN_PASSWORD']`.
  7. If you have not already done so, generate a PEM certificate located at `ENV['SP_CERT']` with private key at `ENV['SP_PRIVKEY']` for the app, which will be used to validate the client to each Smart Proxy.  The CA certificate should be copied to `ENV['SP_CA_CERT']`.
     - _Suggested installation:_
@@ -107,11 +107,11 @@ Before starting the app, take note of the currently customizable environment var
 | Variable | Purpose
 | --- | ---
 | `DCIM_PORTAL_DB_ADAPTER` | The database adapter for the environment.  Defaults to `mysql2`
-| `DCIM_PORTAL_DB_HOST` | The MariaDB hostname to use.  Specify `localhost` if you want to connect to the socket `/var/run/mysqld/mysqld.sock`.  Defaults to `127.0.0.1`
-| `DCIM_PORTAL_DB_USERNAME` | The MariaDB username to use.  Defaults to `root`
-| `DCIM_PORTAL_DB_PASSWORD` | The MariaDB password to use.  Defaults to `sharepoint`
-| `DCIM_PORTAL_DB_PORT` | The MariaDB port to use.  Defaults to `3306`
-| `DCIM_PORTAL_DB` | The catch-all MariaDB database name.  Undefined by default
+| `DCIM_PORTAL_DB_HOST` | The database hostname to use.  Specify `localhost` if you want to connect to the socket `/var/run/mysqld/mysqld.sock`.  Defaults to `127.0.0.1`
+| `DCIM_PORTAL_DB_USERNAME` | The database username to use.  Defaults to `root`
+| `DCIM_PORTAL_DB_PASSWORD` | The database password to use.  Defaults to `sharepoint`
+| `DCIM_PORTAL_DB_PORT` | The database port to use.  Defaults to `3306`
+| `DCIM_PORTAL_DB` | The catch-all database name.  Undefined by default
 | `DCIM_PORTAL_DB_POOL_SIZE` | The size of the database connection pool.  Defaults to `ENV['RAILS_MAX_THREADS']` or `5`, whichever is defined first
 | `DCIM_PORTAL_JOB_REDIS_HOST` | The Redis hostname to use for Sidekiq.  Redis Sentinels are not supported at this time.  Defaults to `localhost`
 | `DCIM_PORTAL_JOB_REDIS_PORT` | The Redis port to use for Sidekiq.  Defaults to `6379`
