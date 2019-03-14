@@ -29,7 +29,7 @@ class CreateComponents < ActiveRecord::Migration[6.0]
     create_table :delegates, id: :uuid do |t|
       t.string :label
       t.string :url
-      t.text :key
+      t.text :auth_key
 
       t.timestamps index: true
     end
@@ -37,6 +37,7 @@ class CreateComponents < ActiveRecord::Migration[6.0]
     create_table :agents, id: :uuid do |t|
       t.string :driver
       t.string :label
+      t.jsonb :raw_facts
       t.references :delegate, type: :uuid
 
       t.timestamps index: true
@@ -60,9 +61,11 @@ class CreateComponents < ActiveRecord::Migration[6.0]
     end
 
     create_table :actions, id: :uuid do |t|
-      t.references :agent, type: :uuid
       t.string :name
+      t.jsonb :arguments
       t.integer :status
+      t.jsonb :output
+      t.references :agent, type: :uuid
 
       t.timestamps index: true
     end

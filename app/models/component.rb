@@ -4,6 +4,7 @@ class Component < ApplicationRecord
   has_many :properties, class_name: ComponentProperty.name
   has_many :component_links
   has_many :linked_components, through: :component_links
+  has_many :agents, through: :component_agents
 
   before_destroy :give_children_to_parents
 

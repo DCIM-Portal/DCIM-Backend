@@ -17,12 +17,16 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
   enable_extension "plpgsql"
 
   create_table "actions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "agent_id"
     t.string "name"
+    t.jsonb "arguments"
     t.integer "status"
+    t.jsonb "output"
+    t.uuid "agent_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_actions_on_agent_id"
+    t.index ["created_at"], name: "index_actions_on_created_at"
+    t.index ["updated_at"], name: "index_actions_on_updated_at"
   end
 
   create_table "agent_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -33,15 +37,20 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_agent_properties_on_agent_id"
+    t.index ["created_at"], name: "index_agent_properties_on_created_at"
+    t.index ["updated_at"], name: "index_agent_properties_on_updated_at"
   end
 
   create_table "agents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "driver"
     t.string "label"
+    t.jsonb "raw_facts"
     t.uuid "delegate_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_agents_on_created_at"
     t.index ["delegate_id"], name: "index_agents_on_delegate_id"
+    t.index ["updated_at"], name: "index_agents_on_updated_at"
   end
 
   create_table "bmc_hosts", id: :serial, force: :cascade do |t|
@@ -116,6 +125,8 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_component_agents_on_agent_id"
     t.index ["component_id"], name: "index_component_agents_on_component_id"
+    t.index ["created_at"], name: "index_component_agents_on_created_at"
+    t.index ["updated_at"], name: "index_component_agents_on_updated_at"
   end
 
   create_table "component_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -125,7 +136,9 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["component_id"], name: "index_component_links_on_component_id"
+    t.index ["created_at"], name: "index_component_links_on_created_at"
     t.index ["linked_component_id"], name: "index_component_links_on_linked_component_id"
+    t.index ["updated_at"], name: "index_component_links_on_updated_at"
   end
 
   create_table "component_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -135,6 +148,8 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["component_id"], name: "index_component_properties_on_component_id"
+    t.index ["created_at"], name: "index_component_properties_on_created_at"
+    t.index ["updated_at"], name: "index_component_properties_on_updated_at"
   end
 
   create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -152,9 +167,11 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
   create_table "delegates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "label"
     t.string "url"
-    t.text "key"
+    t.text "auth_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_delegates_on_created_at"
+    t.index ["updated_at"], name: "index_delegates_on_updated_at"
   end
 
   create_table "device_links", force: :cascade do |t|
