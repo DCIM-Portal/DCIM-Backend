@@ -133,7 +133,7 @@ class Dcim::Search::ApplicationSearch
   end
 
   def order_info
-    order_fields.map { |a, b| { field: a, direction: b } } if order_fields
+    order_fields&.map { |a, b| { field: a, direction: b } }
   end
 
   def searchable_fields

@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/SecurityService/HttpsCert$entity",
+    "@odata.id": "/redfish/v1/Managers/1/SecurityService/HttpsCert/",
+    "@odata.type": "#HpHttpsCert.1.0.0.HpHttpsCert",
+    "Actions": {
+        "#HpHttpsCert.GenerateCSR": {
+            "target": "/redfish/v1/Managers/1/SecurityService/HttpsCert/Actions/HpHttpsCert.GenerateCSR/"
+        },
+        "#HpHttpsCert.ImportCertificate": {
+            "target": "/redfish/v1/Managers/1/SecurityService/HttpsCert/Actions/HpHttpsCert.ImportCertificate/"
+        }
+    },
+    "CertificateSigningRequest": null,
+    "Id": "HttpsCert",
+    "X509CertificateInformation": {
+        "Issuer": "CN = iLO Default Issuer (Do not trust), O = Hewlett-Packard Company, OU = ISS, L = Houston, ST = Texas, C = US",
+        "SerialNumber": "73:7f:28:df",
+        "Subject": "CN = ILO2M25330GZ5, O = Hewlett-Packard Company, OU = ISS, L = Houston, ST = Texas, C = US",
+        "ValidNotAfter": "2031-02-18T22:20:14Z",
+        "ValidNotBefore": "2016-02-19T22:20:14Z"
+    }
+}

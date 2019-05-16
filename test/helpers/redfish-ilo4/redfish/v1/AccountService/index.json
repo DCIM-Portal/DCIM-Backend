@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#AccountService",
+    "@odata.id": "/redfish/v1/AccountService/",
+    "@odata.type": "#AccountService.1.0.0.AccountService",
+    "Accounts": {
+        "@odata.id": "/redfish/v1/AccountService/Accounts/"
+    },
+    "Description": "iLO User Accounts",
+    "Id": "AccountService",
+    "Name": "Account Service",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpiLOAccountService.1.0.1.HpiLOAccountService",
+            "AuthFailureDelayTimeSeconds": 10,
+            "AuthFailureLoggingThreshold": 3,
+            "AuthFailuresBeforeDelay": 0,
+            "MinPasswordLength": 8
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/289/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "EntryType": "Oem",
+    "Id": "289",
+    "Message": "iLO network link up at 100 Mbps.",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4725
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

@@ -1,0 +1,34 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Registries/Members/$entity",
+    "@odata.id": "/redfish/v1/Registries/HpBiosAttributeRegistryI36.1.1.52/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Registry Definition File for HpBiosAttributeRegistryI36.1.1.52",
+    "Id": "HpBiosAttributeRegistryI36.1.1.52",
+    "Languages": [
+        "en",
+        "ja",
+        "zh"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/registrystore/registries/en/hpbiosattributeregistryi36.1.1.52/"
+            }
+        },
+        {
+            "Language": "ja",
+            "Uri": {
+                "extref": "/redfish/v1/registrystore/registries/ja/hpbiosattributeregistryi36.1.1.52/"
+            }
+        },
+        {
+            "Language": "zh",
+            "Uri": {
+                "extref": "/redfish/v1/registrystore/registries/zh/hpbiosattributeregistryi36.1.1.52/"
+            }
+        }
+    ],
+    "Name": "HpBiosAttributeRegistryI36.1.1.52 Registry Definition File",
+    "Schema": "HpBiosAttributeRegistryI36.1.1.52"
+}

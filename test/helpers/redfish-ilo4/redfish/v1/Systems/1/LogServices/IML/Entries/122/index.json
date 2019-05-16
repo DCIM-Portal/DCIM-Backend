@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/122/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2017-11-11T23:33:00Z",
+    "EntryType": "Oem",
+    "Id": "122",
+    "Message": "POST Error: 288-IMPORTANT: A new storage device has been detected and has been added to the end of the Boot Controller Order. Action: No action required.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 1,
+            "EventNumber": 121,
+            "Repaired": false,
+            "Updated": "2017-11-11T23:33:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Warning"
+}

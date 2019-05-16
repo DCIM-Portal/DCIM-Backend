@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpSmartStorageStorageEnclosure/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpSmartStorageStorageEnclosure",
+    "Id": "HpSmartStorageStorageEnclosure",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/HpSmartStorageStorageEnclosure.json/"
+            }
+        }
+    ],
+    "Name": "HpSmartStorageStorageEnclosure Schema Definition File",
+    "Schema": "HpSmartStorageStorageEnclosure.1.1.0"
+}

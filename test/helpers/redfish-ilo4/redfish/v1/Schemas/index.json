@@ -1,0 +1,397 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas",
+    "@odata.id": "/redfish/v1/Schemas/",
+    "@odata.type": "#SchemaFileCollection.SchemaFileCollection",
+    "Description": "Schema Repository",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Schemas/AccountService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/BaseNetworkAdapter/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/BaseNetworkAdapterCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Chassis/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ChassisCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Collection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ComputerSystem/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ComputerSystemCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Description/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EthernetInterface/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EthernetInterfaceCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EthernetNetworkInterface/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Event/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EventDestination/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EventDestinationCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/EventService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ExtendedError/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ExtendedInfo/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/FwSwVersionInventory/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpAdvancedMemoryProtection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBaseConfigs.0.10.0/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBaseConfigs.0.10.1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBaseNetworkAdapterExt/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBios/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpComputerSystemExt/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpESKM/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpEvent/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpEventDestination/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpEventService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpFwRev/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpHttpsCert/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLO/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOAccount/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOAccountService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOActiveHealthSystem/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLODateTime/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOEmbeddedMedia/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOEthernetNetworkInterface/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFederatedGroupCapping/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFederationGroup/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFederationGroupCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFederationPeers/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFederationPeersCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFirmwareUpdate/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFrus/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOFrusCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOLicense/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOLicenseCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOManagerNetworkService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOResourceDirectory/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOServiceExt/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOSession/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOSessionsSummary/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOSnmpService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOSoftwareInventory/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOSSO/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiLOVirtualMedia/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpLogEntry/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpMemory/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpMemoryCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HPPowerMeter/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpPowerMetricsExt/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpProcessorExt/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSeaOfSensors/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSecureBoot/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSecurityService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerChassis/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerFan/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerPciDevice/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerPciDeviceCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerPCISlot/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerPCISlotCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerPowerSupply/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorage/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageArrayController/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageArrayControllerCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageDiskDrive/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageDiskDriveCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageHostBusAdapter/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageHostBusAdapterCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageLogicalDrive/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageLogicalDriveCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageStorageEnclosure/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpSmartStorageStorageEnclosureCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/href/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ListenerDestination/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/LogEntry/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/LogEntryCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/LogService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/LogServiceCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Manager/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ManagerAccount/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ManagerAccountCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ManagerCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ManagerNetworkProtocol/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ManagerNetworkService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/MessageRegistry/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Modified/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Name/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Oem/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Power/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/PowerMetrics/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Processor/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ProcessorCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Resource/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/RoleCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SchemaFile/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SchemaFileCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SerialInterfaceCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ServiceRoot/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Session/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SessionCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SessionService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Settings/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SimpleStorageCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SnmpService/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SoftwareInventory/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/SoftwareInventoryCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/TaskCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Thermal/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/ThermalMetrics/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/Type/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/VirtualMedia/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/VirtualMediaCollection/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBios.1.2.0/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBiosAttributeRegistrySchema.1.2.1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpBiosMapping.1.2.0/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpServerBootSettings.1.3.1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Schemas/HpiSCSISoftwareInitiator.1.1.0/"
+        }
+    ],
+    "Members@odata.count": 129,
+    "Name": "Schema Repository"
+}

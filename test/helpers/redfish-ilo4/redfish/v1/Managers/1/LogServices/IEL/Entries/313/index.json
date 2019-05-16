@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/313/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2019-04-04T14:41:00Z",
+    "EntryType": "Oem",
+    "Id": "313",
+    "Message": "User OAtmp-Administrator-533ECF2E added by Onboard Administrator.",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4753,
+            "Updated": "2019-04-04T14:41:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

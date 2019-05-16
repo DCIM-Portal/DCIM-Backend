@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpiLOActiveHealthSystem/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpiLOActiveHealthSystem",
+    "Id": "HpiLOActiveHealthSystem",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/HpiLOActiveHealthSystem.json/"
+            }
+        }
+    ],
+    "Name": "HpiLOActiveHealthSystem Schema Definition File",
+    "Schema": "HpiLOActiveHealthSystem.1.0.0"
+}

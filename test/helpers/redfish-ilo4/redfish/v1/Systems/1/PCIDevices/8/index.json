@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCIDevices/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/8/",
+    "@odata.type": "#HpServerPciDevice.1.0.0.HpServerPciDevice",
+    "BusNumber": 9,
+    "ClassCode": 12,
+    "DeviceID": 8241,
+    "DeviceInstance": 1,
+    "DeviceLocation": "Mezzanine Slot 1",
+    "DeviceNumber": 0,
+    "DeviceSubInstance": 1,
+    "DeviceType": "Other PCI Device",
+    "FunctionNumber": 0,
+    "Id": "8",
+    "Name": "Port 1 - HP QMH2672 16Gb 2P FC HBA",
+    "SegmentNumber": 0,
+    "StructuredName": "PCI.Slot.1.1",
+    "SubclassCode": 4,
+    "SubsystemDeviceID": 6457,
+    "SubsystemVendorID": 4156,
+    "UEFIDevicePath": "PciRoot(0x0)/Pci(0x3,0x0)/Pci(0x0,0x0)",
+    "VendorID": 4215
+}

@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCIDevices/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/3/",
+    "@odata.type": "#HpServerPciDevice.1.0.0.HpServerPciDevice",
+    "BusNumber": 6,
+    "ClassCode": 1,
+    "DeviceID": 1826,
+    "DeviceInstance": 1,
+    "DeviceLocation": "Embedded",
+    "DeviceNumber": 0,
+    "DeviceSubInstance": 3,
+    "DeviceType": "Flexible LOM",
+    "FunctionNumber": 2,
+    "Id": "3",
+    "Name": "HP FlexFabric 20Gb 2-port 650FLB Adapter Function 2 - iSCSI",
+    "SegmentNumber": 0,
+    "StructuredName": "NIC.FlexLOM.1.3",
+    "SubclassCode": 128,
+    "SubsystemDeviceID": 6453,
+    "SubsystemVendorID": 4156,
+    "UEFIDevicePath": "PciRoot(0x0)/Pci(0x2,0x0)/Pci(0x0,0x2)",
+    "VendorID": 4319
+}

@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Registries/Members/$entity",
+    "@odata.id": "/redfish/v1/Registries/HpCommon/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Registry Definition File for HpCommon",
+    "Id": "HpCommon",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/RegistryStore/registries/en/HpCommon.json/"
+            }
+        }
+    ],
+    "Name": "HpCommon Registry Definition File",
+    "Schema": "HpCommon.0.10.0"
+}

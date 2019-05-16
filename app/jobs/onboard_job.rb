@@ -162,10 +162,10 @@ class OnboardJob < ApplicationJob
         bmc_host.onboard_error_message = nil
         bmc_host.save!
         validated_bmc_hosts << bmc_host
-      rescue RuntimeError => error
+      rescue RuntimeError => e
         bmc_host.onboard_status        = :stack_trace
         bmc_host.onboard_step          = nil
-        bmc_host.onboard_error_message = error.class.name + ': ' + error.message + "\n" + error.backtrace.join("\n")
+        bmc_host.onboard_error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
       end
     end
     validated_bmc_hosts

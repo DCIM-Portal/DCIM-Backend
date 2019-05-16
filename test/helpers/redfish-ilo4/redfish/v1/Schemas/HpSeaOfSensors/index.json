@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpSeaOfSensors/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpSeaOfSensors",
+    "Id": "HpSeaOfSensors",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/HpSeaOfSensors.json/"
+            }
+        }
+    ],
+    "Name": "HpSeaOfSensors Schema Definition File",
+    "Schema": "HpSeaOfSensors.1.0.0"
+}

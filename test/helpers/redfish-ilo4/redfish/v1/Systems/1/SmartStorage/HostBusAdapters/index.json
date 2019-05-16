@@ -1,0 +1,8 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/HostBusAdapters",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/HostBusAdapters/",
+    "@odata.type": "#HpSmartStorageHostBusAdapterCollection.HpSmartStorageHostBusAdapterCollection",
+    "Description": "HP Smart Storage Host Bus Adapters View",
+    "Members@odata.count": 0,
+    "Name": "HpSmartStorageHostBusAdapters"
+}

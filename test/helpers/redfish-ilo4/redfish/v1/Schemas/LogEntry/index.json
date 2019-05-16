@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/LogEntry/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for LogEntry",
+    "Id": "LogEntry",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/LogEntry.json/"
+            }
+        }
+    ],
+    "Name": "LogEntry Schema Definition File",
+    "Schema": "LogEntry.1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LicenseService/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LicenseService/1/",
+    "@odata.type": "#HpiLOLicense.1.0.0.HpiLOLicense",
+    "Description": "iLO License View",
+    "Id": "1",
+    "License": "iLO Advanced",
+    "LicenseKey": "xxxxx-xxxxx-xxxxx-xxxxx-J85WM",
+    "LicenseType": "Perpetual",
+    "Name": "iLO License"
+}

@@ -1,0 +1,47 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/SecurityService/SSO$entity",
+    "@odata.id": "/redfish/v1/Managers/1/SecurityService/SSO/",
+    "@odata.type": "#HpiLOSSO.1.0.0.HpiLOSSO",
+    "Actions": {
+        "#HpiLOSSO.DeleteAllSSORecords": {
+            "target": "/redfish/v1/Managers/1/SecurityService/SSO/Actions/HpiLOSSO.DeleteAllSSORecords/"
+        },
+        "#HpiLOSSO.DeleteSSORecordbyNumber": {
+            "target": "/redfish/v1/Managers/1/SecurityService/SSO/Actions/HpiLOSSO.DeleteSSORecordbyNumber/"
+        },
+        "#HpiLOSSO.ImportCertificate": {
+            "target": "/redfish/v1/Managers/1/SecurityService/SSO/Actions/HpiLOSSO.ImportCertificate/"
+        },
+        "#HpiLOSSO.ImportDNSName": {
+            "target": "/redfish/v1/Managers/1/SecurityService/SSO/Actions/HpiLOSSO.ImportDNSName/"
+        }
+    },
+    "Id": "SSO",
+    "SSOsettings": {
+        "AdminPrivilege": {
+            "LoginPriv": true,
+            "PowerandResetPriv": true,
+            "RemoteConsolePriv": true,
+            "UserConfigPriv": true,
+            "VirtualMediaPriv": true,
+            "iLOConfigPriv": true
+        },
+        "OperatorPrivilege": {
+            "LoginPriv": true,
+            "PowerandResetPriv": true,
+            "RemoteConsolePriv": true,
+            "UserConfigPriv": false,
+            "VirtualMediaPriv": true,
+            "iLOConfigPriv": false
+        },
+        "SSOTrustMode": "TrustNone",
+        "UserPrivilege": {
+            "LoginPriv": true,
+            "PowerandResetPriv": false,
+            "RemoteConsolePriv": false,
+            "UserConfigPriv": false,
+            "VirtualMediaPriv": false,
+            "iLOConfigPriv": false
+        }
+    }
+}

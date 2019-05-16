@@ -1,0 +1,24 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#AccountService/Accounts/Members/$entity",
+    "@odata.id": "/redfish/v1/AccountService/Accounts/1/",
+    "@odata.type": "#ManagerAccount.1.0.0.ManagerAccount",
+    "Description": "iLO User Account",
+    "Id": "1",
+    "Name": "User Account",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpiLOAccount.1.0.0.HpiLOAccount",
+            "LoginName": "Administrator",
+            "Privileges": {
+                "LoginPriv": true,
+                "RemoteConsolePriv": true,
+                "UserConfigPriv": true,
+                "VirtualMediaPriv": true,
+                "VirtualPowerAndResetPriv": true,
+                "iLOConfigPriv": true
+            }
+        }
+    },
+    "Password": null,
+    "UserName": "Administrator"
+}

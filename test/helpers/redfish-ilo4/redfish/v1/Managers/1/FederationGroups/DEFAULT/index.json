@@ -1,0 +1,15 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/FederationGroups/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/FederationGroups/DEFAULT/",
+    "@odata.type": "#HpiLOFederationGroup.1.0.0.HpiLOFederationGroup",
+    "Id": "DEFAULT",
+    "Name": "DEFAULT",
+    "Privileges": {
+        "LoginPriv": true,
+        "RemoteConsolePriv": false,
+        "UserConfigPriv": false,
+        "VirtualMediaPriv": false,
+        "VirtualPowerAndResetPriv": false,
+        "iLOConfigPriv": false
+    }
+}

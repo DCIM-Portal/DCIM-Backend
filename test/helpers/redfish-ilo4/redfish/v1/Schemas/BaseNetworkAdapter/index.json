@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/BaseNetworkAdapter/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for BaseNetworkAdapter",
+    "Id": "BaseNetworkAdapter",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/BaseNetworkAdapter.json/"
+            }
+        }
+    ],
+    "Name": "BaseNetworkAdapter Schema Definition File",
+    "Schema": "BaseNetworkAdapter.1.1.0"
+}

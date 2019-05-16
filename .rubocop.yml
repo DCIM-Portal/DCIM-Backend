@@ -59,6 +59,9 @@ Style/ClassAndModuleChildren:
 Style/ClassVars:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
 Naming/AccessorMethodName:
   Exclude:
     - 'app/datatables/**/*'

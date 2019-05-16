@@ -1,6 +1,15 @@
 module Dcim
   module Drivers
     class ApplicationDriver
+      # @param [Agent] agent The driver's connection agent, containing authentication information
+      def initialize(agent)
+        @agent = agent
+        @properties = {}
+        @agent.agent_properties.each do |agent_property|
+          @properties.merge!(agent_property.key.to_sym => agent_property.value)
+        end
+      end
+
       # Return a set of component types that this driver can support
       def supported_components
         # TODO

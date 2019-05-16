@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Registries/Members/$entity",
+    "@odata.id": "/redfish/v1/Registries/iLO/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Registry Definition File for iLO",
+    "Id": "iLO",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/RegistryStore/registries/en/iLO.json/"
+            }
+        }
+    ],
+    "Name": "iLO Registry Definition File",
+    "Schema": "iLO.0.10.0"
+}

@@ -1,0 +1,16 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/EthernetInterfaces",
+    "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/",
+    "@odata.type": "#EthernetInterfaceCollection.EthernetInterfaceCollection",
+    "Description": "Collection of System Network Interfaces",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/2/"
+        }
+    ],
+    "Members@odata.count": 2,
+    "Name": "System Network Interfaces"
+}

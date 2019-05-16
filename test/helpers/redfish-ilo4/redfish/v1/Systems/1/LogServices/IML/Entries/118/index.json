@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/118/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2017-11-11T19:29:00Z",
+    "EntryType": "Oem",
+    "Id": "118",
+    "Message": "Firmware flashed (System BIOS - I36 v2.52 (10/25/2017))",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 32,
+            "Code": 2,
+            "EventNumber": 117,
+            "Updated": "2017-11-11T19:29:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

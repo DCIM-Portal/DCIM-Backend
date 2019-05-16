@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCIDevices/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/2/",
+    "@odata.type": "#HpServerPciDevice.1.0.0.HpServerPciDevice",
+    "BusNumber": 6,
+    "ClassCode": 2,
+    "DeviceID": 1824,
+    "DeviceInstance": 1,
+    "DeviceLocation": "Embedded",
+    "DeviceNumber": 0,
+    "DeviceSubInstance": 2,
+    "DeviceType": "Flexible LOM",
+    "FunctionNumber": 1,
+    "Id": "2",
+    "Name": "HP FlexFabric 20Gb 2-port 650FLB Adapter Function 1 - NIC",
+    "SegmentNumber": 0,
+    "StructuredName": "NIC.FlexLOM.1.2",
+    "SubclassCode": 0,
+    "SubsystemDeviceID": 6453,
+    "SubsystemVendorID": 4156,
+    "UEFIDevicePath": "PciRoot(0x0)/Pci(0x2,0x0)/Pci(0x0,0x1)",
+    "VendorID": 4319
+}

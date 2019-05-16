@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCISlots/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/PCISlots/2/",
+    "@odata.type": "#HpServerPCISlot.1.0.0.HpServerPCISlot",
+    "Id": "2",
+    "Length": "Long",
+    "LinkLanes": "x16",
+    "Name": "Mezzanine Slot 2",
+    "Status": {
+        "OperationalStatus": [
+            {
+                "Status": "Empty"
+            }
+        ]
+    },
+    "SupportsHotPlug": false,
+    "Technology": "PCIExpressGen3",
+    "UEFIDevicePath": "PciRoot(0x1)/Pci(0x3,0x0)/Pci(0x0,0x0)"
+}

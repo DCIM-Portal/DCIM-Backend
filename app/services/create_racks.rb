@@ -10,7 +10,7 @@ class CreateRacks
   def call
     return false unless !@rack.name.empty? &&
                         !@rack.amount.empty? &&
-                        @rack.amount.to_i > 0 &&
+                        @rack.amount.to_i.positive? &&
                         !@rack.start_at.empty? &&
                         @rack.start_at.to_i >= 0 &&
                         @rack.zero_pad_to.to_i >= 0

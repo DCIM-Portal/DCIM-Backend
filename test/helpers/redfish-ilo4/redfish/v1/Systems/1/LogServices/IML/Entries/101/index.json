@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/101/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-06-18T02:13:00Z",
+    "EntryType": "Oem",
+    "Id": "101",
+    "Message": "Option ROM POST Error: 1785-Slot 0 Drive Array Not Configured",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 3,
+            "EventNumber": 100,
+            "Updated": "2016-06-18T02:13:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

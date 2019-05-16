@@ -1,0 +1,16 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCISlots",
+    "@odata.id": "/redfish/v1/Systems/1/PCISlots/",
+    "@odata.type": "#HpServerPCISlotCollection.HpServerPCISlotCollection",
+    "Description": "PciSlots view",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCISlots/1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCISlots/2/"
+        }
+    ],
+    "Members@odata.count": 2,
+    "Name": "PciSlots"
+}

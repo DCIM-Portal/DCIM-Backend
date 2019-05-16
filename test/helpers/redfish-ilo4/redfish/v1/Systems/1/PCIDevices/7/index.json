@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCIDevices/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/7/",
+    "@odata.type": "#HpServerPciDevice.1.0.0.HpServerPciDevice",
+    "BusNumber": 7,
+    "ClassCode": 1,
+    "DeviceID": 12857,
+    "DeviceInstance": 1,
+    "DeviceLocation": "Embedded",
+    "DeviceNumber": 0,
+    "DeviceSubInstance": 1,
+    "DeviceType": "Storage Array Controller",
+    "FunctionNumber": 0,
+    "Id": "7",
+    "Name": "Smart Array P244br Controller",
+    "SegmentNumber": 0,
+    "StructuredName": "RAID.Emb.1.1",
+    "SubclassCode": 4,
+    "SubsystemDeviceID": 8637,
+    "SubsystemVendorID": 4156,
+    "UEFIDevicePath": "PciRoot(0x0)/Pci(0x2,0x2)/Pci(0x0,0x0)",
+    "VendorID": 4156
+}

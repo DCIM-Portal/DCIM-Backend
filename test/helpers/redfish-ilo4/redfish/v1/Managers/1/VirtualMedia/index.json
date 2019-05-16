@@ -1,0 +1,16 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/VirtualMedia",
+    "@odata.id": "/redfish/v1/Managers/1/VirtualMedia/",
+    "@odata.type": "#VirtualMediaCollection.VirtualMediaCollection",
+    "Description": "iLO Virtual Media Services Settings",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Managers/1/VirtualMedia/1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/VirtualMedia/2/"
+        }
+    ],
+    "Members@odata.count": 2,
+    "Name": "Virtual Media Services"
+}

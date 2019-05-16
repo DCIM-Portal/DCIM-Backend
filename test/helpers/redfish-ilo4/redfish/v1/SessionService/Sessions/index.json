@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Sessions",
+    "@odata.id": "/redfish/v1/SessionService/Sessions/",
+    "@odata.type": "#SessionCollection.SessionCollection",
+    "Description": "Manager User Sessions",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/SessionService/Sessions/administrator5ca77a05fcac0831/"
+        }
+    ],
+    "Members@odata.count": 1,
+    "Name": "Sessions",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpiLOSessionsSummary.1.0.0.HpiLOSessionsSummary",
+            "Links": {
+                "MySession": {
+                    "@odata.id": "/redfish/v1/SessionService/Sessions/administrator5ca77a05fcac0831/"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/SecurityService$entity",
+    "@odata.id": "/redfish/v1/Managers/1/SecurityService/",
+    "@odata.type": "#HpSecurityService.1.0.0.HpSecurityService",
+    "Id": "SecurityService",
+    "Links": {
+        "ESKM": {
+            "@odata.id": "/redfish/v1/Managers/1/SecurityService/ESKM/"
+        },
+        "HttpsCert": {
+            "@odata.id": "/redfish/v1/Managers/1/SecurityService/HttpsCert/"
+        },
+        "SSO": {
+            "@odata.id": "/redfish/v1/Managers/1/SecurityService/SSO/"
+        }
+    }
+}

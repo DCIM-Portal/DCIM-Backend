@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/6/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-03-23T11:44:00Z",
+    "EntryType": "Oem",
+    "Id": "6",
+    "Message": "Maintenance note: CPU(s) operating at reduced performance level due to an enclosure power event.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 33,
+            "Code": 2,
+            "EventNumber": 5,
+            "Repaired": true,
+            "Updated": "2016-03-23T11:44:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

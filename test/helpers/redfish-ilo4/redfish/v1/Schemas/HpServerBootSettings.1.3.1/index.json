@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpServerBootSettings.1.3.1/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpServerBootSettings.1.3.1",
+    "Id": "HpServerBootSettings.1.3.1",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/schemastore/en/hpserverbootsettings.1.3.1/"
+            }
+        }
+    ],
+    "Name": "HpServerBootSettings.1.3.1 Schema Definition File",
+    "Schema": "HpServerBootSettings.1.3.1"
+}

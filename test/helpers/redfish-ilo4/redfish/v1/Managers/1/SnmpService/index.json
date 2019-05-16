@@ -1,0 +1,64 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/SnmpService$entity",
+    "@odata.id": "/redfish/v1/Managers/1/SnmpService/",
+    "@odata.type": "#SnmpService.1.0.0.SnmpService",
+    "Actions": {
+        "#SnmpService.SendSNMPTestAlert": {
+            "target": "/redfish/v1/Managers/1/SnmpService/Actions/SnmpService.SendSNMPTestAlert/"
+        }
+    },
+    "AlertDestinations": [
+        "",
+        "",
+        ""
+    ],
+    "AlertsEnabled": true,
+    "Contact": "",
+    "Description": "SNMP Service Status",
+    "Id": "SnmpService",
+    "Location": "",
+    "Mode": "Agentless",
+    "Name": "SNMP Service",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpiLOSnmpService.1.0.0.HpiLOSnmpService",
+            "SNMPColdStartTrapBroadcast": true,
+            "SNMPForwardInsightManagerAgentAlerts": true
+        }
+    },
+    "ReadCommunities": [
+        "",
+        "",
+        ""
+    ],
+    "Role": "",
+    "RoleDetail": "",
+    "SNMPv1Traps": true,
+    "SNMPv3EngineID": "",
+    "Status": {
+        "State": "Enabled"
+    },
+    "TrapCommunities": [
+        "",
+        "",
+        ""
+    ],
+    "TrapSourceHostname": "Manager",
+    "Users": [
+        {
+            "AuthProtocol": "MD5",
+            "PrivacyProtocol": "DES",
+            "SecurityName": ""
+        },
+        {
+            "AuthProtocol": "MD5",
+            "PrivacyProtocol": "DES",
+            "SecurityName": ""
+        },
+        {
+            "AuthProtocol": "MD5",
+            "PrivacyProtocol": "DES",
+            "SecurityName": ""
+        }
+    ]
+}

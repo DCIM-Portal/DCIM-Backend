@@ -47,7 +47,7 @@ class CreateComponents < ActiveRecord::Migration[6.0]
       t.references :agent, type: :uuid
       t.string :key
       t.text :value
-      t.boolean :encrypted
+      t.boolean :encrypted, default: false
 
       t.timestamps index: true
     end

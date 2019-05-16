@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/296/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2018-09-14T18:32:00Z",
+    "EntryType": "Oem",
+    "Id": "296",
+    "Message": "Browser logout: System Administrator - 127.0.0.1(localhost).",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4736,
+            "Updated": "2018-09-14T18:32:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

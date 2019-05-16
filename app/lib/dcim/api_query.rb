@@ -5,7 +5,8 @@ module Dcim
     def initialize(**kwargs)
       @resource = kwargs[:resource]
       @retries = kwargs[:retries] || 0
-      append_chain(kwargs[:method], kwargs[:args])
+      @query ||= []
+      append_chain(kwargs[:method], kwargs[:args]) unless kwargs[:method].nil?
     end
 
     def append_chain(method, args)
@@ -30,7 +31,7 @@ module Dcim
       begin
         RestClient::Request.execute(options)
       rescue RestClient::Exceptions::OpenTimeout
-        if tries_remaining > 0
+        if tries_remaining.positive?
           logger.debug "Timeout while accessing API #{@resource.instance_variable_get(:@url)}. Tries remaining: #{tries_remaining}"
           tries_remaining -= 1
           retry

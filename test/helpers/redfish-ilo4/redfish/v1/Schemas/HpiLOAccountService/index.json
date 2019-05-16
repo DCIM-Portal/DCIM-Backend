@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpiLOAccountService/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpiLOAccountService",
+    "Id": "HpiLOAccountService",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/HpiLOAccountService.json/"
+            }
+        }
+    ],
+    "Name": "HpiLOAccountService Schema Definition File",
+    "Schema": "HpiLOAccountService.1.0.1"
+}

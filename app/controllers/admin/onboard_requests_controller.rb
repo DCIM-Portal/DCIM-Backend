@@ -91,13 +91,13 @@ class Admin::OnboardRequestsController < AdminController
         else
           list_no_onboard_attempted << { bmc_host: host }
         end
-      rescue RuntimeError => unonboardable_reason
+      rescue RuntimeError => e
         # BmcHost fails validation
         list_bmc_host_unonboardable << {
           bmc_host: host,
-          exception: unonboardable_reason,
-          exception_name: unonboardable_reason.class.name,
-          exception_message: unonboardable_reason.message
+          exception: e,
+          exception_name: e.class.name,
+          exception_message: e.message
         }
       end
     end

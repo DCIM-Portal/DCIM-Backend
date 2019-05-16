@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Registries",
+    "@odata.id": "/redfish/v1/Registries/",
+    "@odata.type": "#SchemaFileCollection.SchemaFileCollection",
+    "Description": "Registry Repository",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Registries/Base/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Registries/HpCommon/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Registries/iLO/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Registries/iLOEvents/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Registries/HpBiosAttributeRegistryI36.1.1.52/"
+        }
+    ],
+    "Members@odata.count": 5,
+    "Name": "Registry Repository"
+}

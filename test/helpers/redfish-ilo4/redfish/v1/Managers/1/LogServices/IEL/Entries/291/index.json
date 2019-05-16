@@ -1,0 +1,17 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/291/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "EntryType": "Oem",
+    "Id": "291",
+    "Message": "APO: iLO attempting to power-on the system.",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4727
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

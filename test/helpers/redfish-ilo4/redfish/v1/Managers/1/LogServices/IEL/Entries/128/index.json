@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/128/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2018-07-26T15:49:00Z",
+    "EntryType": "Oem",
+    "Id": "128",
+    "Message": "Browser login failure from: 10.10.0.99(DNS name not found).",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4558,
+            "Updated": "2018-07-26T15:49:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "Warning"
+}

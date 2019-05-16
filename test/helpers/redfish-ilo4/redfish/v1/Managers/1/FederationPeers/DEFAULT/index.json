@@ -1,0 +1,65 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/FederationPeers/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/FederationPeers/DEFAULT/",
+    "@odata.type": "#HpiLOFederationPeers.1.0.0.HpiLOFederationPeers",
+    "Id": "DEFAULT",
+    "Name": "DEFAULT",
+    "Peers": [
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.70.135",
+            "Time": "2019-04-05T15:43:01Z",
+            "URL": "http://10.14.70.135:80/",
+            "UUID": "0a976d1d-6731-5ea3-a4a1-e23dd8a531ad"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.72.198",
+            "Time": "2019-04-05T15:41:16Z",
+            "URL": "http://10.14.72.198:80/",
+            "UUID": "096116e0-f22c-5e60-926a-3e72cd180278"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.69.240",
+            "Time": "2019-04-05T15:39:02Z",
+            "URL": "http://10.14.69.240:80/",
+            "UUID": "0f7c5e49-4045-5f26-8d28-f9e293e44f76"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.72.76",
+            "Time": "2019-04-05T15:37:11Z",
+            "URL": "http://10.14.72.76:80/",
+            "UUID": "0206913e-5dd6-5447-9c7f-f684b1d02876"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.71.78",
+            "Time": "2019-04-05T15:36:58Z",
+            "URL": "http://10.14.71.78:80/",
+            "UUID": "1ee0a267-a23a-5200-9a04-71d7a564ac66"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.72.106",
+            "Time": "2019-04-05T15:41:34Z",
+            "URL": "http://10.14.72.106:80/",
+            "UUID": "2919fe9f-bc3e-5ad2-ae78-09be1c419e78"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.68.171",
+            "Time": "2019-04-05T15:44:14Z",
+            "URL": "http://10.14.68.171:80/",
+            "UUID": "646fb16a-aba0-508a-8f54-89057d52877b"
+        },
+        {
+            "HttpErrorCode": 0,
+            "ManagerIPAddress": "10.14.64.156",
+            "Time": "2019-04-05T15:44:40Z",
+            "URL": "http://10.14.64.156:80/",
+            "UUID": "b0ac8613-2a14-524c-a260-8a318f206679"
+        }
+    ]
+}

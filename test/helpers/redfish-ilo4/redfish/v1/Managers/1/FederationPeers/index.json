@@ -1,0 +1,13 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/FederationPeers",
+    "@odata.id": "/redfish/v1/Managers/1/FederationPeers/",
+    "@odata.type": "#HpiLOFederationPeersCollection.HpiLOFederationPeersCollection",
+    "Description": " FederationPeers view",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Managers/1/FederationPeers/DEFAULT/"
+        }
+    ],
+    "Members@odata.count": 1,
+    "Name": "FederationPeers"
+}

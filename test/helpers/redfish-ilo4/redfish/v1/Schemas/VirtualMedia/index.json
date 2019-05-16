@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/VirtualMedia/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for VirtualMedia",
+    "Id": "VirtualMedia",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/VirtualMedia.json/"
+            }
+        }
+    ],
+    "Name": "VirtualMedia Schema Definition File",
+    "Schema": "VirtualMedia.1.0.0"
+}

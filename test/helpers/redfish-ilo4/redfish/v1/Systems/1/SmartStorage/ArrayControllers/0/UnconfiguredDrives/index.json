@@ -1,0 +1,8 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/ArrayControllers/Members/0/UnconfiguredDrives",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/UnconfiguredDrives/",
+    "@odata.type": "#HpSmartStorageDiskDriveCollection.HpSmartStorageDiskDriveCollection",
+    "Description": "HP Smart Storage Unconfigured Disk Drives View",
+    "Members@odata.count": 0,
+    "Name": "HpSmartStorageUnconfiguredDiskDrives"
+}

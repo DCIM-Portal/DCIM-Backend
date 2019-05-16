@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/128/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2017-11-12T07:06:00Z",
+    "EntryType": "Oem",
+    "Id": "128",
+    "Message": "POST Information: 298-IMPORTANT: The Boot Mode has been changed to Legacy Boot Mode for this boot only. On the next reboot, the Boot Mode will return to UEFI Boot Mode. Action: No action required.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 2,
+            "EventNumber": 127,
+            "Updated": "2017-11-12T07:24:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

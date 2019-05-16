@@ -1,0 +1,46 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Chassis/Members/1/Power$entity",
+    "@odata.id": "/redfish/v1/Chassis/1/Power/",
+    "@odata.type": "#Power.1.0.1.Power",
+    "Id": "Power",
+    "Name": "PowerMetrics",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpPowerMetricsExt.1.2.0.HpPowerMetricsExt",
+            "Links": {
+                "FastPowerMeter": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power/FastPowerMeter/"
+                },
+                "FederatedGroupCapping": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power/FederatedGroupCapping/"
+                },
+                "PowerMeter": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power/PowerMeter/"
+                }
+            },
+            "SNMPPowerThresholdAlert": {
+                "DurationInMin": 0,
+                "ThresholdWatts": 0,
+                "Trigger": "Disabled"
+            }
+        }
+    },
+    "PowerControl": [
+        {
+            "PowerAllocatedWatts": 383,
+            "PowerAvailableWatts": 117,
+            "PowerCapacityWatts": 500,
+            "PowerConsumedWatts": 191,
+            "PowerLimit": {
+                "LimitInWatts": null
+            },
+            "PowerMetrics": {
+                "AverageConsumedWatts": 193,
+                "IntervalInMin": 20,
+                "MaxConsumedWatts": 230,
+                "MinConsumedWatts": 183
+            },
+            "PowerRequestedWatts": 383
+        }
+    ]
+}

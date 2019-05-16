@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/1/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-02-19T22:28:00Z",
+    "EntryType": "Oem",
+    "Id": "1",
+    "Message": "IML Cleared (System Administrator)",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 33,
+            "Code": 1,
+            "EventNumber": 0,
+            "Updated": "2016-02-19T22:28:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

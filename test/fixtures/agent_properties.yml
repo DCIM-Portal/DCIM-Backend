@@ -1,0 +1,12 @@
+ilo4_agent_property_host:
+  agent: ilo4_agent
+  key: 'host'
+  value: '10.14.67.147'
+ilo4_agent_property_username:
+  agent: ilo4_agent
+  key: 'username'
+  value: 'Administrator'
+ilo4_agent_property_password:
+  agent: ilo4_agent
+  key: 'password'
+  value: 'ChertseyEndlos'

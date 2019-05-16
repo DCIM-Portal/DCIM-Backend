@@ -13,7 +13,7 @@ module BmcDrivers
       end
       result
     rescue Dcim::SdrCacheError
-      retry if ((tries_remaining -= 1) > 0) && http_smart_proxy_bmc_request(smart_proxy.onboard.bmc.sdr_cache, method: :delete)
+      retry if (tries_remaining -= 1).positive? && http_smart_proxy_bmc_request(smart_proxy.onboard.bmc.sdr_cache, method: :delete)
       raise
     end
 

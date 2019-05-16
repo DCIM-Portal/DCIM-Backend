@@ -1,0 +1,1147 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/",
+    "@odata.type": "#LogEntryCollection.LogEntryCollection",
+    "Description": "iLO Event Logs view",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/2/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/3/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/4/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/5/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/6/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/7/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/8/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/9/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/10/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/11/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/12/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/13/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/14/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/15/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/16/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/17/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/18/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/19/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/20/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/21/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/22/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/23/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/24/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/25/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/26/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/27/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/28/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/29/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/30/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/31/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/32/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/33/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/34/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/35/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/36/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/37/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/38/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/39/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/40/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/41/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/42/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/43/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/44/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/45/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/46/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/47/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/48/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/49/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/50/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/51/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/52/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/53/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/54/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/55/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/56/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/57/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/58/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/59/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/60/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/61/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/62/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/63/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/64/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/65/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/66/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/67/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/68/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/69/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/70/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/71/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/72/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/73/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/74/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/75/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/76/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/77/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/78/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/79/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/80/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/81/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/82/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/83/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/84/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/85/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/86/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/87/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/88/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/89/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/90/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/91/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/92/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/93/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/94/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/95/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/96/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/97/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/98/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/99/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/100/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/101/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/102/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/103/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/104/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/105/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/106/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/107/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/108/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/109/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/110/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/111/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/112/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/113/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/114/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/115/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/116/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/117/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/118/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/119/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/120/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/121/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/122/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/123/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/124/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/125/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/126/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/127/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/128/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/129/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/130/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/131/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/132/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/133/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/134/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/135/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/136/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/137/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/138/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/139/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/140/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/141/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/142/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/143/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/144/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/145/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/146/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/147/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/148/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/149/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/150/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/151/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/152/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/153/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/154/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/155/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/156/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/157/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/158/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/159/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/160/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/161/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/162/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/163/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/164/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/165/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/166/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/167/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/168/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/169/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/170/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/171/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/172/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/173/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/174/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/175/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/176/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/177/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/178/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/179/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/180/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/181/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/182/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/183/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/184/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/185/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/186/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/187/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/188/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/189/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/190/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/191/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/192/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/193/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/194/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/195/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/196/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/197/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/198/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/199/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/200/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/201/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/202/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/203/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/204/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/205/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/206/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/207/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/208/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/209/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/210/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/211/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/212/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/213/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/214/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/215/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/216/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/217/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/218/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/219/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/220/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/221/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/222/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/223/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/224/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/225/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/226/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/227/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/228/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/229/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/230/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/231/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/232/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/233/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/234/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/235/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/236/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/237/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/238/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/239/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/240/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/241/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/242/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/243/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/244/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/245/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/246/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/247/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/248/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/249/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/250/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/251/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/252/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/253/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/254/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/255/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/256/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/257/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/258/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/259/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/260/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/261/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/262/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/263/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/264/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/265/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/266/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/267/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/268/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/269/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/270/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/271/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/272/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/273/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/274/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/275/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/276/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/277/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/278/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/279/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/280/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/281/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/282/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/283/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/284/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/285/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/286/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/287/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/288/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/289/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/290/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/291/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/292/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/293/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/294/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/295/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/296/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/297/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/298/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/299/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/300/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/301/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/302/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/303/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/304/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/305/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/306/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/307/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/308/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/309/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/310/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/311/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/312/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/313/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/314/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/315/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/316/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/317/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/318/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/319/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/320/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/321/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/322/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/323/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/324/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/325/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/326/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/327/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/328/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/329/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/330/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/331/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/332/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/333/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/334/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/335/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/336/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/337/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/338/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/339/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/340/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/341/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/342/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/343/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/344/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/345/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/346/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/347/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/348/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/349/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/350/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/351/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/352/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/353/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/354/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/355/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/356/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/357/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/358/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/359/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/360/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/361/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/362/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/363/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/364/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/365/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/366/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/367/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/368/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/369/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/370/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/371/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/372/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/373/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/374/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/375/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/376/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/377/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/378/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/379/"
+        }
+    ],
+    "Members@odata.count": 379,
+    "Name": "iLO Event Logs"
+}

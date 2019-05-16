@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Rails, what this project is written in
-gem 'rails', '>= 6.0.0.beta1', '< 7'
+gem 'rails', '>= 6.0.0.rc1', '< 7'
 # Use Puma as the app server
 gem 'puma', '~> 3'
 
@@ -28,8 +28,11 @@ gem 'graphql'
 # JWT authentication
 gem 'knock'
 
-# Rest-Client
+# REST Client
 gem 'rest-client'
+
+# Testing for REST Client
+gem 'webmock', '~> 3.5'
 
 # Cross-Origin Resource Sharing
 gem 'rack-cors'

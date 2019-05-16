@@ -1,0 +1,189 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/",
+    "@odata.type": "#Manager.1.0.0.Manager",
+    "Actions": {
+        "#Manager.Reset": {
+            "target": "/redfish/v1/Managers/1/Actions/Manager.Reset/"
+        }
+    },
+    "CommandShell": {
+        "ConnectTypesSupported": [
+            "SSH",
+            "Oem"
+        ],
+        "MaxConcurrentSessions": 9
+    },
+    "Description": "Manager View",
+    "EthernetInterfaces": {
+        "@odata.id": "/redfish/v1/Managers/1/EthernetInterfaces/"
+    },
+    "FirmwareVersion": "iLO 4 v2.55",
+    "GraphicalConsole": {
+        "ConnectTypesSupported": [
+            "KVMIP"
+        ],
+        "MaxConcurrentSessions": 10
+    },
+    "Id": "1",
+    "Links": {
+        "ManagerForChassis": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/"
+            }
+        ],
+        "ManagerForServers": [
+            {
+                "@odata.id": "/redfish/v1/Systems/1/"
+            }
+        ]
+    },
+    "LogServices": {
+        "@odata.id": "/redfish/v1/Managers/1/LogServices/"
+    },
+    "ManagerType": "BMC",
+    "Name": "Manager",
+    "NetworkProtocol": {
+        "@odata.id": "/redfish/v1/Managers/1/NetworkService/"
+    },
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpiLO.1.1.0.HpiLO",
+            "Actions": {
+                "#HpiLO.ClearRestApiState": {
+                    "target": "/redfish/v1/Managers/1/Actions/Oem/Hp/HpiLO.ClearRestApiState/"
+                },
+                "#HpiLO.ResetToFactoryDefaults": {
+                    "ResetType@Redfish.AllowableValues": [
+                        "Default"
+                    ],
+                    "target": "/redfish/v1/Managers/1/Actions/Oem/Hp/HpiLO.ResetToFactoryDefaults/"
+                },
+                "#HpiLO.iLOFunctionality": {
+                    "target": "/redfish/v1/Managers/1/Actions/Oem/Hp/HpiLO.iLOFunctionality/"
+                }
+            },
+            "ClearRestApiStatus": "DataPresent",
+            "FederationConfig": {
+                "IPv6MulticastScope": "Site",
+                "MulticastAnnouncementInterval": 600,
+                "MulticastDiscovery": "Enabled",
+                "MulticastTimeToLive": 5,
+                "iLOFederationManagement": "Enabled"
+            },
+            "Firmware": {
+                "Current": {
+                    "Date": "Aug 16 2017",
+                    "DebugBuild": false,
+                    "MajorVersion": 2,
+                    "MinorVersion": 55,
+                    "Time": "",
+                    "VersionString": "iLO 4 v2.55"
+                }
+            },
+            "License": {
+                "LicenseKey": "xxxxx-xxxxx-xxxxx-xxxxx-J85WM",
+                "LicenseString": "iLO Advanced",
+                "LicenseType": "Perpetual"
+            },
+            "Links": {
+                "ActiveHealthSystem": {
+                    "@odata.id": "/redfish/v1/Managers/1/ActiveHealthSystem/"
+                },
+                "DateTimeService": {
+                    "@odata.id": "/redfish/v1/Managers/1/DateTime/"
+                },
+                "EmbeddedMediaService": {
+                    "@odata.id": "/redfish/v1/Managers/1/EmbeddedMedia/"
+                },
+                "FederationDispatch": {
+                    "extref": "/dispatch"
+                },
+                "FederationGroups": {
+                    "@odata.id": "/redfish/v1/Managers/1/FederationGroups/"
+                },
+                "FederationPeers": {
+                    "@odata.id": "/redfish/v1/Managers/1/FederationPeers/"
+                },
+                "LicenseService": {
+                    "@odata.id": "/redfish/v1/Managers/1/LicenseService/"
+                },
+                "SecurityService": {
+                    "@odata.id": "/redfish/v1/Managers/1/SecurityService/"
+                },
+                "UpdateService": {
+                    "@odata.id": "/redfish/v1/Managers/1/UpdateService/"
+                },
+                "VSPLogLocation": {
+                    "extref": "/sol.log.gz"
+                }
+            },
+            "RequiredLoginForiLORBSU": false,
+            "SerialCLISpeed": 9600,
+            "SerialCLIStatus": "EnabledAuthReq",
+            "VSPLogDownloadEnabled": false,
+            "iLOSelfTestResults": [
+                {
+                    "Notes": "",
+                    "SelfTestName": "NVRAMData",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "",
+                    "SelfTestName": "NVRAMSpace",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "Controller firmware revision  2.10.00  ",
+                    "SelfTestName": "EmbeddedFlash/SDCard",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "",
+                    "SelfTestName": "EEPROM",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "",
+                    "SelfTestName": "HostRom",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "",
+                    "SelfTestName": "SupportedHost",
+                    "Status": "OK"
+                },
+                {
+                    "Notes": "Version 1.0.9",
+                    "SelfTestName": "PowerManagementController",
+                    "Status": "Informational"
+                },
+                {
+                    "Notes": "ProLiant BL460c Gen9 System Programmable Logic Device version 0x13",
+                    "SelfTestName": "CPLDPAL0",
+                    "Status": "Informational"
+                },
+                {
+                    "Notes": "ProLiant BL460c Gen9 SAS Programmable Logic Device version 0x02",
+                    "SelfTestName": "CPLDPAL1",
+                    "Status": "Informational"
+                }
+            ]
+        }
+    },
+    "SerialConsole": {
+        "ConnectTypesSupported": [
+            "SSH",
+            "IPMI",
+            "Oem"
+        ],
+        "MaxConcurrentSessions": 13
+    },
+    "Status": {
+        "State": "Enabled"
+    },
+    "UUID": "230b2977-7ebd-556f-bfa5-b48e5efae1be",
+    "VirtualMedia": {
+        "@odata.id": "/redfish/v1/Managers/1/VirtualMedia/"
+    }
+}

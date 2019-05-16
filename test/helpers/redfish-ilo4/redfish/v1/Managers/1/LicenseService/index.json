@@ -1,0 +1,13 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LicenseService",
+    "@odata.id": "/redfish/v1/Managers/1/LicenseService/",
+    "@odata.type": "#HpiLOLicenseCollection.HpiLOLicenseCollection",
+    "Description": "iLO License Service View",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Managers/1/LicenseService/1/"
+        }
+    ],
+    "Members@odata.count": 1,
+    "Name": "iLO License Service"
+}

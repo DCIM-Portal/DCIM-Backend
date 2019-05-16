@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/365/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2019-04-05T15:40:00Z",
+    "EntryType": "Oem",
+    "Id": "365",
+    "Message": "Browser logout: Administrator - 172.27.250.2(DNS name not found).",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4807,
+            "Updated": "2019-04-05T15:40:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

@@ -1,19 +1,12 @@
 module Dcim
-  class ForemanApi < BaseApi
-    def initialize(**kwargs)
-      create_resource(kwargs)
-    end
-
+  class ForemanApi < BasicAuthApi
     def create_resource(**kwargs)
-      @resource = RestClient::Resource.new(
-        kwargs[:url],
-        proxy: '',
-        timeout: 10,
-        open_timeout: 5,
-        user: kwargs[:username],
-        password: kwargs[:password],
-        cookies: kwargs[:cookies],
-        verify_ssl: false
+      super(
+          **kwargs,
+          proxy: '',
+          timeout: 10,
+          open_timeout: 5,
+          verify_ssl: false
       )
     end
   end

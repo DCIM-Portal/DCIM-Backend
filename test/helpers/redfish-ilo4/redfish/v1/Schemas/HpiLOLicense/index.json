@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpiLOLicense/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpiLOLicense",
+    "Id": "HpiLOLicense",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/SchemaStore/en/HpiLOLicense.json/"
+            }
+        }
+    ],
+    "Name": "HpiLOLicense Schema Definition File",
+    "Schema": "HpiLOLicense.1.0.0"
+}

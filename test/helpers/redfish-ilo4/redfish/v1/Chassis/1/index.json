@@ -1,0 +1,95 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Chassis/Members/$entity",
+    "@odata.id": "/redfish/v1/Chassis/1/",
+    "@odata.type": "#Chassis.1.0.0.Chassis",
+    "ChassisType": "Blade",
+    "Id": "1",
+    "Links": {
+        "ComputerSystems": [
+            {
+                "@odata.id": "/redfish/v1/Systems/1/"
+            }
+        ],
+        "ManagedBy": [
+            {
+                "@odata.id": "/redfish/v1/Managers/1/"
+            }
+        ]
+    },
+    "Manufacturer": "HPE",
+    "Model": "ProLiant BL460c Gen9",
+    "Name": "Computer System Chassis",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpServerChassis.1.1.0.HpServerChassis",
+            "BayNumber": 2,
+            "BaysConsumedHeight": 1,
+            "BaysConsumedWidth": 1,
+            "Firmware": {
+                "PlatformDefinitionTable": {
+                    "Current": {
+                        "VersionString": "22.28"
+                    }
+                },
+                "PowerManagementController": {
+                    "Current": {
+                        "VersionString": "1.0.9"
+                    }
+                },
+                "PowerManagementControllerBootloader": {
+                    "Current": {
+                        "Family": "20",
+                        "VersionString": "1.0"
+                    }
+                },
+                "SASProgrammableLogicDevice": {
+                    "Current": {
+                        "VersionString": "Version 0x02"
+                    }
+                },
+                "SPSFirmwareVersionData": {
+                    "Current": {
+                        "VersionString": "3.0.6.267.4"
+                    }
+                },
+                "SystemProgrammableLogicDevice": {
+                    "Current": {
+                        "VersionString": "Version 0x13"
+                    }
+                }
+            },
+            "Location": {
+                "GeographicLocation": {
+                    "RackName": "AM2-A-6-U11-20"
+                },
+                "LocationInRack": {
+                    "RackLdsPartNumber": "0",
+                    "RackLdsProductDescription": "0",
+                    "RackUHeight": 0,
+                    "RackUUID": "092SN5140350",
+                    "TagVersion": 0,
+                    "ULocation": "UNKNOWN"
+                },
+                "LocationOfChassis": {
+                    "UUID": "30373237-3133-4D32-3235-313430344357"
+                }
+            },
+            "PowerAlertMode": {
+                "Activated": false,
+                "AlertPowerWatts": 10
+            }
+        }
+    },
+    "Power": {
+        "@odata.id": "/redfish/v1/Chassis/1/Power/"
+    },
+    "SKU": "727031-B21",
+    "SerialNumber": "2M251404CW",
+    "Status": {
+        "Health": "Warning",
+        "State": "Enabled"
+    },
+    "Thermal": {
+        "@odata.id": "/redfish/v1/Chassis/1/Thermal/"
+    }
+}

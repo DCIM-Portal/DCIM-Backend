@@ -1,0 +1,3423 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/DateTime$entity",
+    "@odata.id": "/redfish/v1/Managers/1/DateTime/",
+    "@odata.type": "#HpiLODateTime.1.0.0.HpiLODateTime",
+    "ConfigurationSettings": "Current",
+    "DateTime": "2019-04-05T15:35:53Z",
+    "Id": "DateTime",
+    "Links": {
+        "EthernetNICs": {
+            "@odata.id": "/redfish/v1/Managers/1/EthernetInterfaces/"
+        }
+    },
+    "NTPServers": [
+        "",
+        ""
+    ],
+    "Name": "iLO Date and Time Settings",
+    "PropagateTimeToHost": true,
+    "TimeZone": {
+        "Index": 328,
+        "Name": "Atlantic/Reykjavik",
+        "UtcOffset": "+00:00",
+        "Value": "GMT-0:00"
+    },
+    "TimeZoneList": [
+        {
+            "Index": 0,
+            "Name": "Africa/Abidjan",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 1,
+            "Name": "Africa/Accra",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 2,
+            "Name": "Africa/Addis_Ababa",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 3,
+            "Name": "Africa/Algiers",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00"
+        },
+        {
+            "Index": 4,
+            "Name": "Africa/Asmara",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 5,
+            "Name": "Africa/Bamako",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 6,
+            "Name": "Africa/Bangui",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 7,
+            "Name": "Africa/Banjul",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 8,
+            "Name": "Africa/Bissau",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 9,
+            "Name": "Africa/Blantyre",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 10,
+            "Name": "Africa/Brazzaville",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 11,
+            "Name": "Africa/Bujumbura",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 12,
+            "Name": "Africa/Cairo",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M4.5.5/00:00:00,M9.5.4/24:00:00"
+        },
+        {
+            "Index": 13,
+            "Name": "Africa/Casablanca",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/02:00:00,M10.5.0/03:00:00"
+        },
+        {
+            "Index": 14,
+            "Name": "Africa/Ceuta",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 15,
+            "Name": "Africa/Conakry",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 16,
+            "Name": "Africa/Dakar",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 17,
+            "Name": "Africa/Dar_es_Salaam",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 18,
+            "Name": "Africa/Djibouti",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 19,
+            "Name": "Africa/Douala",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 20,
+            "Name": "Africa/El_Aaiun",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/02:00:00,M10.5.0/03:00:00"
+        },
+        {
+            "Index": 21,
+            "Name": "Africa/Freetown",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 22,
+            "Name": "Africa/Gaborone",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 23,
+            "Name": "Africa/Harare",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 24,
+            "Name": "Africa/Johannesburg",
+            "UtcOffset": "+02:00",
+            "Value": "SAST-2:00"
+        },
+        {
+            "Index": 25,
+            "Name": "Africa/Juba",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 26,
+            "Name": "Africa/Kampala",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 27,
+            "Name": "Africa/Khartoum",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 28,
+            "Name": "Africa/Kigali",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 29,
+            "Name": "Africa/Kinshasa",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 30,
+            "Name": "Africa/Lagos",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 31,
+            "Name": "Africa/Libreville",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 32,
+            "Name": "Africa/Lome",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 33,
+            "Name": "Africa/Luanda",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 34,
+            "Name": "Africa/Lubumbashi",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 35,
+            "Name": "Africa/Lusaka",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 36,
+            "Name": "Africa/Malabo",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 37,
+            "Name": "Africa/Maputo",
+            "UtcOffset": "+02:00",
+            "Value": "CAT-2:00"
+        },
+        {
+            "Index": 38,
+            "Name": "Africa/Maseru",
+            "UtcOffset": "+02:00",
+            "Value": "SAST-2:00"
+        },
+        {
+            "Index": 39,
+            "Name": "Africa/Mbabane",
+            "UtcOffset": "+02:00",
+            "Value": "SAST-2:00"
+        },
+        {
+            "Index": 40,
+            "Name": "Africa/Mogadishu",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 41,
+            "Name": "Africa/Monrovia",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 42,
+            "Name": "Africa/Nairobi",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 43,
+            "Name": "Africa/Ndjamena",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 44,
+            "Name": "Africa/Niamey",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 45,
+            "Name": "Africa/Nouakchott",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 46,
+            "Name": "Africa/Ouagadougou",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 47,
+            "Name": "Africa/Porto-Novo",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00"
+        },
+        {
+            "Index": 48,
+            "Name": "Africa/Sao_Tome",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 49,
+            "Name": "Africa/Timbuktu",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 50,
+            "Name": "Africa/Tunis",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00"
+        },
+        {
+            "Index": 51,
+            "Name": "Africa/Windhoek",
+            "UtcOffset": "+01:00",
+            "Value": "WAT-1:00WAST-02:00:00,245/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 52,
+            "Name": "America/Adak",
+            "UtcOffset": "-10:00",
+            "Value": "HAST+10:00HADT+09:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 53,
+            "Name": "America/Anchorage",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 54,
+            "Name": "America/Anguilla",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 55,
+            "Name": "America/Antigua",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 56,
+            "Name": "America/Araguaina",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 57,
+            "Name": "America/Argentina/Buenos_Aires",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 58,
+            "Name": "America/Argentina/Catamarca",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 59,
+            "Name": "America/Argentina/ComodRivadavia",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 60,
+            "Name": "America/Argentina/Cordoba",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 61,
+            "Name": "America/Argentina/Jujuy",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 62,
+            "Name": "America/Argentina/La_Rioja",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 63,
+            "Name": "America/Argentina/Mendoza",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 64,
+            "Name": "America/Argentina/Rio_Gallegos",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 65,
+            "Name": "America/Argentina/Salta",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 66,
+            "Name": "America/Argentina/San_Juan",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 67,
+            "Name": "America/Argentina/San_Luis",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 68,
+            "Name": "America/Argentina/Tucuman",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 69,
+            "Name": "America/Argentina/Ushuaia",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 70,
+            "Name": "America/Aruba",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 71,
+            "Name": "America/Asuncion",
+            "UtcOffset": "-04:00",
+            "Value": "PYT+4:00PYST+03:00:00,273/00:00:00,84/00:00:00"
+        },
+        {
+            "Index": 72,
+            "Name": "America/Atikokan",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 73,
+            "Name": "America/Atka",
+            "UtcOffset": "-10:00",
+            "Value": "HAST+10:00HADT+09:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 74,
+            "Name": "America/Bahia",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 75,
+            "Name": "America/Bahia_Banderas",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 76,
+            "Name": "America/Barbados",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 77,
+            "Name": "America/Belem",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 78,
+            "Name": "America/Belize",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 79,
+            "Name": "America/Blanc-Sablon",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 80,
+            "Name": "America/Boa_Vista",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00"
+        },
+        {
+            "Index": 81,
+            "Name": "America/Bogota",
+            "UtcOffset": "-05:00",
+            "Value": "COT+5:00"
+        },
+        {
+            "Index": 82,
+            "Name": "America/Boise",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 83,
+            "Name": "America/Buenos_Aires",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 84,
+            "Name": "America/Cambridge_Bay",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 85,
+            "Name": "America/Campo_Grande",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00AMST+03:00:00,287/00:00:00,49/00:00:00"
+        },
+        {
+            "Index": 86,
+            "Name": "America/Cancun",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 87,
+            "Name": "America/Caracas",
+            "UtcOffset": "-04:30",
+            "Value": "VET+4:30"
+        },
+        {
+            "Index": 88,
+            "Name": "America/Catamarca",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 89,
+            "Name": "America/Cayenne",
+            "UtcOffset": "-03:00",
+            "Value": "GFT+3:00"
+        },
+        {
+            "Index": 90,
+            "Name": "America/Cayman",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 91,
+            "Name": "America/Chicago",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 92,
+            "Name": "America/Chihuahua",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 93,
+            "Name": "America/Coral_Harbour",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 94,
+            "Name": "America/Cordoba",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 95,
+            "Name": "America/Costa_Rica",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 96,
+            "Name": "America/Creston",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 97,
+            "Name": "America/Cuiaba",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00AMST+03:00:00,287/00:00:00,49/00:00:00"
+        },
+        {
+            "Index": 98,
+            "Name": "America/Curacao",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 99,
+            "Name": "America/Danmarkshavn",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 100,
+            "Name": "America/Dawson",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 101,
+            "Name": "America/Dawson_Creek",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 102,
+            "Name": "America/Denver",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 103,
+            "Name": "America/Detroit",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 104,
+            "Name": "America/Dominica",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 105,
+            "Name": "America/Edmonton",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 106,
+            "Name": "America/Eirunepe",
+            "UtcOffset": "-05:00",
+            "Value": "ACT+5:00"
+        },
+        {
+            "Index": 107,
+            "Name": "America/El_Salvador",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 108,
+            "Name": "America/Ensenada",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 109,
+            "Name": "America/Fort_Wayne",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 110,
+            "Name": "America/Fortaleza",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 111,
+            "Name": "America/Glace_Bay",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 112,
+            "Name": "America/Godthab",
+            "UtcOffset": "-03:00",
+            "Value": "WGT+3:00WGST+02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 113,
+            "Name": "America/Goose_Bay",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 114,
+            "Name": "America/Grand_Turk",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 115,
+            "Name": "America/Grenada",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 116,
+            "Name": "America/Guadeloupe",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 117,
+            "Name": "America/Guatemala",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 118,
+            "Name": "America/Guayaquil",
+            "UtcOffset": "-05:00",
+            "Value": "ECT+5:00"
+        },
+        {
+            "Index": 119,
+            "Name": "America/Halifax",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 120,
+            "Name": "America/Havana",
+            "UtcOffset": "-05:00",
+            "Value": "CST+5:00CDT+04:00:00,70/00:00:00,308/00:00:00"
+        },
+        {
+            "Index": 121,
+            "Name": "America/Hermosillo",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 122,
+            "Name": "America/Indiana/Indianapolis",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 123,
+            "Name": "America/Indiana/Knox",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 124,
+            "Name": "America/Indiana/Marengo",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 125,
+            "Name": "America/Indiana/Petersburg",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 126,
+            "Name": "America/Indiana/Tell_City",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 127,
+            "Name": "America/Indiana/Vevay",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 128,
+            "Name": "America/Indiana/Vincennes",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 129,
+            "Name": "America/Indiana/Winamac",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 130,
+            "Name": "America/Indianapolis",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 131,
+            "Name": "America/Inuvik",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 132,
+            "Name": "America/Iqaluit",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 133,
+            "Name": "America/Jamaica",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 134,
+            "Name": "America/Jujuy",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 135,
+            "Name": "America/Juneau",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 136,
+            "Name": "America/Kentucky/Louisville",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 137,
+            "Name": "America/Kentucky/Monticello",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 138,
+            "Name": "America/Knox_IN",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 139,
+            "Name": "America/Kralendijk",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 140,
+            "Name": "America/La_Paz",
+            "UtcOffset": "-04:00",
+            "Value": "BOT+4:00"
+        },
+        {
+            "Index": 141,
+            "Name": "America/Lima",
+            "UtcOffset": "-05:00",
+            "Value": "PET+5:00"
+        },
+        {
+            "Index": 142,
+            "Name": "America/Los_Angeles",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 143,
+            "Name": "America/Louisville",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 144,
+            "Name": "America/Lower_Princes",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 145,
+            "Name": "America/Maceio",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 146,
+            "Name": "America/Managua",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 147,
+            "Name": "America/Manaus",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00"
+        },
+        {
+            "Index": 148,
+            "Name": "America/Marigot",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 149,
+            "Name": "America/Martinique",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 150,
+            "Name": "America/Matamoros",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 151,
+            "Name": "America/Mazatlan",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 152,
+            "Name": "America/Mendoza",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 153,
+            "Name": "America/Menominee",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 154,
+            "Name": "America/Merida",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 155,
+            "Name": "America/Metlakatla",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00"
+        },
+        {
+            "Index": 156,
+            "Name": "America/Mexico_City",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 157,
+            "Name": "America/Miquelon",
+            "UtcOffset": "-03:00",
+            "Value": "PMST+3:00PMDT+02:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 158,
+            "Name": "America/Moncton",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 159,
+            "Name": "America/Monterrey",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 160,
+            "Name": "America/Montevideo",
+            "UtcOffset": "-03:00",
+            "Value": "UYT+3:00UYST+02:00:00,273/02:00:00,70/02:00:00"
+        },
+        {
+            "Index": 161,
+            "Name": "America/Montreal",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 162,
+            "Name": "America/Montserrat",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 163,
+            "Name": "America/Nassau",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 164,
+            "Name": "America/New_York",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 165,
+            "Name": "America/Nipigon",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 166,
+            "Name": "America/Nome",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 167,
+            "Name": "America/Noronha",
+            "UtcOffset": "-02:00",
+            "Value": "FNT+2:00"
+        },
+        {
+            "Index": 168,
+            "Name": "America/North_Dakota/Beulah",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 169,
+            "Name": "America/North_Dakota/Center",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 170,
+            "Name": "America/North_Dakota/New_Salem",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 171,
+            "Name": "America/Ojinaga",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 172,
+            "Name": "America/Panama",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 173,
+            "Name": "America/Pangnirtung",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 174,
+            "Name": "America/Paramaribo",
+            "UtcOffset": "-03:00",
+            "Value": "SRT+3:00"
+        },
+        {
+            "Index": 175,
+            "Name": "America/Phoenix",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 176,
+            "Name": "America/Port-au-Prince",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 177,
+            "Name": "America/Port_of_Spain",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 178,
+            "Name": "America/Porto_Acre",
+            "UtcOffset": "-05:00",
+            "Value": "ACT+5:00"
+        },
+        {
+            "Index": 179,
+            "Name": "America/Porto_Velho",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00"
+        },
+        {
+            "Index": 180,
+            "Name": "America/Puerto_Rico",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 181,
+            "Name": "America/Rainy_River",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 182,
+            "Name": "America/Rankin_Inlet",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 183,
+            "Name": "America/Recife",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 184,
+            "Name": "America/Regina",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 185,
+            "Name": "America/Resolute",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 186,
+            "Name": "America/Rio_Branco",
+            "UtcOffset": "-05:00",
+            "Value": "ACT+5:00"
+        },
+        {
+            "Index": 187,
+            "Name": "America/Rosario",
+            "UtcOffset": "-03:00",
+            "Value": "ART+3:00"
+        },
+        {
+            "Index": 188,
+            "Name": "America/Santa_Isabel",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 189,
+            "Name": "America/Santarem",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00"
+        },
+        {
+            "Index": 190,
+            "Name": "America/Santiago",
+            "UtcOffset": "-04:00",
+            "Value": "CLT+4:00CLST+03:00:00,245/04:00:00,112/03:00:00"
+        },
+        {
+            "Index": 191,
+            "Name": "America/Santo_Domingo",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 192,
+            "Name": "America/Sao_Paulo",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00BRST+02:00:00,287/00:00:00,49/00:00:00"
+        },
+        {
+            "Index": 193,
+            "Name": "America/Scoresbysund",
+            "UtcOffset": "-01:00",
+            "Value": "EGT+1:00EGST+00:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 194,
+            "Name": "America/Shiprock",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 195,
+            "Name": "America/Sitka",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 196,
+            "Name": "America/St_Barthelemy",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 197,
+            "Name": "America/St_Johns",
+            "UtcOffset": "-03:30",
+            "Value": "NST+3:30NDT+02:30:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 198,
+            "Name": "America/St_Kitts",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 199,
+            "Name": "America/St_Lucia",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 200,
+            "Name": "America/St_Thomas",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 201,
+            "Name": "America/St_Vincent",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 202,
+            "Name": "America/Swift_Current",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 203,
+            "Name": "America/Tegucigalpa",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 204,
+            "Name": "America/Thule",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 205,
+            "Name": "America/Thunder_Bay",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 206,
+            "Name": "America/Tijuana",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 207,
+            "Name": "America/Toronto",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 208,
+            "Name": "America/Tortola",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 209,
+            "Name": "America/Vancouver",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 210,
+            "Name": "America/Virgin",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00"
+        },
+        {
+            "Index": 211,
+            "Name": "America/Whitehorse",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 212,
+            "Name": "America/Winnipeg",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 213,
+            "Name": "America/Yakutat",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 214,
+            "Name": "America/Yellowknife",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 215,
+            "Name": "Antarctica/Casey",
+            "UtcOffset": "+08:00",
+            "Value": "AWST-8:00"
+        },
+        {
+            "Index": 216,
+            "Name": "Antarctica/Davis",
+            "UtcOffset": "+07:00",
+            "Value": "DAVT-7:00"
+        },
+        {
+            "Index": 217,
+            "Name": "Antarctica/DumontDUrville",
+            "UtcOffset": "+10:00",
+            "Value": "DDUT-10:00"
+        },
+        {
+            "Index": 218,
+            "Name": "Antarctica/Macquarie",
+            "UtcOffset": "+11:00",
+            "Value": "MIST-11:00"
+        },
+        {
+            "Index": 219,
+            "Name": "Antarctica/Mawson",
+            "UtcOffset": "+05:00",
+            "Value": "MAWT-5:00"
+        },
+        {
+            "Index": 220,
+            "Name": "Antarctica/McMurdo",
+            "UtcOffset": "+12:00",
+            "Value": "NZST-12:00NZDT-13:00:00,M9.5.0/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 221,
+            "Name": "Antarctica/Palmer",
+            "UtcOffset": "-04:00",
+            "Value": "CLT+4:00CLST+03:00:00,245/04:00:00,112/03:00:00"
+        },
+        {
+            "Index": 222,
+            "Name": "Antarctica/Rothera",
+            "UtcOffset": "-03:00",
+            "Value": "ROTT+3:00"
+        },
+        {
+            "Index": 223,
+            "Name": "Antarctica/South_Pole",
+            "UtcOffset": "+12:00",
+            "Value": "NZST-12:00NZDT-13:00:00,M9.5.0/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 224,
+            "Name": "Antarctica/Syowa",
+            "UtcOffset": "+03:00",
+            "Value": "SYOT-3:00"
+        },
+        {
+            "Index": 225,
+            "Name": "Antarctica/Troll",
+            "UtcOffset": "+00:00",
+            "Value": "CEST-0:00UTC+00:00:00,M10.5.0/01:00:00,M3.5.0/01:00:00"
+        },
+        {
+            "Index": 226,
+            "Name": "Antarctica/Vostok",
+            "UtcOffset": "+06:00",
+            "Value": "VOST-6:00"
+        },
+        {
+            "Index": 227,
+            "Name": "Arctic/Longyearbyen",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 228,
+            "Name": "Asia/Aden",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 229,
+            "Name": "Asia/Almaty",
+            "UtcOffset": "+06:00",
+            "Value": "ALMT-6:00"
+        },
+        {
+            "Index": 230,
+            "Name": "Asia/Amman",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.4/24:00:00,M10.5.5/00:00:00"
+        },
+        {
+            "Index": 231,
+            "Name": "Asia/Anadyr",
+            "UtcOffset": "+12:00",
+            "Value": "ANAT-12:00"
+        },
+        {
+            "Index": 232,
+            "Name": "Asia/Aqtau",
+            "UtcOffset": "+05:00",
+            "Value": "AQTT-5:00"
+        },
+        {
+            "Index": 233,
+            "Name": "Asia/Aqtobe",
+            "UtcOffset": "+05:00",
+            "Value": "AQTT-5:00"
+        },
+        {
+            "Index": 234,
+            "Name": "Asia/Ashgabat",
+            "UtcOffset": "+05:00",
+            "Value": "TMT-5:00"
+        },
+        {
+            "Index": 235,
+            "Name": "Asia/Ashkhabad",
+            "UtcOffset": "+05:00",
+            "Value": "TMT-5:00"
+        },
+        {
+            "Index": 236,
+            "Name": "Asia/Baghdad",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 237,
+            "Name": "Asia/Bahrain",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 238,
+            "Name": "Asia/Baku",
+            "UtcOffset": "+04:00",
+            "Value": "AZT-4:00AZST-05:00:00,M3.5.0/04:00:00,M10.5.0/05:00:00"
+        },
+        {
+            "Index": 239,
+            "Name": "Asia/Bangkok",
+            "UtcOffset": "+07:00",
+            "Value": "ICT-7:00"
+        },
+        {
+            "Index": 240,
+            "Name": "Asia/Beirut",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/00:00:00,M10.5.0/00:00:00"
+        },
+        {
+            "Index": 241,
+            "Name": "Asia/Bishkek",
+            "UtcOffset": "+06:00",
+            "Value": "KGT-6:00"
+        },
+        {
+            "Index": 242,
+            "Name": "Asia/Brunei",
+            "UtcOffset": "+08:00",
+            "Value": "BNT-8:00"
+        },
+        {
+            "Index": 243,
+            "Name": "Asia/Calcutta",
+            "UtcOffset": "+05:30",
+            "Value": "IST-5:30"
+        },
+        {
+            "Index": 244,
+            "Name": "Asia/Chita",
+            "UtcOffset": "+08:00",
+            "Value": "IRKT-8:00"
+        },
+        {
+            "Index": 245,
+            "Name": "Asia/Choibalsan",
+            "UtcOffset": "+08:00",
+            "Value": "CHOT-8:00"
+        },
+        {
+            "Index": 246,
+            "Name": "Asia/Chongqing",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 247,
+            "Name": "Asia/Chungking",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 248,
+            "Name": "Asia/Colombo",
+            "UtcOffset": "+05:30",
+            "Value": "IST-5:30"
+        },
+        {
+            "Index": 249,
+            "Name": "Asia/Dacca",
+            "UtcOffset": "+06:00",
+            "Value": "BDT-6:00"
+        },
+        {
+            "Index": 250,
+            "Name": "Asia/Damascus",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.5/00:00:00,M10.5.5/00:00:00"
+        },
+        {
+            "Index": 251,
+            "Name": "Asia/Dhaka",
+            "UtcOffset": "+06:00",
+            "Value": "BDT-6:00"
+        },
+        {
+            "Index": 252,
+            "Name": "Asia/Dili",
+            "UtcOffset": "+09:00",
+            "Value": "TLT-9:00"
+        },
+        {
+            "Index": 253,
+            "Name": "Asia/Dubai",
+            "UtcOffset": "+04:00",
+            "Value": "GST-4:00"
+        },
+        {
+            "Index": 254,
+            "Name": "Asia/Dushanbe",
+            "UtcOffset": "+05:00",
+            "Value": "TJT-5:00"
+        },
+        {
+            "Index": 255,
+            "Name": "Asia/Gaza",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.4/24:00:00,264/00:00:00"
+        },
+        {
+            "Index": 256,
+            "Name": "Asia/Harbin",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 257,
+            "Name": "Asia/Hebron",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.4/24:00:00,264/00:00:00"
+        },
+        {
+            "Index": 258,
+            "Name": "Asia/Ho_Chi_Minh",
+            "UtcOffset": "+07:00",
+            "Value": "ICT-7:00"
+        },
+        {
+            "Index": 259,
+            "Name": "Asia/Hong_Kong",
+            "UtcOffset": "+08:00",
+            "Value": "HKT-8:00"
+        },
+        {
+            "Index": 260,
+            "Name": "Asia/Hovd",
+            "UtcOffset": "+07:00",
+            "Value": "HOVT-7:00"
+        },
+        {
+            "Index": 261,
+            "Name": "Asia/Irkutsk",
+            "UtcOffset": "+08:00",
+            "Value": "IRKT-8:00"
+        },
+        {
+            "Index": 262,
+            "Name": "Asia/Istanbul",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 263,
+            "Name": "Asia/Jayapura",
+            "UtcOffset": "+09:00",
+            "Value": "WIT-9:00"
+        },
+        {
+            "Index": 264,
+            "Name": "Asia/Jerusalem",
+            "UtcOffset": "+02:00",
+            "Value": "IST-2:00IDT-03:00:00,82/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 265,
+            "Name": "Asia/Kabul",
+            "UtcOffset": "+04:30",
+            "Value": "AFT-4:30"
+        },
+        {
+            "Index": 266,
+            "Name": "Asia/Kamchatka",
+            "UtcOffset": "+12:00",
+            "Value": "PETT-12:00"
+        },
+        {
+            "Index": 267,
+            "Name": "Asia/Karachi",
+            "UtcOffset": "+05:00",
+            "Value": "PKT-5:00"
+        },
+        {
+            "Index": 268,
+            "Name": "Asia/Kashgar",
+            "UtcOffset": "+06:00",
+            "Value": "XJT-6:00"
+        },
+        {
+            "Index": 269,
+            "Name": "Asia/Kathmandu",
+            "UtcOffset": "+05:45",
+            "Value": "NPT-5:45"
+        },
+        {
+            "Index": 270,
+            "Name": "Asia/Katmandu",
+            "UtcOffset": "+05:45",
+            "Value": "NPT-5:45"
+        },
+        {
+            "Index": 271,
+            "Name": "Asia/Khandyga",
+            "UtcOffset": "+09:00",
+            "Value": "YAKT-9:00"
+        },
+        {
+            "Index": 272,
+            "Name": "Asia/Kolkata",
+            "UtcOffset": "+05:30",
+            "Value": "IST-5:30"
+        },
+        {
+            "Index": 273,
+            "Name": "Asia/Krasnoyarsk",
+            "UtcOffset": "+07:00",
+            "Value": "KRAT-7:00"
+        },
+        {
+            "Index": 274,
+            "Name": "Asia/Kuala_Lumpur",
+            "UtcOffset": "+08:00",
+            "Value": "MYT-8:00"
+        },
+        {
+            "Index": 275,
+            "Name": "Asia/Kuching",
+            "UtcOffset": "+08:00",
+            "Value": "MYT-8:00"
+        },
+        {
+            "Index": 276,
+            "Name": "Asia/Kuwait",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 277,
+            "Name": "Asia/Macao",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 278,
+            "Name": "Asia/Macau",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 279,
+            "Name": "Asia/Magadan",
+            "UtcOffset": "+10:00",
+            "Value": "MAGT-10:00"
+        },
+        {
+            "Index": 280,
+            "Name": "Asia/Makassar",
+            "UtcOffset": "+08:00",
+            "Value": "WITA-8:00"
+        },
+        {
+            "Index": 281,
+            "Name": "Asia/Manila",
+            "UtcOffset": "+08:00",
+            "Value": "PHT-8:00"
+        },
+        {
+            "Index": 282,
+            "Name": "Asia/Muscat",
+            "UtcOffset": "+04:00",
+            "Value": "GST-4:00"
+        },
+        {
+            "Index": 283,
+            "Name": "Asia/Nicosia",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 284,
+            "Name": "Asia/Novokuznetsk",
+            "UtcOffset": "+07:00",
+            "Value": "KRAT-7:00"
+        },
+        {
+            "Index": 285,
+            "Name": "Asia/Novosibirsk",
+            "UtcOffset": "+06:00",
+            "Value": "NOVT-6:00"
+        },
+        {
+            "Index": 286,
+            "Name": "Asia/Omsk",
+            "UtcOffset": "+06:00",
+            "Value": "OMST-6:00"
+        },
+        {
+            "Index": 287,
+            "Name": "Asia/Oral",
+            "UtcOffset": "+05:00",
+            "Value": "ORAT-5:00"
+        },
+        {
+            "Index": 288,
+            "Name": "Asia/Phnom_Penh",
+            "UtcOffset": "+07:00",
+            "Value": "ICT-7:00"
+        },
+        {
+            "Index": 289,
+            "Name": "Asia/Pontianak",
+            "UtcOffset": "+07:00",
+            "Value": "WIB-7:00"
+        },
+        {
+            "Index": 290,
+            "Name": "Asia/Pyongyang",
+            "UtcOffset": "+09:00",
+            "Value": "KST-9:00"
+        },
+        {
+            "Index": 291,
+            "Name": "Asia/Qatar",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 292,
+            "Name": "Asia/Qyzylorda",
+            "UtcOffset": "+06:00",
+            "Value": "QYZT-6:00"
+        },
+        {
+            "Index": 293,
+            "Name": "Asia/Rangoon",
+            "UtcOffset": "+06:30",
+            "Value": "MMT-6:30"
+        },
+        {
+            "Index": 294,
+            "Name": "Asia/Riyadh",
+            "UtcOffset": "+03:00",
+            "Value": "AST-3:00"
+        },
+        {
+            "Index": 295,
+            "Name": "Asia/Saigon",
+            "UtcOffset": "+07:00",
+            "Value": "ICT-7:00"
+        },
+        {
+            "Index": 296,
+            "Name": "Asia/Sakhalin",
+            "UtcOffset": "+10:00",
+            "Value": "SAKT-10:00"
+        },
+        {
+            "Index": 297,
+            "Name": "Asia/Samarkand",
+            "UtcOffset": "+05:00",
+            "Value": "UZT-5:00"
+        },
+        {
+            "Index": 298,
+            "Name": "Asia/Seoul",
+            "UtcOffset": "+09:00",
+            "Value": "KST-9:00"
+        },
+        {
+            "Index": 299,
+            "Name": "Asia/Shanghai",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 300,
+            "Name": "Asia/Singapore",
+            "UtcOffset": "+08:00",
+            "Value": "SGT-8:00"
+        },
+        {
+            "Index": 301,
+            "Name": "Asia/Srednekolymsk",
+            "UtcOffset": "+11:00",
+            "Value": "SRET-11:00"
+        },
+        {
+            "Index": 302,
+            "Name": "Asia/Taipei",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 303,
+            "Name": "Asia/Tashkent",
+            "UtcOffset": "+05:00",
+            "Value": "UZT-5:00"
+        },
+        {
+            "Index": 304,
+            "Name": "Asia/Tbilisi",
+            "UtcOffset": "+04:00",
+            "Value": "GET-4:00"
+        },
+        {
+            "Index": 305,
+            "Name": "Asia/Tehran",
+            "UtcOffset": "+03:30",
+            "Value": "IRST-3:30IRDT-04:30:00,80/00:00:00,264/00:00:00"
+        },
+        {
+            "Index": 306,
+            "Name": "Asia/Tel_Aviv",
+            "UtcOffset": "+02:00",
+            "Value": "IST-2:00IDT-03:00:00,82/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 307,
+            "Name": "Asia/Thimbu",
+            "UtcOffset": "+06:00",
+            "Value": "BTT-6:00"
+        },
+        {
+            "Index": 308,
+            "Name": "Asia/Thimphu",
+            "UtcOffset": "+06:00",
+            "Value": "BTT-6:00"
+        },
+        {
+            "Index": 309,
+            "Name": "Asia/Tokyo",
+            "UtcOffset": "+09:00",
+            "Value": "JST-9:00"
+        },
+        {
+            "Index": 310,
+            "Name": "Asia/Ujung_Pandang",
+            "UtcOffset": "+08:00",
+            "Value": "WITA-8:00"
+        },
+        {
+            "Index": 311,
+            "Name": "Asia/Ulaanbaatar",
+            "UtcOffset": "+08:00",
+            "Value": "ULAT-8:00"
+        },
+        {
+            "Index": 312,
+            "Name": "Asia/Ulan_Bator",
+            "UtcOffset": "+08:00",
+            "Value": "ULAT-8:00"
+        },
+        {
+            "Index": 313,
+            "Name": "Asia/Urumqi",
+            "UtcOffset": "+06:00",
+            "Value": "XJT-6:00"
+        },
+        {
+            "Index": 314,
+            "Name": "Asia/Ust-Nera",
+            "UtcOffset": "+10:00",
+            "Value": "VLAT-10:00"
+        },
+        {
+            "Index": 315,
+            "Name": "Asia/Vientiane",
+            "UtcOffset": "+07:00",
+            "Value": "ICT-7:00"
+        },
+        {
+            "Index": 316,
+            "Name": "Asia/Vladivostok",
+            "UtcOffset": "+10:00",
+            "Value": "VLAT-10:00"
+        },
+        {
+            "Index": 317,
+            "Name": "Asia/Yakutsk",
+            "UtcOffset": "+09:00",
+            "Value": "YAKT-9:00"
+        },
+        {
+            "Index": 318,
+            "Name": "Asia/Yekaterinburg",
+            "UtcOffset": "+05:00",
+            "Value": "YEKT-5:00"
+        },
+        {
+            "Index": 319,
+            "Name": "Asia/Yerevan",
+            "UtcOffset": "+04:00",
+            "Value": "AMT-4:00"
+        },
+        {
+            "Index": 320,
+            "Name": "Atlantic/Azores",
+            "UtcOffset": "-01:00",
+            "Value": "AZOT+1:00AZOST+00:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 321,
+            "Name": "Atlantic/Bermuda",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 322,
+            "Name": "Atlantic/Canary",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 323,
+            "Name": "Atlantic/Cape_Verde",
+            "UtcOffset": "-01:00",
+            "Value": "CVT+1:00"
+        },
+        {
+            "Index": 324,
+            "Name": "Atlantic/Faeroe",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 325,
+            "Name": "Atlantic/Faroe",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 326,
+            "Name": "Atlantic/Jan_Mayen",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 327,
+            "Name": "Atlantic/Madeira",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 328,
+            "Name": "Atlantic/Reykjavik",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 329,
+            "Name": "Atlantic/South_Georgia",
+            "UtcOffset": "-02:00",
+            "Value": "GST+2:00"
+        },
+        {
+            "Index": 330,
+            "Name": "Atlantic/St_Helena",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 331,
+            "Name": "Atlantic/Stanley",
+            "UtcOffset": "-03:00",
+            "Value": "FKST+3:00"
+        },
+        {
+            "Index": 332,
+            "Name": "Australia/ACT",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 333,
+            "Name": "Australia/Adelaide",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30ACDT-10:30:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 334,
+            "Name": "Australia/Brisbane",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00"
+        },
+        {
+            "Index": 335,
+            "Name": "Australia/Broken_Hill",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30ACDT-10:30:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 336,
+            "Name": "Australia/Canberra",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 337,
+            "Name": "Australia/Currie",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 338,
+            "Name": "Australia/Darwin",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30"
+        },
+        {
+            "Index": 339,
+            "Name": "Australia/Eucla",
+            "UtcOffset": "+08:45",
+            "Value": "ACWST-8:45"
+        },
+        {
+            "Index": 340,
+            "Name": "Australia/Hobart",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 341,
+            "Name": "Australia/LHI",
+            "UtcOffset": "+10:30",
+            "Value": "LHST-10:30LHDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 342,
+            "Name": "Australia/Lindeman",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00"
+        },
+        {
+            "Index": 343,
+            "Name": "Australia/Lord_Howe",
+            "UtcOffset": "+10:30",
+            "Value": "LHST-10:30LHDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 344,
+            "Name": "Australia/Melbourne",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 345,
+            "Name": "Australia/North",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30"
+        },
+        {
+            "Index": 346,
+            "Name": "Australia/NSW",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 347,
+            "Name": "Australia/Perth",
+            "UtcOffset": "+08:00",
+            "Value": "AWST-8:00"
+        },
+        {
+            "Index": 348,
+            "Name": "Australia/Queensland",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00"
+        },
+        {
+            "Index": 349,
+            "Name": "Australia/South",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30ACDT-10:30:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 350,
+            "Name": "Australia/Sydney",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 351,
+            "Name": "Australia/Tasmania",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 352,
+            "Name": "Australia/Victoria",
+            "UtcOffset": "+10:00",
+            "Value": "AEST-10:00AEDT-11:00:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 353,
+            "Name": "Australia/West",
+            "UtcOffset": "+08:00",
+            "Value": "AWST-8:00"
+        },
+        {
+            "Index": 354,
+            "Name": "Australia/Yancowinna",
+            "UtcOffset": "+09:30",
+            "Value": "ACST-9:30ACDT-10:30:00,273/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 355,
+            "Name": "Brazil/Acre",
+            "UtcOffset": "-05:00",
+            "Value": "ACT+5:00"
+        },
+        {
+            "Index": 356,
+            "Name": "Brazil/DeNoronha",
+            "UtcOffset": "-02:00",
+            "Value": "FNT+2:00"
+        },
+        {
+            "Index": 357,
+            "Name": "Brazil/East",
+            "UtcOffset": "-03:00",
+            "Value": "BRT+3:00BRST+02:00:00,287/00:00:00,49/00:00:00"
+        },
+        {
+            "Index": 358,
+            "Name": "Brazil/West",
+            "UtcOffset": "-04:00",
+            "Value": "AMT+4:00"
+        },
+        {
+            "Index": 359,
+            "Name": "Canada/Atlantic",
+            "UtcOffset": "-04:00",
+            "Value": "AST+4:00ADT+03:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 360,
+            "Name": "Canada/Central",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 361,
+            "Name": "Canada/East-Saskatchewan",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 362,
+            "Name": "Canada/Eastern",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 363,
+            "Name": "Canada/Mountain",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 364,
+            "Name": "Canada/Newfoundland",
+            "UtcOffset": "-03:30",
+            "Value": "NST+3:30NDT+02:30:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 365,
+            "Name": "Canada/Pacific",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 366,
+            "Name": "Canada/Saskatchewan",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00"
+        },
+        {
+            "Index": 367,
+            "Name": "Canada/Yukon",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 368,
+            "Name": "CET",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 369,
+            "Name": "Chile/Continental",
+            "UtcOffset": "-04:00",
+            "Value": "CLT+4:00CLST+03:00:00,245/04:00:00,112/03:00:00"
+        },
+        {
+            "Index": 370,
+            "Name": "Chile/EasterIsland",
+            "UtcOffset": "-06:00",
+            "Value": "EAST+6:00EASST+05:00:00,245/04:00:00,112/03:00:00"
+        },
+        {
+            "Index": 371,
+            "Name": "CST6CDT",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 372,
+            "Name": "Cuba",
+            "UtcOffset": "-05:00",
+            "Value": "CST+5:00CDT+04:00:00,70/00:00:00,308/00:00:00"
+        },
+        {
+            "Index": 373,
+            "Name": "EET",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 374,
+            "Name": "Egypt",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M4.5.5/00:00:00,M9.5.4/24:00:00"
+        },
+        {
+            "Index": 375,
+            "Name": "Eire",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00IST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 376,
+            "Name": "EST",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 377,
+            "Name": "EST5EDT",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 378,
+            "Name": "Etc/GMT",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 379,
+            "Name": "Etc/GMT+0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 380,
+            "Name": "Etc/GMT+1",
+            "UtcOffset": "-01:00",
+            "Value": "GMT+1+1"
+        },
+        {
+            "Index": 381,
+            "Name": "Etc/GMT+10",
+            "UtcOffset": "-10:00",
+            "Value": "GMT+10+10"
+        },
+        {
+            "Index": 382,
+            "Name": "Etc/GMT+11",
+            "UtcOffset": "-11:00",
+            "Value": "GMT+11+11"
+        },
+        {
+            "Index": 383,
+            "Name": "Etc/GMT+12",
+            "UtcOffset": "-12:00",
+            "Value": "GMT+12+12"
+        },
+        {
+            "Index": 384,
+            "Name": "Etc/GMT+2",
+            "UtcOffset": "-02:00",
+            "Value": "GMT+2+2"
+        },
+        {
+            "Index": 385,
+            "Name": "Etc/GMT+3",
+            "UtcOffset": "-03:00",
+            "Value": "GMT+3+3"
+        },
+        {
+            "Index": 386,
+            "Name": "Etc/GMT+4",
+            "UtcOffset": "-04:00",
+            "Value": "GMT+4+4"
+        },
+        {
+            "Index": 387,
+            "Name": "Etc/GMT+5",
+            "UtcOffset": "-05:00",
+            "Value": "GMT+5+5"
+        },
+        {
+            "Index": 388,
+            "Name": "Etc/GMT+6",
+            "UtcOffset": "-06:00",
+            "Value": "GMT+6+6"
+        },
+        {
+            "Index": 389,
+            "Name": "Etc/GMT+7",
+            "UtcOffset": "-07:00",
+            "Value": "GMT+7+7"
+        },
+        {
+            "Index": 390,
+            "Name": "Etc/GMT+8",
+            "UtcOffset": "-08:00",
+            "Value": "GMT+8+8"
+        },
+        {
+            "Index": 391,
+            "Name": "Etc/GMT+9",
+            "UtcOffset": "-09:00",
+            "Value": "GMT+9+9"
+        },
+        {
+            "Index": 392,
+            "Name": "Etc/GMT-0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 393,
+            "Name": "Etc/GMT-1",
+            "UtcOffset": "+01:00",
+            "Value": "GMT-1-1"
+        },
+        {
+            "Index": 394,
+            "Name": "Etc/GMT-10",
+            "UtcOffset": "+10:00",
+            "Value": "GMT-10-10"
+        },
+        {
+            "Index": 395,
+            "Name": "Etc/GMT-11",
+            "UtcOffset": "+11:00",
+            "Value": "GMT-11-11"
+        },
+        {
+            "Index": 396,
+            "Name": "Etc/GMT-12",
+            "UtcOffset": "+12:00",
+            "Value": "GMT-12-12"
+        },
+        {
+            "Index": 397,
+            "Name": "Etc/GMT-13",
+            "UtcOffset": "+13:00",
+            "Value": "GMT-13-13"
+        },
+        {
+            "Index": 398,
+            "Name": "Etc/GMT-14",
+            "UtcOffset": "+14:00",
+            "Value": "GMT-14-14"
+        },
+        {
+            "Index": 399,
+            "Name": "Etc/GMT-2",
+            "UtcOffset": "+02:00",
+            "Value": "GMT-2-2"
+        },
+        {
+            "Index": 400,
+            "Name": "Etc/GMT-3",
+            "UtcOffset": "+03:00",
+            "Value": "GMT-3-3"
+        },
+        {
+            "Index": 401,
+            "Name": "Etc/GMT-4",
+            "UtcOffset": "+04:00",
+            "Value": "GMT-4-4"
+        },
+        {
+            "Index": 402,
+            "Name": "Etc/GMT-5",
+            "UtcOffset": "+05:00",
+            "Value": "GMT-5-5"
+        },
+        {
+            "Index": 403,
+            "Name": "Etc/GMT-6",
+            "UtcOffset": "+06:00",
+            "Value": "GMT-6-6"
+        },
+        {
+            "Index": 404,
+            "Name": "Etc/GMT-7",
+            "UtcOffset": "+07:00",
+            "Value": "GMT-7-7"
+        },
+        {
+            "Index": 405,
+            "Name": "Etc/GMT-8",
+            "UtcOffset": "+08:00",
+            "Value": "GMT-8-8"
+        },
+        {
+            "Index": 406,
+            "Name": "Etc/GMT-9",
+            "UtcOffset": "+09:00",
+            "Value": "GMT-9-9"
+        },
+        {
+            "Index": 407,
+            "Name": "Etc/GMT0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 408,
+            "Name": "Etc/Greenwich",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 409,
+            "Name": "Etc/UCT",
+            "UtcOffset": "+00:00",
+            "Value": "UCT-0"
+        },
+        {
+            "Index": 410,
+            "Name": "Etc/Universal",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        },
+        {
+            "Index": 411,
+            "Name": "Etc/UTC",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        },
+        {
+            "Index": 412,
+            "Name": "Etc/Zulu",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        },
+        {
+            "Index": 413,
+            "Name": "Europe/Amsterdam",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 414,
+            "Name": "Europe/Andorra",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 415,
+            "Name": "Europe/Athens",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 416,
+            "Name": "Europe/Belfast",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 417,
+            "Name": "Europe/Berlin",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 418,
+            "Name": "Europe/Bratislava",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 419,
+            "Name": "Europe/Brussels",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 420,
+            "Name": "Europe/Bucharest",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 421,
+            "Name": "Europe/Budapest",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 422,
+            "Name": "Europe/Busingen",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 423,
+            "Name": "Europe/Copenhagen",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 424,
+            "Name": "Europe/Dublin",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00IST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 425,
+            "Name": "Europe/Gibraltar",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 426,
+            "Name": "Europe/Guernsey",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 427,
+            "Name": "Europe/Helsinki",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 428,
+            "Name": "Europe/Isle_of_Man",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 429,
+            "Name": "Europe/Istanbul",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 430,
+            "Name": "Europe/Jersey",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 431,
+            "Name": "Europe/Kaliningrad",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00"
+        },
+        {
+            "Index": 432,
+            "Name": "Europe/Kiev",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 433,
+            "Name": "Europe/Lisbon",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 434,
+            "Name": "Europe/London",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 435,
+            "Name": "Europe/Luxembourg",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 436,
+            "Name": "Europe/Madrid",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 437,
+            "Name": "Europe/Malta",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 438,
+            "Name": "Europe/Mariehamn",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 439,
+            "Name": "Europe/Minsk",
+            "UtcOffset": "+03:00",
+            "Value": "MSK-3:00"
+        },
+        {
+            "Index": 440,
+            "Name": "Europe/Monaco",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 441,
+            "Name": "Europe/Moscow",
+            "UtcOffset": "+03:00",
+            "Value": "MSK-3:00"
+        },
+        {
+            "Index": 442,
+            "Name": "Europe/Nicosia",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 443,
+            "Name": "Europe/Oslo",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 444,
+            "Name": "Europe/Prague",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 445,
+            "Name": "Europe/Riga",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 446,
+            "Name": "Europe/Rome",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 447,
+            "Name": "Europe/Samara",
+            "UtcOffset": "+04:00",
+            "Value": "SAMT-4:00"
+        },
+        {
+            "Index": 448,
+            "Name": "Europe/San_Marino",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 449,
+            "Name": "Europe/Sofia",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 450,
+            "Name": "Europe/Stockholm",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 451,
+            "Name": "Europe/Tallinn",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 452,
+            "Name": "Europe/Tirane",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 453,
+            "Name": "Europe/Uzhgorod",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 454,
+            "Name": "Europe/Vaduz",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 455,
+            "Name": "Europe/Vatican",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 456,
+            "Name": "Europe/Vienna",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 457,
+            "Name": "Europe/Vilnius",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 458,
+            "Name": "Europe/Volgograd",
+            "UtcOffset": "+03:00",
+            "Value": "MSK-3:00"
+        },
+        {
+            "Index": 459,
+            "Name": "Europe/Warsaw",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 460,
+            "Name": "Europe/Zaporozhye",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 461,
+            "Name": "Europe/Zurich",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 462,
+            "Name": "GB",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 463,
+            "Name": "GB-Eire",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00BST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 464,
+            "Name": "GMT",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 465,
+            "Name": "GMT+0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 466,
+            "Name": "GMT-0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 467,
+            "Name": "GMT0",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 468,
+            "Name": "Greenwich",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0"
+        },
+        {
+            "Index": 469,
+            "Name": "Hongkong",
+            "UtcOffset": "+08:00",
+            "Value": "HKT-8:00"
+        },
+        {
+            "Index": 470,
+            "Name": "HST",
+            "UtcOffset": "-10:00",
+            "Value": "HST+10:00"
+        },
+        {
+            "Index": 471,
+            "Name": "Iceland",
+            "UtcOffset": "+00:00",
+            "Value": "GMT-0:00"
+        },
+        {
+            "Index": 472,
+            "Name": "Indian/Antananarivo",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 473,
+            "Name": "Indian/Chagos",
+            "UtcOffset": "+06:00",
+            "Value": "IOT-6:00"
+        },
+        {
+            "Index": 474,
+            "Name": "Indian/Christmas",
+            "UtcOffset": "+07:00",
+            "Value": "CXT-7:00"
+        },
+        {
+            "Index": 475,
+            "Name": "Indian/Cocos",
+            "UtcOffset": "+06:30",
+            "Value": "CCT-6:30"
+        },
+        {
+            "Index": 476,
+            "Name": "Indian/Comoro",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 477,
+            "Name": "Indian/Kerguelen",
+            "UtcOffset": "+05:00",
+            "Value": "TFT-5:00"
+        },
+        {
+            "Index": 478,
+            "Name": "Indian/Mahe",
+            "UtcOffset": "+04:00",
+            "Value": "SCT-4:00"
+        },
+        {
+            "Index": 479,
+            "Name": "Indian/Maldives",
+            "UtcOffset": "+05:00",
+            "Value": "MVT-5:00"
+        },
+        {
+            "Index": 480,
+            "Name": "Indian/Mauritius",
+            "UtcOffset": "+04:00",
+            "Value": "MUT-4:00"
+        },
+        {
+            "Index": 481,
+            "Name": "Indian/Mayotte",
+            "UtcOffset": "+03:00",
+            "Value": "EAT-3:00"
+        },
+        {
+            "Index": 482,
+            "Name": "Indian/Reunion",
+            "UtcOffset": "+04:00",
+            "Value": "RET-4:00"
+        },
+        {
+            "Index": 483,
+            "Name": "Iran",
+            "UtcOffset": "+03:30",
+            "Value": "IRST-3:30IRDT-04:30:00,80/00:00:00,264/00:00:00"
+        },
+        {
+            "Index": 484,
+            "Name": "Israel",
+            "UtcOffset": "+02:00",
+            "Value": "IST-2:00IDT-03:00:00,82/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 485,
+            "Name": "Jamaica",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00"
+        },
+        {
+            "Index": 486,
+            "Name": "Japan",
+            "UtcOffset": "+09:00",
+            "Value": "JST-9:00"
+        },
+        {
+            "Index": 487,
+            "Name": "Kwajalein",
+            "UtcOffset": "+12:00",
+            "Value": "MHT-12:00"
+        },
+        {
+            "Index": 488,
+            "Name": "MET",
+            "UtcOffset": "+01:00",
+            "Value": "MET-1:00MEST-02:00:00,M3.5.0/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 489,
+            "Name": "Mexico/BajaNorte",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 490,
+            "Name": "Mexico/BajaSur",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 491,
+            "Name": "Mexico/General",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,91/02:00:00,M10.5.0/02:00:00"
+        },
+        {
+            "Index": 492,
+            "Name": "MST",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 493,
+            "Name": "MST7MDT",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 494,
+            "Name": "Navajo",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 495,
+            "Name": "NZ",
+            "UtcOffset": "+12:00",
+            "Value": "NZST-12:00NZDT-13:00:00,M9.5.0/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 496,
+            "Name": "NZ-CHAT",
+            "UtcOffset": "+12:45",
+            "Value": "CHAST-12:45CHADT-13:45:00,M9.5.0/02:45:00,91/02:45:00"
+        },
+        {
+            "Index": 497,
+            "Name": "Pacific/Apia",
+            "UtcOffset": "+13:00",
+            "Value": "WSST-13:00WSDT-14:00:00,M9.5.0/03:00:00,91/04:00:00"
+        },
+        {
+            "Index": 498,
+            "Name": "Pacific/Auckland",
+            "UtcOffset": "+12:00",
+            "Value": "NZST-12:00NZDT-13:00:00,M9.5.0/02:00:00,91/02:00:00"
+        },
+        {
+            "Index": 499,
+            "Name": "Pacific/Bougainville",
+            "UtcOffset": "+11:00",
+            "Value": "BST-11:00"
+        },
+        {
+            "Index": 500,
+            "Name": "Pacific/Chatham",
+            "UtcOffset": "+12:45",
+            "Value": "CHAST-12:45CHADT-13:45:00,M9.5.0/02:45:00,91/02:45:00"
+        },
+        {
+            "Index": 501,
+            "Name": "Pacific/Chuuk",
+            "UtcOffset": "+10:00",
+            "Value": "CHUT-10:00"
+        },
+        {
+            "Index": 502,
+            "Name": "Pacific/Easter",
+            "UtcOffset": "-06:00",
+            "Value": "EAST+6:00EASST+05:00:00,245/04:00:00,112/03:00:00"
+        },
+        {
+            "Index": 503,
+            "Name": "Pacific/Efate",
+            "UtcOffset": "+11:00",
+            "Value": "VUT-11:00"
+        },
+        {
+            "Index": 504,
+            "Name": "Pacific/Enderbury",
+            "UtcOffset": "+13:00",
+            "Value": "PHOT-13:00"
+        },
+        {
+            "Index": 505,
+            "Name": "Pacific/Fakaofo",
+            "UtcOffset": "+13:00",
+            "Value": "TKT-13:00"
+        },
+        {
+            "Index": 506,
+            "Name": "Pacific/Fiji",
+            "UtcOffset": "+12:00",
+            "Value": "FJT-12:00FJST-13:00:00,308/02:00:00,21/03:00:00"
+        },
+        {
+            "Index": 507,
+            "Name": "Pacific/Funafuti",
+            "UtcOffset": "+12:00",
+            "Value": "TVT-12:00"
+        },
+        {
+            "Index": 508,
+            "Name": "Pacific/Galapagos",
+            "UtcOffset": "-06:00",
+            "Value": "GALT+6:00"
+        },
+        {
+            "Index": 509,
+            "Name": "Pacific/Gambier",
+            "UtcOffset": "-09:00",
+            "Value": "GAMT+9:00"
+        },
+        {
+            "Index": 510,
+            "Name": "Pacific/Guadalcanal",
+            "UtcOffset": "+11:00",
+            "Value": "SBT-11:00"
+        },
+        {
+            "Index": 511,
+            "Name": "Pacific/Guam",
+            "UtcOffset": "+10:00",
+            "Value": "ChST-10:00"
+        },
+        {
+            "Index": 512,
+            "Name": "Pacific/Honolulu",
+            "UtcOffset": "-10:00",
+            "Value": "HST+10:00"
+        },
+        {
+            "Index": 513,
+            "Name": "Pacific/Johnston",
+            "UtcOffset": "-10:00",
+            "Value": "HST+10:00"
+        },
+        {
+            "Index": 514,
+            "Name": "Pacific/Kiritimati",
+            "UtcOffset": "+14:00",
+            "Value": "LINT-14:00"
+        },
+        {
+            "Index": 515,
+            "Name": "Pacific/Kosrae",
+            "UtcOffset": "+11:00",
+            "Value": "KOST-11:00"
+        },
+        {
+            "Index": 516,
+            "Name": "Pacific/Kwajalein",
+            "UtcOffset": "+12:00",
+            "Value": "MHT-12:00"
+        },
+        {
+            "Index": 517,
+            "Name": "Pacific/Majuro",
+            "UtcOffset": "+12:00",
+            "Value": "MHT-12:00"
+        },
+        {
+            "Index": 518,
+            "Name": "Pacific/Marquesas",
+            "UtcOffset": "-09:30",
+            "Value": "MART+9:30"
+        },
+        {
+            "Index": 519,
+            "Name": "Pacific/Midway",
+            "UtcOffset": "-11:00",
+            "Value": "SST+11:00"
+        },
+        {
+            "Index": 520,
+            "Name": "Pacific/Nauru",
+            "UtcOffset": "+12:00",
+            "Value": "NRT-12:00"
+        },
+        {
+            "Index": 521,
+            "Name": "Pacific/Niue",
+            "UtcOffset": "-11:00",
+            "Value": "NUT+11:00"
+        },
+        {
+            "Index": 522,
+            "Name": "Pacific/Norfolk",
+            "UtcOffset": "+11:30",
+            "Value": "NFT-11:30"
+        },
+        {
+            "Index": 523,
+            "Name": "Pacific/Noumea",
+            "UtcOffset": "+11:00",
+            "Value": "NCT-11:00"
+        },
+        {
+            "Index": 524,
+            "Name": "Pacific/Pago_Pago",
+            "UtcOffset": "-11:00",
+            "Value": "SST+11:00"
+        },
+        {
+            "Index": 525,
+            "Name": "Pacific/Palau",
+            "UtcOffset": "+09:00",
+            "Value": "PWT-9:00"
+        },
+        {
+            "Index": 526,
+            "Name": "Pacific/Pitcairn",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00"
+        },
+        {
+            "Index": 527,
+            "Name": "Pacific/Pohnpei",
+            "UtcOffset": "+11:00",
+            "Value": "PONT-11:00"
+        },
+        {
+            "Index": 528,
+            "Name": "Pacific/Ponape",
+            "UtcOffset": "+11:00",
+            "Value": "PONT-11:00"
+        },
+        {
+            "Index": 529,
+            "Name": "Pacific/Port_Moresby",
+            "UtcOffset": "+10:00",
+            "Value": "PGT-10:00"
+        },
+        {
+            "Index": 530,
+            "Name": "Pacific/Rarotonga",
+            "UtcOffset": "-10:00",
+            "Value": "CKT+10:00"
+        },
+        {
+            "Index": 531,
+            "Name": "Pacific/Saipan",
+            "UtcOffset": "+10:00",
+            "Value": "ChST-10:00"
+        },
+        {
+            "Index": 532,
+            "Name": "Pacific/Samoa",
+            "UtcOffset": "-11:00",
+            "Value": "SST+11:00"
+        },
+        {
+            "Index": 533,
+            "Name": "Pacific/Tahiti",
+            "UtcOffset": "-10:00",
+            "Value": "TAHT+10:00"
+        },
+        {
+            "Index": 534,
+            "Name": "Pacific/Tarawa",
+            "UtcOffset": "+12:00",
+            "Value": "GILT-12:00"
+        },
+        {
+            "Index": 535,
+            "Name": "Pacific/Tongatapu",
+            "UtcOffset": "+13:00",
+            "Value": "TOT-13:00"
+        },
+        {
+            "Index": 536,
+            "Name": "Pacific/Truk",
+            "UtcOffset": "+10:00",
+            "Value": "CHUT-10:00"
+        },
+        {
+            "Index": 537,
+            "Name": "Pacific/Wake",
+            "UtcOffset": "+12:00",
+            "Value": "WAKT-12:00"
+        },
+        {
+            "Index": 538,
+            "Name": "Pacific/Wallis",
+            "UtcOffset": "+12:00",
+            "Value": "WFT-12:00"
+        },
+        {
+            "Index": 539,
+            "Name": "Pacific/Yap",
+            "UtcOffset": "+10:00",
+            "Value": "CHUT-10:00"
+        },
+        {
+            "Index": 540,
+            "Name": "Poland",
+            "UtcOffset": "+01:00",
+            "Value": "CET-1:00CEST-02:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 541,
+            "Name": "Portugal",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 542,
+            "Name": "PRC",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 543,
+            "Name": "PST8PDT",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 544,
+            "Name": "ROC",
+            "UtcOffset": "+08:00",
+            "Value": "CST-8:00"
+        },
+        {
+            "Index": 545,
+            "Name": "ROK",
+            "UtcOffset": "+09:00",
+            "Value": "KST-9:00"
+        },
+        {
+            "Index": 546,
+            "Name": "Singapore",
+            "UtcOffset": "+08:00",
+            "Value": "SGT-8:00"
+        },
+        {
+            "Index": 547,
+            "Name": "Turkey",
+            "UtcOffset": "+02:00",
+            "Value": "EET-2:00EEST-03:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 548,
+            "Name": "UCT",
+            "UtcOffset": "+00:00",
+            "Value": "UCT-0"
+        },
+        {
+            "Index": 549,
+            "Name": "Universal",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        },
+        {
+            "Index": 550,
+            "Name": "US/Alaska",
+            "UtcOffset": "-09:00",
+            "Value": "AKST+9:00AKDT+08:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 551,
+            "Name": "US/Aleutian",
+            "UtcOffset": "-10:00",
+            "Value": "HAST+10:00HADT+09:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 552,
+            "Name": "US/Arizona",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00"
+        },
+        {
+            "Index": 553,
+            "Name": "US/Central",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 554,
+            "Name": "US/East-Indiana",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 555,
+            "Name": "US/Eastern",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 556,
+            "Name": "US/Hawaii",
+            "UtcOffset": "-10:00",
+            "Value": "HST+10:00"
+        },
+        {
+            "Index": 557,
+            "Name": "US/Indiana-Starke",
+            "UtcOffset": "-06:00",
+            "Value": "CST+6:00CDT+05:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 558,
+            "Name": "US/Michigan",
+            "UtcOffset": "-05:00",
+            "Value": "EST+5:00EDT+04:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 559,
+            "Name": "US/Mountain",
+            "UtcOffset": "-07:00",
+            "Value": "MST+7:00MDT+06:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 560,
+            "Name": "US/Pacific",
+            "UtcOffset": "-08:00",
+            "Value": "PST+8:00PDT+07:00:00,70/02:00:00,308/02:00:00"
+        },
+        {
+            "Index": 561,
+            "Name": "US/Samoa",
+            "UtcOffset": "-11:00",
+            "Value": "SST+11:00"
+        },
+        {
+            "Index": 562,
+            "Name": "UTC",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        },
+        {
+            "Index": 563,
+            "Name": "W-SU",
+            "UtcOffset": "+03:00",
+            "Value": "MSK-3:00"
+        },
+        {
+            "Index": 564,
+            "Name": "WET",
+            "UtcOffset": "+00:00",
+            "Value": "WET-0:00WEST-01:00:00,M3.5.0/01:00:00,M10.5.0/01:00:00"
+        },
+        {
+            "Index": 565,
+            "Name": "Zulu",
+            "UtcOffset": "+00:00",
+            "Value": "UTC-0"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Registries/Members/$entity",
+    "@odata.id": "/redfish/v1/Registries/iLOEvents/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Registry Definition File for iLOEvents",
+    "Id": "iLOEvents",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/RegistryStore/registries/en/iLOEvents.json/"
+            }
+        }
+    ],
+    "Name": "iLOEvents Registry Definition File",
+    "Schema": "iLOEvents.0.9.7"
+}

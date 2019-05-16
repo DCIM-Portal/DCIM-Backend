@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/310/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2019-03-04T17:54:00Z",
+    "EntryType": "Oem",
+    "Id": "310",
+    "Message": "On-board clock set; was 03/04/2019  17:59:57.",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4750,
+            "Updated": "2019-03-04T17:54:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

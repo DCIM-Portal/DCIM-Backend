@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/ArrayControllers/Members/0/LogicalDrives/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/LogicalDrives/1/",
+    "@odata.type": "#HpSmartStorageLogicalDrive.1.1.0.HpSmartStorageLogicalDrive",
+    "CapacityMiB": 1144609,
+    "Description": "HP Smart Storage Logical Drive View",
+    "Id": "1",
+    "Links": {
+        "DataDrives": {
+            "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/LogicalDrives/1/DataDrives/"
+        }
+    },
+    "LogicalDriveEncryption": false,
+    "LogicalDriveName": "02963178PDZVU0KLM8F0KSDF64",
+    "LogicalDriveNumber": 1,
+    "LogicalDriveType": "Data",
+    "Name": "HpSmartStorageLogicalDrive",
+    "Raid": "1",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "StripeSizeBytes": 262144,
+    "VolumeUniqueIdentifier": "600508B1001CDAF791498ADE2EF7623C"
+}

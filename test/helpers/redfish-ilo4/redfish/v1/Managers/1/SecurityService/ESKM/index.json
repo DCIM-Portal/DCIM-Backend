@@ -1,0 +1,26 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/SecurityService/ESKM$entity",
+    "@odata.id": "/redfish/v1/Managers/1/SecurityService/ESKM/",
+    "@odata.type": "#HpESKM.1.0.0.HpESKM",
+    "Actions": {
+        "#HpESKM.ClearESKMLog": {
+            "target": "/redfish/v1/Managers/1/SecurityService/ESKM/Actions/HpESKM.ClearESKMLog/"
+        },
+        "#HpESKM.TestESKMConnections": {
+            "target": "/redfish/v1/Managers/1/SecurityService/ESKM/Actions/HpESKM.TestESKMConnections/"
+        }
+    },
+    "Id": "ESKM",
+    "KeyManagerConfig": {
+        "AccountGroup": "",
+        "AccountName": "ilo-308d99fc1338",
+        "ESKMLocalCACertificateName": "",
+        "ImportedCertificateIssuer": "",
+        "ImportedCertificateSubject": ""
+    },
+    "KeyServerRedundancyReq": true,
+    "PrimaryKeyServerAddress": null,
+    "PrimaryKeyServerPort": null,
+    "SecondaryKeyServerAddress": null,
+    "SecondaryKeyServerPort": null
+}

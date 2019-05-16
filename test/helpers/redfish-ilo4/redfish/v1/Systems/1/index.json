@@ -1,0 +1,178 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/",
+    "@odata.type": "#ComputerSystem.1.0.1.ComputerSystem",
+    "Actions": {
+        "#ComputerSystem.Reset": {
+            "ResetType@Redfish.AllowableValues": [
+                "On",
+                "ForceOff",
+                "ForceRestart",
+                "Nmi",
+                "PushPowerButton"
+            ],
+            "target": "/redfish/v1/Systems/1/Actions/ComputerSystem.Reset/"
+        }
+    },
+    "AssetTag": "",
+    "BiosVersion": "I36 v2.52 (10/25/2017)",
+    "Boot": {
+        "BootSourceOverrideEnabled": "Disabled",
+        "BootSourceOverrideTarget": "None"
+    },
+    "Description": "Computer System View",
+    "EthernetInterfaces": {
+        "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/"
+    },
+    "HostName": "host is unnamed",
+    "Id": "1",
+    "IndicatorLED": "Off",
+    "Links": {
+        "Chassis": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/"
+            }
+        ],
+        "ManagedBy": [
+            {
+                "@odata.id": "/redfish/v1/Managers/1/"
+            }
+        ]
+    },
+    "LogServices": {
+        "@odata.id": "/redfish/v1/Systems/1/LogServices/"
+    },
+    "Manufacturer": "HPE",
+    "MemorySummary": {
+        "Status": {
+            "HealthRollup": "OK"
+        },
+        "TotalSystemMemoryGiB": 512
+    },
+    "Model": "ProLiant BL460c Gen9",
+    "Name": "Computer System",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpComputerSystemExt.1.2.2.HpComputerSystemExt",
+            "Actions": {
+                "#HpComputerSystemExt.PowerButton": {
+                    "PushType@Redfish.AllowableValues": [
+                        "Press",
+                        "PressAndHold"
+                    ],
+                    "target": "/redfish/v1/Systems/1/Actions/Oem/Hp/ComputerSystemExt.PowerButton/"
+                },
+                "#HpComputerSystemExt.SystemReset": {
+                    "ResetType@Redfish.AllowableValues": [
+                        "ColdBoot",
+                        "AuxCycle"
+                    ],
+                    "target": "/redfish/v1/Systems/1/Actions/Oem/Hp/ComputerSystemExt.SystemReset/"
+                }
+            },
+            "Battery": [
+                {
+                    "Condition": "Ok",
+                    "ErrorCode": 0,
+                    "FirmwareVersion": "1.1",
+                    "Index": 1,
+                    "MaxCapWatts": 12,
+                    "Model": "727261-B21",
+                    "Present": "Yes",
+                    "ProductName": "HP Smart Storage Batt 12",
+                    "SerialNumber": "6EMYD0AWY7Y531",
+                    "Spare": "750452-001"
+                }
+            ],
+            "Bios": {
+                "Backup": {
+                    "Date": "10/25/2017",
+                    "Family": "I36",
+                    "VersionString": "I36 v2.52 (10/25/2017)"
+                },
+                "Current": {
+                    "Date": "10/25/2017",
+                    "Family": "I36",
+                    "VersionString": "I36 v2.52 (10/25/2017)"
+                },
+                "UefiClass": 2
+            },
+            "DeviceDiscoveryComplete": {
+                "AMSDeviceDiscovery": "NoAMS",
+                "DeviceDiscovery": "vMainDeviceDiscoveryComplete",
+                "SmartArrayDiscovery": "Complete"
+            },
+            "IntelligentProvisioningIndex": 3,
+            "IntelligentProvisioningLocation": "System Board",
+            "IntelligentProvisioningVersion": "2.00.93",
+            "Links": {
+                "BIOS": {
+                    "@odata.id": "/redfish/v1/systems/1/bios/"
+                },
+                "EthernetInterfaces": {
+                    "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/"
+                },
+                "FirmwareInventory": {
+                    "@odata.id": "/redfish/v1/Systems/1/FirmwareInventory/"
+                },
+                "Memory": {
+                    "@odata.id": "/redfish/v1/Systems/1/Memory/"
+                },
+                "NetworkAdapters": {
+                    "@odata.id": "/redfish/v1/Systems/1/NetworkAdapters/"
+                },
+                "PCIDevices": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/"
+                },
+                "PCISlots": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCISlots/"
+                },
+                "SecureBoot": {
+                    "@odata.id": "/redfish/v1/Systems/1/SecureBoot/"
+                },
+                "SmartStorage": {
+                    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/"
+                },
+                "SoftwareInventory": {
+                    "@odata.id": "/redfish/v1/Systems/1/SoftwareInventory/"
+                }
+            },
+            "PostState": "FinishedPost",
+            "PowerAllocationLimit": 500,
+            "PowerAutoOn": "PowerOn",
+            "PowerOnDelay": "Minimum",
+            "PowerRegulatorMode": "Dynamic",
+            "PowerRegulatorModesSupported": [
+                "OSControl",
+                "Dynamic",
+                "Max",
+                "Min"
+            ],
+            "TrustedModules": [
+                {
+                    "Status": "NotPresent"
+                }
+            ],
+            "VirtualProfile": "Inactive"
+        }
+    },
+    "PowerState": "On",
+    "ProcessorSummary": {
+        "Count": 2,
+        "Model": "Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz",
+        "Status": {
+            "HealthRollup": "OK"
+        }
+    },
+    "Processors": {
+        "@odata.id": "/redfish/v1/Systems/1/Processors/"
+    },
+    "SKU": "727031-B21",
+    "SerialNumber": "2M251404CW",
+    "Status": {
+        "Health": "Warning",
+        "State": "Enabled"
+    },
+    "SystemType": "Physical",
+    "UUID": "30373237-3133-4D32-3235-313430344357"
+}

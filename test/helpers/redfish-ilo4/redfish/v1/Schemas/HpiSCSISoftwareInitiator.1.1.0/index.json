@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Schemas/Members/$entity",
+    "@odata.id": "/redfish/v1/Schemas/HpiSCSISoftwareInitiator.1.1.0/",
+    "@odata.type": "#SchemaFile.1.0.0.SchemaFile",
+    "Description": "Schema Definition File for HpiSCSISoftwareInitiator.1.1.0",
+    "Id": "HpiSCSISoftwareInitiator.1.1.0",
+    "Languages": [
+        "en"
+    ],
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": {
+                "extref": "/redfish/v1/schemastore/en/hpiscsisoftwareinitiator.1.1.0/"
+            }
+        }
+    ],
+    "Name": "HpiSCSISoftwareInitiator.1.1.0 Schema Definition File",
+    "Schema": "HpiSCSISoftwareInitiator.1.1.0"
+}

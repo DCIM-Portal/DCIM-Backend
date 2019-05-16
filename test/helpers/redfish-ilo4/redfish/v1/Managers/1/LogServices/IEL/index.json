@@ -1,0 +1,16 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/",
+    "@odata.type": "#LogService.1.0.0.LogService",
+    "Actions": {
+        "#LogService.ClearLog": {
+            "target": "/redfish/v1/Managers/1/LogServices/IEL/Actions/LogService.ClearLog/"
+        }
+    },
+    "Entries": {
+        "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/"
+    },
+    "Id": "IEL",
+    "Name": "iLO Event Log",
+    "OverWritePolicy": "WrapsWhenFull"
+}

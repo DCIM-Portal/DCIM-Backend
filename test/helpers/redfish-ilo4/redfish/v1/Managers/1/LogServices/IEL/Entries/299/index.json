@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Managers/Members/1/LogServices/IEL/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Managers/1/LogServices/IEL/Entries/299/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2018-09-15T19:27:00Z",
+    "EntryType": "Oem",
+    "Id": "299",
+    "Message": "IPMI/RMCP login by Administrator - 10.10.145.62.",
+    "Name": "iLO Event Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "EventNumber": 4739,
+            "Updated": "2018-09-15T19:27:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-iLOEventLog",
+    "Severity": "OK"
+}

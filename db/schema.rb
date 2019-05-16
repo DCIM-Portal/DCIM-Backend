@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.uuid "agent_id"
     t.string "key"
     t.text "value"
-    t.boolean "encrypted"
+    t.boolean "encrypted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["agent_id"], name: "index_agent_properties_on_agent_id"

@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/97/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-06-18T02:02:00Z",
+    "EntryType": "Oem",
+    "Id": "97",
+    "Message": "Option ROM POST Error: 1779-Slot 0 Drive Array - Replacement drive(s) detected OR previously failed drive(s) now appear to be operational:",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 3,
+            "EventNumber": 96,
+            "Repaired": false,
+            "Updated": "2016-06-18T02:08:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Critical"
+}

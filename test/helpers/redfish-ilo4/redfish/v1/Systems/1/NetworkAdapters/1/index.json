@@ -1,0 +1,74 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/NetworkAdapters/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/NetworkAdapters/1/",
+    "@odata.type": "#BaseNetworkAdapter.1.1.0.BaseNetworkAdapter",
+    "Firmware": {
+        "Current": {
+            "VersionString": "10.2.340.22"
+        }
+    },
+    "Id": "1",
+    "Name": "HP FlexFabric 20Gb 2-port 650FLB Adapter",
+    "PartNumber": "700763-B21",
+    "PhysicalPorts": [
+        {
+            "FullDuplex": false,
+            "IPv4Addresses": [
+                {
+                    "Address": null
+                }
+            ],
+            "IPv6Addresses": [
+                {
+                    "Address": ""
+                }
+            ],
+            "MacAddress": "D0:BF:9C:03:B8:40",
+            "Name": null,
+            "Oem": {
+                "Hp": {
+                    "@odata.type": "#HpBaseNetworkAdapterExt.1.0.0.HpBaseNetworkAdapterExt",
+                    "BadReceives": null,
+                    "BadTransmits": null,
+                    "GoodReceives": null,
+                    "GoodTransmits": null,
+                    "StructuredName": null,
+                    "Team": null
+                }
+            },
+            "SpeedMbps": 0,
+            "UEFIDevicePath": null
+        },
+        {
+            "FullDuplex": false,
+            "IPv4Addresses": [
+                {
+                    "Address": null
+                }
+            ],
+            "IPv6Addresses": [
+                {
+                    "Address": ""
+                }
+            ],
+            "MacAddress": "D0:BF:9C:03:B8:48",
+            "Name": null,
+            "Oem": {
+                "Hp": {
+                    "@odata.type": "#HpBaseNetworkAdapterExt.1.0.0.HpBaseNetworkAdapterExt",
+                    "BadReceives": null,
+                    "BadTransmits": null,
+                    "GoodReceives": null,
+                    "GoodTransmits": null,
+                    "StructuredName": null,
+                    "Team": null
+                }
+            },
+            "SpeedMbps": 0,
+            "UEFIDevicePath": null
+        }
+    ],
+    "SerialNumber": "5CF451016R",
+    "StructuredName": null,
+    "UEFIDevicePath": null
+}
