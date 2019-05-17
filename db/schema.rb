@@ -145,10 +145,12 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.uuid "component_id"
     t.string "key"
     t.text "value"
+    t.uuid "source_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["component_id"], name: "index_component_properties_on_component_id"
     t.index ["created_at"], name: "index_component_properties_on_created_at"
+    t.index ["source_id"], name: "index_component_properties_on_source_id"
     t.index ["updated_at"], name: "index_component_properties_on_updated_at"
   end
 
@@ -273,6 +275,7 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
 
   add_foreign_key "component_links", "components"
   add_foreign_key "component_links", "components", column: "linked_component_id"
+  add_foreign_key "component_properties", "agents", column: "source_id"
   add_foreign_key "components", "components", column: "parent_id"
   add_foreign_key "device_links", "devices"
   add_foreign_key "device_links", "devices", column: "linked_device_id"

@@ -64,7 +64,7 @@ module Dcim
 
       def collect_chassis(api_path)
         chassis = redfish_get(api_path)
-        # TODO: turn chassis into Components
+        chassis_to_components(chassis)
         puts("COLLECTING CHASSIS: #{api_path}")
         { system: redfish_to_collection(chassis['Links']['ComputerSystems']) }
       end
@@ -98,10 +98,38 @@ module Dcim
         collection
       end
 
-      def chassis_list_to_components(chassis_list)
-        chassis_list.each do |chassis|
-          @agent.components
-          # chassis_component = Component.new()
+      def chassis_to_components(raw_chassis)
+        serial = raw_chassis['SerialNumber']
+        ComponentProperty.where(source: @agent).find_by(key: 'serial')
+        component = @agent
+                    .components
+                    .joins(:properties)
+                    .find_by(
+                      type: ChassisComponent.name,
+                      component_properties: {
+                        key: 'serial',
+                        value: serial
+                      }
+                    ) || ChassisComponent.new
+        canonicalize(CHASSIS_MAP, raw_chassis, component)
+        component.save!
+      end
+
+      def canonicalize(map, raw_hash, component)
+        map.each do |raw_key, component_path_attribute|
+          if component_path_attribute.is_a? Hash
+            canonicalize(map[raw_key], raw_hash[raw_key], component)
+            next
+          end
+          component_path, attribute = component_path_attribute.split(':')
+          component_path = component_path.split('.')
+          next unless component_path.size == 1
+
+          component.properties << ComponentProperty.new(
+            key: attribute,
+            value: raw_hash[raw_key],
+            source: @agent
+          )
         end
       end
     end

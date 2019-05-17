@@ -1,0 +1,2 @@
+class ChassisComponent < Component
+end
