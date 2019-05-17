@@ -48,22 +48,32 @@ module Dcim
         )
         chassis_raw_id_list = redfish_get('Chassis')['Members']
         chassis_id_list = redfish_to_collection(chassis_raw_id_list)
-        chassis_list = []
-        chassis_id_list.each do |chassis_id|
-          chassis = redfish_get(chassis_id)
-          chassis_list << chassis
-        end
 
-        systems_raw_id_list = redfish_get('Systems')['Members']
-        systems_id_list = redfish_to_collection(systems_raw_id_list)
-        systems_list = []
-        systems_id_list.each do |system_id|
-          system = redfish_get(system_id)
-          systems_list << system
-        end
+        collect_facts_recursive(chassis: chassis_id_list)
+      end
 
-        puts chassis_list.to_json
-        puts systems_list.to_json
+      def collect_facts_recursive(hash)
+        next_fetches = {}
+        hash.each do |operation, api_paths|
+          api_paths.each do |api_path|
+            next_fetches.deep_merge!(send("collect_#{operation}", api_path))
+          end
+        end
+        collect_facts_recursive(next_fetches) unless next_fetches.empty?
+      end
+
+      def collect_chassis(api_path)
+        chassis = redfish_get(api_path)
+        # TODO: turn chassis into Components
+        puts("COLLECTING CHASSIS: #{api_path}")
+        { system: redfish_to_collection(chassis['Links']['ComputerSystems']) }
+      end
+
+      def collect_system(api_path)
+        _system = redfish_get(api_path)
+        # TODO: turn system into Components
+        puts("COLLECTING SYSTEM: #{api_path}")
+        {}
       end
 
       private
