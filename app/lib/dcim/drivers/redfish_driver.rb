@@ -3,40 +3,37 @@ module Dcim
   module Drivers
     class RedfishDriver < ApplicationDriver
       CHASSIS_MAP = {
-        'chassistype' => 'chassis:type',
-        'manufacturer' => 'chassis:brand',
-        'model' => 'chassis:model',
+        'chassistype' => 'type',
+        'manufacturer' => 'brand',
+        'model' => 'model',
         'oem' => {
           'Hp' => {
-            'BayNumber' => 'chassis:order'
+            'BayNumber' => 'order'
           }
         },
-        'partnumber' => 'chassis:part',
-        'powerstate' => 'chassis.board:power_on',
-        'sku' => 'chassis:sku',
-        'serialnumber' => 'chassis:serial'
+        'partnumber' => 'part',
+        'sku' => 'sku',
+        'serialnumber' => 'serial'
       }.freeze
       SYSTEM_MAP = {
-        'biosversion' => 'board:bios_version',
-        'manufacturer' => 'board:brand',
-        'model' => 'board:model',
-        'oem' => {
-          'Hp' => {
-            'Battery' => {
-              'Condition' => 'board.disk_controller.battery:health',
-              'FirmwareVersion' => 'board.disk_controller.battery:firmware_version',
-              'Model' => 'board.disk_controller.battery:model',
-              'ProductName' => 'board.disk_controller.battery:name',
-              'SerialNumber' => 'board.disk_controller.battery:serial',
-              'Spare' => 'board.disk_controller.battery:part'
-            }
-          }
-        },
-        'partnumber' => 'board:part',
-        'powerstate' => 'board:powered_on',
-        'sku' => 'board:sku',
-        'serialnumber' => 'board:serial',
-        'uuid' => 'board:uuid'
+        'biosversion' => 'bios_version',
+        'manufacturer' => 'brand',
+        'model' => 'model',
+        'partnumber' => 'part',
+        'powerstate' => 'powered_on',
+        'sku' => 'sku',
+        'serialnumber' => 'serial',
+        'uuid' => 'uuid'
+      }.freeze
+      CPU_MAP = {
+        'Id' => 'socket',
+        'InstructionSet' => 'instruction_set',
+        'ProcessorArchitecture' => 'architecture',
+        'Manufacturer' => 'brand',
+        'MaxSpeedMHz' => 'max_speed_megahertz',
+        'Model' => 'model',
+        'TotalCores' => 'cores',
+        'TotalThreads' => 'threads'
       }.freeze
 
       def collect_facts
@@ -49,30 +46,59 @@ module Dcim
         chassis_raw_id_list = redfish_get('Chassis')['Members']
         chassis_id_list = redfish_to_collection(chassis_raw_id_list)
 
-        collect_facts_recursive(chassis: chassis_id_list)
+        collect_facts_recursive(next: { chassis: chassis_id_list })
       end
 
       def collect_facts_recursive(hash)
+        current_fetches = hash[:next]
+        parent = hash[:parent]
         next_fetches = {}
-        hash.each do |operation, api_paths|
+        current_fetches.each do |operation, api_paths|
           api_paths.each do |api_path|
-            next_fetches.deep_merge!(send("collect_#{operation}", api_path))
+            next_fetches.deep_merge!(send("collect_#{operation}", api_path, parent))
           end
         end
         collect_facts_recursive(next_fetches) unless next_fetches.empty?
       end
 
-      def collect_chassis(api_path)
+      def collect_chassis(api_path, parent)
         chassis = redfish_get(api_path)
-        chassis_to_components(chassis)
-        puts("COLLECTING CHASSIS: #{api_path}")
-        { system: redfish_to_collection(chassis['Links']['ComputerSystems']) }
+        chassis_component = chassis_to_component(chassis, parent)
+        chassis_component.save!
+        {
+          parent: chassis_component,
+          next: {
+            system: redfish_to_collection(chassis['Links']['ComputerSystems'])
+          }
+        }
       end
 
-      def collect_system(api_path)
-        _system = redfish_get(api_path)
-        # TODO: turn system into Components
-        puts("COLLECTING SYSTEM: #{api_path}")
+      def collect_system(api_path, parent)
+        system = redfish_get(api_path)
+        board_component = system_to_component(system, parent)
+        board_component.save!
+        {
+          parent: board_component,
+          next: {
+            cpu_list: [system['Processors']['@odata.id']]
+          }
+        }
+      end
+
+      def collect_cpu_list(api_path, parent)
+        cpu_list = redfish_get(api_path)
+        {
+          parent: parent,
+          next: {
+            cpu: redfish_to_collection(cpu_list['Members'])
+          }
+        }
+      end
+
+      def collect_cpu(api_path, parent)
+        cpu = redfish_get(api_path)
+        cpu_component = cpu_to_component(cpu, parent)
+        cpu_component.save!
         {}
       end
 
@@ -98,9 +124,8 @@ module Dcim
         collection
       end
 
-      def chassis_to_components(raw_chassis)
+      def chassis_to_component(raw_chassis, parent_component)
         serial = raw_chassis['SerialNumber']
-        ComponentProperty.where(source: @agent).find_by(key: 'serial')
         component = @agent
                     .components
                     .joins(:properties)
@@ -111,19 +136,56 @@ module Dcim
                         value: serial
                       }
                     ) || ChassisComponent.new
+        component.agents << @agent
         canonicalize(CHASSIS_MAP, raw_chassis, component)
-        component.save!
+        component.parent = parent_component
+        component
+      end
+
+      def system_to_component(raw_system, parent_component)
+        serial = raw_system['SerialNumber']
+        component = @agent
+                    .components
+                    .joins(:properties)
+                    .find_by(
+                      type: BoardComponent.name,
+                      component_properties: {
+                        key: 'serial',
+                        value: serial
+                      }
+                    ) || BoardComponent.new
+        component.agents << @agent
+        canonicalize(SYSTEM_MAP, raw_system, component)
+        component.parent = parent_component
+        component
+      end
+
+      def cpu_to_component(raw_cpu, parent_component)
+        id = raw_cpu['Id']
+        component = parent_component
+                    .children
+                    .joins(:properties)
+                    .find_by(
+                      type: CpuComponent.name,
+                      component_properties: {
+                        key: 'socket',
+                        value: id
+                      }
+                    ) || CpuComponent.new
+        component.agents << @agent
+        canonicalize(CPU_MAP, raw_cpu, component)
+        component.parent = parent_component
+        component
       end
 
       def canonicalize(map, raw_hash, component)
-        map.each do |raw_key, component_path_attribute|
-          if component_path_attribute.is_a? Hash
+        map.each do |raw_key, attribute|
+          if attribute.is_a? Hash
             canonicalize(map[raw_key], raw_hash[raw_key], component)
             next
           end
-          component_path, attribute = component_path_attribute.split(':')
-          component_path = component_path.split('.')
-          next unless component_path.size == 1
+
+          next if raw_hash[raw_key].nil?
 
           component.properties << ComponentProperty.new(
             key: attribute,

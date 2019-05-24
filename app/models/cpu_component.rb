@@ -1,0 +1,2 @@
+class CpuComponent < Component
+end

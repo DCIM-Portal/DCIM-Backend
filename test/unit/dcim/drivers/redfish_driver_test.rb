@@ -14,9 +14,14 @@ module Dcim
                            })
       end
 
-      test 'something' do
+      test 'chassis and system become components' do
         driver = RedfishDriver.new(@agent)
         driver.collect_facts
+
+        assert_not_empty(@agent.components.where(type: 'ChassisComponent'))
+        assert_not_empty(@agent.components.where(type: 'BoardComponent'))
+
+        assert(@agent.components.find_by(type: 'BoardComponent').parent.is_a?(ChassisComponent))
       end
     end
   end

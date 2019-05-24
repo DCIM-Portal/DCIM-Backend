@@ -1,0 +1,2 @@
+class BoardComponent < Component
+end
