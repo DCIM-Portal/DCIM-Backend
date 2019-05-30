@@ -1,0 +1,37 @@
+---
+ChassisComponent:
+  IDENTIFIER: serialnumber
+  MAPPING:
+    chassistype: type
+    manufacturer: brand
+    model: model
+    oem:
+      Hp:
+        BayNumber: order
+    partnumber: part
+    sku: sku
+    serialnumber: serial
+
+BoardComponent:
+  IDENTIFIER: serialnumber
+  MAPPING:
+    biosversion: bios_version
+    manufacturer: brand
+    model: model
+    partnumber: part
+    powerstate: powered_on
+    sku: sku
+    serialnumber: serial
+    uuid: uuid
+
+CpuComponent:
+  IDENTIFIER: Id
+  MAPPING:
+    Id: socket
+    InstructionSet: instruction_set
+    ProcessorArchitecture: architecture
+    Manufacturer: brand
+    MaxSpeedMHz: max_speed_megahertz
+    Model: model
+    TotalCores: cores
+    TotalThreads: threads

@@ -14,14 +14,18 @@ module Dcim
                            })
       end
 
-      test 'chassis and system become components' do
+      test 'generate component tree' do
         driver = RedfishDriver.new(@agent)
         driver.collect_facts
 
         assert_not_empty(@agent.components.where(type: 'ChassisComponent'))
         assert_not_empty(@agent.components.where(type: 'BoardComponent'))
+        assert_not_empty(@agent.components.where(type: 'CpuComponent'))
 
         assert(@agent.components.find_by(type: 'BoardComponent').parent.is_a?(ChassisComponent))
+        @agent.components.where(type: 'CpuComponent').each do |cpu_component|
+          cpu_component.parent.is_a?(BoardComponent)
+        end
       end
     end
   end

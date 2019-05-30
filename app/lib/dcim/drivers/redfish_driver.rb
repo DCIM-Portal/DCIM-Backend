@@ -2,39 +2,13 @@
 module Dcim
   module Drivers
     class RedfishDriver < ApplicationDriver
-      CHASSIS_MAP = {
-        'chassistype' => 'type',
-        'manufacturer' => 'brand',
-        'model' => 'model',
-        'oem' => {
-          'Hp' => {
-            'BayNumber' => 'order'
-          }
-        },
-        'partnumber' => 'part',
-        'sku' => 'sku',
-        'serialnumber' => 'serial'
-      }.freeze
-      SYSTEM_MAP = {
-        'biosversion' => 'bios_version',
-        'manufacturer' => 'brand',
-        'model' => 'model',
-        'partnumber' => 'part',
-        'powerstate' => 'powered_on',
-        'sku' => 'sku',
-        'serialnumber' => 'serial',
-        'uuid' => 'uuid'
-      }.freeze
-      CPU_MAP = {
-        'Id' => 'socket',
-        'InstructionSet' => 'instruction_set',
-        'ProcessorArchitecture' => 'architecture',
-        'Manufacturer' => 'brand',
-        'MaxSpeedMHz' => 'max_speed_megahertz',
-        'Model' => 'model',
-        'TotalCores' => 'cores',
-        'TotalThreads' => 'threads'
-      }.freeze
+      def initialize(agent)
+        super(agent)
+
+        @maps = CaseInsensitiveHash[YAML.load_file(
+          Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_map.yaml')
+        )]
+      end
 
       def collect_facts
         @api = BasicAuthApi.new(
@@ -63,7 +37,7 @@ module Dcim
 
       def collect_chassis(api_path, parent)
         chassis = redfish_get(api_path)
-        chassis_component = chassis_to_component(chassis, parent)
+        chassis_component = to_component(ChassisComponent, chassis, parent)
         chassis_component.save!
         {
           parent: chassis_component,
@@ -75,7 +49,7 @@ module Dcim
 
       def collect_system(api_path, parent)
         system = redfish_get(api_path)
-        board_component = system_to_component(system, parent)
+        board_component = to_component(BoardComponent, system, parent)
         board_component.save!
         {
           parent: board_component,
@@ -97,7 +71,7 @@ module Dcim
 
       def collect_cpu(api_path, parent)
         cpu = redfish_get(api_path)
-        cpu_component = cpu_to_component(cpu, parent)
+        cpu_component = to_component(CpuComponent, cpu, parent)
         cpu_component.save!
         {}
       end
@@ -124,64 +98,42 @@ module Dcim
         collection
       end
 
-      def chassis_to_component(raw_chassis, parent_component)
-        serial = raw_chassis['SerialNumber']
-        component = @agent
-                    .components
-                    .joins(:properties)
-                    .find_by(
-                      type: ChassisComponent.name,
-                      component_properties: {
-                        key: 'serial',
-                        value: serial
-                      }
-                    ) || ChassisComponent.new
+      def to_component(component_type, raw_data, parent_component)
+        mapping = @maps[component_type.name][:MAPPING]
+        raw_identifier = @maps[component_type.name][:IDENTIFIER]
+        raw_identifier_value = raw_data[raw_identifier]
+        component_identifier = mapping[raw_identifier]
+        if parent_component.method_exists? :children
+          component =
+            find_component(parent_component.children, component_type, component_identifier, raw_identifier_value)
+        end
+        if @agent.method_exists? :components
+          component ||=
+            find_component(@agent.components, component_type, component_identifier, raw_identifier_value)
+        end
+        component ||= component_type.new
         component.agents << @agent
-        canonicalize(CHASSIS_MAP, raw_chassis, component)
+        canonicalize(mapping, raw_data, component)
         component.parent = parent_component
         component
       end
 
-      def system_to_component(raw_system, parent_component)
-        serial = raw_system['SerialNumber']
-        component = @agent
-                    .components
-                    .joins(:properties)
-                    .find_by(
-                      type: BoardComponent.name,
-                      component_properties: {
-                        key: 'serial',
-                        value: serial
-                      }
-                    ) || BoardComponent.new
-        component.agents << @agent
-        canonicalize(SYSTEM_MAP, raw_system, component)
-        component.parent = parent_component
-        component
+      def find_component(collection, component_type, property_key, property_value)
+        collection
+          .joins(:properties)
+          .find_by(
+            type: component_type.name,
+            component_properties: {
+              key: property_key,
+              value: property_value
+            }
+          )
       end
 
-      def cpu_to_component(raw_cpu, parent_component)
-        id = raw_cpu['Id']
-        component = parent_component
-                    .children
-                    .joins(:properties)
-                    .find_by(
-                      type: CpuComponent.name,
-                      component_properties: {
-                        key: 'socket',
-                        value: id
-                      }
-                    ) || CpuComponent.new
-        component.agents << @agent
-        canonicalize(CPU_MAP, raw_cpu, component)
-        component.parent = parent_component
-        component
-      end
-
-      def canonicalize(map, raw_hash, component)
-        map.each do |raw_key, attribute|
+      def canonicalize(mapping, raw_hash, component)
+        mapping.each do |raw_key, attribute|
           if attribute.is_a? Hash
-            canonicalize(map[raw_key], raw_hash[raw_key], component)
+            canonicalize(mapping[raw_key], raw_hash[raw_key], component)
             next
           end
 
