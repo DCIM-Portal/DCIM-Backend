@@ -8,6 +8,10 @@ module Dcim
         @maps = CaseInsensitiveHash[YAML.load_file(
           Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_map.yaml')
         )]
+
+        @trees = CaseInsensitiveHash[YAML.load_file(
+          Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_tree.yaml')
+        )]
       end
 
       def collect_facts
@@ -24,56 +28,44 @@ module Dcim
       end
 
       def collect_facts_recursive(hash)
-        current_fetches = hash[:next]
+        current_fetches = hash[:next] || {}
         parent = hash[:parent]
         next_fetches = {}
-        current_fetches.each do |operation, api_paths|
+        current_fetches.each do |tree_node, api_paths|
           api_paths.each do |api_path|
-            next_fetches.deep_merge!(send("collect_#{operation}", api_path, parent))
+            next_fetches.deep_merge!(collect(tree_node, api_path, parent))
           end
         end
         collect_facts_recursive(next_fetches) unless next_fetches.empty?
       end
 
-      def collect_chassis(api_path, parent)
-        chassis = redfish_get(api_path)
-        chassis_component = to_component(ChassisComponent, chassis, parent)
-        chassis_component.save!
+      def collect(node, api_path, parent)
+        raw_data = redfish_get(api_path)
+        tree_node = @trees[node.to_s]
+        component = parent
+        if tree_node[:component]
+          component_type = tree_node[:component].constantize
+          component = to_component(component_type, raw_data, parent)
+          component.save!
+        end
+        next_nodes = nil
+        if tree_node[:next]
+          next_nodes = tree_node[:next].transform_values do |value|
+            raw_path = raw_data
+            value.split('/').each do |raw_key|
+              raw_path = raw_path[raw_key]
+            end
+            if raw_path.is_a?(Array)
+              redfish_to_collection(raw_path)
+            else
+              [raw_path['@odata.id']]
+            end
+          end
+        end
         {
-          parent: chassis_component,
-          next: {
-            system: redfish_to_collection(chassis['Links']['ComputerSystems'])
-          }
+          parent: component,
+          next: next_nodes
         }
-      end
-
-      def collect_system(api_path, parent)
-        system = redfish_get(api_path)
-        board_component = to_component(BoardComponent, system, parent)
-        board_component.save!
-        {
-          parent: board_component,
-          next: {
-            cpu_list: [system['Processors']['@odata.id']]
-          }
-        }
-      end
-
-      def collect_cpu_list(api_path, parent)
-        cpu_list = redfish_get(api_path)
-        {
-          parent: parent,
-          next: {
-            cpu: redfish_to_collection(cpu_list['Members'])
-          }
-        }
-      end
-
-      def collect_cpu(api_path, parent)
-        cpu = redfish_get(api_path)
-        cpu_component = to_component(CpuComponent, cpu, parent)
-        cpu_component.save!
-        {}
       end
 
       private

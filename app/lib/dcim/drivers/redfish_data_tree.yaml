@@ -1,0 +1,28 @@
+---
+Root:
+  path: 'Chassis'
+  component: 'EnclosureComponent'
+  next:
+    Chassis: 'Members'
+
+Chassis:
+  component: 'ChassisComponent'
+  next:
+    System: 'Links/ComputerSystems'
+
+System:
+  component: 'BoardComponent'
+  next:
+    ProcessorCollection: 'Processors'
+
+ProcessorCollection:
+  next:
+    Processor: 'Members'
+
+Processor:
+  component: 'CpuComponent'
+
+SmartStorage:
+  next:
+    ArrayControllers: 'Links/ArrayControllers'
+    HostBusAdapters: 'Links/HostBusAdapters'
