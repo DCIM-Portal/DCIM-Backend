@@ -1,0 +1,28 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#MemoryCollection.MemoryCollection",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory",
+    "@odata.type": "#MemoryCollection.MemoryCollection",
+    "Description": "Collection of memory devices for this system",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA1"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA2"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA3"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA4"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA5"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA6"
+        }
+    ],
+    "Members@odata.count": 6,
+    "Name": "Memory Devices Collection"
+}

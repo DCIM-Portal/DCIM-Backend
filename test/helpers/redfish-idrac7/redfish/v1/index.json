@@ -1,0 +1,52 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#ServiceRoot.ServiceRoot",
+    "@odata.id": "/redfish/v1",
+    "@odata.type": "#ServiceRoot.v1_1_0.ServiceRoot",
+    "AccountService": {
+        "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/AccountService"
+    },
+    "Chassis": {
+        "@odata.id": "/redfish/v1/Chassis"
+    },
+    "Description": "Root Service",
+    "EventService": {
+        "@odata.id": "/redfish/v1/EventService"
+    },
+    "Id": "RootService",
+    "JsonSchemas": {
+        "@odata.id": "/redfish/v1/JSONSchemas"
+    },
+    "Links": {
+        "Sessions": {
+            "@odata.id": "/redfish/v1/Sessions"
+        }
+    },
+    "Managers": {
+        "@odata.id": "/redfish/v1/Managers"
+    },
+    "Name": "Root Service",
+    "Oem": {
+        "Dell": {
+            "@odata.type": "#DellServiceRoot.v1_0_0.ServiceRootSummary",
+            "IsBranded": 0,
+            "ManagerMACAddress": "20:47:47:83:F1:D6",
+            "ServiceTag": "D6TCT52"
+        }
+    },
+    "RedfishVersion": "1.0.2",
+    "Registries": {
+        "@odata.id": "/redfish/v1/Registries"
+    },
+    "SessionService": {
+        "@odata.id": "/redfish/v1/SessionService"
+    },
+    "Systems": {
+        "@odata.id": "/redfish/v1/Systems"
+    },
+    "Tasks": {
+        "@odata.id": "/redfish/v1/TaskService"
+    },
+    "UpdateService": {
+        "@odata.id": "/redfish/v1/UpdateService"
+    }
+}

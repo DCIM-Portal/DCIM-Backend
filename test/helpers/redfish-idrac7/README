@@ -1,0 +1,6 @@
+Redfish Service state stored in Redfish Mockup Format
+Program: redfishMockupCreate,  ver: 1.0.3
+Created: 2019-05-25 21:55:11
+rhost:  192.168.0.99
+Description: 
+Commandline: python3.4 ./redfishMockupCreate.py -r 192.168.0.99 -u Administrator -p 'ChertseyEndlos' -S -A Basic -D ~/Desktop/Redfish-Mockup-Creator/out/

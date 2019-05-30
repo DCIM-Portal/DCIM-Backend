@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2361",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-13T23:28:34-05:00",
+    "Description": " Log Entry 2361",
+    "EntryType": "Oem",
+    "Id": "2361",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Slot.6-1"
+        }
+    },
+    "Message": "Device not detected: PERC H310 Adapter(Slot 6-1)",
+    "MessageArgs": [
+        "PERC H310 Adapter(Slot 6-1)"
+    ],
+    "MessageArgs@odata.count": 1,
+    "MessageId": "PR8",
+    "Name": " Log Entry 2361",
+    "OemRecordFormat": "Dell",
+    "Severity": "Warning"
+}

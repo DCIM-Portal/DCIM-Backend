@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/184",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2016-05-13T02:09:44-05:00",
+    "Description": " Log Entry 184",
+    "EntryCode": [
+        {
+            "Member": "Deassert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "184",
+    "Links": {},
+    "Message": "Drive 2 is removed from disk drive bay 1.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "a012",
+    "Name": " Log Entry 184",
+    "SensorNumber": 162,
+    "SensorType": [
+        {
+            "Member": "Drive Slot/Bay"
+        }
+    ],
+    "Severity": "Critical"
+}

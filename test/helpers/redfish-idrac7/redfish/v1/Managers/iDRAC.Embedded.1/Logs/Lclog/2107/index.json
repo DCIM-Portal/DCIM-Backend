@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2107",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-09-19T04:21:37-05:00",
+    "Description": " Log Entry 2107",
+    "EntryType": "Oem",
+    "Id": "2107",
+    "Links": {},
+    "Message": "Version change detected for Lifecycle Controller firmware. Previous version:2.60.60.60, Current version:0.0",
+    "MessageArgs": [
+        "Lifecycle Controller",
+        "2.60.60.60",
+        "0.0"
+    ],
+    "MessageArgs@odata.count": 3,
+    "MessageId": "PR36",
+    "Name": " Log Entry 2107",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

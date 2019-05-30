@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/235",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2017-04-29T04:22:20-05:00",
+    "Description": " Log Entry 235",
+    "EntryCode": [
+        {
+            "Member": "Assert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "235",
+    "Links": {},
+    "Message": "A bus fatal error was detected on a component at slot 4.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "aa084",
+    "Name": " Log Entry 235",
+    "SensorNumber": 24,
+    "SensorType": [
+        {
+            "Member": "Critical Interrupt"
+        }
+    ],
+    "Severity": "Critical"
+}

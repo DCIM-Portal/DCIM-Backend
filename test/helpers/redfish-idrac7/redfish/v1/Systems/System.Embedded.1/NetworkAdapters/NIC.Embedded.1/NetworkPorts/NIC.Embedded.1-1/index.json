@@ -1,0 +1,35 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts/NIC.Embedded.1-1",
+    "@odata.type": "#NetworkPort.v1_1_0.NetworkPort",
+    "ActiveLinkTechnology": "Ethernet",
+    "AssociatedNetworkAddresses": [
+        "20:47:47:83:F1:D2"
+    ],
+    "Description": "Network Port View",
+    "EEEEnabled": true,
+    "FlowControlConfiguration": "TX_RX",
+    "FlowControlStatus": "TX_RX",
+    "Id": "NIC.Embedded.1-1",
+    "LinkStatus": "Up",
+    "Name": "Network Port View",
+    "NetDevFuncMaxBWAlloc": [],
+    "NetDevFuncMinBWAlloc": [],
+    "PhysicalPortNumber": "1",
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    },
+    "SupportedEthernetCapabilities": [
+        "WakeOnLAN",
+        "EEE"
+    ],
+    "SupportedLinkCapabilities": [
+        {
+            "LinkNetworkTechnology": "Ethernet",
+            "LinkSpeedMbps": 1000
+        }
+    ],
+    "WakeOnLANEnabled": false
+}

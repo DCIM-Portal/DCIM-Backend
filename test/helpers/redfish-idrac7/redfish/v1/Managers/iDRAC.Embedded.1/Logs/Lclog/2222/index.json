@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2222",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-04-04T14:15:03-05:00",
+    "Description": " Log Entry 2222",
+    "EntryType": "Oem",
+    "Id": "2222",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "User ID 3 User Access Right has been changed.",
+    "MessageArgs": [
+        "3"
+    ],
+    "MessageArgs@odata.count": 1,
+    "MessageId": "SWC1912",
+    "Name": " Log Entry 2222",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

@@ -1,0 +1,121 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#SimpleStorage.SimpleStorage",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Slot.6-1",
+    "@odata.type": "#SimpleStorage.v1_2_0.SimpleStorage",
+    "Description": "Simple Storage Controller",
+    "Devices": [
+        {
+            "CapacityBytes": 1023544393728,
+            "Manufacturer": "ATA",
+            "Model": "MKNSSDTR1TB 3D",
+            "Name": "Solid State Disk 0:1:0",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 1023544393728,
+            "Manufacturer": "ATA",
+            "Model": "MKNSSDTR1TB 3D",
+            "Name": "Solid State Disk 0:1:1",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:2",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:3",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:4",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:5",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:6",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": 5000415674368,
+            "Manufacturer": "ATA",
+            "Model": "TOSHIBA MD04ACA5",
+            "Name": "Physical Disk 0:1:7",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        },
+        {
+            "CapacityBytes": null,
+            "Manufacturer": "DELL",
+            "Model": "BP12G+ 0:1",
+            "Name": "Backplane 1 on Connector 0 of RAID Controller in Slot 6",
+            "Status": {
+                "Health": null,
+                "HealthRollup": null,
+                "State": "Enabled"
+            }
+        }
+    ],
+    "Devices@odata.count": 9,
+    "Id": "RAID.Slot.6-1",
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/System.Embedded.1"
+        }
+    },
+    "Name": "PERC H310 Adapter",
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    },
+    "UefiDevicePath": "PcieRoot(0x0)/Pci(0x1,0x0)/Pci(0x0,0x0)/Ctrl(0x1)"
+}

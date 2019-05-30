@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/293",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-05-18T00:18:26-05:00",
+    "Description": " Log Entry 293",
+    "EntryCode": [
+        {
+            "Member": "Lower Non-critical - going low"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "293",
+    "Links": {},
+    "Message": "Fan Sys 1 RPM is within range.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "50b3",
+    "Name": " Log Entry 293",
+    "SensorNumber": 48,
+    "SensorType": [
+        {
+            "Member": "Fan"
+        }
+    ],
+    "Severity": "OK"
+}

@@ -1,0 +1,15 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2020",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-07-04T22:20:54-05:00",
+    "Description": " Log Entry 2020",
+    "EntryType": "Oem",
+    "Id": "2020",
+    "Links": {},
+    "Message": "The operation to apply I/O Identity settings based on current persistence policy settings has completed successfully.",
+    "MessageId": "IOID117",
+    "Name": " Log Entry 2020",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

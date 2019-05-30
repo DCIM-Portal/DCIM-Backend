@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2029",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-07-04T22:24:27-05:00",
+    "Description": " Log Entry 2029",
+    "EntryType": "Oem",
+    "Id": "2029",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "The session for root from 192.168.0.150 using GUI is logged off.",
+    "MessageArgs": [
+        "root",
+        "192.168.0.150",
+        "GUI"
+    ],
+    "MessageArgs@odata.count": 3,
+    "MessageId": "USR0032",
+    "Name": " Log Entry 2029",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

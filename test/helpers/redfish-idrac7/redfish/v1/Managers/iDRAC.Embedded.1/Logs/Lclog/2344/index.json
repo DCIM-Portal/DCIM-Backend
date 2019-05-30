@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2344",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-13T22:44:16-05:00",
+    "Description": " Log Entry 2344",
+    "EntryType": "Oem",
+    "Id": "2344",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "Requested system powercycle.",
+    "MessageId": "RAC0702",
+    "Name": " Log Entry 2344",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

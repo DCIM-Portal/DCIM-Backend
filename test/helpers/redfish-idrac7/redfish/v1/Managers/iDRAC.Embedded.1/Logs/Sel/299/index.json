@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/299",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-07-04T20:14:56-05:00",
+    "Description": " Log Entry 299",
+    "EntryCode": [
+        {
+            "Member": "State Deasserted"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "299",
+    "Links": {},
+    "Message": "The system board PS1 PG Fail voltage is within range.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "0ffff",
+    "Name": " Log Entry 299",
+    "SensorNumber": 45,
+    "SensorType": [
+        {
+            "Member": "Voltage"
+        }
+    ],
+    "Severity": "OK"
+}

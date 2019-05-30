@@ -1,0 +1,24 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2116",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-11-20T18:50:57-06:00",
+    "Description": " Log Entry 2116",
+    "EntryType": "Oem",
+    "Id": "2116",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Embedded.1-1-1"
+        }
+    },
+    "Message": "The NIC Embedded 1 Port 1 network link is down.",
+    "MessageArgs": [
+        "NIC Embedded 1",
+        "1"
+    ],
+    "MessageArgs@odata.count": 2,
+    "MessageId": "NIC100",
+    "Name": " Log Entry 2116",
+    "OemRecordFormat": "Dell",
+    "Severity": "Warning"
+}

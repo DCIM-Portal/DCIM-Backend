@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2399",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-14T03:07:57-05:00",
+    "Description": " Log Entry 2399",
+    "EntryType": "Oem",
+    "Id": "2399",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "Virtual Console session started.",
+    "MessageId": "VME0001",
+    "Name": " Log Entry 2399",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

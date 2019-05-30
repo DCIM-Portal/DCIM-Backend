@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/119",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2015-12-17T16:15:40-06:00",
+    "Description": " Log Entry 119",
+    "EntryCode": [
+        {
+            "Member": "Assert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "119",
+    "Links": {},
+    "Message": "Fault detected on drive 0 in disk drive bay 1.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "a110",
+    "Name": " Log Entry 119",
+    "SensorNumber": 160,
+    "SensorType": [
+        {
+            "Member": "Drive Slot/Bay"
+        }
+    ],
+    "Severity": "Critical"
+}

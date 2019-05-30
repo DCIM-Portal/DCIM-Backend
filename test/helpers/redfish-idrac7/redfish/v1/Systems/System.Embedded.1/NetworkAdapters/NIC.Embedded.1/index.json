@@ -1,0 +1,65 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#NetworkAdapter.NetworkAdapter",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1",
+    "@odata.type": "#NetworkAdapter.v1_0_1.NetworkAdapter",
+    "Controllers": [
+        {
+            "ControllerCapabilities": {
+                "DataCenterBridging": {
+                    "Capable": false
+                },
+                "NPIV": {
+                    "MaxDeviceLogins": 0,
+                    "MaxPortLogins": 0
+                },
+                "NetworkDeviceFunctionCount": 2,
+                "NetworkPortCount": 2,
+                "VirtualizationOffload": {
+                    "SRIOV": {
+                        "SRIOVVEPACapable": false
+                    },
+                    "VirtualFunction": {
+                        "DeviceMaxCount": 0,
+                        "MinAssignmentGroupSize": 0,
+                        "NetworkPortMaxCount": 0
+                    }
+                }
+            },
+            "FirmwarePackageVersion": "21.40.2",
+            "Links": {
+                "NetworkDeviceFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1"
+                    }
+                ],
+                "NetworkDeviceFunctions@odata.count": 2,
+                "NetworkPorts": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts/NIC.Embedded.1-1"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts/NIC.Embedded.2-1"
+                    }
+                ],
+                "NetworkPorts@odata.count": 2
+            }
+        }
+    ],
+    "Description": "Network Adapter View",
+    "Id": "NIC.Embedded.1",
+    "Name": "Network Adapter View",
+    "NetworkDeviceFunctions": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions"
+    },
+    "NetworkPorts": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts"
+    },
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    }
+}

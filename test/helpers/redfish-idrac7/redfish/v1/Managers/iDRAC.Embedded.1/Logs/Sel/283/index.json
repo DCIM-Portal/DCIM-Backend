@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/283",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-05-17T05:07:33-05:00",
+    "Description": " Log Entry 283",
+    "EntryCode": [
+        {
+            "Member": "Deassert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "283",
+    "Links": {},
+    "Message": "The chassis is closed while the power is on.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "801ff",
+    "Name": " Log Entry 283",
+    "SensorNumber": 115,
+    "SensorType": [
+        {
+            "Member": "Physical Chassis Security"
+        }
+    ],
+    "Severity": "OK"
+}

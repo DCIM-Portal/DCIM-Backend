@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/1978",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-06-29T17:13:51-05:00",
+    "Description": " Log Entry 1978",
+    "EntryType": "Oem",
+    "Id": "1978",
+    "Links": {},
+    "Message": "Updating firmware for PowerEdge T320 BIOS to version 2.6.0.",
+    "MessageArgs": [
+        "PowerEdge T320 BIOS",
+        "2.6.0"
+    ],
+    "MessageArgs@odata.count": 2,
+    "MessageId": "SUP0516",
+    "Name": " Log Entry 1978",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

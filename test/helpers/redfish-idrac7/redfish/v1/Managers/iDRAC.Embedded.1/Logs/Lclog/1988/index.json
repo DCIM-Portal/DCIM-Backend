@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/1988",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-06-29T17:21:18-05:00",
+    "Description": " Log Entry 1988",
+    "EntryType": "Oem",
+    "Id": "1988",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1"
+        }
+    },
+    "Message": "Version change detected for BIOS firmware. Previous version:2.5.1, Current version:2.6.0",
+    "MessageArgs": [
+        "BIOS",
+        "2.5.1",
+        "2.6.0"
+    ],
+    "MessageArgs@odata.count": 3,
+    "MessageId": "PR36",
+    "Name": " Log Entry 1988",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

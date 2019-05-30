@@ -1,0 +1,18 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#DellJob.DellJob",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Jobs/JID_266203756865",
+    "@odata.type": "#DellJob.v1_0_0.DellJob",
+    "CompletionTime": "2018-05-18T00:12:56",
+    "Description": "Job Instance",
+    "EndTime": null,
+    "Id": "JID_266203756865",
+    "JobState": "Completed",
+    "JobType": "FirmwareUpdate",
+    "Message": "Job completed successfully.",
+    "MessageArgs": [],
+    "MessageId": "RED001",
+    "Name": "Firmware Rollback: iDRAC",
+    "PercentComplete": 254,
+    "StartTime": "TIME_NOW",
+    "TargetSettingsURI": null
+}

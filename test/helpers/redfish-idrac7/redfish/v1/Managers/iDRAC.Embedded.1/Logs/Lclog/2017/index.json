@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2017",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-07-04T22:20:42-05:00",
+    "Description": " Log Entry 2017",
+    "EntryType": "Oem",
+    "Id": "2017",
+    "Links": {},
+    "Message": "The iDRAC firmware was rebooted with the following reason: ac.",
+    "MessageArgs": [
+        "ac"
+    ],
+    "MessageArgs@odata.count": 1,
+    "MessageId": "RAC0182",
+    "Name": " Log Entry 2017",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

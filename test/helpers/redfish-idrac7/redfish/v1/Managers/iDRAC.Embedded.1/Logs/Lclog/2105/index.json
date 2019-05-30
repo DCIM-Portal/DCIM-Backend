@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2105",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-09-19T04:16:57-05:00",
+    "Description": " Log Entry 2105",
+    "EntryType": "Oem",
+    "Id": "2105",
+    "Links": {},
+    "Message": "User root via IP 192.168.0.150 requested state / configuration change to Services using GUI.",
+    "MessageArgs": [
+        "root",
+        "192.168.0.150",
+        "Services",
+        "GUI"
+    ],
+    "MessageArgs@odata.count": 4,
+    "MessageId": "RAC1195",
+    "Name": " Log Entry 2105",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

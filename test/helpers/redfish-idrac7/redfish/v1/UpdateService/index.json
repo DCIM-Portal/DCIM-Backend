@@ -1,0 +1,34 @@
+{
+    "@Message.ExtendedInfo": [
+        {
+            "Message": "Lifecycle Controller is not enabled.",
+            "MessageArgs": [],
+            "MessageArgs@odata.count": 0,
+            "MessageId": "IDRAC.1.6.OSD35",
+            "RelatedProperties": [],
+            "RelatedProperties@odata.count": 0,
+            "Resolution": "For 11G systems: Use the iDRAC configuration utility to enable the System Services by pressing on the CTRL+E option on boot up at the targeted system. For 12G and above generations: Use F2 Setup, select iDRAC Configuration, and select Lifecycle Controller Settings, to enable the Lifecycle Controller on boot up of the targeted system.",
+            "Severity": "Informational"
+        }
+    ],
+    "@odata.context": "/redfish/v1/$metadata#UpdateService.UpdateService",
+    "@odata.id": "/redfish/v1/UpdateService",
+    "@odata.type": "#UpdateService.v1_2_0.UpdateService",
+    "Actions": {
+        "#UpdateService.SimpleUpdate": {
+            "target": "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate"
+        }
+    },
+    "Description": "Represents the properties for the Update Service",
+    "FirmwareInventory": {
+        "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory"
+    },
+    "HttpPushUri": "/redfish/v1/UpdateService/FirmwareInventory",
+    "Id": "UpdateService",
+    "Name": "Update Service",
+    "ServiceEnabled": true,
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2213",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-04-04T14:10:42-05:00",
+    "Description": " Log Entry 2213",
+    "EntryType": "Oem",
+    "Id": "2213",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "User ID 3 User Name has been changed.",
+    "MessageArgs": [
+        "3"
+    ],
+    "MessageArgs@odata.count": 1,
+    "MessageId": "SWC1910",
+    "Name": " Log Entry 2213",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

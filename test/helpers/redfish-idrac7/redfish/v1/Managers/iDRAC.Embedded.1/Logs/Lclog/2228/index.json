@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2228",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-04-05T15:39:10-05:00",
+    "Description": " Log Entry 2228",
+    "EntryType": "Oem",
+    "Id": "2228",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "Successfully logged in using dcim, from 192.168.0.60 and REDFISH.",
+    "MessageArgs": [
+        "dcim",
+        "192.168.0.60",
+        "REDFISH"
+    ],
+    "MessageArgs@odata.count": 3,
+    "MessageId": "USR0030",
+    "Name": " Log Entry 2228",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

@@ -1,0 +1,31 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Thermal.Thermal",
+    "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Sensors/Fans/0x17%7C%7CFan.Embedded.Sys%201",
+    "@odata.type": "#Thermal.v1_0_2.Fan",
+    "FanName": "System Board Sys Fan1",
+    "LowerThresholdCritical": 240,
+    "LowerThresholdFatal": 240,
+    "LowerThresholdNonCritical": 360,
+    "MaxReadingRange": 197,
+    "MemberId": "0x17||Fan.Embedded.Sys 1",
+    "MinReadingRange": 139,
+    "Name": "System Board Sys Fan1",
+    "PhysicalContext": "SystemBoard",
+    "Reading": 480,
+    "ReadingUnits": "RPM",
+    "Redundancy": [],
+    "Redundancy@odata.count": 0,
+    "RelatedItem": [
+        {
+            "@odata.id": "/redfish/v1/Chassis/System.Embedded.1"
+        }
+    ],
+    "RelatedItem@odata.count": 1,
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "UpperThresholdCritical": null,
+    "UpperThresholdFatal": null,
+    "UpperThresholdNonCritical": null
+}

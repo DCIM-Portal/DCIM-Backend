@@ -1,0 +1,15 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2335",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-13T22:32:43-05:00",
+    "Description": " Log Entry 2335",
+    "EntryType": "Oem",
+    "Id": "2335",
+    "Links": {},
+    "Message": "Log contains Fan events:OR:Timer expected ~~1~ observed ~~2~.",
+    "MessageId": "DIAG8007",
+    "Name": " Log Entry 2335",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

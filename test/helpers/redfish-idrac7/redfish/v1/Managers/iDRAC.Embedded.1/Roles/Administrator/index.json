@@ -1,0 +1,17 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Role.Role",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Roles/Administrator",
+    "@odata.type": "#Role.v1_0_2.Role",
+    "AssignedPrivileges": [
+        "Login",
+        "ConfigureManager",
+        "ConfigureUsers",
+        "ConfigureComponents",
+        "ConfigureSelf"
+    ],
+    "AssignedPrivileges@odata.count": 5,
+    "Description": "Administrator User Role",
+    "Id": "Administrator",
+    "IsPredefined": true,
+    "Name": "User Role"
+}

@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2121",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-11-22T18:36:38-06:00",
+    "Description": " Log Entry 2121",
+    "EntryType": "Oem",
+    "Id": "2121",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1"
+        }
+    },
+    "Message": "The chassis is closed while the power is on.",
+    "MessageId": "SEC0032",
+    "Name": " Log Entry 2121",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

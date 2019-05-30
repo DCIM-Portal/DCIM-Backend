@@ -1,0 +1,74 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.1-1-1/Settings",
+    "@odata.type": "#NetworkDeviceFunction.v1_1_0.NetworkDeviceFunction",
+    "AssignablePhysicalPorts": [
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts/NIC.Embedded.1-1"
+        }
+    ],
+    "AssignablePhysicalPorts@odata.count": 1,
+    "Description": "NetworkDeviceFunction",
+    "Ethernet": {
+        "MACAddress": "20:47:47:83:F1:D2",
+        "MTUSize": null,
+        "PermanentMACAddress": "20:47:47:83:F1:D2"
+    },
+    "FibreChannel": {
+        "BootTargets": [
+            {
+                "LUNID": null,
+                "WWPN": null
+            }
+        ],
+        "FCoEActiveVLANId": 1,
+        "FCoELocalVLANId": null,
+        "PermanentWWNN": null,
+        "PermanentWWPN": null,
+        "WWNN": null,
+        "WWNSource": "ProvidedByFabric",
+        "WWPN": null
+    },
+    "Id": "NetworkDeviceFunction",
+    "MaxVirtualFunctions": null,
+    "Name": "NetworkDeviceFunction",
+    "NetDevFuncCapabilities": [
+        "Disabled",
+        "Ethernet"
+    ],
+    "NetDevFuncType": "Ethernet",
+    "PhysicalPortAssignment": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkPorts/NIC.Embedded.1-1"
+    },
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    },
+    "iSCSIBoot": {
+        "AuthenticationMethod": "None",
+        "CHAPSecret": "ValueCleared",
+        "CHAPUsername": "ValueCleared",
+        "IPAddressType": "IPv4",
+        "IPMaskDNSViaDHCP": true,
+        "InitiatorDefaultGateway": "0.0.0.0",
+        "InitiatorIPAddress": "0.0.0.0",
+        "InitiatorName": "ValueCleared",
+        "InitiatorNetmask": "0.0.0.0",
+        "PrimaryDNS": "0.0.0.0",
+        "PrimaryLUN": 0,
+        "PrimaryTargetIPAddress": "0.0.0.0",
+        "PrimaryTargetName": "ValueCleared",
+        "PrimaryTargetTCPPort": 3260,
+        "PrimaryVLANEnable": null,
+        "PrimaryVLANId": null,
+        "SecondaryDNS": "0.0.0.0",
+        "SecondaryLUN": 0,
+        "SecondaryTargetIPAddress": "0.0.0.0",
+        "SecondaryTargetName": "ValueCleared",
+        "SecondaryTargetTCPPort": 3260,
+        "SecondaryVLANEnable": null,
+        "SecondaryVLANId": null,
+        "TargetInfoViaDHCP": true
+    }
+}

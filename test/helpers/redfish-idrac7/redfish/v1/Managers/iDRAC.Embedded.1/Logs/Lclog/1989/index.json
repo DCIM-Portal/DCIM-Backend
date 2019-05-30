@@ -1,0 +1,25 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/1989",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-06-29T17:21:21-05:00",
+    "Description": " Log Entry 1989",
+    "EntryType": "Oem",
+    "Id": "1989",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Embedded.2-1-1"
+        }
+    },
+    "Message": "Version change detected for Broadcom Gigabit Ethernet BCM5720 - 20:47:47:83:F1:D4 firmware. Previous version:20.6.52, Current version:20.8.4",
+    "MessageArgs": [
+        "Broadcom Gigabit Ethernet BCM5720 - 20:47:47:83:F1:D4",
+        "20.6.52",
+        "20.8.4"
+    ],
+    "MessageArgs@odata.count": 3,
+    "MessageId": "PR36",
+    "Name": " Log Entry 1989",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

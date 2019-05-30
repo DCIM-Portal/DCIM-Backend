@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/58",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2015-08-05T15:07:01-05:00",
+    "Description": " Log Entry 58",
+    "EntryCode": [
+        {
+            "Member": "Deassert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "58",
+    "Links": {},
+    "Message": "Drive 7 in disk drive bay 1 is operating normally.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "a117",
+    "Name": " Log Entry 58",
+    "SensorNumber": 167,
+    "SensorType": [
+        {
+            "Member": "Drive Slot/Bay"
+        }
+    ],
+    "Severity": "OK"
+}

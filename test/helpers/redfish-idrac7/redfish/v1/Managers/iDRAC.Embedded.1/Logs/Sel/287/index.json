@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/287",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-05-18T00:15:47-05:00",
+    "Description": " Log Entry 287",
+    "EntryCode": [
+        {
+            "Member": "Lower Critical - going low"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "287",
+    "Links": {},
+    "Message": "Fan Sys 1 RPM is less than the lower critical threshold.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "5202",
+    "Name": " Log Entry 287",
+    "SensorNumber": 48,
+    "SensorType": [
+        {
+            "Member": "Fan"
+        }
+    ],
+    "Severity": "Critical"
+}

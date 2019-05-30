@@ -1,0 +1,23 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2014",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-07-04T20:19:08-05:00",
+    "Description": " Log Entry 2014",
+    "EntryType": "Oem",
+    "Id": "2014",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1"
+        }
+    },
+    "Message": "The system board PS1 PG Fail voltage is within range.",
+    "MessageArgs": [
+        "PS1 PG Fail"
+    ],
+    "MessageArgs@odata.count": 1,
+    "MessageId": "VLT0205",
+    "Name": " Log Entry 2014",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

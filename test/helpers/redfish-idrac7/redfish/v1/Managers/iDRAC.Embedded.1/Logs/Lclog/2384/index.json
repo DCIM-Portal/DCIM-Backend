@@ -1,0 +1,15 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2384",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-14T00:35:51-05:00",
+    "Description": " Log Entry 2384",
+    "EntryType": "Oem",
+    "Id": "2384",
+    "Links": {},
+    "Message": "System CPU Resetting.",
+    "MessageId": "SYS1003",
+    "Name": " Log Entry 2384",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

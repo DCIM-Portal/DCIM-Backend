@@ -1,0 +1,29 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Processor.Processor",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Processors/CPU.Socket.1",
+    "@odata.type": "#Processor.v1_0_2.Processor",
+    "Description": "Represents the properties of a Processor attached to this System",
+    "Id": "CPU.Socket.1",
+    "InstructionSet": "x86-64",
+    "Manufacturer": "Intel",
+    "MaxSpeedMHz": 3600,
+    "Model": "Intel(R) Xeon(R) CPU E5-1410 v2 @ 2.80GHz",
+    "Name": "CPU 1",
+    "ProcessorArchitecture": "x86",
+    "ProcessorId": {
+        "EffectiveFamily": "6",
+        "EffectiveModel": "62",
+        "IdentificationRegisters": "0x000306E4",
+        "MicrocodeInfo": null,
+        "Step": "4",
+        "VendorId": "GenuineIntel"
+    },
+    "ProcessorType": "CPU",
+    "Socket": "CPU.Socket.1",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "TotalCores": 4,
+    "TotalThreads": 8
+}

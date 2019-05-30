@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2150",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2018-12-30T14:38:52-06:00",
+    "Description": " Log Entry 2150",
+    "EntryType": "Oem",
+    "Id": "2150",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "Firmware update successful.",
+    "MessageId": "SUP1906",
+    "Name": " Log Entry 2150",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

@@ -1,0 +1,86 @@
+{
+    "@Redfish.Settings": {
+        "@odata.context": "/redfish/v1/$metadata#Settings.Settings",
+        "@odata.type": "#Settings.v1_1_0.Settings",
+        "SettingsObject": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1/Settings"
+        },
+        "SupportedApplyTimes": [
+            "OnReset",
+            "AtMaintenanceWindowStart",
+            "InMaintenanceWindowOnReset"
+        ]
+    },
+    "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.1/NetworkDeviceFunctions/NIC.Embedded.2-1-1",
+    "@odata.type": "#NetworkDeviceFunction.v1_1_0.NetworkDeviceFunction",
+    "AssignablePhysicalPorts": [
+        {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.2/NetworkPorts/NIC.Embedded.2-1"
+        }
+    ],
+    "AssignablePhysicalPorts@odata.count": 1,
+    "Description": "NetworkDeviceFunction",
+    "Ethernet": {
+        "MACAddress": "20:47:47:83:F1:D4",
+        "MTUSize": null,
+        "PermanentMACAddress": "20:47:47:83:F1:D4"
+    },
+    "FibreChannel": {
+        "BootTargets": [
+            {
+                "LUNID": null,
+                "WWPN": null
+            }
+        ],
+        "FCoEActiveVLANId": 1,
+        "FCoELocalVLANId": null,
+        "PermanentWWNN": null,
+        "PermanentWWPN": null,
+        "WWNN": null,
+        "WWNSource": "ProvidedByFabric",
+        "WWPN": null
+    },
+    "Id": "NetworkDeviceFunction",
+    "MaxVirtualFunctions": null,
+    "Name": "NetworkDeviceFunction",
+    "NetDevFuncCapabilities": [
+        "Disabled",
+        "Ethernet"
+    ],
+    "NetDevFuncType": "Ethernet",
+    "PhysicalPortAssignment": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters/NIC.Embedded.2/NetworkPorts/NIC.Embedded.2-1"
+    },
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    },
+    "iSCSIBoot": {
+        "AuthenticationMethod": "None",
+        "CHAPSecret": "ValueCleared",
+        "CHAPUsername": "ValueCleared",
+        "IPAddressType": "IPv4",
+        "IPMaskDNSViaDHCP": true,
+        "InitiatorDefaultGateway": "0.0.0.0",
+        "InitiatorIPAddress": "0.0.0.0",
+        "InitiatorName": "ValueCleared",
+        "InitiatorNetmask": "0.0.0.0",
+        "PrimaryDNS": "0.0.0.0",
+        "PrimaryLUN": 0,
+        "PrimaryTargetIPAddress": "0.0.0.0",
+        "PrimaryTargetName": "ValueCleared",
+        "PrimaryTargetTCPPort": 3260,
+        "PrimaryVLANEnable": null,
+        "PrimaryVLANId": null,
+        "SecondaryDNS": "0.0.0.0",
+        "SecondaryLUN": 0,
+        "SecondaryTargetIPAddress": "0.0.0.0",
+        "SecondaryTargetName": "ValueCleared",
+        "SecondaryTargetTCPPort": 3260,
+        "SecondaryVLANEnable": null,
+        "SecondaryVLANId": null,
+        "TargetInfoViaDHCP": true
+    }
+}

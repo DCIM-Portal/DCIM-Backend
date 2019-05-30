@@ -1,0 +1,45 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Memory.Memory",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA4",
+    "@odata.type": "#Memory.v1_2_0.Memory",
+    "AllowedSpeedsMHz": [
+        1333
+    ],
+    "AllowedSpeedsMHz@odata.count": 1,
+    "BaseModuleType": null,
+    "BusWidthBits": 72,
+    "CapacityMiB": 15625,
+    "DataWidthBits": 64,
+    "Description": "DIMM A4",
+    "DeviceLocator": "DIMM A4",
+    "ErrorCorrection": "MultiBitECC",
+    "Id": "iDRAC.Embedded.1#DIMMSLOTA4",
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/System.Embedded.1"
+        }
+    },
+    "Manufacturer": "Micron Technology",
+    "MaxTDPMilliWatts": [],
+    "MaxTDPMilliWatts@odata.count": 0,
+    "MemoryDeviceType": "DDR3",
+    "MemoryMedia": [],
+    "MemoryMedia@odata.count": 0,
+    "MemoryType": null,
+    "Metrics": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Memory/iDRAC.Embedded.1%23DIMMSLOTA4/Metrics"
+    },
+    "Name": "DIMM A4",
+    "OperatingMemoryModes": [],
+    "OperatingMemoryModes@odata.count": 0,
+    "OperatingSpeedMhz": 1333,
+    "PartNumber": "36KSF2G72PZ-1G6E1",
+    "RankCount": 2,
+    "Regions": [],
+    "Regions@odata.count": 0,
+    "SerialNumber": "0D9F48F2",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    }
+}

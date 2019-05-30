@@ -1,0 +1,82 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Chassis.Chassis",
+    "@odata.id": "/redfish/v1/Chassis/System.Embedded.1",
+    "@odata.type": "#Chassis.v1_5_0.Chassis",
+    "Actions": {
+        "#Chassis.Reset": {
+            "ResetType@Redfish.AllowableValues": [
+                "On",
+                "ForceOff"
+            ],
+            "target": "/redfish/v1/Chassis/System.Embedded.1/Actions/Chassis.Reset"
+        }
+    },
+    "AssetTag": "",
+    "ChassisType": "StandAlone",
+    "Description": "It represents the properties for physical components for any system.It represent racks, rackmount servers, blades, standalone, modular systems,enclosures, and all other containers.The non-cpu/device centric parts of the schema are all accessed either directly or indirectly through this resource.",
+    "Id": "System.Embedded.1",
+    "IndicatorLED": "Off",
+    "Links": {
+        "ComputerSystems": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1"
+            }
+        ],
+        "ComputerSystems@odata.count": 1,
+        "Contains": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-1:RAID.Slot.6-1"
+            }
+        ],
+        "Contains@odata.count": 1,
+        "CooledBy": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Sensors/Fans/0x17%7C%7CFan.Embedded.Sys%201"
+            }
+        ],
+        "CooledBy@odata.count": 1,
+        "Drives": [],
+        "Drives@odata.count": 0,
+        "ManagedBy": [
+            {
+                "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+            }
+        ],
+        "ManagedBy@odata.count": 1,
+        "ManagersInChassis": [
+            {
+                "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+            }
+        ],
+        "ManagersInChassis@odata.count": 1,
+        "PoweredBy": [],
+        "PoweredBy@odata.count": 0,
+        "Storage": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Slot.6-1"
+            }
+        ],
+        "Storage@odata.count": 1
+    },
+    "Manufacturer": "Dell Inc.",
+    "Model": "PowerEdge T320",
+    "Name": "Computer System Chassis",
+    "NetworkAdapters": {
+        "@odata.id": "/redfish/v1/Systems/System.Embedded.1/NetworkAdapters"
+    },
+    "PartNumber": "0FDT3JA02",
+    "Power": {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Power"
+    },
+    "PowerState": "On",
+    "SKU": "D6TCT52",
+    "SerialNumber": "CN747515640532",
+    "Status": {
+        "Health": "OK",
+        "HealthRollup": "OK",
+        "State": "Enabled"
+    },
+    "Thermal": {
+        "@odata.id": "/redfish/v1/Chassis/System.Embedded.1/Thermal"
+    }
+}

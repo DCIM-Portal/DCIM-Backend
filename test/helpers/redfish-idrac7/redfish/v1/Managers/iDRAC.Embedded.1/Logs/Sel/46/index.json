@@ -1,0 +1,27 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Sel/46",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2015-08-04T08:56:42-05:00",
+    "Description": " Log Entry 46",
+    "EntryCode": [
+        {
+            "Member": "Assert"
+        }
+    ],
+    "EntryType": "SEL",
+    "Id": "46",
+    "Links": {},
+    "Message": "Drive 1 is installed in disk drive bay 1.",
+    "MessageArgs": [],
+    "MessageArgs@odata.count": 0,
+    "MessageId": "a011",
+    "Name": " Log Entry 46",
+    "SensorNumber": 161,
+    "SensorType": [
+        {
+            "Member": "Drive Slot/Bay"
+        }
+    ],
+    "Severity": "OK"
+}

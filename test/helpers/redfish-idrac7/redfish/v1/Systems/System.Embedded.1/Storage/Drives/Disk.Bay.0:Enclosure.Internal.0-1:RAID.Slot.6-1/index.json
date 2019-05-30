@@ -1,0 +1,53 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Drive.Drive",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Slot.6-1",
+    "@odata.type": "#Drive.v1_2_0.Drive",
+    "Actions": {
+        "#Drive.SecureErase": {
+            "target": "/redfish/v1/Systems/System.Embedded.1/Storage/Drives/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Slot.6-1/Actions/Drive.SecureErase"
+        }
+    },
+    "BlockSizeBytes": 512,
+    "CapableSpeedGbs": 6,
+    "CapacityBytes": 1023544393728,
+    "Description": "Solid State Disk 0:1:0",
+    "EncryptionAbility": "None",
+    "EncryptionStatus": "Unencrypted",
+    "FailurePredicted": false,
+    "HotspareType": "None",
+    "Id": "Disk.Bay.0:Enclosure.Internal.0-1:RAID.Slot.6-1",
+    "Identifiers": [
+        {
+            "DurableName": "4433221107000000",
+            "DurableNameFormat": "NAA"
+        }
+    ],
+    "Links": {
+        "Chassis": {
+            "@odata.id": "/redfish/v1/Chassis/Enclosure.Internal.0-1:RAID.Slot.6-1"
+        },
+        "Volumes": [
+            {
+                "@odata.id": "/redfish/v1/Systems/System.Embedded.1/Storage/Volumes/Disk.Bay.0:Enclosure.Internal.0-1:RAID.Slot.6-1"
+            }
+        ],
+        "Volumes@odata.count": 1
+    },
+    "Location": [],
+    "Manufacturer": "ATA",
+    "MediaType": "SSD",
+    "Model": "MKNSSDTR1TB 3D",
+    "Name": "Solid State Disk 0:1:0",
+    "NegotiatedSpeedGbs": 6,
+    "PartNumber": "",
+    "PredictedMediaLifeLeftPercent": 100,
+    "Protocol": "SATA",
+    "Revision": "Q1116A0",
+    "RotationSpeedRPM": 1,
+    "SerialNumber": "MK1804211003DDBA4",
+    "Status": {
+        "Health": null,
+        "HealthRollup": null,
+        "State": "Enabled"
+    }
+}

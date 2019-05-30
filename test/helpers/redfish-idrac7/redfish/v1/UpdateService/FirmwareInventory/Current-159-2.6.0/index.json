@@ -1,0 +1,36 @@
+{
+    "@Message.ExtendedInfo": [
+        {
+            "Message": "Lifecycle Controller is not enabled.",
+            "MessageArgs": [],
+            "MessageArgs@odata.count": 0,
+            "MessageId": "IDRAC.1.6.OSD35",
+            "RelatedProperties": [],
+            "RelatedProperties@odata.count": 0,
+            "Resolution": "For 11G systems: Use the iDRAC configuration utility to enable the System Services by pressing on the CTRL+E option on boot up at the targeted system. For 12G and above generations: Use F2 Setup, select iDRAC Configuration, and select Lifecycle Controller Settings, to enable the Lifecycle Controller on boot up of the targeted system.",
+            "Severity": "Informational"
+        },
+        {
+            "Message": "System inventory may not be up-to-date because Collect System Inventory On Restart (CSIOR) is disabled.",
+            "MessageArgs": [],
+            "MessageArgs@odata.count": 0,
+            "MessageId": "IDRAC.1.6.RAC0604",
+            "RelatedProperties": [],
+            "RelatedProperties@odata.count": 0,
+            "Resolution": "Enable CSIOR, restart the system and retry the operation. To enable CSIOR, press F2 (System Setup) during system startup, navigate to iDRAC Settings >Lifecycle Controller, and select the Enabled option for Collect System Inventory on Restart.",
+            "Severity": "Critical"
+        }
+    ],
+    "@odata.context": "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory",
+    "@odata.id": "/redfish/v1/UpdateService/FirmwareInventory/Current-159-2.6.0",
+    "@odata.type": "#SoftwareInventory.v1_0_0.SoftwareInventory",
+    "Description": "Represents Firmware Inventory",
+    "Id": "Current-159-2.6.0",
+    "Name": "BIOS",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "Updateable": true,
+    "Version": "2.6.0"
+}

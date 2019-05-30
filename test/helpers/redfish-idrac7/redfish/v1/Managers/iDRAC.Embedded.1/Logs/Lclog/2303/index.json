@@ -1,0 +1,19 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+    "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1/Logs/Lclog/2303",
+    "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+    "Created": "2019-05-13T21:37:17-05:00",
+    "Description": " Log Entry 2303",
+    "EntryType": "Oem",
+    "Id": "2303",
+    "Links": {
+        "OriginOfCondition": {
+            "@odata.id": "/redfish/v1/Managers/iDRAC.Embedded.1"
+        }
+    },
+    "Message": "Requested system hardreset.",
+    "MessageId": "RAC0703",
+    "Name": " Log Entry 2303",
+    "OemRecordFormat": "Dell",
+    "Severity": "OK"
+}

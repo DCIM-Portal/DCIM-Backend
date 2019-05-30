@@ -1,0 +1,112 @@
+{
+    "@Redfish.Settings": {
+        "@odata.context": "/redfish/v1/$metadata#Settings.Settings",
+        "@odata.type": "#Settings.v1_0_0.Settings",
+        "SettingsObject": {
+            "@odata.id": "/redfish/v1/Systems/System.Embedded.1/BootSources/Settings"
+        }
+    },
+    "@odata.context": "/redfish/v1/$metadata#DellBootSources.DellBootSources",
+    "@odata.id": "/redfish/v1/Systems/System.Embedded.1/BootSources",
+    "@odata.type": "#DellBootSources.v1_0_0.DellBootSources",
+    "AttributeRegistry": "DellBootSourcesRegistry.v1_0_0",
+    "Attributes": {
+        "BootSeq": [
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#BootSeq#Optical.SATAEmbedded.E-1#d12f55843ab3e5059aacef2914290683",
+                "Index": 0,
+                "Name": "Optical.SATAEmbedded.E-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#BootSeq#HardDisk.List.1-1#c9203080df84781e2ca3d512883dee6f",
+                "Index": 1,
+                "Name": "HardDisk.List.1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#BootSeq#NIC.Embedded.1-1-1#8b11f11bf2c4d1ecb961cc3f08366b0b",
+                "Index": 2,
+                "Name": "NIC.Embedded.1-1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#BootSeq#Disk.USBBack.1-1#a97005f81c74cc4db072d147792d6e5a",
+                "Index": 3,
+                "Name": "Disk.USBBack.1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#BootSeq#Disk.vFlash.UTLDRV-1#8520ad5cd128db2b602bb3ea99f834e1",
+                "Index": 4,
+                "Name": "Disk.vFlash.UTLDRV-1"
+            }
+        ],
+        "HddSeq": [
+            {
+                "Id": "BIOS.Setup.1-1#HddSeq#Disk.SATAEmbedded.F-1#e9c06cbb3d322f37328853d53fbb3d57",
+                "Index": 0,
+                "Name": "Disk.SATAEmbedded.F-1"
+            },
+            {
+                "Id": "BIOS.Setup.1-1#HddSeq#Disk.USBFront.2-1#11838c11390e1dedd4f8574249d60d88",
+                "Index": 1,
+                "Name": "Disk.USBFront.2-1"
+            }
+        ],
+        "UefiBootSeq": [
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Unknown.Unknown.1-1#c7ddac377acde14c1f598c72332cdfcc",
+                "Index": 0,
+                "Name": "Unknown.Unknown.1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Optical.SATAEmbedded.E-1#7a0e594f4103e6a0de4c80a94926c5a0",
+                "Index": 1,
+                "Name": "Optical.SATAEmbedded.E-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Disk.USBBack.1-1#8fa9b3ed5fdd9cb948257dc06cd6cda4",
+                "Index": 2,
+                "Name": "Disk.USBBack.1-1"
+            },
+            {
+                "Enabled": false,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Unknown.Unknown.4-1#1bf3271ff7089d67a1c7e9700e270249",
+                "Index": 3,
+                "Name": "Unknown.Unknown.4-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#NIC.Embedded.1-1-1#4957070f0aa1fcff841e886b4011e6e5",
+                "Index": 4,
+                "Name": "NIC.Embedded.1-1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#NIC.Embedded.2-1-1#236af982351f674f952c4db458fe40ab",
+                "Index": 5,
+                "Name": "NIC.Embedded.2-1-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Disk.USBFront.2-1#893312db303a72e305a82528c364e9bb",
+                "Index": 6,
+                "Name": "Disk.USBFront.2-1"
+            },
+            {
+                "Enabled": true,
+                "Id": "BIOS.Setup.1-1#UefiBootSeq#Disk.vFlash.UTLDRV-1#7e547f2af01de653afb1f05ee379a9c8",
+                "Index": 7,
+                "Name": "Disk.vFlash.UTLDRV-1"
+            }
+        ]
+    },
+    "Description": "Boot Sources Current Settings",
+    "Id": "BootSources",
+    "Name": "Boot Sources Configuration Current Settings"
+}
