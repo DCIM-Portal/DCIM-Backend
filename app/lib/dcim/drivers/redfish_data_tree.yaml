@@ -14,6 +14,7 @@ System:
   component: 'BoardComponent'
   next:
     ProcessorCollection: 'Processors'
+    MemoryCollection: ['Memory', 'Oem/Hp/Links/Memory']
 
 ProcessorCollection:
   next:
@@ -21,6 +22,13 @@ ProcessorCollection:
 
 Processor:
   component: 'CpuComponent'
+
+MemoryCollection:
+  next:
+    Memory: 'Members'
+
+Memory:
+  component: 'RamComponent'
 
 SmartStorage:
   next:

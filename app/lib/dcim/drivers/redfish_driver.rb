@@ -6,25 +6,25 @@ module Dcim
         super(agent)
 
         @maps = CaseInsensitiveHash[YAML.load_file(
-          Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_map.yaml')
+            Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_map.yaml')
         )]
 
         @trees = CaseInsensitiveHash[YAML.load_file(
-          Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_tree.yaml')
+            Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_tree.yaml')
         )]
       end
 
       def collect_facts
         @api = BasicAuthApi.new(
-          url: "https://#{@properties[:host]}/",
-          username: @properties[:username],
-          password: @properties[:password],
-          verify_ssl: false
+            url: "https://#{@properties[:host]}/",
+            username: @properties[:username],
+            password: @properties[:password],
+            verify_ssl: false
         )
         chassis_raw_id_list = redfish_get('Chassis')['Members']
         chassis_id_list = redfish_to_collection(chassis_raw_id_list)
 
-        collect_facts_recursive(next: { chassis: chassis_id_list })
+        collect_facts_recursive(next: {chassis: chassis_id_list})
       end
 
       def collect_facts_recursive(hash)
@@ -34,9 +34,9 @@ module Dcim
         current_fetches.each do |tree_node, api_paths|
           api_paths.each do |api_path|
             next_fetches.deep_merge!(collect(tree_node, api_path, parent))
+            collect_facts_recursive(next_fetches) unless next_fetches.empty?
           end
         end
-        collect_facts_recursive(next_fetches) unless next_fetches.empty?
       end
 
       def collect(node, api_path, parent)
@@ -50,21 +50,30 @@ module Dcim
         end
         next_nodes = nil
         if tree_node[:next]
-          next_nodes = tree_node[:next].transform_values do |value|
-            raw_path = raw_data
-            value.split('/').each do |raw_key|
-              raw_path = raw_path[raw_key]
+          next_nodes = tree_node[:next].transform_values do |value_list|
+            if value_list.is_a?(String)
+              value_list = [value_list]
             end
-            if raw_path.is_a?(Array)
-              redfish_to_collection(raw_path)
-            else
-              [raw_path['@odata.id']]
+            output = []
+            value_list.each do |value|
+              raw_path = raw_data
+              value.split('/').each do |raw_key|
+                raw_path = raw_path[raw_key]
+              end
+              if raw_path.is_a?(Array)
+                output += redfish_to_collection(raw_path)
+              else
+                output << raw_path['@odata.id']
+              end
+            rescue
+              next
             end
+            output
           end
         end
         {
-          parent: component,
-          next: next_nodes
+            parent: component,
+            next: next_nodes
         }
       end
 
@@ -97,11 +106,11 @@ module Dcim
         component_identifier = mapping[raw_identifier]
         if parent_component.method_exists? :children
           component =
-            find_component(parent_component.children, component_type, component_identifier, raw_identifier_value)
+              find_component(parent_component.children, component_type, component_identifier, raw_identifier_value)
         end
         if @agent.method_exists? :components
           component ||=
-            find_component(@agent.components, component_type, component_identifier, raw_identifier_value)
+              find_component(@agent.components, component_type, component_identifier, raw_identifier_value)
         end
         component ||= component_type.new
         component.agents << @agent
@@ -112,29 +121,32 @@ module Dcim
 
       def find_component(collection, component_type, property_key, property_value)
         collection
-          .joins(:properties)
-          .find_by(
-            type: component_type.name,
-            component_properties: {
-              key: property_key,
-              value: property_value
-            }
-          )
+            .joins(:properties)
+            .find_by(
+                type: component_type.name,
+                component_properties: {
+                    key: property_key,
+                    value: property_value
+                }
+            )
       end
 
       def canonicalize(mapping, raw_hash, component)
         mapping.each do |raw_key, attribute|
-          if attribute.is_a? Hash
-            canonicalize(mapping[raw_key], raw_hash[raw_key], component)
-            next
+          if attribute.is_a?(Hash)
+            begin
+              canonicalize(mapping[raw_key], raw_hash[raw_key], component)
+            ensure
+              next
+            end
           end
 
           next if raw_hash[raw_key].nil?
 
           component.properties << ComponentProperty.new(
-            key: attribute,
-            value: raw_hash[raw_key],
-            source: @agent
+              key: attribute,
+              value: RedfishDataAdapter.adapt(raw_hash[raw_key], raw_key, component),
+              source: @agent
           )
         end
       end

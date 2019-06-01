@@ -35,3 +35,18 @@ CpuComponent:
     Model: model
     TotalCores: cores
     TotalThreads: threads
+
+RamComponent:
+  IDENTIFIER: Id
+  MAPPING:
+    Id: slot
+    DIMMType: ram_type
+    MemoryDeviceType: ram_type
+    SizeMB: capacity
+    CapacityMiB: capacity
+    MaximumFrequencyMHz: max_speed_megahertz
+    OperatingSpeedMhz: max_speed_megahertz
+    Name: name
+    Manufacturer: brand
+    PartNumber: part
+    SerialNumber: serial

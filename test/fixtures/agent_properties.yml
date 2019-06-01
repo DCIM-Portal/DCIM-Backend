@@ -10,3 +10,16 @@ ilo4_agent_property_password:
   agent: ilo4_agent
   key: 'password'
   value: 'ChertseyEndlos'
+
+idrac7_agent_property_host:
+  agent: idrac7_agent
+  key: 'host'
+  value: '192.168.0.99'
+idrac7_agent_property_username:
+  agent: idrac7_agent
+  key: 'username'
+  value: 'Administrator'
+idrac7_agent_property_password:
+  agent: idrac7_agent
+  key: 'password'
+  value: 'ChertseyEndlos'

@@ -1,0 +1,2 @@
+class RamComponent < Component
+end

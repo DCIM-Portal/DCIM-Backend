@@ -1,3 +1,7 @@
 ilo4_agent:
   driver: 'IloRedfishDriver'
   label: 'Agent for iLO4 at 10.14.67.147'
+
+idrac7_agent:
+  driver: 'IdracRedfishDriver'
+  label: 'Agent for iDRAC7 at 192.168.0.99'
