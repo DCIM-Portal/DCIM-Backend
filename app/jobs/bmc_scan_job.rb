@@ -89,21 +89,19 @@ class BmcScanJob < ApplicationJob
     success = nil
 
     secrets.each_with_index do |secret, i|
-      begin
-        success = false
-        ::ActiveRecord::Base.connection_pool.with_connection do
-          success = bmc_host.refresh!(secret, pass_exceptions: true)
-          logger.debug bmc_host.ip_address + ': BMC host updated'
-        end
-        break if success
-      # Try next BruteListSecret
-      rescue Dcim::InvalidCredentialsError => e
-        logger.debug bmc_host.ip_address + ": Authentication failed with BruteListSecret #{i} of #{secrets.size} in BruteList #{brute_list.name}"
-        next
-      # Die
-      rescue RuntimeError => e
-        break
+      success = false
+      ::ActiveRecord::Base.connection_pool.with_connection do
+        success = bmc_host.refresh!(secret, pass_exceptions: true)
+        logger.debug bmc_host.ip_address + ': BMC host updated'
       end
+      break if success
+    # Try next BruteListSecret
+    rescue Dcim::InvalidCredentialsError => e
+      logger.debug bmc_host.ip_address + ": Authentication failed with BruteListSecret #{i} of #{secrets.size} in BruteList #{brute_list.name}"
+      next
+    # Die
+    rescue RuntimeError => e
+      break
     end
     bmc_host.commit_exception(e) unless success
   end

@@ -154,19 +154,17 @@ class OnboardJob < ApplicationJob
   def set_bmc_hosts_ready_to_onboard
     validated_bmc_hosts = []
     @request.bmc_hosts.each do |bmc_host|
-      begin
-        raise Dcim::UnknownError, 'BmcHost#validate_onboardable did not return true' unless bmc_host.validate_onboardable
+      raise Dcim::UnknownError, 'BmcHost#validate_onboardable did not return true' unless bmc_host.validate_onboardable
 
-        bmc_host.onboard_status        = :in_progress
-        bmc_host.onboard_step          = nil
-        bmc_host.onboard_error_message = nil
-        bmc_host.save!
-        validated_bmc_hosts << bmc_host
-      rescue RuntimeError => e
-        bmc_host.onboard_status        = :stack_trace
-        bmc_host.onboard_step          = nil
-        bmc_host.onboard_error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
-      end
+      bmc_host.onboard_status        = :in_progress
+      bmc_host.onboard_step          = nil
+      bmc_host.onboard_error_message = nil
+      bmc_host.save!
+      validated_bmc_hosts << bmc_host
+    rescue RuntimeError => e
+      bmc_host.onboard_status        = :stack_trace
+      bmc_host.onboard_step          = nil
+      bmc_host.onboard_error_message = e.class.name + ': ' + e.message + "\n" + e.backtrace.join("\n")
     end
     validated_bmc_hosts
   end

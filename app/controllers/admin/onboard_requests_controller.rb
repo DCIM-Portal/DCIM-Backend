@@ -82,24 +82,22 @@ class Admin::OnboardRequestsController < AdminController
     list_onboard_attempted = []
     list_no_onboard_attempted = []
     bmc_hosts.each do |host|
-      begin
-        host.validate_onboardable
-        # Onboard attempted before
-        if host.onboard_status
-          list_onboard_attempted << { bmc_host: host }
-        # New onboard
-        else
-          list_no_onboard_attempted << { bmc_host: host }
-        end
-      rescue RuntimeError => e
-        # BmcHost fails validation
-        list_bmc_host_unonboardable << {
-          bmc_host: host,
-          exception: e,
-          exception_name: e.class.name,
-          exception_message: e.message
-        }
+      host.validate_onboardable
+      # Onboard attempted before
+      if host.onboard_status
+        list_onboard_attempted << { bmc_host: host }
+      # New onboard
+      else
+        list_no_onboard_attempted << { bmc_host: host }
       end
+    rescue RuntimeError => e
+      # BmcHost fails validation
+      list_bmc_host_unonboardable << {
+        bmc_host: host,
+        exception: e,
+        exception_name: e.class.name,
+        exception_message: e.message
+      }
     end
     [list_no_onboard_attempted, list_onboard_attempted, list_bmc_host_unonboardable]
   end
