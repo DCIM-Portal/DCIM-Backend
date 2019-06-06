@@ -13,13 +13,13 @@ module Dcim
                              redfish_path = request.uri.path.split('/')
                              File.new(Rails.root.join('test', 'helpers', 'redfish-ilo4', *redfish_path, 'index.json'))
                            })
+        @driver = RedfishDriver.new(@agent)
       end
 
       include Dcim::Drivers::CommonRedfishDriverTests
 
       test 'System Memory SizeMB normalized correctly' do
-        driver = RedfishDriver.new(@agent)
-        driver.collect_facts
+        @driver.collect_facts
 
         memory_component = @agent.components
                                  .joins(:properties)
@@ -32,9 +32,33 @@ module Dcim
                                  )
 
         assert_equal(32_768_000_000, memory_component
-                                      .properties
-                                      .find_by(key: 'capacity')
-                                      .value.to_i)
+                                         .properties
+                                         .find_by(key: 'capacity')
+                                         .value.to_i)
+      end
+
+      test 'collect node parent is component that it fetches' do
+        out = @driver.collect('Chassis', '/redfish/v1/Chassis/1/', nil)
+        assert(out[:parent].is_a?(ChassisComponent))
+      end
+
+      test 'collect node passes through parent if node has no component' do
+        parent = Component.new
+        out = @driver.collect('MemoryCollection', '/redfish/v1/Systems/1/Memory/', parent)
+        assert_equal(parent, out[:parent])
+      end
+
+      test 'collect node next has link API paths' do
+        out = @driver.collect('System', '/redfish/v1/Systems/1/', nil)
+        actual_next = out[:next]
+        assert_includes(actual_next['ProcessorCollection'], '/redfish/v1/Systems/1/Processors/')
+        assert_includes(actual_next['MemoryCollection'], '/redfish/v1/Systems/1/Memory/')
+      end
+
+      test 'collect node next has members API paths' do
+        out = @driver.collect('Chassis', '/redfish/v1/Chassis/1/', nil)
+        actual_next = out[:next]
+        assert_includes(actual_next['System'], '/redfish/v1/Systems/1/')
       end
     end
   end

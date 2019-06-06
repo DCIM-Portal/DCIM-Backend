@@ -2,8 +2,17 @@
 module Dcim
   module Drivers
     class RedfishDriver < ApplicationDriver
+      attr_reader :api
+
       def initialize(agent)
         super(agent)
+
+        @api = BasicAuthApi.new(
+          url: "https://#{@properties[:host]}/",
+          username: @properties[:username],
+          password: @properties[:password],
+          verify_ssl: false
+        )
 
         @maps = CaseInsensitiveHash[YAML.load_file(
           Rails.root.join('app', 'lib', 'dcim', 'drivers', 'redfish_data_map.yaml')
@@ -15,12 +24,6 @@ module Dcim
       end
 
       def collect_facts
-        @api = BasicAuthApi.new(
-          url: "https://#{@properties[:host]}/",
-          username: @properties[:username],
-          password: @properties[:password],
-          verify_ssl: false
-        )
         chassis_raw_id_list = redfish_get('Chassis')['Members']
         chassis_id_list = redfish_to_collection(chassis_raw_id_list)
 
@@ -51,22 +54,7 @@ module Dcim
         next_nodes = nil
         if tree_node[:next]
           next_nodes = tree_node[:next].transform_values do |value_list|
-            value_list = [value_list] if value_list.is_a?(String)
-            output = []
-            value_list.each do |value|
-              raw_path = raw_data
-              value.split('/').each do |raw_key|
-                raw_path = raw_path[raw_key]
-              end
-              if raw_path.is_a?(Array)
-                output += redfish_to_collection(raw_path)
-              else
-                output << raw_path['@odata.id']
-              end
-            rescue StandardError
-              next
-            end
-            output
+            tree_next_to_api_paths(raw_data, value_list)
           end
         end
         {
@@ -77,7 +65,24 @@ module Dcim
 
       private
 
-      attr_reader :api
+      def tree_next_to_api_paths(raw_data, value_list)
+        value_list = [value_list] if value_list.is_a?(String)
+        output = []
+        value_list.each do |value|
+          raw_path = raw_data
+          value.split('/').each do |raw_key|
+            raw_path = raw_path[raw_key]
+          end
+          if raw_path.is_a?(Array)
+            output += redfish_to_collection(raw_path)
+          else
+            output << raw_path['@odata.id']
+          end
+        rescue StandardError
+          next
+        end
+        output
+      end
 
       def redfish_get(redfish_id)
         redfish_path = redfish_id.split('/')

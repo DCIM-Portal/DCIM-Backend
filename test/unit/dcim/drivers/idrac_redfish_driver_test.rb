@@ -13,13 +13,13 @@ module Dcim
                              redfish_path = request.uri.path.split('/')
                              File.new(Rails.root.join('test', 'helpers', 'redfish-idrac7', *redfish_path, 'index.json'))
                            })
+        @driver = RedfishDriver.new(@agent)
       end
 
       include Dcim::Drivers::CommonRedfishDriverTests
 
       test 'System Memory CapacityMiB normalized correctly' do
-        driver = RedfishDriver.new(@agent)
-        driver.collect_facts
+        @driver.collect_facts
 
         memory_component = @agent.components
                                  .joins(:properties)
