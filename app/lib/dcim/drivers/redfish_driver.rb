@@ -156,4 +156,3 @@ module Dcim
     end
   end
 end
-

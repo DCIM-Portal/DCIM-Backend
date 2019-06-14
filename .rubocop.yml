@@ -1,5 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
+require: rubocop-rails
+
 # Ignore framework-generated files
 AllCops:
   TargetRubyVersion: 2.5

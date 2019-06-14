@@ -63,6 +63,7 @@ group :development, :test do
   gem 'simplecov', require: false
   # Static code analysis
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   # Test on SQLite3 database
   gem 'sqlite3', '~> 1.3.6'
 end

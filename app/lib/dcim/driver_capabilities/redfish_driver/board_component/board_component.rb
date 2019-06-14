@@ -21,7 +21,7 @@ module Dcim
         # @param mode [Symbol] How to reboot
         #   :cold Removes and then restores power
         #   :warm Reset the board without removing power
-        def reboot(mode: :warm)
+        def power_reset(mode: :warm)
           # TODO
         end
 
