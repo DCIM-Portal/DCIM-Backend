@@ -16,19 +16,6 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "actions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.jsonb "arguments"
-    t.integer "status"
-    t.jsonb "output"
-    t.uuid "agent_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["agent_id"], name: "index_actions_on_agent_id"
-    t.index ["created_at"], name: "index_actions_on_created_at"
-    t.index ["updated_at"], name: "index_actions_on_updated_at"
-  end
-
   create_table "agent_properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "agent_id"
     t.string "key"
@@ -215,6 +202,34 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["enclosure_rack_id"], name: "index_enclosures_on_enclosure_rack_id"
+  end
+
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.jsonb "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_events_on_created_at"
+    t.index ["updated_at"], name: "index_events_on_updated_at"
+  end
+
+  create_table "job_runs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.jsonb "arguments"
+    t.integer "current_step"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_job_runs_on_created_at"
+    t.index ["updated_at"], name: "index_job_runs_on_updated_at"
+  end
+
+  create_table "loggable_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "loggable_type"
+    t.uuid "loggable_id"
+    t.uuid "event_id"
+    t.index ["event_id"], name: "index_loggable_events_on_event_id"
+    t.index ["loggable_type", "loggable_id"], name: "index_loggable_events_on_loggable_type_and_loggable_id"
   end
 
   create_table "onboard_request_bmc_hosts", force: :cascade do |t|

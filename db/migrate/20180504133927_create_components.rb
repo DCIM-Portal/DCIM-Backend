@@ -61,12 +61,25 @@ class CreateComponents < ActiveRecord::Migration[6.0]
       t.timestamps index: true
     end
 
-    create_table :actions, id: :uuid do |t|
+    create_table :job_runs, id: :uuid do |t|
+      t.string :type
       t.string :name
       t.jsonb :arguments
+      t.integer :current_step
       t.integer :status
-      t.jsonb :output
-      t.references :agent, type: :uuid
+
+      t.timestamps index: true
+    end
+
+    create_table :events, id: :uuid do |t|
+      t.jsonb :data
+
+      t.timestamps index: true
+    end
+
+    create_table :loggable_events, id: :uuid do |t|
+      t.references :loggable, type: :uuid, polymorphic: true, index: true
+      t.references :event, type: :uuid
 
       t.timestamps index: true
     end

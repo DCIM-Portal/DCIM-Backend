@@ -5,3 +5,8 @@ ilo4_agent:
 idrac7_agent:
   driver: 'IdracRedfishDriver'
   label: 'Agent for iDRAC7 at 192.168.0.99'
+
+dummy_agent:
+  id: 6a400f79-e954-4c57-b256-169cb23e9f9f
+  driver: 'NoopDriver'
+  label: 'Does nothing'

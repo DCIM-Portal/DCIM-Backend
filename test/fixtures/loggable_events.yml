@@ -1,0 +1,20 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+component_loggable_event:
+  loggable_id: c2218566-e181-4e5e-a20e-dc641ca97533
+  loggable_type: Component
+  event: universal_event
+
+job_run_loggable_event:
+  loggable_id: 9ceac436-0ec0-4370-bda3-a6f98d1df591
+  loggable_type: JobRun
+  event: universal_event
+
+agent_loggable_event:
+  loggable_id: 6a400f79-e954-4c57-b256-169cb23e9f9f
+  loggable_type: Agent
+  event: universal_event

@@ -45,6 +45,7 @@ gem 'redis-rails'
 
 # Sidekiq for Background Jobs
 gem 'sidekiq', '~> 5'
+gem 'sidekiq-batch'
 
 # ActiveJob status tracking
 gem 'active_job_status', '~> 1.2'

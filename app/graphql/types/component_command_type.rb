@@ -1,12 +1,12 @@
 module Types
-  class ActionType < BaseInputObject
-    description 'A single Action in an ActionPlan'
+  class ComponentCommandType < BaseInputObject
+    description 'A single Component command in a program of Component commands'
 
     argument :component_id, String,
              'ID of the Component on which to run the command', required: true
     argument :step, Integer,
-             'Sequential step number for this Action. ' \
-             'Actions with the same step number in an ActionPlan may be executed in parallel.', required: true
+             'Sequential step number for this Component command. ' \
+             'Actions with the same step number in a program may be executed in parallel.', required: true
     argument :command, String,
              'What to do to the component', required: true
     argument :command_arguments, GraphQL::Types::JSON,
@@ -16,7 +16,7 @@ module Types
     argument :command_retries, Integer,
              'Override the number of retries per Driver for the command', required: false
     argument :ignore_errors, Boolean,
-             'Set to true if failure of this Action is allowed', required: false
+             'Set to true if failure of this Component command is allowed', required: false
     argument :driver_order, [String],
              'List of preferred Drivers to try in sequential order', required: false
     argument :only_use_specified_drivers, Boolean,

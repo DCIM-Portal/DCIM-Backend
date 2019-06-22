@@ -10,3 +10,9 @@ demo-child:
   label: demo-child
   managed: true
   parent: demo
+
+c2218566-e181-4e5e-a20e-dc641ca97533:
+  id: c2218566-e181-4e5e-a20e-dc641ca97533
+  type: Component
+  label: For ComponentLoggableEvent
+  managed: true

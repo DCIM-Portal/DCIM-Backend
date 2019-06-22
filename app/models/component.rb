@@ -6,6 +6,8 @@ class Component < ApplicationRecord
   has_many :linked_components, through: :component_links
   has_many :component_agents
   has_many :agents, through: :component_agents
+  has_many :loggable_events, as: :loggable, dependent: :destroy
+  has_many :events, through: :loggable_events
 
   before_destroy :give_children_to_parents
 
