@@ -11,7 +11,6 @@ class CreateComponents < ActiveRecord::Migration[6.0]
     create_table :agents, id: :uuid do |t|
       t.string :driver
       t.string :label
-      t.jsonb :raw_facts
       t.references :delegate, type: :uuid
 
       t.timestamps index: true
@@ -63,9 +62,7 @@ class CreateComponents < ActiveRecord::Migration[6.0]
 
     create_table :job_runs, id: :uuid do |t|
       t.string :type
-      t.string :name
       t.jsonb :arguments
-      t.integer :current_step
       t.integer :status
 
       t.timestamps index: true

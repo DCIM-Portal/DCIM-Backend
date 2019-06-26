@@ -28,7 +28,8 @@ class GraphQlCreateComponentCommandProgramTest < ActionDispatch::IntegrationTest
       }
     ]
 
-    create_component_command_program_result = DcimPortalSchema.execute(query_string, variables: {program: program })
+    create_component_command_program_result = DcimPortalSchema.execute(query_string, variables: { program: program })
+    # TODO
     Rails.logger.warn(create_component_command_program_result)
   end
 end
