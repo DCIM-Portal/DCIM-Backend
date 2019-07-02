@@ -33,22 +33,23 @@ class ProgramJob < ApplicationJob
   end
 
   # @return [TaskWorker] Class of the implementation of TaskWorker for this ProgramJob
-  def task_worker_class
+  def self.task_worker_class
     TASK_WORKER
   end
 
   # @param [Sidekiq::Batch::Status] status
-  def on_step_complete(status, options)
+  # @param [Hash] options Arguments to send to the next #perform step
+  def self.on_step_complete(status, options)
     if status.failures != 0
       options[:job_run].update!(status: :failed)
       return
     end
-    perform(options[:job_run], options[:previous_step])
+    perform_now(options[:job_run], options[:previous_step])
   end
 
   # Clean up after all steps are completed
   # @param [ProgramJobRun] job_run
-  def cleanup(job_run)
+  def self.cleanup(job_run)
     job_run.update!(status: :succeeded)
   end
 end

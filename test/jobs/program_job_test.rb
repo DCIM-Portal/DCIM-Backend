@@ -30,7 +30,21 @@ class ProgramJobTest < ActiveJob::TestCase
 
     ProgramJob.any_instance.expects(:perform).with(@job_run, 1)
 
-    ProgramJob.new(@job_run).on_step_complete(status, options)
+    ProgramJob.on_step_complete(status, options)
+  end
+
+  test 'on step complete task fail changes status to failed' do
+    status = stub_everything('Sidekiq::Batch::Status', :failures => 1)
+    options = {
+        job_run: @job_run,
+        previous_step: 1
+    }
+
+    ProgramJob.any_instance.expects(:perform).never
+
+    ProgramJob.on_step_complete(status, options)
+
+    assert_equal("failed", @job_run.status)
   end
 
   test 'perform next step runs that next step' do
@@ -43,10 +57,23 @@ class ProgramJobTest < ActiveJob::TestCase
     ProgramJob.perform_now(@job_run, 2)
   end
 
+  test 'task worker class method returns a task worker' do
+    assert_instance_of(TaskWorker, ProgramJob.task_worker_class.new)
+  end
+
   test 'last step leads to cleanup' do
     ProgramJob.any_instance.expects(:cleanup)
 
     ProgramJob.perform_now(@job_run, 4)
+  end
+
+  test 'cleanup sets job run status to succeeded' do
+    @job_run.update!(status: :in_progress)
+
+    ProgramJob.cleanup(@job_run)
+
+    @job_run.reload
+    assert_equal("succeeded", @job_run.status)
   end
 end
 
