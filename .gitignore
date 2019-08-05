@@ -15,6 +15,10 @@
 !/tmp/.keep
 .DS_Store
 
+# Ignore generated documentation files
+.yardoc/
+doc/
+
 # dotenv
 .env.development.local
 .env.test.local

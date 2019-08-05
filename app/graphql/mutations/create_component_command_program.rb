@@ -22,6 +22,8 @@ module Mutations
     def interpret_program(program)
       output = {}
       program.each do |action|
+        # TODO: Sanitize input, restrict with permissions
+        action = HashWithIndifferentAccess[action]
         step = action[:step].to_i
         action.delete(:step)
         output[step] ||= Set.new

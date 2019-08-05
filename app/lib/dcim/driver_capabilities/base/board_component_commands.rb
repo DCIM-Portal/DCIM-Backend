@@ -1,20 +1,20 @@
 module Dcim
   module DriverCapabilities
-    module RedfishDriver
-      module BoardComponent
+    module Base
+      class BoardComponentCommands < ComponentCommands
         # Graceful shutdown
         def shut_down
-          # TODO
+          raise NotImplementedError
         end
 
         # Forceful power off
         def power_off
-          # TODO
+          raise NotImplementedError
         end
 
         # Power on
         def power_on
-          # TODO
+          raise NotImplementedError
         end
 
         # Immediately reboot
@@ -22,7 +22,7 @@ module Dcim
         #   :cold Removes and then restores power
         #   :warm Reset the board without removing power
         def power_reset(mode: :warm)
-          # TODO
+          raise NotImplementedError
         end
 
         # Set the boot source for the next reboot only
@@ -36,7 +36,7 @@ module Dcim
         #   :utilities Vendor utilities
         #   :bios_setup Firmware settings
         def next_boot_source=(boot_source)
-          # TODO
+          raise NotImplementedError
         end
       end
     end

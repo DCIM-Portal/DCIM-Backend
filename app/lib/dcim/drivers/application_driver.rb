@@ -22,10 +22,9 @@ module Dcim
 
       # Execute a command
       #
-      # @param command The command to run
-      # @param **kwargs {
-      #   value: Main argument to the command
-      # }
+      # @param [String] command The command to run
+      # @param [Hash] kwargs
+      # @option kwargs [String] :value Main argument to the command
       def run_command(command, **kwargs)
         # TODO
       end

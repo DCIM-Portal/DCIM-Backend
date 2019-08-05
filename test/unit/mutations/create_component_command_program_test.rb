@@ -6,9 +6,9 @@ module Mutations
       mutation = CreateComponentCommandProgram.new(object: nil, context: nil)
       input_program = [
         {
-          componentId: 'my component id',
-          step: '2',
-          command: 'power_on'
+          'componentId' => 'my component id',
+          'step' => '2',
+          'command' => 'power_on'
         },
         {
           componentId: 'my component id',
@@ -24,18 +24,18 @@ module Mutations
       expected = {
         1 => [
           {
-            componentId: 'my component id',
-            command: 'power_off'
+            'componentId' => 'my component id',
+            'command' => 'power_off'
           }
         ].to_set,
         2 => [
           {
-            componentId: 'my component id',
-            command: 'power_on'
+            'componentId' => 'my component id',
+            'command' => 'power_on'
           },
           {
-            componentId: 'my component id 2',
-            command: 'power_reset'
+            'componentId' => 'my component id 2',
+            'command' => 'power_reset'
           }
         ].to_set
       }

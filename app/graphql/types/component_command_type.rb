@@ -8,7 +8,7 @@ module Types
              'Sequential step number for this Component command. ' \
              'Actions with the same step number in a program may be executed in parallel.', required: true
     argument :command, String,
-             'What to do to the component', required: true
+             'What to do to the Component', required: true
     argument :command_arguments, GraphQL::Types::JSON,
              'Arguments to the command, if needed', required: false
     argument :command_timeout, Integer,

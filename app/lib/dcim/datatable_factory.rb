@@ -16,7 +16,7 @@
 
 module Dcim
   class DatatableFactory
-    MODIFIERS = ['in', 'not-in'].freeze
+    MODIFIERS = %w[in not-in].freeze
 
     def initialize(view_context, params, namespace = '')
       @params = params
