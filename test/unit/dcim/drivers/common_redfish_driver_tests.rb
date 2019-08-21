@@ -23,6 +23,23 @@ module Dcim
             assert(ram_component.parent.is_a?(BoardComponent))
           end
         end
+
+        test 'capabilities module is the correct module' do
+          driver = RedfishDriver.new(@agent)
+          assert_equal(Dcim::Drivers::Capabilities::RedfishDriver, driver.capabilities_module)
+        end
+
+        test 'supported components provides set of supported component classes' do
+          driver = RedfishDriver.new(@agent)
+          components = driver.supported_components
+          assert_includes(components, BoardComponent)
+        end
+
+        test 'supported commands provides set of component command symbols' do
+          driver = RedfishDriver.new(@agent)
+          commands = driver.supported_commands(BoardComponent)
+          assert_includes(commands, :power_off)
+        end
       end
     end
   end

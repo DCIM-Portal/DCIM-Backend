@@ -1,6 +1,8 @@
 module Dcim
   module Drivers
     class ApplicationDriver
+      COMPONENT_COMMANDS_SUFFIX = 'Commands'.freeze
+
       # @param [Agent] agent The driver's connection agent, containing authentication information
       def initialize(agent)
         @agent = agent
@@ -17,14 +19,21 @@ module Dcim
 
       # Return a set of component types that this driver can support
       def supported_components
-        capabilities_module.constants
-                           .select { |constant| constant.to_s.ends_with? Capabilities::COMPONENT_COMMANDS_SUFFIX }
+        capabilities_module
+          .constants
+          .select { |constant| constant.to_s.ends_with? COMPONENT_COMMANDS_SUFFIX }
+          .map do |component_command_name|
+            component_command_name
+              .to_s
+              .gsub(/#{COMPONENT_COMMANDS_SUFFIX}$/, '')
+              .constantize
+          end
       end
 
       # Return a set of methods that this driver can provide to the component
       def supported_commands(component)
         commands_class = capabilities_module.const_get(
-          "#{component}#{Capabilities::COMPONENT_COMMANDS_SUFFIX}"
+          "#{component}#{COMPONENT_COMMANDS_SUFFIX}"
         )
         commands_class.preferences.select { |_key, value| value.positive? }.keys
       end

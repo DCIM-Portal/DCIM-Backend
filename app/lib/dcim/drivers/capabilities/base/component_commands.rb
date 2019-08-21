@@ -1,8 +1,6 @@
 module Dcim
   module Drivers
     module Capabilities
-      COMPONENT_COMMANDS_SUFFIX = 'Commands'.freeze
-
       module Base
         class ComponentCommands
           class << self
