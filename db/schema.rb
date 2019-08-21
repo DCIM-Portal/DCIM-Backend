@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_04_133927) do
+ActiveRecord::Schema.define(version: 2019_08_21_144848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
   create_table "agents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "driver"
     t.string "label"
-    t.jsonb "raw_facts"
     t.uuid "delegate_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -214,9 +213,7 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
 
   create_table "job_runs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type"
-    t.string "name"
     t.jsonb "arguments"
-    t.integer "current_step"
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -228,8 +225,12 @@ ActiveRecord::Schema.define(version: 2018_05_04_133927) do
     t.string "loggable_type"
     t.uuid "loggable_id"
     t.uuid "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_loggable_events_on_created_at"
     t.index ["event_id"], name: "index_loggable_events_on_event_id"
     t.index ["loggable_type", "loggable_id"], name: "index_loggable_events_on_loggable_type_and_loggable_id"
+    t.index ["updated_at"], name: "index_loggable_events_on_updated_at"
   end
 
   create_table "onboard_request_bmc_hosts", force: :cascade do |t|

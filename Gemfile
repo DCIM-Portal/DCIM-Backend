@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Rails, what this project is written in
-gem 'rails', '>= 6.0.0.rc1', '< 7'
+gem 'rails', '~> 6'
 # Use Puma as the app server
 gem 'puma', '~> 3'
 
@@ -17,7 +17,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 
 # API Documentation Tool
 #
-# v0.5.3 through v0.5.15 are broken.
+# v0.5.3 through v0.5.16 are broken.
 # See: https://github.com/Apipie/apipie-rails/issues/559
 gem 'apipie-rails', '0.5.2'
 
@@ -40,9 +40,6 @@ gem 'rack-cors'
 # Pagination for ActiveRecord
 gem 'will_paginate'
 
-# Redis store for Rails
-gem 'redis-rails'
-
 # Sidekiq for Background Jobs
 gem 'sidekiq', '~> 5'
 gem 'sidekiq-batch'
@@ -56,6 +53,9 @@ gem 'concurrent-ruby', require: 'concurrent'
 # Timezone data for ActiveSupport
 gem 'tzinfo-data'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.4.2', require: false
+
 group :development, :test do
   gem 'mocha'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,7 +66,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   # Test on SQLite3 database
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3', '~> 1.3'
 end
 
 group :development do

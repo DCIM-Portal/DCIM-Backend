@@ -6,6 +6,4 @@
 #
 some_job_run:
   id: 9ceac436-0ec0-4370-bda3-a6f98d1df591
-  name: Onboard job for 2M251404CW
-  current_step: 0
   status: not_running
