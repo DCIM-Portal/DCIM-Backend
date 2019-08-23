@@ -1,7 +1,7 @@
 module Dcim
   module Drivers
     class ApplicationDriver
-      COMPONENT_COMMANDS_SUFFIX = 'Commands'.freeze
+      COMMAND_RUNNER_CLASS_SUFFIX = 'Commands'.freeze
 
       # @param [Agent] agent The driver's connection agent, containing authentication information
       def initialize(agent)
@@ -12,7 +12,7 @@ module Dcim
         end
       end
 
-      # Get DriverCapabilities module for this Driver
+      # Get Dcim::Drivers::Capabilities module for this Driver
       def capabilities_module
         Capabilities.const_get(self.class.name.demodulize)
       end
@@ -21,30 +21,54 @@ module Dcim
       def supported_components
         capabilities_module
           .constants
-          .select { |constant| constant.to_s.ends_with? COMPONENT_COMMANDS_SUFFIX }
+          .select { |constant| constant.to_s.ends_with? COMMAND_RUNNER_CLASS_SUFFIX }
           .map do |component_command_name|
-            component_command_name
-              .to_s
-              .gsub(/#{COMPONENT_COMMANDS_SUFFIX}$/, '')
-              .constantize
-          end
+          component_command_name
+            .to_s
+            .gsub(/#{COMMAND_RUNNER_CLASS_SUFFIX}$/, '')
+            .constantize
+        end
+      end
+
+      # Return the ComponentCommands class for this Component
+      # @return [Dcim::Drivers::Capabilities::Base::ComponentCommands, nil]
+      def command_runner_class(component)
+        capabilities_module.const_get(
+          "#{component}#{COMMAND_RUNNER_CLASS_SUFFIX}"
+        )
+      rescue NameError
+        nil
       end
 
       # Return a set of methods that this driver can provide to the component
       def supported_commands(component)
-        commands_class = capabilities_module.const_get(
-          "#{component}#{COMPONENT_COMMANDS_SUFFIX}"
-        )
+        commands_class = command_runner_class(component)
+        return [] if commands_class.nil?
+
         commands_class.preferences.select { |_key, value| value.positive? }.keys
+      end
+
+      # Check if the provided command is in the supported commands list
+      def command_supported?(component, command)
+        supported_commands(component).include? command
       end
 
       # Execute a command
       #
+      # @param [Component] component The component on which the command should be run
       # @param [String] command The command to run
       # @param [Hash] kwargs
       # @option kwargs [String] :value Main argument to the command
-      def run_command(command, **kwargs)
-        # TODO
+      def run_command(component, command, **kwargs)
+        klass = command_runner_class(component)
+        raise Dcim::NoSuchMethodError, "No command runner for #{component.class.name}" if klass.nil?
+
+        command_runner = klass.new(self)
+        if command_runner.method(command).arity != 0
+          command_runner.send(command, kwargs)
+        else
+          command_runner.send(command)
+        end
       end
     end
   end

@@ -3,6 +3,9 @@ module Dcim
   class Error < RuntimeError
   end
 
+  class NoSuchMethodError < Error
+  end
+
   # BMC scan errors
   class BmcScanError < Dcim::Error
   end

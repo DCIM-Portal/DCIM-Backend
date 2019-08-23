@@ -12,16 +12,37 @@ class ComponentCommandTaskWorker < TaskWorker
   # @see Types::ComponentCommandType
   def perform(task)
     component_id = task['component_id']
-    _component = Component.find(component_id)
-    # TODO
+    command = task['command']
+    command_arguments = task['command_arguments']
+
+    component = Component.find(component_id)
+    agents = component.agents
+    drivers = agents.map(&:driver).filter { |driver| driver.is_a?(Dcim::Drivers::ApplicationDriver) }
+    sorted_drivers = preferred_drivers(drivers, component, command)
+
+    sorted_drivers.each do |driver|
+      driver.run_command(command, command_arguments)
+      break
+    rescue StandardError => e
+      Rails.logger.warn(
+        "Driver #{driver} failed to run #{command} on #{component.class.name} ID #{component.id}: " \
+      "#{e.message}"
+      )
+    end
   end
 
-  # @param [Array<Driver>] driver_list List of candidate Drivers
+  # Get a list of supported and preferred drivers in descending order of preference
+  # @param [Array<ApplicationDriver>] driver_list List of candidate Drivers in no particular order
   # @param [Component] component Component on which the command is to be applied
-  # @param [String] command Desired command to be run by a Driver
+  # @param [Symbol] command Desired command to be run by a Driver
   # @return [Array] List of supported Drivers in descending preferred order
   def preferred_drivers(driver_list, component, command)
-    driver_list.each do |driver|
+    driver_list.map! do |driver|
+      command_runner_class = driver.command_runner_class(component)
+      weight = command_runner_class.preference_of(command)
+      [driver, weight]
     end
+    driver_weights = driver_list.select { |_driver, weight| weight.positive? }
+    driver_weights.sort_by { |_driver, weight| weight }.reverse.map { |driver, _weight| driver }
   end
 end

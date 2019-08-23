@@ -36,7 +36,7 @@ module Dcim
           #   :hdd Hard disk drive
           #   :utilities Vendor utilities
           #   :bios_setup Firmware settings
-          def next_boot_source=(boot_source)
+          def next_boot_source=(boot_source: :default)
             raise NotImplementedError
           end
         end
