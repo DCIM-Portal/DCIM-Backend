@@ -8,7 +8,7 @@ end
 # Rails, what this project is written in
 gem 'rails', '~> 6'
 # Use Puma as the app server
-gem 'puma', '~> 3'
+gem 'puma', '>= 4.3.1', '< 5'
 
 gem 'dotenv-rails', groups: %i[development test]
 
