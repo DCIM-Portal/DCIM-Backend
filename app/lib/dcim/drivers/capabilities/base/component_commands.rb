@@ -29,6 +29,10 @@ module Dcim
             true
           end
         end
+
+        def initialize(driver)
+          @driver = driver
+        end
       end
     end
   end

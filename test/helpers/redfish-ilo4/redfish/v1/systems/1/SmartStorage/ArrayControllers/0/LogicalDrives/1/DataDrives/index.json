@@ -1,0 +1,16 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/ArrayControllers/Members/0/LogicalDrives/Members/1/DataDrives",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/LogicalDrives/1/DataDrives/",
+    "@odata.type": "#HpSmartStorageDiskDriveCollection.HpSmartStorageDiskDriveCollection",
+    "Description": "HP Smart Storage Disk Drives View",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/DiskDrives/0/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/DiskDrives/1/"
+        }
+    ],
+    "Members@odata.count": 2,
+    "Name": "HpSmartStorageDiskDrives"
+}

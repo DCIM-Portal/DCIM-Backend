@@ -1,0 +1,34 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/PCIDevices",
+    "@odata.id": "/redfish/v1/Systems/1/PCIDevices/",
+    "@odata.type": "#HpServerPciDeviceCollection.HpServerPciDeviceCollection",
+    "Description": " PciDevices view",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/1/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/2/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/3/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/4/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/5/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/6/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/7/"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIDevices/8/"
+        }
+    ],
+    "Members@odata.count": 8,
+    "Name": "PciDevices"
+}

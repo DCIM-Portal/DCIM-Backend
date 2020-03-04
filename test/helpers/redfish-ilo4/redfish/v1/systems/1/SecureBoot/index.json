@@ -1,0 +1,11 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SecureBoot$entity",
+    "@odata.id": "/redfish/v1/Systems/1/SecureBoot/",
+    "@odata.type": "#HpSecureBoot.1.0.0.HpSecureBoot",
+    "Id": "SecureBoot",
+    "Name": "SecureBoot",
+    "ResetAllKeys": false,
+    "ResetToDefaultKeys": false,
+    "SecureBootCurrentState": false,
+    "SecureBootEnable": false
+}

@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/52/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-06-13T19:40:00Z",
+    "EntryType": "Oem",
+    "Id": "52",
+    "Message": "POST Error: 267-IMPORTANT: Default configuration settings have been restored at the request of the user. Action: Restore any desired configuration settings which differ from defaults.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 1,
+            "EventNumber": 51,
+            "Repaired": false,
+            "Updated": "2016-06-13T19:40:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Warning"
+}

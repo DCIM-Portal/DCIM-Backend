@@ -1,0 +1,8 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SoftwareInventory",
+    "@odata.id": "/redfish/v1/Systems/1/SoftwareInventory/",
+    "@odata.type": "##SoftwareInventoryCollection.#SoftwareInventoryCollection",
+    "Description": "Software Inventory Collection",
+    "Members@odata.count": 0,
+    "Name": "Software Inventory Collection"
+}

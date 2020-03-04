@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/129/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2017-11-12T16:24:00Z",
+    "EntryType": "Oem",
+    "Id": "129",
+    "Message": "Server Blade Enclosure Power Request Denied: Enclosure Busy (Enclosure Serial Number 2SN5140350, Slot 2)",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 34,
+            "Code": 26,
+            "EventNumber": 128,
+            "Updated": "2017-11-12T16:38:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

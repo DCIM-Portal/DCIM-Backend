@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/Memory/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/Memory/proc2dimm7/",
+    "@odata.type": "#HpMemory.1.0.0.HpMemory",
+    "DIMMStatus": "GoodInUse",
+    "DIMMTechnology": "LRDIMM",
+    "DIMMType": "DDR4",
+    "DataWidth": 64,
+    "ErrorCorrection": "MultiBitECC",
+    "HPMemoryType": "HPSmartMemory",
+    "Id": "proc2dimm7",
+    "Manufacturer": "HP     ",
+    "MaximumFrequencyMHz": 2133,
+    "MinimumVoltageVoltsX10": 12,
+    "Name": "proc2dimm7",
+    "PartNumber": "752372-081",
+    "Rank": 4,
+    "SizeMB": 32768,
+    "SocketLocator": "PROC 2 DIMM 7",
+    "TotalWidth": 72
+}

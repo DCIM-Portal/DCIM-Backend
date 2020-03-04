@@ -1,0 +1,119 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/Processors/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/Processors/2/",
+    "@odata.type": "#Processor.1.0.0.Processor",
+    "Id": "2",
+    "InstructionSet": "x86-64",
+    "Manufacturer": "Intel(R) Corporation",
+    "MaxSpeedMHz": 4000,
+    "Model": "Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz",
+    "Name": "Processors",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpProcessorExt.1.0.0.HpProcessorExt",
+            "AssetTag": "UNKNOWN",
+            "Cache": [
+                {
+                    "Associativity": "8waySetAssociative",
+                    "CacheSpeedns": 0,
+                    "CurrentSRAMType": [
+                        "Synchronous"
+                    ],
+                    "EccType": "SingleBitECC",
+                    "InstalledSizeKB": 768,
+                    "Location": "Internal",
+                    "MaximumSizeKB": 768,
+                    "Name": "L1-Cache",
+                    "Policy": "WriteBack",
+                    "Socketed": false,
+                    "SupportedSRAMType": [
+                        "Synchronous"
+                    ],
+                    "SystemCacheType": "Unified"
+                },
+                {
+                    "Associativity": "8waySetAssociative",
+                    "CacheSpeedns": 0,
+                    "CurrentSRAMType": [
+                        "Synchronous"
+                    ],
+                    "EccType": "SingleBitECC",
+                    "InstalledSizeKB": 3072,
+                    "Location": "Internal",
+                    "MaximumSizeKB": 3072,
+                    "Name": "L2-Cache",
+                    "Policy": "Varies",
+                    "Socketed": false,
+                    "SupportedSRAMType": [
+                        "Synchronous"
+                    ],
+                    "SystemCacheType": "Unified"
+                },
+                {
+                    "Associativity": "20waySetAssociative",
+                    "CacheSpeedns": 0,
+                    "CurrentSRAMType": [
+                        "Synchronous"
+                    ],
+                    "EccType": "SingleBitECC",
+                    "InstalledSizeKB": 30720,
+                    "Location": "Internal",
+                    "MaximumSizeKB": 30720,
+                    "Name": "L3-Cache",
+                    "Policy": "Varies",
+                    "Socketed": false,
+                    "SupportedSRAMType": [
+                        "Synchronous"
+                    ],
+                    "SystemCacheType": "Unified"
+                }
+            ],
+            "Characteristics": [
+                "64Bit",
+                "MultiCore",
+                "HwThread",
+                "ExecuteProtection",
+                "EnhancedVirtualization",
+                "PowerPerfControl"
+            ],
+            "ConfigStatus": {
+                "Populated": true,
+                "State": "Enabled"
+            },
+            "CoresEnabled": 12,
+            "ExternalClockMHz": 100,
+            "MicrocodePatches": [
+                {
+                    "CpuId": "0x000306F2",
+                    "Date": "2017-01-30T00:00:00Z",
+                    "PatchId": "0x0000003A"
+                },
+                {
+                    "CpuId": "0x000406F1",
+                    "Date": "2017-03-01T00:00:00Z",
+                    "PatchId": "0x0B000021"
+                }
+            ],
+            "PartNumber": "",
+            "RatedSpeedMHz": 2300,
+            "SerialNumber": "",
+            "VoltageVoltsX10": 16
+        }
+    },
+    "ProcessorArchitecture": "x86",
+    "ProcessorId": {
+        "EffectiveFamily": "179",
+        "EffectiveModel": "15",
+        "IdentificationRegisters": "0x06f20003fbffbfeb",
+        "MicrocodeInfo": null,
+        "Step": "2",
+        "VendorId": "Intel"
+    },
+    "ProcessorType": "CPU",
+    "Socket": "Proc 2",
+    "Status": {
+        "Health": "OK"
+    },
+    "TotalCores": 12,
+    "TotalThreads": 24
+}

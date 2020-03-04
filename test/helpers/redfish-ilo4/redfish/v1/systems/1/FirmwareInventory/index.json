@@ -1,0 +1,134 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/FirmwareInventory$entity",
+    "@odata.id": "/redfish/v1/Systems/1/FirmwareInventory/",
+    "@odata.type": "#FwSwVersionInventory.1.2.0.FwSwVersionInventory",
+    "Current": {
+        "103c3239103c21bd": [
+            {
+                "ImageSizeBytes": 8388608,
+                "Key": "47a4b1a62a384f5a103c3239103c21bd",
+                "Location": "Embedded RAID 1",
+                "Name": "Smart Array P244br Controller",
+                "UEFIDevicePaths": [
+                    "PciRoot(0x0)/Pci(0x2,0x2)/Pci(0x0,0x0)"
+                ],
+                "Updateable": true,
+                "VersionString": "6.06"
+            }
+        ],
+        "10772031103c1939": [
+            {
+                "ImageSizeBytes": 16777216,
+                "InUse": true,
+                "Key": "47a4b1a62a384f5a10772031103c1939",
+                "Location": "Slot 1",
+                "Name": "HP QMH2672 16Gb FC HBA for BladeSystem c-Class",
+                "ResetRequired": true,
+                "UEFIDevicePaths": [
+                    "PciRoot(0x0)/Pci(0x3,0x0)/Pci(0x0,0x0)"
+                ],
+                "Updateable": true,
+                "VersionString": "02.02.47"
+            }
+        ],
+        "10df0720103c1935": [
+            {
+                "ImageSizeBytes": 16777216,
+                "InUse": true,
+                "Key": "47a4b1a62a384f5a10df0720103c1935",
+                "Location": "Embedded FlexibleLOM 1",
+                "Name": "HP FlexFabric 20Gb 2-port 650FLB Adapter",
+                "ResetRequired": true,
+                "UEFIDevicePaths": [
+                    "PciRoot(0x0)/Pci(0x2,0x0)/Pci(0x0,0x0)"
+                ],
+                "Updateable": true,
+                "VersionString": "10.2.340.22"
+            }
+        ],
+        "IntelligentProvisioning": [
+            {
+                "Location": "System Board",
+                "Name": "Intelligent Provisioning",
+                "VersionString": "2.00.93"
+            }
+        ],
+        "PlatformDefinitionTable": [
+            {
+                "Location": "System Board",
+                "Name": "Intelligent Platform Abstraction Data",
+                "VersionString": "22.28"
+            }
+        ],
+        "PowerManagementController": [
+            {
+                "Key": "00000000000000000000000000504d14",
+                "Location": "System Board",
+                "Name": "Power Management Controller Firmware",
+                "VersionString": "1.0.9"
+            }
+        ],
+        "PowerManagementControllerBootloader": [
+            {
+                "Location": "System Board",
+                "Name": "Power Management Controller FW Bootloader",
+                "VersionString": "1.0"
+            }
+        ],
+        "SASProgrammableLogicDevice": [
+            {
+                "Location": "System Board",
+                "Name": "SAS Programmable Logic Device",
+                "VersionString": "Version 0x02"
+            }
+        ],
+        "SPSFirmwareVersionData": [
+            {
+                "Location": "System Board",
+                "Name": "Server Platform Services (SPS) Firmware",
+                "VersionString": "3.0.6.267.4"
+            }
+        ],
+        "StorageBattery": [
+            {
+                "Location": "Embedded",
+                "Name": "HPE Smart Storage Battery 1 Firmware",
+                "VersionString": "1.1"
+            }
+        ],
+        "SystemBMC": [
+            {
+                "Key": "2932ecaecc69d843bd0e61dc3406f71b",
+                "Location": "System Board",
+                "Name": "iLO",
+                "VersionString": "2.55 Aug 16 2017"
+            }
+        ],
+        "SystemProgrammableLogicDevice": [
+            {
+                "Key": "000000000000000000000000000000f4",
+                "Location": "System Board",
+                "Name": "System Programmable Logic Device",
+                "VersionString": "Version 0x13"
+            }
+        ],
+        "SystemRomActive": [
+            {
+                "Key": "00000000000000000000000001493336",
+                "Location": "System Board",
+                "Name": "System ROM",
+                "VersionString": "I36 v2.52 (10/25/2017)"
+            }
+        ],
+        "SystemRomBackup": [
+            {
+                "Key": "00000000000000000000000001493336",
+                "Location": "System Board",
+                "Name": "Redundant System ROM",
+                "VersionString": "I36 v2.52 (10/25/2017)"
+            }
+        ]
+    },
+    "Id": "FirmwareInventory",
+    "Name": "Firmware Version Inventory"
+}

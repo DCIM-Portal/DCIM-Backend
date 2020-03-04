@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/16/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-05-13T04:42:00Z",
+    "EntryType": "Oem",
+    "Id": "16",
+    "Message": "POST Error: 266-Non-Volatile Memory Corruption Detected. Configuration settings restored to defaults. If enabled, Secure Boot security settings may be lost. Action: Restore desired configuration settings. Contact HP if issue persists.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 1,
+            "EventNumber": 15,
+            "Repaired": false,
+            "Updated": "2016-05-13T04:42:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Warning"
+}

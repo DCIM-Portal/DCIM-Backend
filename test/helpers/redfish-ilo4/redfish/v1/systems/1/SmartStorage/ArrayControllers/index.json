@@ -1,0 +1,13 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/ArrayControllers",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/",
+    "@odata.type": "#HpSmartStorageArrayControllerCollection.HpSmartStorageArrayControllerCollection",
+    "Description": "HP Smart Storage Array Controllers View",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/"
+        }
+    ],
+    "Members@odata.count": 1,
+    "Name": "HpSmartStorageArrayControllers"
+}

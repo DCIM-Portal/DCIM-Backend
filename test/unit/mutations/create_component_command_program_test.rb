@@ -3,7 +3,7 @@ require 'test_helper'
 module Mutations
   class CreateComponentCommandProgramTest < ActiveSupport::TestCase
     test 'interpret component command program' do
-      mutation = CreateComponentCommandProgram.new(object: nil, context: nil)
+      mutation = CreateComponentCommandProgram.new(object: nil, context: nil, field: nil)
       input_program = [
         {
           'componentId' => 'my component id',

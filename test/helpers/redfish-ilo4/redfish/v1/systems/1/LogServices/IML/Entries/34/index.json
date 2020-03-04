@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/34/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-05-13T13:33:00Z",
+    "EntryType": "Oem",
+    "Id": "34",
+    "Message": "Uncorrectable Machine Check Exception (Board 0, Processor 1, APIC ID 0x00000000, Bank 0x00000012, Status 0xFE200000'0003110A, Address 0x00000102'49310340, Misc 0x90F00878'80401086)",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 5,
+            "Code": 3,
+            "EventNumber": 33,
+            "Repaired": false,
+            "Updated": "2016-05-13T13:33:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Critical"
+}

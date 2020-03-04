@@ -107,11 +107,11 @@ module Dcim
         raw_identifier = @maps[component_type.name][:IDENTIFIER]
         raw_identifier_value = raw_data[raw_identifier]
         component_identifier = mapping[raw_identifier]
-        if parent_component.method_exists? :children
+        if parent_component.respond_to? :children
           component =
             find_component(parent_component.children, component_type, component_identifier, raw_identifier_value)
         end
-        if @agent.method_exists? :components
+        if @agent.respond_to? :components
           component ||=
             find_component(@agent.components, component_type, component_identifier, raw_identifier_value)
         end

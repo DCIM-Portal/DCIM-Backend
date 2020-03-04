@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/143/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2018-09-14T18:30:00Z",
+    "EntryType": "Oem",
+    "Id": "143",
+    "Message": "POST Error: 312-HPE Smart Storage Battery 1 Failure - Communication with the battery failed. Its output may not be enabled. Action: Verify battery is properly installed. Refer to user guide. Contact HPE support if condition persists.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 1,
+            "EventNumber": 142,
+            "Repaired": false,
+            "Updated": "2018-09-14T18:30:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Warning"
+}

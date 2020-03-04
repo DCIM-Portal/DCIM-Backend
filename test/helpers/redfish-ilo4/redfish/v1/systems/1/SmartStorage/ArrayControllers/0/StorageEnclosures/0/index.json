@@ -1,0 +1,22 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/SmartStorage/ArrayControllers/Members/0/StorageEnclosures/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/SmartStorage/ArrayControllers/0/StorageEnclosures/0/",
+    "@odata.type": "#HpSmartStorageStorageEnclosure.1.1.0.HpSmartStorageStorageEnclosure",
+    "Description": "HP Smart Storage Enclosure View",
+    "DriveBayCount": 2,
+    "FirmwareVersion": {
+        "Current": {
+            "VersionString": ""
+        }
+    },
+    "Id": "0",
+    "Location": "1I:1",
+    "LocationFormat": "Controller:Box",
+    "Model": "",
+    "Name": "HpSmartStorageEnclosure",
+    "SerialNumber": "",
+    "Status": {
+        "Health": "OK",
+        "State": "Enabled"
+    }
+}

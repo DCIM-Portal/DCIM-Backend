@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/5/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "Created": "2016-02-29T19:13:00Z",
+    "EntryType": "Oem",
+    "Id": "5",
+    "Message": "Maintenance note: Intelligent Provisioning was loaded.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 33,
+            "Code": 2,
+            "EventNumber": 4,
+            "Updated": "2016-02-29T19:13:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "OK"
+}

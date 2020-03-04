@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Systems/Members/1/LogServices/IML/Entries/Members/$entity",
+    "@odata.id": "/redfish/v1/Systems/1/LogServices/IML/Entries/123/",
+    "@odata.type": "#LogEntry.1.0.0.LogEntry",
+    "EntryType": "Oem",
+    "Id": "123",
+    "Message": "POST Error: 289-IMPORTANT: A new network or storage device has been detected. This device will not be shown in the Legacy BIOS Boot Order options in RBSU until the system has booted once. Action: No action required.",
+    "Name": "Integrated Management Log",
+    "Oem": {
+        "Hp": {
+            "@odata.type": "#HpLogEntry.1.0.0.HpLogEntry",
+            "Class": 10,
+            "Code": 1,
+            "EventNumber": 122,
+            "Repaired": false,
+            "Updated": "2017-11-11T23:33:00Z"
+        }
+    },
+    "OemRecordFormat": "Hp-IML",
+    "Severity": "Warning"
+}
