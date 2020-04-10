@@ -13,8 +13,30 @@ Chassis:
 System:
   component: 'BoardComponent'
   next:
+    DiskControllerCollection: ['Storage', 'Oem/Hp/Links/SmartStorage']
     ProcessorCollection: 'Processors'
     MemoryCollection: ['Memory', 'Oem/Hp/Links/Memory']
+
+DiskControllerCollection:
+  next:
+    DiskController:
+      - 'Members'
+    DiskControllerCollection:
+      - 'Links/ArrayControllers'
+      - 'Links/HostBusAdapters'
+
+DiskController:
+  component: 'DiskControllerComponent'
+  next:
+    Disk: 'Drives'
+    DiskCollection: 'Links/PhysicalDrives'
+
+DiskCollection:
+  next:
+    Disk: 'Members'
+
+Disk:
+  component: 'DiskComponent'
 
 ProcessorCollection:
   next:
@@ -29,8 +51,3 @@ MemoryCollection:
 
 Memory:
   component: 'RamComponent'
-
-SmartStorage:
-  next:
-    ArrayControllers: 'Links/ArrayControllers'
-    HostBusAdapters: 'Links/HostBusAdapters'

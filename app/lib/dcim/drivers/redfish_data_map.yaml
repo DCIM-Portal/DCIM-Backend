@@ -36,6 +36,29 @@ CpuComponent:
     TotalCores: cores
     TotalThreads: threads
 
+DiskControllerComponent:
+  IDENTIFIER: Id
+  MAPPING:
+    Description: description
+
+DiskComponent:
+  IDENTIFIER: SerialNumber
+  MAPPING:
+    BlockSizeBytes: block_size
+    CapableSpeedGbs: max_link_speed
+    CapacityLogicalBlocks: capacity
+    CapacityBytes: capacity
+    Description: description
+    Id: slot
+    Manufacturer: brand
+    MediaType: type
+    Model: model
+    NegotiatedSpeedGbs: current_link_speed
+    PartNumber: part
+    Protocol: protocol
+    RotationSpeedRPM: rpm
+    SerialNumber: serial
+
 RamComponent:
   IDENTIFIER: Id
   MAPPING:

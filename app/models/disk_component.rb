@@ -1,0 +1,2 @@
+class DiskComponent < Component
+end

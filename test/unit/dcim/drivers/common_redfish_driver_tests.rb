@@ -24,6 +24,29 @@ module Dcim
           end
         end
 
+        test 'component properties are not duplicated' do
+          driver = RedfishDriver.new(@agent)
+          driver.collect_facts
+          first_properties_count = @agent.components.find_by(type: 'CpuComponent').properties.count
+          driver.collect_facts
+          second_properties_count = @agent.components.find_by(type: 'CpuComponent').properties.count
+
+          assert_equal(first_properties_count, second_properties_count)
+        end
+
+        test 'component agent is not duplicated' do
+          driver = RedfishDriver.new(@agent)
+          driver.collect_facts
+          component = @agent.components.find_by(type: 'CpuComponent')
+          first_agents_count = component.agents.length
+          assert_equal(1, first_agents_count)
+
+          driver.collect_facts
+          component.reload
+          second_agents_count = component.agents.length
+          assert_equal(first_agents_count, second_agents_count)
+        end
+
         test 'capabilities module is the correct module' do
           driver = RedfishDriver.new(@agent)
           assert_equal(Dcim::Drivers::Capabilities::RedfishDriver, driver.capabilities_module)
