@@ -1,7 +1,7 @@
 module Dcim
   class BaseApi
     def initialize(**kwargs)
-      create_resource(kwargs)
+      create_resource(**kwargs)
     end
 
     def create_resource(**kwargs)

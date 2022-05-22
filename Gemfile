@@ -16,10 +16,7 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'pg', '>= 0.18', '< 2.0'
 
 # API Documentation Tool
-#
-# v0.5.3 through v0.5.16 are broken.
-# See: https://github.com/Apipie/apipie-rails/issues/559
-gem 'apipie-rails', '0.5.2'
+gem 'apipie-rails', '0.7.2'
 
 # GraphQL API
 gem 'graphiql-rails', group: :development
